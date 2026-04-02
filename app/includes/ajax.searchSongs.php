@@ -27,6 +27,7 @@ foreach ($disco as $album) {
                 'albumCode' => $album['nombrejs'],
                 'albumName' => $album['nombre'],
                 'cover'     => $album['imagen'],
+                'albumDescription' => $album['texto'],
             ];
             
         }

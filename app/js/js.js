@@ -1,9 +1,9 @@
-import * as AUDIO3D from './3D.module.js';
+﻿import * as AUDIO3D from './3D.module.js';
 
 
 /**
  * Gestiona un tooltip global para las descripciones de las canciones.
- * Se crea un único tooltip en el body y se mueve/actualiza dinámicamente.
+ * Se crea un Ãºnico tooltip en el body y se mueve/actualiza dinÃ¡micamente.
  */
 function initTooltips() {
   // 1. Crear el elemento tooltip una sola vez si no existe
@@ -15,17 +15,17 @@ function initTooltips() {
     document.body.appendChild(tooltipEl);
   }
 
-  // 2. Añadir listeners a todos los iconos de info
+  // 2. AÃ±adir listeners a todos los iconos de info
   document.querySelectorAll('.info-icon').forEach(icon => {
     const description = icon.dataset.description;
 
-    // Evita añadir el mismo listener múltiples veces
+    // Evita aÃ±adir el mismo listener mÃºltiples veces
     if (icon.dataset.tooltipInitialized) return;
     icon.dataset.tooltipInitialized = 'true';
 
     icon.addEventListener('mouseenter', (e) => {
       if (!description) return;
-      // Actualizar contenido y posición del tooltip
+      // Actualizar contenido y posiciÃ³n del tooltip
       tooltipEl.innerHTML = description;
       const iconRect = e.target.getBoundingClientRect();
       tooltipEl.style.left = `${iconRect.left + (iconRect.width / 2) + window.scrollX}px`;
@@ -46,7 +46,7 @@ let titleScrollInterval = null;
 const originalTitle = document.title;
 
 /**
- * Detiene la animación de scroll del título y lo restaura.
+ * Detiene la animaciÃ³n de scroll del tÃ­tulo y lo restaura.
  */
 function stopTitleScroll() {
   if (titleScrollInterval) {
@@ -57,11 +57,11 @@ function stopTitleScroll() {
 }
 
 /**
- * Inicia una animación de scroll en el título de la ventana si el texto es largo.
+ * Inicia una animaciÃ³n de scroll en el tÃ­tulo de la ventana si el texto es largo.
  * @param {string} text - El texto a mostrar.
  */
 function startTitleScroll(text) {
-  stopTitleScroll(); // Detiene cualquier animación anterior
+  stopTitleScroll(); // Detiene cualquier animaciÃ³n anterior
   document.title = text;
 
   // Solo animamos si el texto es largo
@@ -102,7 +102,7 @@ function formasGlassForm() {
     .then(({ colors: allColors }) => {
       // 2) Definimos las formas
       const forms = [
-        el => el.style.borderRadius = '50%', // círculo
+        el => el.style.borderRadius = '50%', // cÃ­rculo
         el => el.style.clipPath = 'polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)', // hex
         el => {
           el.style.width = '0'; el.style.height = '0';
@@ -118,7 +118,7 @@ function formasGlassForm() {
       for (let i = 0; i < N; i++) {
         const el = document.createElement('div');
         el.classList.add('glass-form');
-        // tamaño aleatorio
+        // tamaÃ±o aleatorio
         const size = 60 + Math.random() * 80;
         el.style.width  = size + 'px';
         el.style.height = size + 'px';
@@ -130,7 +130,7 @@ function formasGlassForm() {
         // forma aleatoria
         forms[Math.floor(Math.random() * forms.length)](el);
 
-        // posición y velocidad inicial
+        // posiciÃ³n y velocidad inicial
         const x  = Math.random() * (W - size),
               y  = Math.random() * (H - size),
               vx = (Math.random() - 0.5) * 2,
@@ -143,7 +143,7 @@ function formasGlassForm() {
         items.push({ el, x, y, vx, vy, r:0, vr });
       }
 
-      // 4) Bucle de animación
+      // 4) Bucle de animaciÃ³n
       (function animate() {
         for (const o of items) {
           o.x += o.vx; o.y += o.vy; o.r += o.vr;
@@ -222,11 +222,11 @@ option.addEventListener('click', () => {
         setTimeout(() => {
             //portada.style.backgroundImage = `url(${img})`;
             portada.querySelector('img').src = img;
-            // SEO: Actualizamos el contenido del h1 visible con el título del nuevo álbum.
+            // SEO: Actualizamos el contenido del h1 visible con el tÃ­tulo del nuevo Ã¡lbum.
             document.querySelector('.album-title').textContent = title;
             document.querySelector('.album-description').innerHTML = description;
             buscarCanciones(label, 0);
-            // Si es la primera vez que se selecciona un disco, iniciamos la reproducción.
+            // Si es la primera vez que se selecciona un disco, iniciamos la reproducciÃ³n.
             if (currentIndex === null) {
               playByIndex(0);
             }
@@ -270,13 +270,13 @@ function buscarCanciones(label, songnumber=null) {
         */
         const listaDisco = document.querySelector('.disco .lista-disco');
         const albumTitleElement = listaDisco.querySelector('.album-title'); // Guardamos el H1
-        const albumDescElement = listaDisco.querySelector('.album-description'); // Guardamos la descripción
+        const albumDescElement = listaDisco.querySelector('.album-description'); // Guardamos la descripciÃ³n
         listaDisco.innerHTML = respuesta; // Insertamos las nuevas canciones
         listaDisco.prepend(albumTitleElement); // Volvemos a colocar el H1 al principio
-        albumTitleElement.after(albumDescElement); // Volvemos a colocar la descripción después del H1
+        albumTitleElement.after(albumDescElement); // Volvemos a colocar la descripciÃ³n despuÃ©s del H1
         //Play la primera cancion del album
 
-        // FIX: Iniciar el canvas 2D para la primera canción DESPUÉS de cargar la lista.
+        // FIX: Iniciar el canvas 2D para la primera canciÃ³n DESPUÃ‰S de cargar la lista.
         let primeraCancionLabel = document.querySelector('.disco .lista-disco .cancion:first-of-type').dataset.label;
         AUDIO3D.initCanvas2D(document.querySelector('.canvas-'+ primeraCancionLabel));
         //let ruta = document.querySelector('.disco .lista-disco .cancion').dataset.ruta;
@@ -320,7 +320,7 @@ function conseguirColores(label) {
         // Fondo lista de canciones
         let listaCanciones = document.querySelector('.disco .lista-disco');
         listaCanciones.style.background = "linear-gradient(45deg, "+colores[3]+", "+colores[4]+", "+colores[5]+")";
-        // Títulos de canciones, timeout para ver si no se quedan en blanco de vez en cuando
+        // TÃ­tulos de canciones, timeout para ver si no se quedan en blanco de vez en cuando
         setTimeout(() => {     
           document.querySelectorAll('.titulo-cancion span').forEach(tituloSpan => {
               tituloSpan.style.backgroundImage = "linear-gradient(135deg, "+colores[0]+", "+colores[1]+", "+colores[2]+")";
@@ -354,7 +354,7 @@ function playByIndex(idx) {
   ;
   // pausa y limpia pista anterior
   if (currentIndex !== null) {
-    stopTitleScroll(); // Detiene la animación del título de la canción anterior
+    stopTitleScroll(); // Detiene la animaciÃ³n del tÃ­tulo de la canciÃ³n anterior
   }
 
   AUDIO3D.audioElB.pause();
@@ -369,15 +369,15 @@ function playByIndex(idx) {
   const songName = track.querySelector('.titulo-cancion span').textContent;
   const albumName = document.querySelector('.album-title').textContent;
   
-  // Inicia la animación del título con la nueva canción
-  startTitleScroll(`▶ ${songName} - ${albumName}`);
+  // Inicia la animaciÃ³n del tÃ­tulo con la nueva canciÃ³n
+  startTitleScroll(`â–¶ ${songName} - ${albumName}`);
 
   AUDIO3D.setAudio(`musica/${track.dataset.ruta}`);
   
   //canvas 2d y 3d
   AUDIO3D.initCanvas2D(document.querySelector('.canvas-'+track.dataset.label));
 
-  // actualiza botón y currentIndex
+  // actualiza botÃ³n y currentIndex
   const btn = track.querySelector('.play-button');
   if (btn) btn.classList.replace('play-button','pause-button');
   currentIndex = idx;
@@ -418,7 +418,7 @@ function initReproductor() {
       currentTimeSpan.textContent =
         `${formatTime(AUDIO3D.audioElB.currentTime)} / ${formatTime(AUDIO3D.audioElB.duration)}`;
 
-        // SEO: Actualizar la duración en los datos estructurados
+        // SEO: Actualizar la duraciÃ³n en los datos estructurados
         const currentTrackEl = document.querySelector(`.cancion.active`);
         if (currentTrackEl) {
           const metaDuration = currentTrackEl.querySelector('meta[itemprop="duration"]');
@@ -432,7 +432,7 @@ function initReproductor() {
    
 
   const lista = document.querySelector('.disco .lista-disco');
-  // evita múltiples bindings
+  // evita mÃºltiples bindings
   if (lista._reproductorInit) return;
   lista._reproductorInit = true;
 
@@ -441,7 +441,7 @@ function initReproductor() {
     const btn = e.target.closest('.play-button, .pause-button');
     if (!btn) return;
     const trackEl = btn.parentElement;
-    // FIX: Calculamos el índice basado solo en los elementos .cancion, no en todos los hijos.
+    // FIX: Calculamos el Ã­ndice basado solo en los elementos .cancion, no en todos los hijos.
     const allSongs = Array.from(lista.querySelectorAll('.cancion'));
     const idx = allSongs.indexOf(trackEl);
 
@@ -449,7 +449,7 @@ function initReproductor() {
       playByIndex(idx);
     } else {
       AUDIO3D.audioElB.pause();
-      stopTitleScroll(); // Detiene la animación del título al pausar
+      stopTitleScroll(); // Detiene la animaciÃ³n del tÃ­tulo al pausar
       btn.classList.replace('pause-button','play-button');
       currentIndex = null;
     }
@@ -516,7 +516,7 @@ function buscarSiguienteDisco(nombreDisco) { //nombre del disco
       document.querySelector('.portada img').src = "musica/DISCOS/"+datos[1];
       // SEO: Actualizamos el h1 visible con el nombre del siguiente disco.
       document.querySelector('.album-title').textContent = datos[2];
-      // Actualizamos la descripción del álbum
+      // Actualizamos la descripciÃ³n del Ã¡lbum
       document.querySelector('.album-description').innerHTML = datos[3];
       buscarCanciones(datos[0], 0);
       conseguirColores(datos[0]);
@@ -539,10 +539,11 @@ function playSongResult(result) {
   selected.innerHTML = `<img src="musica/DISCOS/${albumcover}" alt=""> <span>${albumname}</span>`;
   //document.querySelector('.portada').style.backgroundImage = "url('musica/DISCOS/"+albumcover+"')";
   document.querySelector('.portada img').src="musica/DISCOS/"+albumcover;
-  // SEO: Actualizamos el h1 visible con el nombre del álbum desde los resultados de búsqueda.
+  // SEO: Actualizamos el h1 visible con el nombre del Ã¡lbum desde los resultados de bÃºsqueda.
   document.querySelector('.album-title').textContent = albumname;
-  // Actualizamos la descripción del álbum
-  document.querySelector('.album-description').innerHTML = result.dataset.albumdescription;
+  // Actualizamos la descripciÃ³n del Ã¡lbum
+  const albumdescription = result.dataset.albumdescription ? decodeURIComponent(result.dataset.albumdescription) : "";
+  document.querySelector('.album-description').innerHTML = albumdescription;
   buscarCanciones(albumlabel, songnumber);
   conseguirColores(albumlabel);
 
@@ -553,7 +554,7 @@ function playSongResult(result) {
   tooltip.style.visibility = 'hidden';
 }
 
-//OJO Y CÁMARA CANVAS 3D
+//OJO Y CÃMARA CANVAS 3D
 
 function ojo(){
   const ojocerradopath = '<path d="M320 400c-97 0-185.16-56.16-233.6-144a263.03 263.03 0 0 1 61.66-76.62L55.69 89.18a16 16 0 0 1 22.63-22.63l572 572a16 16 0 0 1-22.63 22.63L454.47 379.16A263.03 263.03 0 0 1 320 400zm0-288c97 0 185.16 56.16 233.6 144a263.03 263.03 0 0 1-61.66 76.62L584.31 422.82a16 16 0 0 1-22.63 22.63l-572-572a16 16 0 1 1 22.63-22.63l95.17 95.17A263.03 263.03 0 0 1 320 112z"/>';
@@ -594,10 +595,10 @@ const bar = document.querySelector('#slider');
 
 containerSlider.addEventListener('click', e => {
   const rect = containerSlider.getBoundingClientRect();
-  // posición X del click dentro de la caja
+  // posiciÃ³n X del click dentro de la caja
   const x = e.clientX - rect.left;
   const pct = x / rect.width;
-  // Salta al porcentaje de la duración
+  // Salta al porcentaje de la duraciÃ³n
   AUDIO3D.audioElB.currentTime = pct * AUDIO3D.audioElB.duration;
   // Opcional: actualizar inmediatamente la barra
   bar.style.width = (pct * 100) + '%';
@@ -635,7 +636,7 @@ containerSlider.addEventListener('mouseleave', () => {
       results.style.display = 'none';
       return;
     }
-    // espera 300ms tras la última letra
+    // espera 300ms tras la Ãºltima letra
     timer = setTimeout(() => {
       const form = new FormData();
       form.append('query', q);
@@ -655,7 +656,7 @@ containerSlider.addEventListener('mouseleave', () => {
           return;
         }
         results.innerHTML = data.map(item => `
-          <div class="result" data-albumlabel="${item.albumCode}" data-cover="${item.cover}" data-albumname="${item.albumName}" data-songnumber="${item.songnumber}" data-albumdescription="${item.albumDescription}">
+          <div class="result" data-albumlabel="${item.albumCode}" data-cover="${item.cover}" data-albumname="${item.albumName}" data-songnumber="${item.songnumber}" data-albumdescription="${encodeURIComponent(item.albumDescription || "")}">
             <img src="musica/DISCOS/${item.cover}" alt="${item.albumName}">
             <div class="info">
               <div class="song">${item.songName}</div>
@@ -681,3 +682,7 @@ containerSlider.addEventListener('mouseleave', () => {
 })();
 
 initTooltips();
+
+
+
+
