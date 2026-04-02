@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -44,7 +44,7 @@
         include_once 'includes/musica.estructura-datos.php';
     ?>
     <header>
-        <!-- SEO: Añadido atributo alt para describir la imagen a los buscadores -->
+        <!-- SEO: AÃ±adido atributo alt para describir la imagen a los buscadores -->
         <img id="firma" src="img/firma-blanca.png" alt="Firma de Josico Vila">
         <div id="busqueda">
             <div id="searchContainer">   
@@ -83,7 +83,7 @@
          <div style="display:flex; gap:20px;"><label>Deform</label><input id="deform" type="range" min="0" max="40" value="10" /></div>
     </div>
     <div class="disco">
-        <!-- SEO: Añadido itemscope y itemtype para definir esta sección como un Álbum de Música -->
+        <!-- SEO: AÃ±adido itemscope y itemtype para definir esta secciÃ³n como un Ãlbum de MÃºsica -->
         <div class="portada img-difuminada" itemscope itemtype="https://schema.org/MusicAlbum">
           <div itemprop="byArtist" itemscope itemtype="https://schema.org/Person">
             <meta itemprop="name" content="Josico Vila" />
@@ -101,14 +101,14 @@
           foreach ($canciones as $cancion) {
 
           ?>
-            <!-- SEO: Añadido itemscope y itemtype para definir cada canción como una Grabación Musical -->
+            <!-- SEO: AÃ±adido itemscope y itemtype para definir cada canciÃ³n como una GrabaciÃ³n Musical -->
             <div class="cancion <?php if($i==0) echo "active" ?>" data-label="<?= $cancion['nombrejs']?>" data-ruta="<?= $cancion['ruta']?>" itemprop="track" itemscope itemtype="https://schema.org/MusicRecording">
               <div class="play-button"></div> 
               <div class="titulo-cancion" itemprop="name">
                 <span><?= $cancion['nombre'] ?></span>
                 <svg class="info-icon" data-description="<?= htmlspecialchars($cancion['texto']) ?>" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 15c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1zm1-8h-2V7h2v2z"></path></svg>
               </div>
-              <canvas id="visualizador2d" class="canvas-<?= $cancion['nombrejs']?>"></canvas><meta itemprop="duration" content="PT0M0S" /> <!-- Duración, idealmente actualizada con JS -->
+              <canvas id="visualizador2d" class="canvas-<?= $cancion['nombrejs']?>"></canvas><meta itemprop="duration" content="PT0M0S" /> <!-- DuraciÃ³n, idealmente actualizada con JS -->
             </div>
           <?php
             $i++;
@@ -142,8 +142,14 @@
             He loves computers for all the potential they have. And he likes, apart from composing music on them, designing and programming his own web sites and attending to his social media.<br>
             <br>
             He has written four books and thirteen short stories that can be read at josicovila.es (Spanish).<br>
+            <div class="social-links-firma">
+              <a href="https://www.facebook.com/JosicoVila78" target="_blank" rel="noopener noreferrer">Facebook</a>
+              <a href="https://www.instagram.com/josicovila/" target="_blank" rel="noopener noreferrer">Instagram</a>
+              <a href="https://www.linkedin.com/in/josico-vila/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a href="https://www.youtube.com/@josicovila" target="_blank" rel="noopener noreferrer">YouTube</a>
+            </div>
           </div>
-          <!-- SEO: Añadido atributo alt para describir la imagen -->
+          <!-- SEO: AÃ±adido atributo alt para describir la imagen -->
           <img id='imagen-firma' src="img/defrente.png" alt="Foto de Josico Vila" />
         </div>
       </div>
@@ -173,3 +179,4 @@
     </script>
 </body>
 </html>
+

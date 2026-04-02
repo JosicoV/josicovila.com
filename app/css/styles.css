@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 html, body {
     font-family: "Montserrat", sans-serif;
     color: white;
@@ -21,11 +21,11 @@ html, body {
   position: absolute;       /* se superpone sin mover #container */
   top: 0; left: 0;
   width: 100%;              /* o el alto que quieras cubrir */
-  height: 100%;             /* aquí cubre todo */
+  height: 100%;             /* aquÃ­ cubre todo */
   z-index: 7000;
   display: flex;
   align-items: center;
-  justify-content: center;               /* más alto, pintado encima */
+  justify-content: center;               /* mÃ¡s alto, pintado encima */
 }
 
 .glass-forms {
@@ -64,6 +64,25 @@ html, body {
   width: 100%;
 }
 
+.social-links-firma{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin-top: 18px;
+}
+
+.social-links-firma a{
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+  padding-bottom: 2px;
+  transition: border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.social-links-firma a:hover{
+  opacity: 0.8;
+  border-bottom-color: rgba(255, 255, 255, 0.95);
+}
 #imagen-firma{
   width: 100%;
   border-radius: 20px;
@@ -152,7 +171,7 @@ header #busqueda{
 }
 
 .album-title {
-  font-size: 2rem; /* Un poco más grande */
+  font-size: 2rem; /* Un poco mÃ¡s grande */
   text-align: center;
   font-weight: 600;
   text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
@@ -194,20 +213,20 @@ header #busqueda{
 
 .titulo-cancion span {
   display: inline-block;
-  background-size: 200% 200%;       /* 2× el tamaño para que el movimiento sea evidente */
+  background-size: 200% 200%;       /* 2Ã— el tamaÃ±o para que el movimiento sea evidente */
   background-repeat: no-repeat;
   /* Clip del background al texto */
   -webkit-background-clip: text;    /* Chrome, Safari */
   background-clip: text;            /* Firefox */
   -webkit-text-fill-color: transparent;
-  color: transparent;               /* para navegadores que usen background-clip estándar */
+  color: transparent;               /* para navegadores que usen background-clip estÃ¡ndar */
   animation: bgShift 7s ease infinite;
 }
 
 .info-icon {
   width: 16px;
   height: 16px;
-  fill: white; /* Asignamos un color blanco explícito */
+  fill: white; /* Asignamos un color blanco explÃ­cito */
   vertical-align: middle;
   margin-left: 8px;
   cursor: help;
@@ -223,10 +242,10 @@ header #busqueda{
   width: 220px;
   background-color: #f9f9f9; /* Fondo blanco */
   color: #333; /* Texto oscuro para contraste */
-  font-size: 14px; /* Hacemos el texto del tooltip un poco más pequeño */
+  font-size: 14px; /* Hacemos el texto del tooltip un poco mÃ¡s pequeÃ±o */
   font-weight: normal;
   text-align: center;
-  border-radius: 8px; /* Bordes más redondeados */
+  border-radius: 8px; /* Bordes mÃ¡s redondeados */
   padding: 10px;
   position: fixed; /* Lo posicionamos relativo a la ventana, no al padre */
   z-index: 9999;
@@ -234,7 +253,7 @@ header #busqueda{
   transition: opacity 0.3s;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Sombra para destacarlo */
   border: 1px solid #ddd; /* Borde sutil */
-  pointer-events: none; /* Evita que el propio tooltip interfiera con el ratón */
+  pointer-events: none; /* Evita que el propio tooltip interfiera con el ratÃ³n */
   transform: translate(-50%, -100%); /* Centra el tooltip sobre el icono */
 }
 
@@ -593,7 +612,7 @@ header #busqueda{
 
 /*COOKIE CONSENT BANNER*/
 #cookieConsentBanner {
-    display: none; /* Inicialmente oculto, JS lo mostrará */
+    display: none; /* Inicialmente oculto, JS lo mostrarÃ¡ */
     position: fixed;
     bottom: 0;
     left: 0;
@@ -602,7 +621,7 @@ header #busqueda{
     color: white;
     padding: 20px;
     text-align: center;
-    z-index: 10000; /* Asegura que esté por encima de otros elementos */
+    z-index: 10000; /* Asegura que estÃ© por encima de otros elementos */
     box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
     font-size: 14px;
     line-height: 1.5;
@@ -622,7 +641,7 @@ header #busqueda{
 }
 
 #cookieConsentBanner button {
-    background-color: #007bff; /* Un color de botón primario */
+    background-color: #007bff; /* Un color de botÃ³n primario */
     color: white;
     border: none;
     padding: 10px 25px;
@@ -646,7 +665,7 @@ header #busqueda{
 
  /*******************************************************************************************************/
 
- /*Móvil Vertical*/
+ /*MÃ³vil Vertical*/
  @media (max-width: 770px) and (orientation:portrait) {
   body, html{
     width: 100%;
@@ -774,7 +793,7 @@ header #busqueda{
   }
 }
 
-/*Móvil Horizontal*/
+/*MÃ³vil Horizontal*/
 @media (max-height: 600px) and (orientation: landscape){
   body, html{
     width: 100%;
