@@ -1,0 +1,12 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: josicovila-web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/var/www/html
+      - ./data/musica:/var/www/html/musica
+    restart: unless-stopped

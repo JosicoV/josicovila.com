@@ -1,0 +1,10 @@
+# Persistent media
+/data/musica/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.log
