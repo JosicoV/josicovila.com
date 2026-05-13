@@ -1,90 +1,107 @@
-# josicovila.es
+<div align="center">
 
-Official website and interactive 3D world for `josicovila.es`, built with PHP, JavaScript, HTML, CSS, and Vite-generated frontend assets.
+# JosicoVila.com
 
-This repository has been reorganized to support local development with Docker and to prepare a cleaner migration from shared hosting to a VPS.
+**Reproductor 3D · Discografía completa en inglés**
 
-## Project structure
+[![PHP](https://img.shields.io/badge/PHP-8.2-777BB4?style=flat-square&logo=php&logoColor=white)](https://www.php.net/)
+[![Three.js](https://img.shields.io/badge/Three.js-r168-black?style=flat-square&logo=threedotjs&logoColor=white)](https://threejs.org/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?style=flat-square&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Apache](https://img.shields.io/badge/Apache-2.4-D22128?style=flat-square&logo=apache&logoColor=white)](https://httpd.apache.org/)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
+[![CI/CD](https://img.shields.io/badge/GitHub_Actions-autodeploy-2088FF?style=flat-square&logo=githubactions&logoColor=white)](https://github.com/features/actions)
+[![Live](https://img.shields.io/badge/Live-josicovila.com-4CAF50?style=flat-square&logo=firefox&logoColor=white)](https://josicovila.com)
 
-```text
-.
-|-- app/                # Versioned website code and public files
-|-- data/               # Persistent, non-versioned heavy assets
-|-- docker/             # Apache config for Docker
-|-- Dockerfile
-|-- docker-compose.yml
-|-- .gitignore
-|-- README.md
+</div>
+
+---
+
+## ¿Qué es esto?
+
+El código fuente de [josicovila.com](https://josicovila.com) — un reproductor de música inmersivo construido con Three.js. Contiene toda mi discografía en inglés y presenta una **esfera 3D que se deforma en tiempo real al ritmo de la música**, creando una experiencia audiovisual única en el navegador.
+
+---
+
+## Características
+
+- **Esfera 3D reactiva** — malla Three.js que analiza el audio y deforma su geometría con el ritmo y la frecuencia
+- **Discografía completa** — todas las pistas en inglés organizadas y reproducibles desde el navegador
+- **Sin dependencias de framework** — JavaScript vanilla puro salvo Three.js
+- **Reproductor completo** — play/pause, navegación entre pistas y visualización en tiempo real
+
+---
+
+## Stack técnico
+
+```
+Frontend   →  PHP 8.2 (sin framework), HTML5, CSS3, JS vanilla
+3D Engine  →  Three.js + WebGL + Web Audio API
+Servidor   →  Apache 2.4 + mod_rewrite + mod_headers
+Contenedor →  Docker + Docker Compose
+CI/CD      →  GitHub Actions → SSH → VPS
 ```
 
-## Main areas inside `app/`
+---
 
-- `index.php`: blog and content homepage
-- `index-juego.php`: 3D world entry point
-- `api/`: PHP endpoints and data structures
-- `assets/` and `.vite/`: Vite build output currently used by the site
-- `CRISTAL/`, `RELATOS/`, `LIBROS/`, `media/`, `intro/`: site sections and shared assets
+## Estructura del repositorio
 
-## Persistent data moved outside Git
+```
+josicovila.com/
+├── app/                        # Código fuente servido por Apache
+│   ├── index.php               # Reproductor principal
+│   ├── .htaccess               # Routing con mod_rewrite
+│   ├── css/                    # Estilos
+│   └── js/                     # Lógica del reproductor y esfera 3D
+├── data/                       # Archivos de audio (montados como volúmenes)
+├── docker/
+│   └── apache-vhost.conf       # VirtualHost de Apache
+├── Dockerfile
+├── docker-compose.yml
+└── .github/workflows/
+    └── deploy.yml              # Autodeploy al VPS vía SSH
+```
 
-The following directories now live under `data/` and are mounted back into the container at their original public paths:
+> **Nota:** Los archivos de audio no están en el repositorio. Se montan como volúmenes Docker en el servidor y se gestionan por separado.
 
-- `data/cristal-musica` -> `/var/www/html/CRISTAL/musica`
-- `data/relatos-audios` -> `/var/www/html/RELATOS/relatos/audios`
-- `data/relatos-videos` -> `/var/www/html/RELATOS/relatos/videos`
-- `data/relatos-pdf` -> `/var/www/html/RELATOS/relatos/pdf`
-- `data/blog-media` -> `/var/www/html/BLOG_media`
-- `data/media-videos` -> `/var/www/html/media/videos`
-- `data/media-sounds` -> `/var/www/html/media/sounds`
-- `data/intro-video` -> `/var/www/html/intro/video`
-- `data/intro-mp3` -> `/var/www/html/intro/mp3`
-- `data/js-model` -> `/var/www/html/js/model`
+---
 
-This keeps the repository lighter and makes VPS deployments easier, because code and heavy media can be managed separately.
+## Arrancar en local
 
-## Run locally
-
-Requirements:
-
-- Docker
-- Docker Compose
-
-Start the project:
+Necesitas **Docker Desktop** instalado.
 
 ```bash
+# 1. Clona el repositorio
+git clone https://github.com/JosicoV/josicovila.com.git
+cd josicovila.com
+
+# 2. Levanta el contenedor
 docker compose up -d --build
+
+# 3. Abre en el navegador
+open http://localhost:8082
 ```
 
-Expected local URL:
+> El reproductor necesita los volúmenes de audio para funcionar. Sin ellos, la interfaz carga pero no hay pistas disponibles.
 
-```text
-http://localhost:8081
+---
+
+## Autodeploy
+
+Cada push a `main` lanza el workflow de GitHub Actions:
+
+```
+push → main
+  └─ SSH al VPS
+       ├─ git pull --ff-only
+       └─ DOCKER_BUILDKIT=0 docker compose up -d --build
 ```
 
-Stop the environment:
+Las credenciales del servidor se configuran como **GitHub Secrets** — nunca están en el código.
 
-```bash
-docker compose down
-```
+---
 
-## Docker behavior
+## Licencia
 
-The container uses:
+El **código** de este repositorio está bajo licencia [MIT](LICENSE).
 
-- Apache + PHP through `php:8.2-apache`
-- `.htaccess` rules enabled inside the container
-- bind mounts for `app/` and each persistent folder under `data/`
-
-## VPS-oriented deployment
-
-Recommended deployment flow:
-
-1. Clone the repository on the VPS.
-2. Restore or copy every required folder inside `data/`.
-3. Start the stack with Docker Compose.
-
-This allows future deployments to update code without re-uploading all audio, video, PDF, and 3D model assets.
-
-## Current note
-
-The Docker configuration for this project is already written, but the last local startup attempt failed because Docker Desktop returned an internal engine error (`500`). The repository structure and Compose file are ready; once Docker is healthy again, the stack should be testable locally.
+El **contenido** (música, letras, imágenes) es © Josico Vila — todos los derechos reservados.
