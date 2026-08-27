@@ -1,0 +1,60 @@
+# Ensayo local en condiciones equivalentes al VPS.
+#
+# Reproduce lo que importa de producción: dos contenedores Linux en una red
+# interna, PHP hablando con el servicio por nombre (`music-search`) y NO por
+# host.docker.internal, que sólo existe en Docker Desktop.
+#
+# Diferencias deliberadas con el VPS:
+#   - publica el 8081 para poder mirarlo con el navegador (en el VPS entra por
+#     Traefik y el servicio no publica nada)
+#   - no usa la red externa `proxy`, que aquí no existe
+#   - las rutas de los volúmenes cuelgan del repositorio en vez del padre,
+#     porque en local no hay un /opt/containers/josicovila-com
+#
+# Uso, desde la raíz del repositorio:
+#   docker compose -f deploy/docker-compose.ensayo.yml up -d --build
+#   docker compose -f deploy/docker-compose.ensayo.yml down
+
+name: josicovila-ensayo
+
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: ensayo-web
+    environment:
+      MUSIC_SEARCH_URL: http://music-search:8100
+    # 8081 para no chocar con el contenedor de desarrollo, que ya usa el 8080.
+    ports:
+      - "8081:80"
+    volumes:
+      - ../app:/var/www/html
+      - ../data/musica:/var/www/html/musica
+      - ../data/3Dassets:/var/www/html/data/3Dassets
+    networks:
+      - interna
+
+  music-search:
+    build:
+      context: ../services/music-intelligence-v2
+      dockerfile: Dockerfile
+    container_name: ensayo-search
+    networks:
+      - interna
+    volumes:
+      - ../data/music-intelligence-v2:/srv/data/music-intelligence-v2
+      # La caché local de modelos se monta de sólo lectura: el ensayo comprueba
+      # que el servicio arranca offline con lo que ya hay descargado, sin
+      # riesgo de tocar los 13 GB de caché del usuario.
+      - ${HF_CACHE_DIR:-~/.cache/huggingface}:/models/hf:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8100/health', timeout=5).status==200 else 1)"]
+      interval: 15s
+      timeout: 10s
+      start_period: 120s
+      retries: 5
+
+networks:
+  interna:
+    driver: bridge

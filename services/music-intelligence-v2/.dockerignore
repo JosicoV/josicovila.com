@@ -1,0 +1,18 @@
+# El contexto de build es el directorio del servicio. Fuera todo lo que no
+# necesita la imagen: el .venv local pesa 3,5 GB y arruinaría el build.
+.venv/
+.pytest_cache/
+**/__pycache__/
+*.py[cod]
+tests/
+review_app/
+review_app.py
+analyze_human_review.py
+benchmark.py
+benchmark_latency.py
+phase2_full_catalog.py
+phase2_multilingual.py
+prepare_phase2.py
+PRIMER_INTENTO/
+requirements/torch-cu130.txt
+requirements/lock.txt

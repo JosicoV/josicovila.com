@@ -1,0 +1,731 @@
+/* =========================================================================
+   Hero de descubrimiento + rediseño de cabecera y reproductor.
+
+   Se carga DESPUÉS de styles.css y sobrescribe sólo lo necesario. Las reglas
+   antiguas que siguen en uso (.cancion, .lista-disco, tooltips, modal de
+   firma, banner de cookies) se dejan intactas.
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap');
+
+:root {
+  --hero-fondo: #05070d;
+  --panel: rgba(10, 15, 25, 0.62);
+  --panel-solido: rgba(8, 12, 20, 0.86);
+  --borde: rgba(255, 255, 255, 0.14);
+  --borde-fuerte: rgba(255, 255, 255, 0.28);
+  --acento: #8fc4ff;
+  --texto-tenue: rgba(255, 255, 255, 0.62);
+  --barra-altura: 92px;
+}
+
+/* El canvas 3D sale opaco: el EffectComposer con bloom escribe alfa 1, así que
+   `alpha: true` en el renderer no basta. Lo fusionamos en modo `screen`, que
+   descarta el negro de la escena y deja pasar el paisaje, conservando el brillo
+   de la esfera y del logo. */
+body > canvas {
+  mix-blend-mode: screen;
+}
+
+/* La página pasa de pantalla única a dos secciones con scroll. */
+html, body {
+  overflow: visible;
+  height: auto;
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--hero-fondo);
+  background-image: url('../img/hero-desktop.webp');
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/* ============================ CABECERA ================================== */
+
+header {
+  top: 0;
+  gap: 1.5rem;
+  padding: 0 2rem;
+  height: var(--barra-altura);
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: flex-start;
+  background: linear-gradient(to bottom, rgba(3, 5, 10, 0.82), rgba(3, 5, 10, 0));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+#firma {
+  height: 46px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+header #busqueda {
+  margin-top: 0;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+}
+
+/* Selector de álbum ------------------------------------------------------ */
+
+.custom-select {
+  position: relative;
+  width: auto;
+  min-width: 260px;
+  max-width: 320px;
+}
+
+/* El rótulo va como pseudoelemento porque el JS reescribe .selected entero
+   cada vez que cambia de disco; así no hay nada que volver a pintar. */
+.custom-select::before {
+  content: 'CURRENT ALBUM';
+  position: absolute;
+  left: 66px;
+  top: 11px;
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
+  color: var(--texto-tenue);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.selected {
+  height: auto;
+  min-height: 56px;
+  padding: 10px 38px 10px 10px;
+  border-radius: 12px;
+  background: var(--panel);
+  border: 1px solid var(--borde);
+  gap: 12px;
+  position: relative;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.selected:hover { border-color: var(--borde-fuerte); }
+
+.selected::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin-top: -6px;
+  border-right: 2px solid rgba(255, 255, 255, 0.65);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.65);
+  transform: rotate(45deg);
+}
+
+.selected img,
+.option img {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+}
+
+.selected span {
+  display: block;
+  padding-top: 14px;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.options {
+  max-width: none;
+  background: var(--panel-solido);
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  margin-top: 8px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.option {
+  max-width: none;
+  height: auto;
+  gap: 12px;
+  font-size: 0.9rem;
+}
+
+/* Ojo y cámara ----------------------------------------------------------- */
+
+.ojoCanvas {
+  margin-left: auto;
+  width: auto;
+  height: auto;
+  padding: 0;
+  gap: 12px;
+  background: none;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  flex-shrink: 0;
+}
+
+.ojoCanvas svg {
+  width: 20px;
+  height: 20px;
+  box-sizing: content-box;
+  padding: 12px;
+  border-radius: 50%;
+  border: 1px solid var(--borde);
+  background: var(--panel);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.ojoCanvas svg:hover {
+  border-color: var(--borde-fuerte);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ============================== HERO ==================================== */
+
+#hero {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: var(--barra-altura) 1.5rem calc(var(--barra-altura) + 8rem);
+  box-sizing: border-box;
+  position: relative;
+  transition: padding-bottom 0.35s ease;
+}
+
+/* Niebla azul oscura entre la esfera y el texto.
+   El canvas 3D va detrás (z-index -1), así que basta con un elemento en flujo:
+   se come la mitad inferior de la esfera, que deja de leerse como una bola
+   completa, y de paso da cama al titular y al buscador. */
+#hero::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 68%;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    /* Núcleo de niebla bajo la esfera: es lo que la corta. Va ceñido al centro
+       para no borrar el bosque de los bordes. */
+    radial-gradient(72% 68% at 50% 88%,
+      rgba(14, 34, 70, 0.94) 0%,
+      rgba(10, 24, 50, 0.7) 38%,
+      rgba(7, 16, 34, 0.28) 62%,
+      rgba(6, 14, 30, 0) 78%),
+    /* Velo general, suave: sólo asienta el texto. */
+    linear-gradient(to bottom,
+      rgba(6, 14, 30, 0) 0%,
+      rgba(7, 18, 38, 0.14) 30%,
+      rgba(6, 15, 32, 0.4) 58%,
+      rgba(4, 10, 22, 0.62) 82%,
+      rgba(3, 7, 16, 0.72) 100%);
+}
+
+#hero-content {
+  width: 100%;
+  max-width: 1000px;
+  text-align: center;
+  /* Por encima de la niebla. */
+  position: relative;
+  z-index: 1;
+}
+
+/* Al abrirse la lista de resultados el bloque sube: si no, la lista se saldría
+   por debajo del viewport y quedaría medio inalcanzable.
+   La altura del bloque la fija el padding de #hero, no un margen: con
+   `justify-content: flex-end` un margin-top sobre el hijo no mueve nada. */
+#hero.con-resultados { padding-bottom: calc(var(--barra-altura) + 22rem); }
+
+.hero-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 400;
+  /* Calibrado para que el titular quepa en una sola línea en escritorio. */
+  font-size: clamp(1.75rem, 3.4vw, 2.9rem);
+  line-height: 1.15;
+  margin: 0 0 0.5rem;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.85);
+}
+
+.hero-subtitle {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(0.9rem, 1.15vw, 1.05rem);
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0 0 2rem;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.85);
+}
+
+/* Buscador --------------------------------------------------------------- */
+
+#searchContainer {
+  max-width: 840px;
+  margin: 0 auto;
+  position: relative;
+  text-align: left;
+}
+
+#searchField {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 22px;
+  height: 64px;
+  border-radius: 999px;
+  background: rgba(8, 12, 20, 0.55);
+  border: 1px solid var(--borde-fuerte);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+#searchField:focus-within {
+  border-color: rgba(143, 196, 255, 0.75);
+  box-shadow: 0 0 0 4px rgba(143, 196, 255, 0.12), 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+#searchField .search-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  fill: rgba(255, 255, 255, 0.6);
+}
+
+#searchField .sparkle-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  fill: var(--acento);
+  filter: drop-shadow(0 0 6px rgba(143, 196, 255, 0.6));
+}
+
+#songSearch {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  outline: none;
+  color: white;
+  font-family: inherit;
+  font-size: 1.05rem;
+}
+
+#songSearch::placeholder { color: rgba(255, 255, 255, 0.45); }
+
+/* Resultados ------------------------------------------------------------- */
+
+#searchResults {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 10px);
+  max-width: none;
+  margin-top: 0;
+  padding: 8px;
+  gap: 2px;
+  max-height: min(46vh, 420px);
+  overflow-y: auto;
+  background: var(--panel-solido);
+  border: 1px solid var(--borde);
+  border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  /* Por encima del reproductor (z-index 5000): si no, la lista queda tapada. */
+  z-index: 5100;
+}
+
+.result {
+  border-bottom: none;
+  border-radius: 12px;
+  padding: 0.6rem 0.7rem;
+  gap: 0.85rem;
+  transition: background 0.15s ease;
+}
+
+.result:hover { background: rgba(255, 255, 255, 0.08); }
+
+.result img {
+  width: 46px;
+  height: 46px;
+  border-radius: 8px;
+  margin-right: 0;
+}
+
+.result .info .song { font-weight: 600; font-size: 0.95rem; }
+.result .info .meta { color: var(--texto-tenue); font-size: 0.8rem; }
+
+.no-results { color: var(--texto-tenue); font-size: 0.9rem; }
+
+/* Aviso de traducción: sólo aparece si la consulta llegó en español. */
+.search-note {
+  padding: 0.55rem 0.8rem 0.7rem;
+  font-size: 0.78rem;
+  color: var(--texto-tenue);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 4px;
+}
+
+.search-note em { color: rgba(255, 255, 255, 0.85); font-style: normal; }
+
+/* Indicador de scroll ---------------------------------------------------- */
+
+#scroll-hint {
+  position: absolute;
+  bottom: calc(var(--barra-altura) + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--texto-tenue);
+  pointer-events: none;
+  animation: flotar 2.6s ease-in-out infinite;
+  z-index: 1;
+}
+
+#scroll-hint svg { width: 20px; height: 20px; fill: var(--texto-tenue); }
+
+@keyframes flotar {
+  0%, 100% { transform: translate(-50%, 0); opacity: 0.55; }
+  50%      { transform: translate(-50%, 6px); opacity: 1; }
+}
+
+/* ========================= SECCIÓN DE ÁLBUM ============================= */
+
+#album-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem calc(var(--barra-altura) + 3rem);
+  box-sizing: border-box;
+  position: relative;
+  /* Oscurece el paisaje para que la lista de canciones se lea. */
+  background: linear-gradient(to bottom, rgba(3, 5, 10, 0.55), rgba(3, 5, 10, 0.9) 40%);
+}
+
+/* La lista deja de estar centrada en el viewport y pasa a fluir en su sección. */
+.disco {
+  position: static;
+  transform: none;
+  top: auto;
+  left: auto;
+  margin-top: 0;
+  grid-template-columns: minmax(0, 520px) minmax(0, 560px);
+  gap: 32px;
+  width: 100%;
+  max-width: 1140px;
+}
+
+.portada { width: 100%; height: auto; aspect-ratio: 1 / 1; }
+.portada img { object-fit: cover; }
+
+.lista-disco {
+  width: 100%;
+  height: min(70vh, 620px);
+  border: 1px solid var(--borde);
+}
+
+/* ========================== REPRODUCTOR ================================= */
+
+#container-track-time {
+  position: fixed;
+  bottom: 18px;
+  height: auto;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+  pointer-events: none;
+  font-size: inherit;
+  font-weight: normal;
+  transition: opacity 0.3s ease;
+}
+
+.time {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 1120px;
+  padding: 12px 20px;
+  gap: 22px;
+  background: var(--panel-solido);
+  border: 1px solid var(--borde);
+  border-radius: 18px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  justify-content: flex-start;
+}
+
+.player-now {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  width: 230px;
+  flex-shrink: 0;
+}
+
+#player-cover {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.player-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.3;
+}
+
+#player-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.player-artist { font-size: 0.78rem; color: var(--texto-tenue); }
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.player-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  color: white;
+  transition: background 0.18s ease, opacity 0.18s ease;
+}
+
+.player-btn svg { width: 20px; height: 20px; fill: rgba(255, 255, 255, 0.82); }
+.player-btn:hover { background: rgba(255, 255, 255, 0.1); }
+.player-btn:hover svg { fill: white; }
+
+/* Estado activo de aleatorio y repetir. */
+.player-btn[aria-pressed="true"] svg { fill: var(--acento); }
+.player-btn[aria-pressed="true"]::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--acento);
+}
+.player-btn { position: relative; }
+
+.player-btn-main {
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid rgba(143, 196, 255, 0.85);
+  margin: 0 4px;
+}
+
+.player-btn-main svg { width: 20px; height: 20px; fill: white; }
+.player-btn-main:hover { background: rgba(143, 196, 255, 0.16); }
+
+.player-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.track-time-current,
+.track-time-total {
+  font-size: 0.75rem;
+  color: var(--texto-tenue);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+  min-width: 34px;
+}
+
+.track-time-total { text-align: right; }
+
+#container-slider {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.16);
+  cursor: pointer;
+  position: relative;
+}
+
+#slider {
+  height: 5px;
+  border-radius: 3px;
+  background: var(--acento);
+  position: relative;
+}
+
+/* Cabezal del progreso, visible al pasar el ratón por la barra. */
+#slider::after {
+  content: '';
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: white;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+#container-slider:hover #slider::after { opacity: 1; }
+
+#progress-tooltip {
+  transform: translateX(-50%) translateY(-160%);
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid var(--borde);
+}
+
+.player-volume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+#volume-slider {
+  width: 84px;
+  height: 5px;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.16);
+  cursor: pointer;
+}
+
+#volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+}
+
+#volume-slider::-moz-range-thumb {
+  width: 11px;
+  height: 11px;
+  border: none;
+  border-radius: 50%;
+  background: white;
+}
+
+/* ========================== RESPONSIVE ================================== */
+
+@media (max-width: 1080px) {
+  .disco { grid-template-columns: minmax(0, 1fr); max-width: 620px; }
+  .portada { max-width: 420px; margin: 0 auto; }
+  .lista-disco { height: min(52vh, 460px); }
+  .player-volume { display: none; }
+  .player-now { width: 180px; }
+}
+
+@media (max-width: 860px) {
+  body {
+    background-image: url('../img/hero-mobile.webp');
+    /* En iOS el fondo fijo provoca saltos al hacer scroll. */
+    background-attachment: scroll;
+  }
+
+  :root { --barra-altura: 76px; }
+
+  /* styles.css trae un bloque móvil del diseño anterior (max-width:770px) que
+     apila la cabecera en columna y saca el ojo/cámara con position:absolute.
+     Aquí se deshace, porque la cabecera nueva es una sola fila. */
+  header {
+    width: 100%;
+    left: auto;
+    top: 0;
+    padding: 0 0.75rem;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+
+  header #busqueda { flex-direction: row; align-items: center; }
+
+  .ojoCanvas { position: static; left: auto; top: auto; }
+
+  #firma {
+    height: 30px;
+    width: auto;
+    flex-shrink: 0;
+    position: static;
+    top: auto;
+    left: auto;
+  }
+
+  #songSearch { width: auto; }
+  #searchResults { width: auto; font-size: inherit; }
+  header #busqueda { min-width: 0; }
+  .custom-select { min-width: 0; flex: 1; max-width: none; width: 100%; }
+  .custom-select::before { display: none; }
+  .selected { min-height: 48px; }
+  .selected img, .option img { width: 34px; height: 34px; }
+  .selected span { padding-top: 0; font-size: 0.85rem; }
+  .ojoCanvas { gap: 6px; }
+  .ojoCanvas svg { padding: 9px; width: 17px; height: 17px; }
+
+  #hero-content { margin-top: 30vh; }
+  #searchField { height: 54px; padding: 0 16px; gap: 10px; }
+  #songSearch { font-size: 0.92rem; }
+  #scroll-hint { display: none; }
+
+  /* El reproductor se reordena en dos filas para caber en pantalla estrecha. */
+  .time { flex-wrap: wrap; gap: 10px 14px; padding: 10px 14px; }
+  .player-now { width: auto; flex: 1; }
+  .player-controls { order: 3; }
+  .player-progress { order: 4; width: 100%; flex-basis: 100%; }
+  #player-cover { width: 40px; height: 40px; }
+}
+
+@media (max-width: 560px) {
+  .player-controls { width: 100%; justify-content: center; }
+  .player-now { flex-basis: 100%; }
+}
+
+/* Menos movimiento para quien lo pida en el sistema. */
+@media (prefers-reduced-motion: reduce) {
+  html, body { scroll-behavior: auto; }
+  #scroll-hint { animation: none; }
+}

@@ -184,21 +184,40 @@ let slider = document.querySelector('#slider');
 const results = document.getElementById('searchResults');
 const input   = document.getElementById('songSearch');
 let currentIndex = null;
-let currentTimeSpan = document.querySelector('.track-time');
+const tiempoActualSpan = document.querySelector('.track-time-current');
+const tiempoTotalSpan  = document.querySelector('.track-time-total');
+
+/** Refresca los dos contadores y el ancho de la barra de progreso. */
+function actualizarTiempos() {
+  const audio = AUDIO3D.audioElB;
+  if (tiempoActualSpan) tiempoActualSpan.textContent = formatTime(audio.currentTime);
+  if (tiempoTotalSpan)  tiempoTotalSpan.textContent  = formatTime(audio.duration);
+  if (slider && audio.duration) {
+    slider.style.width = ((audio.currentTime / audio.duration) * 100) + '%';
+  }
+}
 
 selected.addEventListener('click', () => {
   options.style.display = options.style.display === 'flex' ? 'none' : 'flex';
-  results.style.display = 'none';
+  cerrarResultados();
   input.value = '';
 });
+
+/** Cierra el panel de resultados y devuelve el hero a su posición. */
+function cerrarResultados() {
+  results.style.display = 'none';
+  const hero = document.querySelector('#hero');
+  if (hero) hero.classList.remove('con-resultados');
+}
 
 //Inciar colores primer disco
 let label = document.querySelector('.options .option').dataset.label;
 conseguirColores(label);
 
-//NO mostramos el disco por defecto
-document.querySelector('.portada').style.opacity = 0;
-document.querySelector('.lista-disco').style.opacity = 0;
+// El disco vive ahora en su propia sección bajo el hero, así que se muestra
+// desde el principio: quien baja espera encontrar algo.
+document.querySelector('.portada').style.opacity = 1;
+document.querySelector('.lista-disco').style.opacity = 1;
 
 customSelect.querySelectorAll('.option').forEach(option => {
   
@@ -370,7 +389,7 @@ function playByIndex(idx) {
   const albumName = document.querySelector('.album-title').textContent;
   
   // Inicia la animaciÃ³n del tÃ­tulo con la nueva canciÃ³n
-  startTitleScroll(`â–¶ ${songName} - ${albumName}`);
+  startTitleScroll(`▶ ${songName} - ${albumName}`);
 
   AUDIO3D.setAudio(`musica/${track.dataset.ruta}`);
   
@@ -381,6 +400,14 @@ function playByIndex(idx) {
   const btn = track.querySelector('.play-button');
   if (btn) btn.classList.replace('play-button','pause-button');
   currentIndex = idx;
+
+  // Refleja la pista en la barra inferior
+  const portadaActual = document.querySelector('.portada img');
+  const playerCover = document.querySelector('#player-cover');
+  const playerTitle = document.querySelector('#player-title');
+  if (playerTitle) playerTitle.textContent = songName;
+  if (playerCover && portadaActual && portadaActual.src) playerCover.src = portadaActual.src;
+  marcarReproduciendo(true);
 }
 
 // Formatea segundos a mm:ss
@@ -404,28 +431,16 @@ function initReproductor() {
     document.querySelectorAll('.disco .lista-disco .cancion')
   );
 
-  // Actualiza el tiempo en el span actual
-  AUDIO3D.audioElB.addEventListener('timeupdate', () => {
-    if (currentTimeSpan) {
-      currentTimeSpan.textContent =
-        `${formatTime(AUDIO3D.audioElB.currentTime)} / ${formatTime(AUDIO3D.audioElB.duration)}`;
-      let tiempocancion = (AUDIO3D.audioElB.currentTime / AUDIO3D.audioElB.duration) * 100;
-      slider.style.width = tiempocancion + '%';
-    }
-  });
+  // Actualiza los contadores de tiempo y la barra
+  AUDIO3D.audioElB.addEventListener('timeupdate', actualizarTiempos);
   AUDIO3D.audioElB.addEventListener('loadedmetadata', () => {
-    if (currentTimeSpan) {
-      currentTimeSpan.textContent =
-        `${formatTime(AUDIO3D.audioElB.currentTime)} / ${formatTime(AUDIO3D.audioElB.duration)}`;
+    actualizarTiempos();
 
-        // SEO: Actualizar la duraciÃ³n en los datos estructurados
-        const currentTrackEl = document.querySelector(`.cancion.active`);
-        if (currentTrackEl) {
-          const metaDuration = currentTrackEl.querySelector('meta[itemprop="duration"]');
-          if (metaDuration) metaDuration.content = formatDurationISO(AUDIO3D.audioElB.duration);
-        }
-        let tiempocancion = (AUDIO3D.audioElB.currentTime / AUDIO3D.audioElB.duration) * 100;
-        slider.style.width = tiempocancion + '%';
+    // SEO: Actualizar la duraciÃ³n en los datos estructurados
+    const currentTrackEl = document.querySelector(`.cancion.active`);
+    if (currentTrackEl) {
+      const metaDuration = currentTrackEl.querySelector('meta[itemprop="duration"]');
+      if (metaDuration) metaDuration.content = formatDurationISO(AUDIO3D.audioElB.duration);
     }
   });
   
@@ -463,14 +478,121 @@ initReproductor();
 
 
 
+/************************ CONTROLES DE LA BARRA INFERIOR *******************/
+
+const btnPlay    = document.querySelector('#btn-play');
+const btnPrev    = document.querySelector('#btn-prev');
+const btnNext    = document.querySelector('#btn-next');
+const btnShuffle = document.querySelector('#btn-shuffle');
+const btnRepeat  = document.querySelector('#btn-repeat');
+const btnMute    = document.querySelector('#btn-mute');
+const volumeSlider = document.querySelector('#volume-slider');
+
+let aleatorio = false;
+let repetir   = false;
+
+/** Alterna los iconos play/pausa de la barra. */
+function marcarReproduciendo(sonando) {
+  const iconoPlay  = document.querySelector('#icon-play');
+  const iconoPausa = document.querySelector('#icon-pause');
+  if (!iconoPlay || !iconoPausa) return;
+  iconoPlay.style.display  = sonando ? 'none' : '';
+  iconoPausa.style.display = sonando ? '' : 'none';
+  if (btnPlay) btnPlay.setAttribute('aria-label', sonando ? 'Pause' : 'Play');
+}
+
+function pistasActuales() {
+  return Array.from(document.querySelectorAll('.disco .lista-disco .cancion'));
+}
+
+/** Siguiente índice según aleatorio/repetir. Devuelve null si toca cambiar de disco. */
+function siguienteIndice(total) {
+  if (repetir) return currentIndex;
+  if (aleatorio) {
+    if (total < 2) return currentIndex;
+    let candidato = currentIndex;
+    // Evita repetir la misma pista dos veces seguidas.
+    while (candidato === currentIndex) candidato = Math.floor(Math.random() * total);
+    return candidato;
+  }
+  return currentIndex + 1 < total ? currentIndex + 1 : null;
+}
+
+if (btnPlay) btnPlay.addEventListener('click', () => {
+  const audio = AUDIO3D.audioElB;
+  if (!audio.src) {
+    // Nada cargado todavía: arranca por la primera pista de la lista.
+    if (pistasActuales().length) playByIndex(0);
+    return;
+  }
+  if (audio.paused) {
+    audio.play().catch(err => console.warn('No se pudo reproducir:', err));
+    marcarReproduciendo(true);
+  } else {
+    audio.pause();
+    marcarReproduciendo(false);
+  }
+});
+
+if (btnPrev) btnPrev.addEventListener('click', () => {
+  const audio = AUDIO3D.audioElB;
+  // Convención habitual: si ya han sonado 3 s, "anterior" reinicia la pista.
+  if (audio.currentTime > 3) { audio.currentTime = 0; return; }
+  if (currentIndex === null) return;
+  if (currentIndex > 0) playByIndex(currentIndex - 1);
+  else audio.currentTime = 0;
+});
+
+if (btnNext) btnNext.addEventListener('click', () => {
+  const total = pistasActuales().length;
+  if (currentIndex === null || !total) return;
+  const siguiente = aleatorio ? siguienteIndice(total) : currentIndex + 1;
+  if (siguiente !== null && siguiente < total) playByIndex(siguiente);
+  else buscarSiguienteDisco(document.querySelector('.selected span').textContent);
+});
+
+if (btnShuffle) btnShuffle.addEventListener('click', () => {
+  aleatorio = !aleatorio;
+  btnShuffle.setAttribute('aria-pressed', String(aleatorio));
+});
+
+if (btnRepeat) btnRepeat.addEventListener('click', () => {
+  repetir = !repetir;
+  btnRepeat.setAttribute('aria-pressed', String(repetir));
+});
+
+if (volumeSlider) volumeSlider.addEventListener('input', () => {
+  const valor = Number(volumeSlider.value) / 100;
+  AUDIO3D.audioElB.volume = valor;
+  AUDIO3D.audioElB.muted = valor === 0;
+  marcarSilencio(AUDIO3D.audioElB.muted);
+});
+
+function marcarSilencio(silenciado) {
+  const iconoVol   = document.querySelector('#icon-volume');
+  const iconoMudo  = document.querySelector('#icon-muted');
+  if (!iconoVol || !iconoMudo) return;
+  iconoVol.style.display  = silenciado ? 'none' : '';
+  iconoMudo.style.display = silenciado ? '' : 'none';
+}
+
+if (btnMute) btnMute.addEventListener('click', () => {
+  const audio = AUDIO3D.audioElB;
+  audio.muted = !audio.muted;
+  marcarSilencio(audio.muted);
+  if (volumeSlider) volumeSlider.value = audio.muted ? 0 : Math.round(audio.volume * 100);
+});
+
+AUDIO3D.audioElB.addEventListener('play',  () => marcarReproduciendo(true));
+AUDIO3D.audioElB.addEventListener('pause', () => marcarReproduciendo(false));
+
 // Esto se ejecuta UNA sola vez
 AUDIO3D.audioElB.addEventListener('ended', () => {
-  const tracks = Array.from(
-    document.querySelectorAll('.disco .lista-disco .cancion')
-  );
-  
-  if (currentIndex + 1 < tracks.length) {
-    playByIndex(currentIndex + 1);
+  const tracks = pistasActuales();
+  const siguiente = siguienteIndice(tracks.length);
+
+  if (siguiente !== null) {
+    playByIndex(siguiente);
   } else {
     const tituloDisco = document.querySelector('.selected span').textContent;
     buscarSiguienteDisco(tituloDisco)
@@ -548,10 +670,14 @@ function playSongResult(result) {
   conseguirColores(albumlabel);
 
   //Cerrar lista results
-  results.style.display = 'none';
+  cerrarResultados();
   document.querySelector('#songSearch').value = '';
 
   tooltip.style.visibility = 'hidden';
+
+  // No se baja al álbum a propósito: la esfera reacciona al audio y es lo que
+  // el usuario quiere ver al empezar a sonar. La lista queda ya actualizada
+  // ahí abajo para quien busque la ficha completa.
 }
 
 //OJO Y CÃMARA CANVAS 3D
@@ -624,61 +750,120 @@ containerSlider.addEventListener('mouseleave', () => {
   tooltip.style.visibility = 'hidden';
 });
 
- /************************BUSQUEDA DE lista de canciones por input*/
- (function(){  
+ /************************ BÚSQUEDA EN LENGUAJE NATURAL *********************
+  * Consulta el servicio semántico a través del proxy PHP. Si el servicio no
+  * está disponible, cae a la búsqueda literal por título de siempre, para que
+  * el buscador nunca se quede muerto.
+  **************************************************************************/
+ (function(){
   let timer;
+  let peticionEnCurso = 0;
+  const hero = document.querySelector('#hero');
+
+  /** Abre o cierra el panel, subiendo el hero para dejarle sitio. */
+  function mostrarPanel(visible) {
+    results.style.display = visible ? 'flex' : 'none';
+    if (hero) hero.classList.toggle('con-resultados', visible);
+  }
+
+  function pintarResultados(lista, nota) {
+    if (!lista.length) {
+      results.innerHTML = '<div class="no-results">No matching music found.</div>';
+      return;
+    }
+    const cabecera = nota
+      ? `<div class="search-note">Searched in English as <em>${nota}</em></div>`
+      : '';
+    results.innerHTML = cabecera + lista.map(item => `
+      <div class="result" data-albumlabel="${item.albumCode}" data-cover="${item.cover}" data-albumname="${item.albumName}" data-songnumber="${item.songnumber}" data-albumdescription="${encodeURIComponent(item.albumDescription || "")}">
+        <img src="musica/DISCOS/${item.cover}" alt="${item.albumName}">
+        <div class="info">
+          <div class="song">${item.songName}</div>
+          <div class="meta">${item.albumName}</div>
+        </div>
+      </div>
+    `).join('');
+
+    results.querySelectorAll('.result').forEach(result => {
+      result.addEventListener('click', (e) => {
+        const item = e.target.closest('.result');
+        if (!item) return;
+        playSongResult(item);
+      });
+    });
+  }
+
+  /** Búsqueda literal de respaldo, la que existía antes del servicio. */
+  function busquedaLiteral(q, token) {
+    const form = new FormData();
+    form.append('query', q);
+    return fetch('includes/ajax.searchSongs.php', { method: 'POST', body: form })
+      .then(res => res.ok ? res.json() : Promise.reject(new Error(res.statusText)))
+      .then(data => {
+        if (token !== peticionEnCurso) return;
+        pintarResultados(data.slice(0, 8), null);
+      });
+  }
 
   input.addEventListener('input', () => {
     clearTimeout(timer);
     const q = input.value.trim();
     if (!q) {
       results.innerHTML = '';
-      results.style.display = 'none';
+      mostrarPanel(false);
       return;
     }
-    // espera 300ms tras la Ãºltima letra
+    // espera tras la última letra: cada consulta cuesta una inferencia
     timer = setTimeout(() => {
+      const token = ++peticionEnCurso;
       const form = new FormData();
       form.append('query', q);
+      form.append('limit', '8');
 
-      fetch('includes/ajax.searchSongs.php', {
-        method: 'POST',
-        body: form
-      })
-      .then(res => {
-        if (!res.ok) throw new Error(res.statusText);
-        return res.json();
-      })
-      .then(data => {
-        results.style.display = "flex";
-        if (!data.length) {
-          results.innerHTML = '<div class="no-results">No se encontraron canciones.</div>';
-          return;
-        }
-        results.innerHTML = data.map(item => `
-          <div class="result" data-albumlabel="${item.albumCode}" data-cover="${item.cover}" data-albumname="${item.albumName}" data-songnumber="${item.songnumber}" data-albumdescription="${encodeURIComponent(item.albumDescription || "")}">
-            <img src="musica/DISCOS/${item.cover}" alt="${item.albumName}">
-            <div class="info">
-              <div class="song">${item.songName}</div>
-              <div class="meta">${item.albumName}</div>
-            </div>
-          </div>
-        `).join('');
+      mostrarPanel(true);
+      results.innerHTML = '<div class="no-results">Listening to your words...</div>';
 
-        document.querySelectorAll('.result').forEach(result => {
-          result.addEventListener('click', (e) => {
-            const item = e.target.closest('.result');
-            if (!item) return;
-            playSongResult(item);
+      fetch('includes/ajax.semanticSearch.php', { method: 'POST', body: form })
+        .then(res => res.json().then(cuerpo => ({ ok: res.ok, cuerpo })))
+        .then(({ ok, cuerpo }) => {
+          // Una respuesta vieja no debe pisar a la última que escribió el usuario.
+          if (token !== peticionEnCurso) return;
+          if (!ok) throw new Error(cuerpo?.error?.code || 'search_failed');
+          const traducida = cuerpo.detectedLanguage === 'es' ? cuerpo.normalizedQuery : null;
+          pintarResultados(cuerpo.results || [], traducida);
+        })
+        .catch(err => {
+          if (token !== peticionEnCurso) return;
+          console.warn('Búsqueda semántica no disponible, usando búsqueda literal:', err.message);
+          busquedaLiteral(q, token).catch(() => {
+            if (token !== peticionEnCurso) return;
+            results.innerHTML = '<div class="no-results">Search is unavailable right now.</div>';
           });
         });
-      })
-      .catch(err => {
-        console.error(err);
-        results.innerHTML = '<div class="no-results">Error al buscar.</div>';
-      });
-    }, 300);
+    }, 350);
   });
+})();
+
+/************************ ESFERA Y SCROLL **********************************
+ * El canvas 3D es fijo y ocuparía también la sección de álbum. Se atenúa al
+ * salir del hero para no competir con la lista de canciones.
+ **************************************************************************/
+(function(){
+  const canvas3D = document.querySelector('body > canvas');
+  const hero = document.querySelector('#hero');
+  if (!canvas3D || !hero) return;
+
+  canvas3D.style.transition = 'opacity 0.4s ease';
+  let visible = true;
+
+  const observador = new IntersectionObserver(([entrada]) => {
+    const debeVerse = entrada.intersectionRatio > 0.35;
+    if (debeVerse === visible) return;
+    visible = debeVerse;
+    canvas3D.style.opacity = debeVerse ? '1' : '0';
+  }, { threshold: [0, 0.35, 1] });
+
+  observador.observe(hero);
 })();
 
 initTooltips();

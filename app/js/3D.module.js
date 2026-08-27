@@ -2,22 +2,55 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.m
 import { EffectComposer } from 'https://cdn.jsdelivr.net/npm/three@0.152.2/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass }     from 'https://cdn.jsdelivr.net/npm/three@0.152.2/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass }from 'https://cdn.jsdelivr.net/npm/three@0.152.2/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { GLTFLoader }     from 'https://cdn.jsdelivr.net/npm/three@0.152.2/examples/jsm/loaders/GLTFLoader.js';
 
-let scene, camera, renderer, composer, mesh, analyser, dataArray, particles;
+let scene, camera, renderer, composer, mesh, analyser, dataArray, vertices;
+let logoMesh = null;            // el logo 3D dentro de la esfera
+let logoBaseScale = 1;          // escala en reposo, base del latido con la música
+let entornoLogo = null;         // mapa de reflexión del logo
+const materialesLogo = [];      // materiales a los que aplicar el entorno
+
+/**
+ * Asigna el mapa de entorno a los materiales del logo.
+ * El .glb y la textura del entorno cargan por su cuenta y en cualquier orden,
+ * así que esto se llama desde ambos sitios y actúa cuando ya hay las dos cosas.
+ */
+function aplicarEntornoAlLogo() {
+  if (!entornoLogo || !materialesLogo.length) return;
+  for (const material of materialesLogo) {
+    material.envMap = entornoLogo;
+    material.needsUpdate = true;
+  }
+}
+
+/**
+ * El logo es una pieza extruida y plana: un giro completo lo dejaría de canto
+ * e invisible media vuelta de cada dos. Se mece en un arco corto para dar
+ * volumen sin dejar de leerse nunca.
+ */
+function oscilarLogo() {
+  if (!logoMesh) return;
+  const t = performance.now() / 1000;
+  logoMesh.rotation.y = Math.sin(t * 0.45) * 0.32;
+  logoMesh.rotation.x = Math.sin(t * 0.3) * 0.06;
+}
 const R = 50, SEG = 64;
 
   // Escena y cámara
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(60, innerWidth/innerHeight, 1, 1000);
   camera.position.set(0, 0, 150);
-  scene.background = new THREE.Color(0x000000);
+  // Sin fondo propio: detrás va el paisaje del hero, que se vería tapado por
+  // un color de escena opaco.
+  scene.background = null;
 
   // Renderer
   renderer = new THREE.WebGLRenderer({
     antialias: true,
-    alpha: false,               // desactivamos transparencia
+    alpha: true,                // dejamos ver el fondo del hero
     preserveDrawingBuffer: true // preservamos el buffer tras cada frame
   });
+  renderer.setClearColor(0x000000, 0);
   renderer.setSize(innerWidth, innerHeight);
   renderer.toneMapping = THREE.ReinhardToneMapping;
   // FIX: Reemplaza la propiedad obsoleta 'physicallyCorrectLights'.
@@ -41,18 +74,53 @@ const R = 50, SEG = 64;
 
   // 2. Función para descargar la imagen
   export function descargarCanvas() {
-    // Solicita el data URL en PNG
-    const dataURL = canvas3D.toDataURL('image/png');
+    // El canvas es transparente para dejar ver el paisaje, así que toDataURL
+    // por sí solo devolvería la esfera sobre un fondo vacío. Componemos el
+    // fondo del hero y encima el render antes de exportar.
+    const compuesto = document.createElement('canvas');
+    compuesto.width  = canvas3D.width;
+    compuesto.height = canvas3D.height;
+    const ctx = compuesto.getContext('2d');
 
-    // Crea un enlace temporal
-    const enlace = document.createElement('a');
-    enlace.href = dataURL;
-    enlace.download = 'JosicoVila.com.png';  // nombre por defecto
+    const exportar = () => {
+      // Mismo modo de fusión que aplica el CSS al canvas en pantalla.
+      ctx.globalCompositeOperation = 'screen';
+      ctx.drawImage(canvas3D, 0, 0, compuesto.width, compuesto.height);
+      ctx.globalCompositeOperation = 'source-over';
+      const enlace = document.createElement('a');
+      enlace.href = compuesto.toDataURL('image/png');
+      enlace.download = 'JosicoVila.com.png';  // nombre por defecto
+      // Necesario para Firefox: añadir al DOM, disparar click, luego quitar
+      document.body.appendChild(enlace);
+      enlace.click();
+      document.body.removeChild(enlace);
+    };
 
-    // Necesario para Firefox: añadir al DOM, disparar click, luego quitar
-    document.body.appendChild(enlace);
-    enlace.click();
-    document.body.removeChild(enlace);
+    const fondo = getComputedStyle(document.body).backgroundImage;
+    const url = fondo && fondo.startsWith('url(') ? fondo.slice(5, -2) : null;
+    if (!url) {
+      ctx.fillStyle = '#05070d';
+      ctx.fillRect(0, 0, compuesto.width, compuesto.height);
+      exportar();
+      return;
+    }
+
+    const imagen = new Image();
+    // Si la imagen no cargase, exportamos igualmente sobre color plano.
+    imagen.onload = () => {
+      // "cover": recorta lo que sobre en vez de deformar el paisaje.
+      const escala = Math.max(compuesto.width / imagen.width, compuesto.height / imagen.height);
+      const ancho = imagen.width * escala;
+      const alto  = imagen.height * escala;
+      ctx.drawImage(imagen, (compuesto.width - ancho) / 2, (compuesto.height - alto) / 2, ancho, alto);
+      exportar();
+    };
+    imagen.onerror = () => {
+      ctx.fillStyle = '#05070d';
+      ctx.fillRect(0, 0, compuesto.width, compuesto.height);
+      exportar();
+    };
+    imagen.src = url;
   }
 
   // 3. Llama a descargarCanvas() cuando quieras abrir el diálogo
@@ -76,13 +144,14 @@ const R = 50, SEG = 64;
   dir.position.set(100,100,100);
   scene.add(dir);
 
-  // Esfera
+  // Esfera: aristas en azul oscuro.
   const geo = new THREE.SphereGeometry(R, SEG, SEG);
   const mat = new THREE.MeshStandardMaterial({
-    vertexColors: true,
+    vertexColors: false,
     wireframe: true,
-    emissive: 0x000000,
-    emissiveIntensity: 0.3
+    color: 0x2c5a94,
+    emissive: 0x14305c,
+    emissiveIntensity: 0.75
   });
 
   const basePos = geo.attributes.position.array.slice(); // clonamos posiciones
@@ -96,41 +165,133 @@ const R = 50, SEG = 64;
   mesh = new THREE.Mesh(geo, mat);
   scene.add(mesh);
 
-  // Partículas
-  const ptGeo = new THREE.BufferGeometry();
-  const count = 10000;
-  const positions = new Float32Array(count * 3);
-  for (let i = 0; i < count; i++) {
-    // Dispersión en una esfera de radio R*2
-    const r = R * 2;
-    positions[i*3]   = (Math.random()-0.5)*r;
-    positions[i*3+1] = (Math.random()-0.5)*r;
-    positions[i*3+2] = (Math.random()-0.5)*r;
-  }
-  ptGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  const ptMat = new THREE.PointsMaterial({
+  // Vértices en plata. Comparten la MISMA geometría que la esfera, así que se
+  // deforman con la música sin ningún trabajo extra.
+  // Puntos pequeños a propósito: la esfera tiene los vértices muy juntos en los
+  // polos y con tamaño grande se convierten en anillos macizos que tapan las
+  // aristas.
+  vertices = new THREE.Points(geo, new THREE.PointsMaterial({
     size: 0.5,
-    color: 0xffffff,
+    color: 0xc9d3de,
+    sizeAttenuation: true,
     transparent: true,
-    opacity: 0.7,
-    blending: THREE.AdditiveBlending
-  });
-  particles = new THREE.Points(ptGeo, ptMat);
-  scene.add(particles);
+    opacity: 0.8,
+  }));
+  scene.add(vertices);
+
+  // Mapa de reflexión del logo: el propio paisaje del hero.
+  // Un metal refleja su entorno; con una escena vacía y negra quedaría negro.
+  // Usando el fondo real, el logo recoge el azul del cielo, el resplandor
+  // cálido de la luna y la oscuridad del valle, que es lo creíble aquí.
+  // Se prefiltra con PMREM para que la rugosidad difumine el reflejo bien.
+  (function cargarEntorno() {
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    pmrem.compileEquirectangularShader();
+    new THREE.TextureLoader().load(
+      'img/hero-desktop.webp',
+      (textura) => {
+        textura.mapping = THREE.EquirectangularReflectionMapping;
+        entornoLogo = pmrem.fromEquirectangular(textura).texture;
+        textura.dispose();
+        pmrem.dispose();
+        aplicarEntornoAlLogo();
+      },
+      undefined,
+      () => {
+        // Sin entorno el logo sigue viéndose por su color y su emisivo.
+        pmrem.dispose();
+      }
+    );
+  })();
+
+  // Luz de contra fría: recorta el canto del logo contra la esfera y da un
+  // brillo especular que un entorno tan oscuro no llega a producir solo.
+  const contra = new THREE.DirectionalLight(0x9ec4ff, 1.1);
+  contra.position.set(-90, 40, -60);
+  scene.add(contra);
+
+  // Logo 3D dentro de la esfera.
+  // Se carga aparte y de forma tolerante: si el .glb no está servido, la
+  // escena sigue funcionando exactamente igual que antes.
+  new GLTFLoader().load(
+    'data/3Dassets/logo3D.glb',
+    (gltf) => {
+      const modelo = gltf.scene;
+
+      // Centrar en el origen y escalar para que quepa holgado dentro de la esfera.
+      const caja = new THREE.Box3().setFromObject(modelo);
+      const centro = caja.getCenter(new THREE.Vector3());
+      const tamano = caja.getSize(new THREE.Vector3());
+      modelo.position.sub(centro);
+
+      const ladoMayor = Math.max(tamano.x, tamano.y) || 1;
+      const escala = (R * 0.95) / ladoMayor;
+
+      logoBaseScale = escala;
+      logoMesh = new THREE.Group();
+      logoMesh.add(modelo);
+      logoMesh.scale.setScalar(escala);
+
+      // Material luminoso: el bloom del composer hace el resto.
+      modelo.traverse((hijo) => {
+        if (!hijo.isMesh) return;
+        // Plata vieja: metal de verdad, con el paisaje como reflejo.
+        // `color` tiñe el reflejo (en un metal no hay componente difusa), de ahí
+        // el gris cálido apagado en vez de un blanco.
+        // `envMapIntensity` alto compensa lo oscura que es la escena: sin ello
+        // el reflejo sería fiel pero prácticamente negro.
+        // El emisivo queda como suelo mínimo para que nunca desaparezca del todo.
+        hijo.material = new THREE.MeshStandardMaterial({
+          color: 0xc2c6c9,
+          emissive: 0x24405e,
+          emissiveIntensity: 0.16,
+          metalness: 0.95,
+          roughness: 0.22,
+          envMapIntensity: 3.2,
+        });
+        materialesLogo.push(hijo.material);
+      });
+
+      aplicarEntornoAlLogo();
+      scene.add(logoMesh);
+    },
+    undefined,
+    (error) => console.warn('No se pudo cargar el logo 3D:', error)
+  );
 
   
 
 
+  /**
+   * En pantallas estrechas la esfera se sale por los lados: con el mismo FOV,
+   * el ancho visible depende del alto. Alejamos la cámara para que quepa.
+   */
+  function encuadrar() {
+    camera.position.z = innerWidth < 860 ? 260 : 150;
+  }
+
   // Ajuste en resize
   window.addEventListener('resize', ()=>{
     camera.aspect = innerWidth/innerHeight;
+    encuadrar();
     camera.updateProjectionMatrix();
     renderer.setSize(innerWidth, innerHeight);
     composer.setSize(innerWidth, innerHeight);
   });
+  encuadrar();
 
 
+/**
+ * La esfera tiene ahora una paleta fija: aristas azul oscuro y vértices plata.
+ * Se conserva la función porque js.js la llama en cada cambio de disco, pero ya
+ * no tiñe la esfera con la paleta del álbum. Las barras 2D y los títulos de las
+ * canciones sí siguen usando los colores de cada disco.
+ */
 export function aplicarGradienteTresColores(colA, colB, colC) {
+    return;
+}
+
+function aplicarGradienteTresColoresDesactivado(colA, colB, colC) {
     const geom = mesh.geometry;
     const pos = geom.attributes.position.array;
     const cnt = geom.attributes.position.count;
@@ -173,13 +334,16 @@ export function aplicarGradienteTresColores(colA, colB, colC) {
     }
   }
 
+  // Sliders de depuración: opcionales, el módulo no debe caerse sin ellos.
   let radius = 50;
-  document.querySelector('#radius').addEventListener('input', (e) => {
+  const radiusInput = document.querySelector('#radius');
+  if (radiusInput) radiusInput.addEventListener('input', (e) => {
     radius = (Number(e.target.value) || 50);
   });
-  
+
   let deform = 10;
-  document.querySelector('#deform').addEventListener('input', (e) => {
+  const deformInput = document.querySelector('#deform');
+  if (deformInput) deformInput.addEventListener('input', (e) => {
     deform = (Number(e.target.value) || 10);
   });
   
@@ -269,7 +433,15 @@ function animateVisualizers(analyser, dataArray, mesh, composer, ctx2d, opts) {
 
       mesh.rotation.y += 0.004; // Rotación de la esfera
       mesh.rotation.x += 0.004; // Rotación de la esfera
-      particles.rotation.y += 0.002; // Rotación de las partículas (un poco más lenta)
+      vertices.rotation.copy(mesh.rotation); // los vértices acompañan a las aristas
+
+      if (logoMesh) {
+        // Vaivén, no giro completo: el logo es plano y de canto desaparecería.
+        oscilarLogo();
+        // Latido sutil con los graves, sin llegar a deformar la letra.
+        const graves = (dataArray[0] + dataArray[1] + dataArray[2]) / 3 / 255;
+        logoMesh.scale.setScalar(logoBaseScale * (1 + graves * 0.06));
+      }
       // 4) Renderizar la escena 3D con bloom
       composer.render();
     })();
@@ -383,7 +555,8 @@ function startStaticRender() {
 
   mesh.rotation.y += 0.004; // Rotación unificada
   mesh.rotation.x += 0.004;
-  particles.rotation.y += 0.002; // Rotación de partículas unificada
+  vertices.rotation.copy(mesh.rotation);
+  oscilarLogo();
   composer.render();
   requestAnimationFrame(startStaticRender);
 }

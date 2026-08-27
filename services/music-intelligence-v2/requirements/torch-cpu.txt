@@ -1,0 +1,15 @@
+# Rueda de PyTorch sin CUDA, para el servicio en el VPS.
+# En ejecución el servicio sólo hace inferencia de texto: el audio ya está
+# embebido en el índice, así que la GPU no aporta nada y las librerías CUDA
+# ocuparían ~2 GB de imagen para nada.
+#
+# torchvision se declara aquí aunque el servicio no procese imágenes: entra
+# igualmente como dependencia transitiva de base.txt, y si pip lo resuelve
+# desde PyPI trae un build compilado contra otro torch. El síntoma es
+# "operator torchvision::nms does not exist" al importarlo, que a su vez deja a
+# transformers sin modelos PyTorch y tumba la carga del traductor.
+# Fijándolo en este índice, las tres ruedas son de la misma variante +cpu.
+--index-url https://download.pytorch.org/whl/cpu
+torch==2.10.0
+torchaudio==2.10.0
+torchvision==0.25.0

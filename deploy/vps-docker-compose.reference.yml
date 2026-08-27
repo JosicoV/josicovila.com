@@ -1,0 +1,88 @@
+# REFERENCIA del compose de producción — NO se despliega desde aquí.
+#
+# El compose que corre en el VPS vive fuera del repositorio, en
+# /opt/containers/josicovila-com/docker-compose.yml, porque el workflow hace
+# `cd /opt/containers/josicovila-com` (el padre de ./repo) antes de levantar.
+# Este archivo existe para que esa configuración quede versionada y revisable;
+# para aplicarlo hay que copiar los cambios a mano en el VPS.
+#
+# Respecto al compose actual sólo cambian tres cosas:
+#   1. el montaje de data/3Dassets en web, que hoy falta y deja el logo en 404
+#   2. la variable MUSIC_SEARCH_URL en web
+#   3. el servicio music-search y la red interna que lo comunica con web
+#
+# Traefik y la red `proxy` se quedan exactamente como estaban.
+
+services:
+  web:
+    build:
+      context: ./repo
+      dockerfile: Dockerfile
+    container_name: josicovila-com-web
+    restart: unless-stopped
+    environment:
+      # Sin esto el proxy PHP cae a su valor por defecto, host.docker.internal,
+      # que no existe en Docker sobre Linux: la búsqueda semántica fallaría en
+      # silencio y todo caería a la búsqueda literal.
+      MUSIC_SEARCH_URL: http://music-search:8100
+    volumes:
+      - ./repo/app:/var/www/html
+      - ./data/musica:/var/www/html/musica
+      # NUEVO: el hero carga data/3Dassets/logo3D.glb. Sin este montaje el
+      # modelo da 404 y la esfera se queda sin logo.
+      - ./data/3Dassets:/var/www/html/data/3Dassets
+    networks:
+      - proxy
+      - interna
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=proxy
+      - traefik.http.routers.josicovila-com.rule=Host(`josicovila.com`) || Host(`www.josicovila.com`)
+      - traefik.http.routers.josicovila-com.entrypoints=websecure
+      - traefik.http.routers.josicovila-com.tls.certresolver=le
+      - traefik.http.services.josicovila-com.loadbalancer.server.port=80
+
+  music-search:
+    build:
+      context: ./repo/services/music-intelligence-v2
+      dockerfile: Dockerfile
+    container_name: josicovila-com-search
+    restart: unless-stopped
+    # Sin `ports:` y sin la red `proxy`: el servicio no es alcanzable desde
+    # internet, sólo desde el contenedor web. Tampoco lleva etiquetas de
+    # Traefik, así que no se le puede enrutar por accidente.
+    networks:
+      - interna
+    volumes:
+      # Índice y traductor. La ruta imita la del repositorio porque serve.py
+      # deduce su raíz subiendo dos niveles desde su propio archivo.
+      - ./data/music-intelligence-v2:/srv/data/music-intelligence-v2
+      # Caché de modelos de HuggingFace, ~4,9 GB. En volumen para que
+      # sobreviva a las reconstrucciones de la imagen.
+      - hf-cache:/models/hf
+    # Arranca en ~20 s (carga MuQ y OPUS). Mientras tanto el buscador de la web
+    # degrada solo a búsqueda literal, así que no hay pantalla rota.
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8100/health', timeout=5).status==200 else 1)"]
+      interval: 30s
+      timeout: 10s
+      start_period: 120s
+      retries: 3
+    # Cota de memoria. El proceso ronda los 4,4 GB en reposo y el VPS tiene
+    # ~6,0 GB disponibles con el resto de contenedores en marcha, así que el
+    # límite se queda en 5 GB: deja margen sobre el consumo real y garantiza
+    # que, si algo se dispara, muere este contenedor y no un vecino elegido por
+    # el OOM killer. La web sigue funcionando con búsqueda literal.
+    deploy:
+      resources:
+        limits:
+          memory: 5g
+
+networks:
+  proxy:
+    external: true
+  interna:
+    driver: bridge
+
+volumes:
+  hf-cache:

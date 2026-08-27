@@ -3,3 +3,18 @@
 app/.git
 app/.gitignore
 docker-compose.override.yml
+
+# La imagen web sólo copia app/ y docker/. Todo lo de abajo estaba entrando en
+# el contexto de build sin necesidad: en local son varios GB (el .venv del
+# servicio pesa 3,5 GB y data/musica son los MP3 originales) y cada build se
+# iba en enviar contexto que luego no se usa.
+.venv/
+**/.venv/
+**/__pycache__/
+*.py[cod]
+services/
+data/
+benchmarks/
+deploy/
+docs/
+PRIMER_INTENTO/

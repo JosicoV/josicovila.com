@@ -9,4 +9,7 @@ services:
     volumes:
       - ./app:/var/www/html
       - ./data/musica:/var/www/html/musica
+      # El hero carga logo3D.glb desde aquí. Sin este montaje el modelo da 404
+      # en el VPS y la esfera se queda sin logo.
+      - ./data/3Dassets:/var/www/html/data/3Dassets
     restart: unless-stopped
