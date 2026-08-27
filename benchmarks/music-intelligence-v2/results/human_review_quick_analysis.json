@@ -1,0 +1,868 @@
+{
+  "status": {
+    "unique_judgments": 45,
+    "reviewed": 45,
+    "candidate_rows": 80,
+    "human_field_completion": {
+      "human_score": 45,
+      "instrument_correct": 3,
+      "mood_correct": 1,
+      "energy_correct": 0,
+      "scene_correct": 0,
+      "contradiction": 0,
+      "notes": 0
+    }
+  },
+  "winner": "muq_mulan:segment",
+  "ranking": [
+    "muq_mulan:segment",
+    "muq_mulan:hybrid",
+    "figma:segment",
+    "figma:hybrid"
+  ],
+  "systems": {
+    "figma:segment": {
+      "label": "FIGMA · Segmento",
+      "n": 20,
+      "mean_score": 2.65,
+      "median_score": 3.0,
+      "excellent_3": 15,
+      "good_or_better_2_3": 18,
+      "weak_1": 2,
+      "irrelevant_0": 0,
+      "distinct_top1_tracks": 4,
+      "weak_results": [
+        {
+          "query": "epic music",
+          "track_id": "raven_lullaby",
+          "title": "Raven Lullaby",
+          "segment_start": 41.599998474121094,
+          "segment_end": 66.5999984741211,
+          "human_score": 1
+        },
+        {
+          "query": "fantasy flute without epic orchestra",
+          "track_id": "avalon",
+          "title": "Quest for Avalon",
+          "segment_start": 0.0,
+          "segment_end": 25.0,
+          "human_score": 1
+        }
+      ]
+    },
+    "figma:hybrid": {
+      "label": "FIGMA · Híbrido",
+      "n": 20,
+      "mean_score": 2.65,
+      "median_score": 3.0,
+      "excellent_3": 15,
+      "good_or_better_2_3": 18,
+      "weak_1": 2,
+      "irrelevant_0": 0,
+      "distinct_top1_tracks": 4,
+      "weak_results": [
+        {
+          "query": "epic music",
+          "track_id": "raven_lullaby",
+          "title": "Raven Lullaby",
+          "segment_start": 41.599998474121094,
+          "segment_end": 66.5999984741211,
+          "human_score": 1
+        },
+        {
+          "query": "fantasy flute without epic orchestra",
+          "track_id": "avalon",
+          "title": "Quest for Avalon",
+          "segment_start": 0.0,
+          "segment_end": 25.0,
+          "human_score": 1
+        }
+      ]
+    },
+    "muq_mulan:segment": {
+      "label": "MuQ-MuLan · Segmento",
+      "n": 20,
+      "mean_score": 2.75,
+      "median_score": 3.0,
+      "excellent_3": 15,
+      "good_or_better_2_3": 20,
+      "weak_1": 0,
+      "irrelevant_0": 0,
+      "distinct_top1_tracks": 10,
+      "weak_results": []
+    },
+    "muq_mulan:hybrid": {
+      "label": "MuQ-MuLan · Híbrido",
+      "n": 20,
+      "mean_score": 2.65,
+      "median_score": 3.0,
+      "excellent_3": 14,
+      "good_or_better_2_3": 19,
+      "weak_1": 1,
+      "irrelevant_0": 0,
+      "distinct_top1_tracks": 10,
+      "weak_results": [
+        {
+          "query": "fantasy flute without epic orchestra",
+          "track_id": "marching_city_gates",
+          "title": "Marching Through City Gates",
+          "segment_start": 0.0,
+          "segment_end": 25.0,
+          "human_score": 1
+        }
+      ]
+    }
+  },
+  "model_summary": {
+    "figma": {
+      "n": 40,
+      "mean_score": 2.65
+    },
+    "muq_mulan": {
+      "n": 40,
+      "mean_score": 2.7
+    }
+  },
+  "mode_summary": {
+    "segment": {
+      "n": 40,
+      "mean_score": 2.7
+    },
+    "hybrid": {
+      "n": 40,
+      "mean_score": 2.65
+    }
+  },
+  "pairwise": [
+    {
+      "left": "figma:segment",
+      "right": "figma:hybrid",
+      "left_wins": 0,
+      "right_wins": 0,
+      "ties": 20,
+      "mean_delta_left_minus_right": 0
+    },
+    {
+      "left": "figma:segment",
+      "right": "muq_mulan:segment",
+      "left_wins": 5,
+      "right_wins": 5,
+      "ties": 10,
+      "mean_delta_left_minus_right": -0.1
+    },
+    {
+      "left": "figma:segment",
+      "right": "muq_mulan:hybrid",
+      "left_wins": 5,
+      "right_wins": 4,
+      "ties": 11,
+      "mean_delta_left_minus_right": 0
+    },
+    {
+      "left": "figma:hybrid",
+      "right": "muq_mulan:segment",
+      "left_wins": 5,
+      "right_wins": 5,
+      "ties": 10,
+      "mean_delta_left_minus_right": -0.1
+    },
+    {
+      "left": "figma:hybrid",
+      "right": "muq_mulan:hybrid",
+      "left_wins": 5,
+      "right_wins": 4,
+      "ties": 11,
+      "mean_delta_left_minus_right": 0
+    },
+    {
+      "left": "muq_mulan:segment",
+      "right": "muq_mulan:hybrid",
+      "left_wins": 1,
+      "right_wins": 0,
+      "ties": 19,
+      "mean_delta_left_minus_right": 0.1
+    }
+  ],
+  "queries": {
+    "epic music": {
+      "figma:segment": {
+        "query": "epic music",
+        "track_id": "raven_lullaby",
+        "title": "Raven Lullaby",
+        "segment_start": 41.599998474121094,
+        "segment_end": 66.5999984741211,
+        "human_score": 1
+      },
+      "figma:hybrid": {
+        "query": "epic music",
+        "track_id": "raven_lullaby",
+        "title": "Raven Lullaby",
+        "segment_start": 41.599998474121094,
+        "segment_end": 66.5999984741211,
+        "human_score": 1
+      },
+      "muq_mulan:segment": {
+        "query": "epic music",
+        "track_id": "edge",
+        "title": "The Edge of the Unknown",
+        "segment_start": 140.4577178955078,
+        "segment_end": 165.4577178955078,
+        "human_score": 3
+      },
+      "muq_mulan:hybrid": {
+        "query": "epic music",
+        "track_id": "edge",
+        "title": "The Edge of the Unknown",
+        "segment_start": 140.4577178955078,
+        "segment_end": 165.4577178955078,
+        "human_score": 3
+      }
+    },
+    "dark fantasy music": {
+      "figma:segment": {
+        "query": "dark fantasy music",
+        "track_id": "let_the_wolf_out",
+        "title": "Let the Wolf Out",
+        "segment_start": 68.9336166381836,
+        "segment_end": 93.9336166381836,
+        "human_score": 2
+      },
+      "figma:hybrid": {
+        "query": "dark fantasy music",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 2
+      },
+      "muq_mulan:segment": {
+        "query": "dark fantasy music",
+        "track_id": "cry_of_the_elves",
+        "title": "The Cry of the Elves",
+        "segment_start": 156.33404541015625,
+        "segment_end": 181.33404541015625,
+        "human_score": 3
+      },
+      "muq_mulan:hybrid": {
+        "query": "dark fantasy music",
+        "track_id": "cry_of_the_elves",
+        "title": "The Cry of the Elves",
+        "segment_start": 156.33404541015625,
+        "segment_end": 181.33404541015625,
+        "human_score": 3
+      }
+    },
+    "peaceful fantasy music": {
+      "figma:segment": {
+        "query": "peaceful fantasy music",
+        "track_id": "let_the_wolf_out",
+        "title": "Let the Wolf Out",
+        "segment_start": 68.9336166381836,
+        "segment_end": 93.9336166381836,
+        "human_score": 3
+      },
+      "figma:hybrid": {
+        "query": "peaceful fantasy music",
+        "track_id": "let_the_wolf_out",
+        "title": "Let the Wolf Out",
+        "segment_start": 68.9336166381836,
+        "segment_end": 93.9336166381836,
+        "human_score": 3
+      },
+      "muq_mulan:segment": {
+        "query": "peaceful fantasy music",
+        "track_id": "dark_blue_horizon",
+        "title": "Dark Blue Horizon",
+        "segment_start": 241.4007110595703,
+        "segment_end": 266.40069580078125,
+        "human_score": 3
+      },
+      "muq_mulan:hybrid": {
+        "query": "peaceful fantasy music",
+        "track_id": "dark_blue_horizon",
+        "title": "Dark Blue Horizon",
+        "segment_start": 241.4007110595703,
+        "segment_end": 266.40069580078125,
+        "human_score": 3
+      }
+    },
+    "emotional orchestral music": {
+      "figma:segment": {
+        "query": "emotional orchestral music",
+        "track_id": "raven_lullaby",
+        "title": "Raven Lullaby",
+        "segment_start": 124.80000305175781,
+        "segment_end": 149.8000030517578,
+        "human_score": 3
+      },
+      "figma:hybrid": {
+        "query": "emotional orchestral music",
+        "track_id": "raven_lullaby",
+        "title": "Raven Lullaby",
+        "segment_start": 124.80000305175781,
+        "segment_end": 149.8000030517578,
+        "human_score": 3
+      },
+      "muq_mulan:segment": {
+        "query": "emotional orchestral music",
+        "track_id": "dawn_in_istoccar",
+        "title": "Dawn in Istoccar",
+        "segment_start": 72.0,
+        "segment_end": 97.0,
+        "human_score": 3
+      },
+      "muq_mulan:hybrid": {
+        "query": "emotional orchestral music",
+        "track_id": "dawn_in_istoccar",
+        "title": "Dawn in Istoccar",
+        "segment_start": 72.0,
+        "segment_end": 97.0,
+        "human_score": 3
+      }
+    },
+    "soft medieval flute": {
+      "figma:segment": {
+        "query": "soft medieval flute",
+        "track_id": "cry_of_the_elves",
+        "title": "The Cry of the Elves",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 2
+      },
+      "figma:hybrid": {
+        "query": "soft medieval flute",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 2
+      },
+      "muq_mulan:segment": {
+        "query": "soft medieval flute",
+        "track_id": "ancient_ritual",
+        "title": "Ancient Ritual",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "muq_mulan:hybrid": {
+        "query": "soft medieval flute",
+        "track_id": "ancient_ritual",
+        "title": "Ancient Ritual",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      }
+    },
+    "emotional solo violin": {
+      "figma:segment": {
+        "query": "emotional solo violin",
+        "track_id": "raven_lullaby",
+        "title": "Raven Lullaby",
+        "segment_start": 83.19999694824219,
+        "segment_end": 108.19999694824219,
+        "human_score": 3
+      },
+      "figma:hybrid": {
+        "query": "emotional solo violin",
+        "track_id": "raven_lullaby",
+        "title": "Raven Lullaby",
+        "segment_start": 83.19999694824219,
+        "segment_end": 108.19999694824219,
+        "human_score": 3
+      },
+      "muq_mulan:segment": {
+        "query": "emotional solo violin",
+        "track_id": "raven_lullaby",
+        "title": "Raven Lullaby",
+        "segment_start": 41.599998474121094,
+        "segment_end": 66.5999984741211,
+        "human_score": 3
+      },
+      "muq_mulan:hybrid": {
+        "query": "emotional solo violin",
+        "track_id": "raven_lullaby",
+        "title": "Raven Lullaby",
+        "segment_start": 41.599998474121094,
+        "segment_end": 66.5999984741211,
+        "human_score": 3
+      }
+    },
+    "music with choir and heavy percussion": {
+      "figma:segment": {
+        "query": "music with choir and heavy percussion",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 456.8005676269531,
+        "segment_end": 481.8005676269531,
+        "human_score": 3
+      },
+      "figma:hybrid": {
+        "query": "music with choir and heavy percussion",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 456.8005676269531,
+        "segment_end": 481.8005676269531,
+        "human_score": 3
+      },
+      "muq_mulan:segment": {
+        "query": "music with choir and heavy percussion",
+        "track_id": "cry_of_the_elves",
+        "title": "The Cry of the Elves",
+        "segment_start": 156.33404541015625,
+        "segment_end": 181.33404541015625,
+        "human_score": 2
+      },
+      "muq_mulan:hybrid": {
+        "query": "music with choir and heavy percussion",
+        "track_id": "cry_of_the_elves",
+        "title": "The Cry of the Elves",
+        "segment_start": 156.33404541015625,
+        "segment_end": 181.33404541015625,
+        "human_score": 2
+      }
+    },
+    "gentle strings and flute": {
+      "figma:segment": {
+        "query": "gentle strings and flute",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 228.40028381347656,
+        "segment_end": 253.40028381347656,
+        "human_score": 3
+      },
+      "figma:hybrid": {
+        "query": "gentle strings and flute",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 228.40028381347656,
+        "segment_end": 253.40028381347656,
+        "human_score": 3
+      },
+      "muq_mulan:segment": {
+        "query": "gentle strings and flute",
+        "track_id": "raven_lullaby",
+        "title": "Raven Lullaby",
+        "segment_start": 166.39999389648438,
+        "segment_end": 191.39999389648438,
+        "human_score": 3
+      },
+      "muq_mulan:hybrid": {
+        "query": "gentle strings and flute",
+        "track_id": "raven_lullaby",
+        "title": "Raven Lullaby",
+        "segment_start": 166.39999389648438,
+        "segment_end": 191.39999389648438,
+        "human_score": 3
+      }
+    },
+    "soft medieval flute, melancholic and peaceful": {
+      "figma:segment": {
+        "query": "soft medieval flute, melancholic and peaceful",
+        "track_id": "cry_of_the_elves",
+        "title": "The Cry of the Elves",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 2
+      },
+      "figma:hybrid": {
+        "query": "soft medieval flute, melancholic and peaceful",
+        "track_id": "cry_of_the_elves",
+        "title": "The Cry of the Elves",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 2
+      },
+      "muq_mulan:segment": {
+        "query": "soft medieval flute, melancholic and peaceful",
+        "track_id": "ancient_ritual",
+        "title": "Ancient Ritual",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "muq_mulan:hybrid": {
+        "query": "soft medieval flute, melancholic and peaceful",
+        "track_id": "ancient_ritual",
+        "title": "Ancient Ritual",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      }
+    },
+    "epic orchestral music with choir but not too aggressive": {
+      "figma:segment": {
+        "query": "epic orchestral music with choir but not too aggressive",
+        "track_id": "raven_lullaby",
+        "title": "Raven Lullaby",
+        "segment_start": 124.80000305175781,
+        "segment_end": 149.8000030517578,
+        "human_score": 3
+      },
+      "figma:hybrid": {
+        "query": "epic orchestral music with choir but not too aggressive",
+        "track_id": "raven_lullaby",
+        "title": "Raven Lullaby",
+        "segment_start": 124.80000305175781,
+        "segment_end": 149.8000030517578,
+        "human_score": 3
+      },
+      "muq_mulan:segment": {
+        "query": "epic orchestral music with choir but not too aggressive",
+        "track_id": "marching_city_gates",
+        "title": "Marching Through City Gates",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 2
+      },
+      "muq_mulan:hybrid": {
+        "query": "epic orchestral music with choir but not too aggressive",
+        "track_id": "marching_city_gates",
+        "title": "Marching Through City Gates",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 2
+      }
+    },
+    "dark but not aggressive": {
+      "figma:segment": {
+        "query": "dark but not aggressive",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 571.000732421875,
+        "segment_end": 596.000732421875,
+        "human_score": 3
+      },
+      "figma:hybrid": {
+        "query": "dark but not aggressive",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 571.000732421875,
+        "segment_end": 596.000732421875,
+        "human_score": 3
+      },
+      "muq_mulan:segment": {
+        "query": "dark but not aggressive",
+        "track_id": "ancient_ritual",
+        "title": "Ancient Ritual",
+        "segment_start": 45.657142639160156,
+        "segment_end": 70.65714263916016,
+        "human_score": 3
+      },
+      "muq_mulan:hybrid": {
+        "query": "dark but not aggressive",
+        "track_id": "edge",
+        "title": "The Edge of the Unknown",
+        "segment_start": 70.2288589477539,
+        "segment_end": 95.2288589477539,
+        "human_score": 3
+      }
+    },
+    "heroic but reflective": {
+      "figma:segment": {
+        "query": "heroic but reflective",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "figma:hybrid": {
+        "query": "heroic but reflective",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "muq_mulan:segment": {
+        "query": "heroic but reflective",
+        "track_id": "let_the_wolf_out",
+        "title": "Let the Wolf Out",
+        "segment_start": 34.4668083190918,
+        "segment_end": 59.4668083190918,
+        "human_score": 3
+      },
+      "muq_mulan:hybrid": {
+        "query": "heroic but reflective",
+        "track_id": "let_the_wolf_out",
+        "title": "Let the Wolf Out",
+        "segment_start": 34.4668083190918,
+        "segment_end": 59.4668083190918,
+        "human_score": 3
+      }
+    },
+    "music for exploring ancient ruins": {
+      "figma:segment": {
+        "query": "music for exploring ancient ruins",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "figma:hybrid": {
+        "query": "music for exploring ancient ruins",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "muq_mulan:segment": {
+        "query": "music for exploring ancient ruins",
+        "track_id": "dark_blue_horizon",
+        "title": "Dark Blue Horizon",
+        "segment_start": 241.4007110595703,
+        "segment_end": 266.40069580078125,
+        "human_score": 2
+      },
+      "muq_mulan:hybrid": {
+        "query": "music for exploring ancient ruins",
+        "track_id": "dark_blue_horizon",
+        "title": "Dark Blue Horizon",
+        "segment_start": 241.4007110595703,
+        "segment_end": 266.40069580078125,
+        "human_score": 2
+      }
+    },
+    "music for a quiet sunrise": {
+      "figma:segment": {
+        "query": "music for a quiet sunrise",
+        "track_id": "let_the_wolf_out",
+        "title": "Let the Wolf Out",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "figma:hybrid": {
+        "query": "music for a quiet sunrise",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "muq_mulan:segment": {
+        "query": "music for a quiet sunrise",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 114.20014190673828,
+        "segment_end": 139.2001495361328,
+        "human_score": 3
+      },
+      "muq_mulan:hybrid": {
+        "query": "music for a quiet sunrise",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 114.20014190673828,
+        "segment_end": 139.2001495361328,
+        "human_score": 3
+      }
+    },
+    "music for riding across an open landscape": {
+      "figma:segment": {
+        "query": "music for riding across an open landscape",
+        "track_id": "let_the_wolf_out",
+        "title": "Let the Wolf Out",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "figma:hybrid": {
+        "query": "music for riding across an open landscape",
+        "track_id": "let_the_wolf_out",
+        "title": "Let the Wolf Out",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "muq_mulan:segment": {
+        "query": "music for riding across an open landscape",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 2
+      },
+      "muq_mulan:hybrid": {
+        "query": "music for riding across an open landscape",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 2
+      }
+    },
+    "epic but calm": {
+      "figma:segment": {
+        "query": "epic but calm",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "figma:hybrid": {
+        "query": "epic but calm",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "muq_mulan:segment": {
+        "query": "epic but calm",
+        "track_id": "dark_blue_horizon",
+        "title": "Dark Blue Horizon",
+        "segment_start": 144.84042358398438,
+        "segment_end": 169.84042358398438,
+        "human_score": 3
+      },
+      "muq_mulan:hybrid": {
+        "query": "epic but calm",
+        "track_id": "dark_blue_horizon",
+        "title": "Dark Blue Horizon",
+        "segment_start": 144.84042358398438,
+        "segment_end": 169.84042358398438,
+        "human_score": 3
+      }
+    },
+    "heroic without battle": {
+      "figma:segment": {
+        "query": "heroic without battle",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "figma:hybrid": {
+        "query": "heroic without battle",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "muq_mulan:segment": {
+        "query": "heroic without battle",
+        "track_id": "marching_city_gates",
+        "title": "Marching Through City Gates",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "muq_mulan:hybrid": {
+        "query": "heroic without battle",
+        "track_id": "marching_city_gates",
+        "title": "Marching Through City Gates",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      }
+    },
+    "fantasy flute without epic orchestra": {
+      "figma:segment": {
+        "query": "fantasy flute without epic orchestra",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 1
+      },
+      "figma:hybrid": {
+        "query": "fantasy flute without epic orchestra",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 1
+      },
+      "muq_mulan:segment": {
+        "query": "fantasy flute without epic orchestra",
+        "track_id": "ancient_ritual",
+        "title": "Ancient Ritual",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "muq_mulan:hybrid": {
+        "query": "fantasy flute without epic orchestra",
+        "track_id": "marching_city_gates",
+        "title": "Marching Through City Gates",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 1
+      }
+    },
+    "something powerful but still emotional": {
+      "figma:segment": {
+        "query": "something powerful but still emotional",
+        "track_id": "raven_lullaby",
+        "title": "Raven Lullaby",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "figma:hybrid": {
+        "query": "something powerful but still emotional",
+        "track_id": "raven_lullaby",
+        "title": "Raven Lullaby",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "muq_mulan:segment": {
+        "query": "something powerful but still emotional",
+        "track_id": "let_the_wolf_out",
+        "title": "Let the Wolf Out",
+        "segment_start": 34.4668083190918,
+        "segment_end": 59.4668083190918,
+        "human_score": 3
+      },
+      "muq_mulan:hybrid": {
+        "query": "something powerful but still emotional",
+        "track_id": "let_the_wolf_out",
+        "title": "Let the Wolf Out",
+        "segment_start": 34.4668083190918,
+        "segment_end": 59.4668083190918,
+        "human_score": 3
+      }
+    },
+    "a quiet piece that slowly becomes more powerful": {
+      "figma:segment": {
+        "query": "a quiet piece that slowly becomes more powerful",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "figma:hybrid": {
+        "query": "a quiet piece that slowly becomes more powerful",
+        "track_id": "avalon",
+        "title": "Quest for Avalon",
+        "segment_start": 0.0,
+        "segment_end": 25.0,
+        "human_score": 3
+      },
+      "muq_mulan:segment": {
+        "query": "a quiet piece that slowly becomes more powerful",
+        "track_id": "alone_in_the_crowd",
+        "title": "Alone In the Crowd",
+        "segment_start": 207.66737365722656,
+        "segment_end": 232.66737365722656,
+        "human_score": 2
+      },
+      "muq_mulan:hybrid": {
+        "query": "a quiet piece that slowly becomes more powerful",
+        "track_id": "alone_in_the_crowd",
+        "title": "Alone In the Crowd",
+        "segment_start": 207.66737365722656,
+        "segment_end": 232.66737365722656,
+        "human_score": 2
+      }
+    }
+  }
+}

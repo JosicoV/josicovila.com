@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Music Intelligence v2 — Human Review</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Music Intelligence v2</p>
+        <h1>Revisión humana</h1>
+      </div>
+      <div class="progress-panel" aria-label="Progreso total">
+        <div class="progress-copy"><span id="progressText">Cargando…</span><strong id="progressPercent">0%</strong></div>
+        <div class="progress-track"><span id="progressBar"></span></div>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <section class="filter-block plan-block">
+        <label for="reviewPlan">Plan de revisión</label>
+        <select id="reviewPlan">
+          <option value="quick">Rápida · 45 escuchas</option>
+          <option value="full">Completa · 1.440 filas</option>
+        </select>
+        <p id="planHelp" class="plan-help"></p>
+      </section>
+      <section class="filter-block">
+        <label for="modelSelect">Modelo</label>
+        <select id="modelSelect"></select>
+      </section>
+      <section class="filter-block">
+        <label for="modeSelect">Modo</label>
+        <select id="modeSelect"></select>
+      </section>
+      <label class="switch-row">
+        <input id="unreviewedOnly" type="checkbox">
+        <span>Mostrar solo pendientes</span>
+      </label>
+      <div class="sidebar-heading">
+        <span>Consultas</span>
+        <span id="queryCounter">0/20</span>
+      </div>
+      <nav id="queryList" class="query-list" aria-label="Consultas del benchmark"></nav>
+    </aside>
+
+    <main class="content">
+      <div class="query-header">
+        <div>
+          <p id="contextLabel" class="eyebrow">—</p>
+          <h2 id="queryTitle">Cargando resultados…</h2>
+        </div>
+        <div class="query-actions">
+          <button id="previousQuery" class="button secondary" type="button">← Anterior</button>
+          <button id="nextPending" class="button accent" type="button">Siguiente pendiente</button>
+          <button id="nextQuery" class="button secondary" type="button">Siguiente →</button>
+        </div>
+      </div>
+      <div id="notice" class="notice" role="status" aria-live="polite"></div>
+      <section id="results" class="results" aria-label="Resultados de búsqueda"></section>
+    </main>
+  </div>
+
+  <footer class="player-dock">
+    <div class="now-playing">
+      <span id="playerPulse" class="player-pulse"></span>
+      <div><small>Reproduciendo</small><strong id="nowPlaying">Nada seleccionado</strong></div>
+    </div>
+    <audio id="audioPlayer" controls preload="metadata"></audio>
+    <label class="repeat-control"><input id="repeatSegment" type="checkbox"> Repetir segmento</label>
+  </footer>
+
+  <template id="resultTemplate">
+    <article class="result-card">
+      <div class="rank-column"><span class="rank"></span></div>
+      <div class="result-main">
+        <div class="track-heading">
+          <div><h3 class="track-title"></h3><p class="track-meta"></p></div>
+          <span class="model-score"></span>
+        </div>
+        <div class="system-badges" aria-label="Sistemas que devolvieron este resultado"></div>
+        <div class="listen-row">
+          <button class="button play-segment" type="button">▶ Segmento</button>
+          <button class="button secondary play-full" type="button">Pista completa</button>
+          <span class="segment-time"></span>
+        </div>
+        <div class="score-row" role="group" aria-label="Puntuación humana">
+          <span>Relevancia</span>
+          <div class="score-buttons"></div>
+          <button class="clear-score" type="button">Borrar</button>
+        </div>
+        <div class="criteria-grid"></div>
+        <p class="criteria-hint">Opcional · ✓ Sí · × No · · Sin evaluar</p>
+        <label class="notes-label">Notas
+          <textarea class="notes" rows="2" maxlength="2000" placeholder="Qué encaja, qué contradice o qué ocurre en el segmento…"></textarea>
+        </label>
+      </div>
+      <div class="save-state" aria-live="polite">Sin evaluar</div>
+    </article>
+  </template>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>

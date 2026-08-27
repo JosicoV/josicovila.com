@@ -1,0 +1,4891 @@
+{
+  "translation_model": {
+    "display_name": "OPUS-MT Spanish to English",
+    "checkpoint": "Helsinki-NLP/opus-mt-es-en",
+    "revision": "c96e2c5399ebfae4fc43d9669556b9afa74bb69d",
+    "license": "Apache-2.0",
+    "local_path": "data/music-intelligence-v2/models/opus-mt-es-en",
+    "source": "https://huggingface.co/Helsinki-NLP/opus-mt-es-en"
+  },
+  "translation_seconds": 1.4922278001904488,
+  "summary": {
+    "language_detector_scope": "bounded_es_en_search_queries",
+    "canonical_groups": 3,
+    "grouped_catalog_entries": 6,
+    "english_queries_with_duplicate_slots_in_raw_top10": 29,
+    "total_duplicate_slots_removed_from_english_top10": 29,
+    "spanish_queries": 10,
+    "language_detection_accuracy": 1.0,
+    "translation_exact_matches": 6,
+    "mean_translation_reference_embedding_cosine": 0.9861497521400452,
+    "translated_top1_match_rate": 0.9,
+    "direct_es_top1_match_rate": 0.2,
+    "translated_mean_top5_overlap": 0.9,
+    "direct_es_mean_top5_overlap": 0.52,
+    "translated_mean_top10_overlap": 0.96,
+    "direct_es_mean_top10_overlap": 0.5799999999999998,
+    "recommended_spanish_strategy": "local_translation"
+  },
+  "queries": [
+    {
+      "query_id": "es061",
+      "query_original": "música épica con coro",
+      "detected_language": "es",
+      "query_normalized_en": "epic music with choir",
+      "reference_en": "epic music with choir",
+      "translation_exact_match": true,
+      "translated_reference_embedding_cosine": 1.0,
+      "translated_vs_reference_top5": {
+        "top1_match": true,
+        "overlap_count": 5,
+        "jaccard": 1.0
+      },
+      "translated_vs_reference_top10": {
+        "top1_match": true,
+        "overlap_count": 10,
+        "jaccard": 1.0
+      },
+      "direct_es_vs_reference_top5": {
+        "top1_match": false,
+        "overlap_count": 1,
+        "jaccard": 0.1111111111111111
+      },
+      "direct_es_vs_reference_top10": {
+        "top1_match": false,
+        "overlap_count": 2,
+        "jaccard": 0.1111111111111111
+      },
+      "direct_reference_embedding_cosine": 0.3132691979408264,
+      "translated_results": [
+        {
+          "track_id": "ijustcantsayfarewell-live",
+          "title": "Live",
+          "album": "I just can't say Farewell",
+          "score": 0.6405095458030701,
+          "global_score": 0.5288717150688171,
+          "best_segment_score": 0.6405095458030701,
+          "best_segment": {
+            "start": 62.5,
+            "end": 87.5
+          },
+          "rank": 1,
+          "canonical_track_id": "composition-live",
+          "source_rank": 1
+        },
+        {
+          "track_id": "onceuponatale2-thedistantisland",
+          "title": "The distant island",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.5453559756278992,
+          "global_score": 0.4565337300300598,
+          "best_segment_score": 0.5453559756278992,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 2,
+          "canonical_track_id": "onceuponatale2-thedistantisland",
+          "source_rank": 3
+        },
+        {
+          "track_id": "ijustcantsayfarewell-believe",
+          "title": "Believe",
+          "album": "I just can't say Farewell",
+          "score": 0.5281880497932434,
+          "global_score": 0.48481249809265137,
+          "best_segment_score": 0.5281880497932434,
+          "best_segment": {
+            "start": 137.5,
+            "end": 162.5
+          },
+          "rank": 3,
+          "canonical_track_id": "composition-believe",
+          "source_rank": 4
+        },
+        {
+          "track_id": "experimentingonherown-7-ascension-of-a-demon",
+          "title": "Ascension of a demon",
+          "album": "Experimenting on her own",
+          "score": 0.5169883370399475,
+          "global_score": 0.4085935354232788,
+          "best_segment_score": 0.5169883370399475,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 4,
+          "canonical_track_id": "experimentingonherown-7-ascension-of-a-demon",
+          "source_rank": 5
+        },
+        {
+          "track_id": "experimentingonherown-5-epic-western",
+          "title": "Epic western",
+          "album": "Experimenting on her own",
+          "score": 0.5075600743293762,
+          "global_score": 0.4036436378955841,
+          "best_segment_score": 0.5075600743293762,
+          "best_segment": {
+            "start": 37.5,
+            "end": 62.5
+          },
+          "rank": 5,
+          "canonical_track_id": "experimentingonherown-5-epic-western",
+          "source_rank": 6
+        },
+        {
+          "track_id": "onceuponatalept1-talesoftheenchantedsword",
+          "title": "Tales of the enchanted sword",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.5025533437728882,
+          "global_score": 0.4894181489944458,
+          "best_segment_score": 0.5025533437728882,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 6,
+          "canonical_track_id": "onceuponatalept1-talesoftheenchantedsword",
+          "source_rank": 7
+        },
+        {
+          "track_id": "dragonrage-5dracones-venandi",
+          "title": "Dracones Venandi",
+          "album": "Dragon Rage",
+          "score": 0.49526113271713257,
+          "global_score": 0.44775086641311646,
+          "best_segment_score": 0.49526113271713257,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 7,
+          "canonical_track_id": "dragonrage-5dracones-venandi",
+          "source_rank": 8
+        },
+        {
+          "track_id": "onceuponatalept1-ivorycastle",
+          "title": "Ivory Castle",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.4934860169887543,
+          "global_score": 0.3776378035545349,
+          "best_segment_score": 0.4934860169887543,
+          "best_segment": {
+            "start": 62.5,
+            "end": 87.5
+          },
+          "rank": 8,
+          "canonical_track_id": "onceuponatalept1-ivorycastle",
+          "source_rank": 9
+        },
+        {
+          "track_id": "dragonrage-3first-flight-leaving-the-nest",
+          "title": "First Flight (Leaving the Nest)",
+          "album": "Dragon Rage",
+          "score": 0.4867653548717499,
+          "global_score": 0.45858514308929443,
+          "best_segment_score": 0.4867653548717499,
+          "best_segment": {
+            "start": 37.5,
+            "end": 62.5
+          },
+          "rank": 9,
+          "canonical_track_id": "dragonrage-3first-flight-leaving-the-nest",
+          "source_rank": 10
+        },
+        {
+          "track_id": "onceuponatale2-nocturnalfiercesea",
+          "title": "Nocturnal fierce sea",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.4832911491394043,
+          "global_score": 0.3702581524848938,
+          "best_segment_score": 0.4832911491394043,
+          "best_segment": {
+            "start": 162.5,
+            "end": 187.5
+          },
+          "rank": 10,
+          "canonical_track_id": "onceuponatale2-nocturnalfiercesea",
+          "source_rank": 11
+        }
+      ],
+      "direct_es_results": [
+        {
+          "track_id": "experimentingonherown-5-epic-western",
+          "title": "Epic western",
+          "album": "Experimenting on her own",
+          "score": 0.5443538427352905,
+          "global_score": 0.5160462856292725,
+          "best_segment_score": 0.5443538427352905,
+          "best_segment": {
+            "start": 50.0,
+            "end": 75.0
+          },
+          "rank": 1,
+          "canonical_track_id": "experimentingonherown-5-epic-western",
+          "source_rank": 1
+        },
+        {
+          "track_id": "ijustcantsayfarewell-pegasus",
+          "title": "Pegasus",
+          "album": "I just can't say Farewell",
+          "score": 0.5259809494018555,
+          "global_score": 0.49308469891548157,
+          "best_segment_score": 0.5259809494018555,
+          "best_segment": {
+            "start": 87.5,
+            "end": 112.5
+          },
+          "rank": 2,
+          "canonical_track_id": "ijustcantsayfarewell-pegasus",
+          "source_rank": 2
+        },
+        {
+          "track_id": "blackandwhite-11whatnow",
+          "title": "What Now?",
+          "album": "Black & White",
+          "score": 0.5249929428100586,
+          "global_score": 0.5077661275863647,
+          "best_segment_score": 0.5249929428100586,
+          "best_segment": {
+            "start": 62.5,
+            "end": 87.5
+          },
+          "rank": 3,
+          "canonical_track_id": "blackandwhite-11whatnow",
+          "source_rank": 3
+        },
+        {
+          "track_id": "experimentingonherown-6-fall-of-the-angel",
+          "title": "Fall of the angel",
+          "album": "Experimenting on her own",
+          "score": 0.5236322283744812,
+          "global_score": 0.48180246353149414,
+          "best_segment_score": 0.5236322283744812,
+          "best_segment": {
+            "start": 50.0,
+            "end": 75.0
+          },
+          "rank": 4,
+          "canonical_track_id": "experimentingonherown-6-fall-of-the-angel",
+          "source_rank": 4
+        },
+        {
+          "track_id": "onceuponatale2-saluteyoking",
+          "title": "Salute Yo'king",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.4942816495895386,
+          "global_score": 0.4127297103404999,
+          "best_segment_score": 0.4942816495895386,
+          "best_segment": {
+            "start": 162.5,
+            "end": 187.5
+          },
+          "rank": 5,
+          "canonical_track_id": "onceuponatale2-saluteyoking",
+          "source_rank": 5
+        },
+        {
+          "track_id": "thepathmaker-9-bonus-returning-home",
+          "title": "Returning home",
+          "album": "The pathmaker",
+          "score": 0.48275959491729736,
+          "global_score": 0.46680501103401184,
+          "best_segment_score": 0.48275959491729736,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 6,
+          "canonical_track_id": "thepathmaker-9-bonus-returning-home",
+          "source_rank": 6
+        },
+        {
+          "track_id": "ijustcantsayfarewell-live",
+          "title": "Live",
+          "album": "I just can't say Farewell",
+          "score": 0.48267507553100586,
+          "global_score": 0.4463825225830078,
+          "best_segment_score": 0.48267507553100586,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 7,
+          "canonical_track_id": "composition-live",
+          "source_rank": 7
+        },
+        {
+          "track_id": "ijustcantsayfarewell-light-awaits",
+          "title": "Light Awaits",
+          "album": "I just can't say Farewell",
+          "score": 0.47791415452957153,
+          "global_score": 0.38177478313446045,
+          "best_segment_score": 0.47791415452957153,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 8,
+          "canonical_track_id": "ijustcantsayfarewell-light-awaits",
+          "source_rank": 8
+        },
+        {
+          "track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I just can't say Farewell",
+          "score": 0.4754750430583954,
+          "global_score": 0.3918706476688385,
+          "best_segment_score": 0.4754750430583954,
+          "best_segment": {
+            "start": 137.5,
+            "end": 162.5
+          },
+          "rank": 9,
+          "canonical_track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "source_rank": 9
+        },
+        {
+          "track_id": "dawninistoccar-back-cover-massive",
+          "title": "Back cover (massive)",
+          "album": "Dawn in Istoccar",
+          "score": 0.4521995484828949,
+          "global_score": 0.2688860297203064,
+          "best_segment_score": 0.4521995484828949,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 10,
+          "canonical_track_id": "dawninistoccar-back-cover-massive",
+          "source_rank": 10
+        }
+      ],
+      "reference_results": [
+        {
+          "track_id": "ijustcantsayfarewell-live",
+          "title": "Live",
+          "album": "I just can't say Farewell",
+          "score": 0.6405095458030701,
+          "global_score": 0.5288717150688171,
+          "best_segment_score": 0.6405095458030701,
+          "best_segment": {
+            "start": 62.5,
+            "end": 87.5
+          },
+          "rank": 1,
+          "canonical_track_id": "composition-live",
+          "source_rank": 1
+        },
+        {
+          "track_id": "onceuponatale2-thedistantisland",
+          "title": "The distant island",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.5453559756278992,
+          "global_score": 0.4565337300300598,
+          "best_segment_score": 0.5453559756278992,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 2,
+          "canonical_track_id": "onceuponatale2-thedistantisland",
+          "source_rank": 3
+        },
+        {
+          "track_id": "ijustcantsayfarewell-believe",
+          "title": "Believe",
+          "album": "I just can't say Farewell",
+          "score": 0.5281880497932434,
+          "global_score": 0.48481249809265137,
+          "best_segment_score": 0.5281880497932434,
+          "best_segment": {
+            "start": 137.5,
+            "end": 162.5
+          },
+          "rank": 3,
+          "canonical_track_id": "composition-believe",
+          "source_rank": 4
+        },
+        {
+          "track_id": "experimentingonherown-7-ascension-of-a-demon",
+          "title": "Ascension of a demon",
+          "album": "Experimenting on her own",
+          "score": 0.5169883370399475,
+          "global_score": 0.4085935354232788,
+          "best_segment_score": 0.5169883370399475,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 4,
+          "canonical_track_id": "experimentingonherown-7-ascension-of-a-demon",
+          "source_rank": 5
+        },
+        {
+          "track_id": "experimentingonherown-5-epic-western",
+          "title": "Epic western",
+          "album": "Experimenting on her own",
+          "score": 0.5075600743293762,
+          "global_score": 0.4036436378955841,
+          "best_segment_score": 0.5075600743293762,
+          "best_segment": {
+            "start": 37.5,
+            "end": 62.5
+          },
+          "rank": 5,
+          "canonical_track_id": "experimentingonherown-5-epic-western",
+          "source_rank": 6
+        },
+        {
+          "track_id": "onceuponatalept1-talesoftheenchantedsword",
+          "title": "Tales of the enchanted sword",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.5025533437728882,
+          "global_score": 0.4894181489944458,
+          "best_segment_score": 0.5025533437728882,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 6,
+          "canonical_track_id": "onceuponatalept1-talesoftheenchantedsword",
+          "source_rank": 7
+        },
+        {
+          "track_id": "dragonrage-5dracones-venandi",
+          "title": "Dracones Venandi",
+          "album": "Dragon Rage",
+          "score": 0.49526113271713257,
+          "global_score": 0.44775086641311646,
+          "best_segment_score": 0.49526113271713257,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 7,
+          "canonical_track_id": "dragonrage-5dracones-venandi",
+          "source_rank": 8
+        },
+        {
+          "track_id": "onceuponatalept1-ivorycastle",
+          "title": "Ivory Castle",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.4934860169887543,
+          "global_score": 0.3776378035545349,
+          "best_segment_score": 0.4934860169887543,
+          "best_segment": {
+            "start": 62.5,
+            "end": 87.5
+          },
+          "rank": 8,
+          "canonical_track_id": "onceuponatalept1-ivorycastle",
+          "source_rank": 9
+        },
+        {
+          "track_id": "dragonrage-3first-flight-leaving-the-nest",
+          "title": "First Flight (Leaving the Nest)",
+          "album": "Dragon Rage",
+          "score": 0.4867653548717499,
+          "global_score": 0.45858514308929443,
+          "best_segment_score": 0.4867653548717499,
+          "best_segment": {
+            "start": 37.5,
+            "end": 62.5
+          },
+          "rank": 9,
+          "canonical_track_id": "dragonrage-3first-flight-leaving-the-nest",
+          "source_rank": 10
+        },
+        {
+          "track_id": "onceuponatale2-nocturnalfiercesea",
+          "title": "Nocturnal fierce sea",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.4832911491394043,
+          "global_score": 0.3702581524848938,
+          "best_segment_score": 0.4832911491394043,
+          "best_segment": {
+            "start": 162.5,
+            "end": 187.5
+          },
+          "rank": 10,
+          "canonical_track_id": "onceuponatale2-nocturnalfiercesea",
+          "source_rank": 11
+        }
+      ]
+    },
+    {
+      "query_id": "es062",
+      "query_original": "música medieval suave con flauta",
+      "detected_language": "es",
+      "query_normalized_en": "soft medieval music with flute",
+      "reference_en": "soft medieval music with flute",
+      "translation_exact_match": true,
+      "translated_reference_embedding_cosine": 1.0,
+      "translated_vs_reference_top5": {
+        "top1_match": true,
+        "overlap_count": 5,
+        "jaccard": 1.0
+      },
+      "translated_vs_reference_top10": {
+        "top1_match": true,
+        "overlap_count": 10,
+        "jaccard": 1.0
+      },
+      "direct_es_vs_reference_top5": {
+        "top1_match": false,
+        "overlap_count": 2,
+        "jaccard": 0.25
+      },
+      "direct_es_vs_reference_top10": {
+        "top1_match": false,
+        "overlap_count": 4,
+        "jaccard": 0.25
+      },
+      "direct_reference_embedding_cosine": 0.5259082913398743,
+      "translated_results": [
+        {
+          "track_id": "ijustcantsayfarewell-live",
+          "title": "Live",
+          "album": "I just can't say Farewell",
+          "score": 0.5383274555206299,
+          "global_score": 0.3058164119720459,
+          "best_segment_score": 0.5383274555206299,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 1,
+          "canonical_track_id": "composition-live",
+          "source_rank": 1
+        },
+        {
+          "track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "title": "The right side of an orange",
+          "album": "I just can't say Farewell",
+          "score": 0.4392411708831787,
+          "global_score": 0.18273088335990906,
+          "best_segment_score": 0.4392411708831787,
+          "best_segment": {
+            "start": 62.5,
+            "end": 87.5
+          },
+          "rank": 2,
+          "canonical_track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "source_rank": 3
+        },
+        {
+          "track_id": "neverwithoutthebards-ancient-ritual",
+          "title": "Ancient Ritual",
+          "album": "Never without The Bards",
+          "score": 0.4253543019294739,
+          "global_score": 0.1719413548707962,
+          "best_segment_score": 0.4253543019294739,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 3,
+          "canonical_track_id": "neverwithoutthebards-ancient-ritual",
+          "source_rank": 4
+        },
+        {
+          "track_id": "9-avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.415602445602417,
+          "global_score": 0.252800852060318,
+          "best_segment_score": 0.415602445602417,
+          "best_segment": {
+            "start": 250.0,
+            "end": 275.0
+          },
+          "rank": 4,
+          "canonical_track_id": "9-avalon",
+          "source_rank": 5
+        },
+        {
+          "track_id": "onceuponatalept1-ivorycastle",
+          "title": "Ivory Castle",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.39024287462234497,
+          "global_score": 0.16379694640636444,
+          "best_segment_score": 0.39024287462234497,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 5,
+          "canonical_track_id": "onceuponatalept1-ivorycastle",
+          "source_rank": 6
+        },
+        {
+          "track_id": "onceuponatale2-beathreex",
+          "title": "Be a three X",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.3692360520362854,
+          "global_score": 0.25286975502967834,
+          "best_segment_score": 0.3692360520362854,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 6,
+          "canonical_track_id": "onceuponatale2-beathreex",
+          "source_rank": 7
+        },
+        {
+          "track_id": "dawninistoccar-red-belt",
+          "title": "Red Belt",
+          "album": "Dawn in Istoccar",
+          "score": 0.3591187000274658,
+          "global_score": 0.19154736399650574,
+          "best_segment_score": 0.3591187000274658,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 7,
+          "canonical_track_id": "dawninistoccar-red-belt",
+          "source_rank": 8
+        },
+        {
+          "track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "title": "Awekening of the humankind",
+          "album": "Experimenting on her own",
+          "score": 0.34231454133987427,
+          "global_score": 0.1356796771287918,
+          "best_segment_score": 0.34231454133987427,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 8,
+          "canonical_track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "source_rank": 9
+        },
+        {
+          "track_id": "dawninistoccar-insidethetowerofthewizard",
+          "title": "Inside the tower of the wizard",
+          "album": "Dawn in Istoccar",
+          "score": 0.3066067695617676,
+          "global_score": 0.18452444672584534,
+          "best_segment_score": 0.3066067695617676,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 9,
+          "canonical_track_id": "dawninistoccar-insidethetowerofthewizard",
+          "source_rank": 10
+        },
+        {
+          "track_id": "ijustcantsayfarewell-short-message-fromer-soul",
+          "title": "Short message from'er soul",
+          "album": "I just can't say Farewell",
+          "score": 0.29687801003456116,
+          "global_score": 0.24789348244667053,
+          "best_segment_score": 0.29687801003456116,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 10,
+          "canonical_track_id": "ijustcantsayfarewell-short-message-fromer-soul",
+          "source_rank": 11
+        }
+      ],
+      "direct_es_results": [
+        {
+          "track_id": "ijustcantsayfarewell-pegasus",
+          "title": "Pegasus",
+          "album": "I just can't say Farewell",
+          "score": 0.4751516282558441,
+          "global_score": 0.4452371597290039,
+          "best_segment_score": 0.4751516282558441,
+          "best_segment": {
+            "start": 100.0,
+            "end": 125.0
+          },
+          "rank": 1,
+          "canonical_track_id": "ijustcantsayfarewell-pegasus",
+          "source_rank": 1
+        },
+        {
+          "track_id": "9-avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.45083898305892944,
+          "global_score": 0.33674317598342896,
+          "best_segment_score": 0.45083898305892944,
+          "best_segment": {
+            "start": 387.5,
+            "end": 412.5
+          },
+          "rank": 2,
+          "canonical_track_id": "9-avalon",
+          "source_rank": 2
+        },
+        {
+          "track_id": "blackandwhite-11whatnow",
+          "title": "What Now?",
+          "album": "Black & White",
+          "score": 0.44455111026763916,
+          "global_score": 0.38009247183799744,
+          "best_segment_score": 0.44455111026763916,
+          "best_segment": {
+            "start": 62.5,
+            "end": 87.5
+          },
+          "rank": 3,
+          "canonical_track_id": "blackandwhite-11whatnow",
+          "source_rank": 3
+        },
+        {
+          "track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I just can't say Farewell",
+          "score": 0.4263516664505005,
+          "global_score": 0.32590770721435547,
+          "best_segment_score": 0.4263516664505005,
+          "best_segment": {
+            "start": 237.5,
+            "end": 262.5
+          },
+          "rank": 4,
+          "canonical_track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "source_rank": 4
+        },
+        {
+          "track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "title": "The right side of an orange",
+          "album": "I just can't say Farewell",
+          "score": 0.4142010509967804,
+          "global_score": 0.28875869512557983,
+          "best_segment_score": 0.4142010509967804,
+          "best_segment": {
+            "start": 62.5,
+            "end": 87.5
+          },
+          "rank": 5,
+          "canonical_track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "source_rank": 5
+        },
+        {
+          "track_id": "onceuponatale2-beathreex",
+          "title": "Be a three X",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.38923200964927673,
+          "global_score": 0.3413406014442444,
+          "best_segment_score": 0.38923200964927673,
+          "best_segment": {
+            "start": 100.0,
+            "end": 125.0
+          },
+          "rank": 6,
+          "canonical_track_id": "onceuponatale2-beathreex",
+          "source_rank": 6
+        },
+        {
+          "track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "title": "Awekening of the humankind",
+          "album": "Experimenting on her own",
+          "score": 0.38627761602401733,
+          "global_score": 0.20577570796012878,
+          "best_segment_score": 0.38627761602401733,
+          "best_segment": {
+            "start": 125.0,
+            "end": 150.0
+          },
+          "rank": 7,
+          "canonical_track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "source_rank": 7
+        },
+        {
+          "track_id": "thepathmaker-5-healing-wind",
+          "title": "Healing Wind",
+          "album": "The pathmaker",
+          "score": 0.3800585865974426,
+          "global_score": 0.34764784574508667,
+          "best_segment_score": 0.3800585865974426,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 8,
+          "canonical_track_id": "thepathmaker-5-healing-wind",
+          "source_rank": 8
+        },
+        {
+          "track_id": "onceuponatale2-saluteyoking",
+          "title": "Salute Yo'king",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.37693724036216736,
+          "global_score": 0.2752758264541626,
+          "best_segment_score": 0.37693724036216736,
+          "best_segment": {
+            "start": 100.0,
+            "end": 125.0
+          },
+          "rank": 9,
+          "canonical_track_id": "onceuponatale2-saluteyoking",
+          "source_rank": 9
+        },
+        {
+          "track_id": "blackandwhite-3whisperalietome",
+          "title": "Whisper a Lie to Me",
+          "album": "Black & White",
+          "score": 0.37200480699539185,
+          "global_score": 0.22538688778877258,
+          "best_segment_score": 0.37200480699539185,
+          "best_segment": {
+            "start": 225.0,
+            "end": 250.0
+          },
+          "rank": 10,
+          "canonical_track_id": "blackandwhite-3whisperalietome",
+          "source_rank": 10
+        }
+      ],
+      "reference_results": [
+        {
+          "track_id": "ijustcantsayfarewell-live",
+          "title": "Live",
+          "album": "I just can't say Farewell",
+          "score": 0.5383274555206299,
+          "global_score": 0.3058164119720459,
+          "best_segment_score": 0.5383274555206299,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 1,
+          "canonical_track_id": "composition-live",
+          "source_rank": 1
+        },
+        {
+          "track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "title": "The right side of an orange",
+          "album": "I just can't say Farewell",
+          "score": 0.4392411708831787,
+          "global_score": 0.18273088335990906,
+          "best_segment_score": 0.4392411708831787,
+          "best_segment": {
+            "start": 62.5,
+            "end": 87.5
+          },
+          "rank": 2,
+          "canonical_track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "source_rank": 3
+        },
+        {
+          "track_id": "neverwithoutthebards-ancient-ritual",
+          "title": "Ancient Ritual",
+          "album": "Never without The Bards",
+          "score": 0.4253543019294739,
+          "global_score": 0.1719413548707962,
+          "best_segment_score": 0.4253543019294739,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 3,
+          "canonical_track_id": "neverwithoutthebards-ancient-ritual",
+          "source_rank": 4
+        },
+        {
+          "track_id": "9-avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.415602445602417,
+          "global_score": 0.252800852060318,
+          "best_segment_score": 0.415602445602417,
+          "best_segment": {
+            "start": 250.0,
+            "end": 275.0
+          },
+          "rank": 4,
+          "canonical_track_id": "9-avalon",
+          "source_rank": 5
+        },
+        {
+          "track_id": "onceuponatalept1-ivorycastle",
+          "title": "Ivory Castle",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.39024287462234497,
+          "global_score": 0.16379694640636444,
+          "best_segment_score": 0.39024287462234497,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 5,
+          "canonical_track_id": "onceuponatalept1-ivorycastle",
+          "source_rank": 6
+        },
+        {
+          "track_id": "onceuponatale2-beathreex",
+          "title": "Be a three X",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.3692360520362854,
+          "global_score": 0.25286975502967834,
+          "best_segment_score": 0.3692360520362854,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 6,
+          "canonical_track_id": "onceuponatale2-beathreex",
+          "source_rank": 7
+        },
+        {
+          "track_id": "dawninistoccar-red-belt",
+          "title": "Red Belt",
+          "album": "Dawn in Istoccar",
+          "score": 0.3591187000274658,
+          "global_score": 0.19154736399650574,
+          "best_segment_score": 0.3591187000274658,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 7,
+          "canonical_track_id": "dawninistoccar-red-belt",
+          "source_rank": 8
+        },
+        {
+          "track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "title": "Awekening of the humankind",
+          "album": "Experimenting on her own",
+          "score": 0.34231454133987427,
+          "global_score": 0.1356796771287918,
+          "best_segment_score": 0.34231454133987427,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 8,
+          "canonical_track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "source_rank": 9
+        },
+        {
+          "track_id": "dawninistoccar-insidethetowerofthewizard",
+          "title": "Inside the tower of the wizard",
+          "album": "Dawn in Istoccar",
+          "score": 0.3066067695617676,
+          "global_score": 0.18452444672584534,
+          "best_segment_score": 0.3066067695617676,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 9,
+          "canonical_track_id": "dawninistoccar-insidethetowerofthewizard",
+          "source_rank": 10
+        },
+        {
+          "track_id": "ijustcantsayfarewell-short-message-fromer-soul",
+          "title": "Short message from'er soul",
+          "album": "I just can't say Farewell",
+          "score": 0.29687801003456116,
+          "global_score": 0.24789348244667053,
+          "best_segment_score": 0.29687801003456116,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 10,
+          "canonical_track_id": "ijustcantsayfarewell-short-message-fromer-soul",
+          "source_rank": 11
+        }
+      ]
+    },
+    {
+      "query_id": "es063",
+      "query_original": "algo oscuro pero no agresivo",
+      "detected_language": "es",
+      "query_normalized_en": "something dark but not aggressive",
+      "reference_en": "something dark but not aggressive",
+      "translation_exact_match": true,
+      "translated_reference_embedding_cosine": 1.0,
+      "translated_vs_reference_top5": {
+        "top1_match": true,
+        "overlap_count": 5,
+        "jaccard": 1.0
+      },
+      "translated_vs_reference_top10": {
+        "top1_match": true,
+        "overlap_count": 10,
+        "jaccard": 1.0
+      },
+      "direct_es_vs_reference_top5": {
+        "top1_match": true,
+        "overlap_count": 4,
+        "jaccard": 0.6666666666666666
+      },
+      "direct_es_vs_reference_top10": {
+        "top1_match": true,
+        "overlap_count": 7,
+        "jaccard": 0.5384615384615384
+      },
+      "direct_reference_embedding_cosine": 0.8172062635421753,
+      "translated_results": [
+        {
+          "track_id": "ijustcantsayfarewell-light-awaits",
+          "title": "Light Awaits",
+          "album": "I just can't say Farewell",
+          "score": 0.43937450647354126,
+          "global_score": 0.3699662685394287,
+          "best_segment_score": 0.43937450647354126,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 1,
+          "canonical_track_id": "ijustcantsayfarewell-light-awaits",
+          "source_rank": 1
+        },
+        {
+          "track_id": "dragonrage-1riding-oriental-winds",
+          "title": "Riding Oriental Winds",
+          "album": "Dragon Rage",
+          "score": 0.36174967885017395,
+          "global_score": 0.23209795355796814,
+          "best_segment_score": 0.36174967885017395,
+          "best_segment": {
+            "start": 37.5,
+            "end": 62.5
+          },
+          "rank": 2,
+          "canonical_track_id": "dragonrage-1riding-oriental-winds",
+          "source_rank": 2
+        },
+        {
+          "track_id": "onceuponatale2-thedarkside",
+          "title": "The dark side",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.36160215735435486,
+          "global_score": 0.28188762068748474,
+          "best_segment_score": 0.36160215735435486,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 3,
+          "canonical_track_id": "onceuponatale2-thedarkside",
+          "source_rank": 3
+        },
+        {
+          "track_id": "ijustcantsayfarewell-believe",
+          "title": "Believe",
+          "album": "I just can't say Farewell",
+          "score": 0.36037659645080566,
+          "global_score": 0.24827156960964203,
+          "best_segment_score": 0.36037659645080566,
+          "best_segment": {
+            "start": 50.0,
+            "end": 75.0
+          },
+          "rank": 4,
+          "canonical_track_id": "composition-believe",
+          "source_rank": 4
+        },
+        {
+          "track_id": "thepathmaker-1-astral-door",
+          "title": "Astral door",
+          "album": "The pathmaker",
+          "score": 0.3324885368347168,
+          "global_score": 0.2702082693576813,
+          "best_segment_score": 0.3324885368347168,
+          "best_segment": {
+            "start": 135.0,
+            "end": 160.0
+          },
+          "rank": 5,
+          "canonical_track_id": "thepathmaker-1-astral-door",
+          "source_rank": 5
+        },
+        {
+          "track_id": "onceuponatale2-nocturnalfiercesea",
+          "title": "Nocturnal fierce sea",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.30857571959495544,
+          "global_score": 0.20585587620735168,
+          "best_segment_score": 0.30857571959495544,
+          "best_segment": {
+            "start": 162.5,
+            "end": 187.5
+          },
+          "rank": 6,
+          "canonical_track_id": "onceuponatale2-nocturnalfiercesea",
+          "source_rank": 6
+        },
+        {
+          "track_id": "thepathmaker-4-wounded",
+          "title": "Wounded",
+          "album": "The pathmaker",
+          "score": 0.3046554625034332,
+          "global_score": 0.20981693267822266,
+          "best_segment_score": 0.3046554625034332,
+          "best_segment": {
+            "start": 25.0,
+            "end": 50.0
+          },
+          "rank": 7,
+          "canonical_track_id": "thepathmaker-4-wounded",
+          "source_rank": 7
+        },
+        {
+          "track_id": "inloveorversus-my-finger-on-your-back",
+          "title": "My finger on your back",
+          "album": "In love or versus",
+          "score": 0.2810041904449463,
+          "global_score": 0.21655990183353424,
+          "best_segment_score": 0.2810041904449463,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 8,
+          "canonical_track_id": "inloveorversus-my-finger-on-your-back",
+          "source_rank": 8
+        },
+        {
+          "track_id": "blackandwhite-1misunderstoodtales",
+          "title": "Misunderstood Tales",
+          "album": "Black & White",
+          "score": 0.27670761942863464,
+          "global_score": 0.029986092820763588,
+          "best_segment_score": 0.27670761942863464,
+          "best_segment": {
+            "start": 25.0,
+            "end": 50.0
+          },
+          "rank": 9,
+          "canonical_track_id": "blackandwhite-1misunderstoodtales",
+          "source_rank": 9
+        },
+        {
+          "track_id": "bigsteamflyingmachine-dark-crimson-oil-as-blood",
+          "title": "Dark crimsom oil as Blood",
+          "album": "Night Clockwork",
+          "score": 0.2707779109477997,
+          "global_score": 0.18833927810192108,
+          "best_segment_score": 0.2707779109477997,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 10,
+          "canonical_track_id": "bigsteamflyingmachine-dark-crimson-oil-as-blood",
+          "source_rank": 10
+        }
+      ],
+      "direct_es_results": [
+        {
+          "track_id": "ijustcantsayfarewell-light-awaits",
+          "title": "Light Awaits",
+          "album": "I just can't say Farewell",
+          "score": 0.3949604034423828,
+          "global_score": 0.3540089726448059,
+          "best_segment_score": 0.3949604034423828,
+          "best_segment": {
+            "start": 50.0,
+            "end": 75.0
+          },
+          "rank": 1,
+          "canonical_track_id": "ijustcantsayfarewell-light-awaits",
+          "source_rank": 1
+        },
+        {
+          "track_id": "onceuponatale2-thedarkside",
+          "title": "The dark side",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.3771969676017761,
+          "global_score": 0.27641579508781433,
+          "best_segment_score": 0.3771969676017761,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 2,
+          "canonical_track_id": "onceuponatale2-thedarkside",
+          "source_rank": 2
+        },
+        {
+          "track_id": "ijustcantsayfarewell-believe",
+          "title": "Believe",
+          "album": "I just can't say Farewell",
+          "score": 0.3570069968700409,
+          "global_score": 0.2770453989505768,
+          "best_segment_score": 0.3570069968700409,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 3,
+          "canonical_track_id": "composition-believe",
+          "source_rank": 3
+        },
+        {
+          "track_id": "dragonrage-1riding-oriental-winds",
+          "title": "Riding Oriental Winds",
+          "album": "Dragon Rage",
+          "score": 0.3453865945339203,
+          "global_score": 0.25618040561676025,
+          "best_segment_score": 0.3453865945339203,
+          "best_segment": {
+            "start": 50.0,
+            "end": 75.0
+          },
+          "rank": 4,
+          "canonical_track_id": "dragonrage-1riding-oriental-winds",
+          "source_rank": 4
+        },
+        {
+          "track_id": "onceuponatale2-nocturnalfiercesea",
+          "title": "Nocturnal fierce sea",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.32965439558029175,
+          "global_score": 0.26016414165496826,
+          "best_segment_score": 0.32965439558029175,
+          "best_segment": {
+            "start": 100.0,
+            "end": 125.0
+          },
+          "rank": 5,
+          "canonical_track_id": "onceuponatale2-nocturnalfiercesea",
+          "source_rank": 5
+        },
+        {
+          "track_id": "experimentingonherown-6-fall-of-the-angel",
+          "title": "Fall of the angel",
+          "album": "Experimenting on her own",
+          "score": 0.3235515058040619,
+          "global_score": 0.2552223205566406,
+          "best_segment_score": 0.3235515058040619,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 6,
+          "canonical_track_id": "experimentingonherown-6-fall-of-the-angel",
+          "source_rank": 6
+        },
+        {
+          "track_id": "thepathmaker-9-bonus-returning-home",
+          "title": "Returning home",
+          "album": "The pathmaker",
+          "score": 0.29655638337135315,
+          "global_score": 0.2881527543067932,
+          "best_segment_score": 0.29655638337135315,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 7,
+          "canonical_track_id": "thepathmaker-9-bonus-returning-home",
+          "source_rank": 7
+        },
+        {
+          "track_id": "inloveorversus-that-tickels",
+          "title": "That tickels",
+          "album": "In love or versus",
+          "score": 0.29508957266807556,
+          "global_score": 0.22294895350933075,
+          "best_segment_score": 0.29508957266807556,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 8,
+          "canonical_track_id": "inloveorversus-that-tickels",
+          "source_rank": 8
+        },
+        {
+          "track_id": "blackandwhite-1misunderstoodtales",
+          "title": "Misunderstood Tales",
+          "album": "Black & White",
+          "score": 0.2766622006893158,
+          "global_score": 0.08078808337450027,
+          "best_segment_score": 0.2766622006893158,
+          "best_segment": {
+            "start": 25.0,
+            "end": 50.0
+          },
+          "rank": 9,
+          "canonical_track_id": "blackandwhite-1misunderstoodtales",
+          "source_rank": 9
+        },
+        {
+          "track_id": "inloveorversus-my-finger-on-your-back",
+          "title": "My finger on your back",
+          "album": "In love or versus",
+          "score": 0.2761504650115967,
+          "global_score": 0.21019357442855835,
+          "best_segment_score": 0.2761504650115967,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 10,
+          "canonical_track_id": "inloveorversus-my-finger-on-your-back",
+          "source_rank": 10
+        }
+      ],
+      "reference_results": [
+        {
+          "track_id": "ijustcantsayfarewell-light-awaits",
+          "title": "Light Awaits",
+          "album": "I just can't say Farewell",
+          "score": 0.43937450647354126,
+          "global_score": 0.3699662685394287,
+          "best_segment_score": 0.43937450647354126,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 1,
+          "canonical_track_id": "ijustcantsayfarewell-light-awaits",
+          "source_rank": 1
+        },
+        {
+          "track_id": "dragonrage-1riding-oriental-winds",
+          "title": "Riding Oriental Winds",
+          "album": "Dragon Rage",
+          "score": 0.36174967885017395,
+          "global_score": 0.23209795355796814,
+          "best_segment_score": 0.36174967885017395,
+          "best_segment": {
+            "start": 37.5,
+            "end": 62.5
+          },
+          "rank": 2,
+          "canonical_track_id": "dragonrage-1riding-oriental-winds",
+          "source_rank": 2
+        },
+        {
+          "track_id": "onceuponatale2-thedarkside",
+          "title": "The dark side",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.36160215735435486,
+          "global_score": 0.28188762068748474,
+          "best_segment_score": 0.36160215735435486,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 3,
+          "canonical_track_id": "onceuponatale2-thedarkside",
+          "source_rank": 3
+        },
+        {
+          "track_id": "ijustcantsayfarewell-believe",
+          "title": "Believe",
+          "album": "I just can't say Farewell",
+          "score": 0.36037659645080566,
+          "global_score": 0.24827156960964203,
+          "best_segment_score": 0.36037659645080566,
+          "best_segment": {
+            "start": 50.0,
+            "end": 75.0
+          },
+          "rank": 4,
+          "canonical_track_id": "composition-believe",
+          "source_rank": 4
+        },
+        {
+          "track_id": "thepathmaker-1-astral-door",
+          "title": "Astral door",
+          "album": "The pathmaker",
+          "score": 0.3324885368347168,
+          "global_score": 0.2702082693576813,
+          "best_segment_score": 0.3324885368347168,
+          "best_segment": {
+            "start": 135.0,
+            "end": 160.0
+          },
+          "rank": 5,
+          "canonical_track_id": "thepathmaker-1-astral-door",
+          "source_rank": 5
+        },
+        {
+          "track_id": "onceuponatale2-nocturnalfiercesea",
+          "title": "Nocturnal fierce sea",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.30857571959495544,
+          "global_score": 0.20585587620735168,
+          "best_segment_score": 0.30857571959495544,
+          "best_segment": {
+            "start": 162.5,
+            "end": 187.5
+          },
+          "rank": 6,
+          "canonical_track_id": "onceuponatale2-nocturnalfiercesea",
+          "source_rank": 6
+        },
+        {
+          "track_id": "thepathmaker-4-wounded",
+          "title": "Wounded",
+          "album": "The pathmaker",
+          "score": 0.3046554625034332,
+          "global_score": 0.20981693267822266,
+          "best_segment_score": 0.3046554625034332,
+          "best_segment": {
+            "start": 25.0,
+            "end": 50.0
+          },
+          "rank": 7,
+          "canonical_track_id": "thepathmaker-4-wounded",
+          "source_rank": 7
+        },
+        {
+          "track_id": "inloveorversus-my-finger-on-your-back",
+          "title": "My finger on your back",
+          "album": "In love or versus",
+          "score": 0.2810041904449463,
+          "global_score": 0.21655990183353424,
+          "best_segment_score": 0.2810041904449463,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 8,
+          "canonical_track_id": "inloveorversus-my-finger-on-your-back",
+          "source_rank": 8
+        },
+        {
+          "track_id": "blackandwhite-1misunderstoodtales",
+          "title": "Misunderstood Tales",
+          "album": "Black & White",
+          "score": 0.27670761942863464,
+          "global_score": 0.029986092820763588,
+          "best_segment_score": 0.27670761942863464,
+          "best_segment": {
+            "start": 25.0,
+            "end": 50.0
+          },
+          "rank": 9,
+          "canonical_track_id": "blackandwhite-1misunderstoodtales",
+          "source_rank": 9
+        },
+        {
+          "track_id": "bigsteamflyingmachine-dark-crimson-oil-as-blood",
+          "title": "Dark crimsom oil as Blood",
+          "album": "Night Clockwork",
+          "score": 0.2707779109477997,
+          "global_score": 0.18833927810192108,
+          "best_segment_score": 0.2707779109477997,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 10,
+          "canonical_track_id": "bigsteamflyingmachine-dark-crimson-oil-as-blood",
+          "source_rank": 10
+        }
+      ]
+    },
+    {
+      "query_id": "es064",
+      "query_original": "música tranquila y melancólica",
+      "detected_language": "es",
+      "query_normalized_en": "quiet and melancholy music",
+      "reference_en": "calm and melancholic music",
+      "translation_exact_match": false,
+      "translated_reference_embedding_cosine": 0.9570892453193665,
+      "translated_vs_reference_top5": {
+        "top1_match": false,
+        "overlap_count": 4,
+        "jaccard": 0.6666666666666666
+      },
+      "translated_vs_reference_top10": {
+        "top1_match": false,
+        "overlap_count": 9,
+        "jaccard": 0.8181818181818182
+      },
+      "direct_es_vs_reference_top5": {
+        "top1_match": false,
+        "overlap_count": 3,
+        "jaccard": 0.42857142857142855
+      },
+      "direct_es_vs_reference_top10": {
+        "top1_match": false,
+        "overlap_count": 6,
+        "jaccard": 0.42857142857142855
+      },
+      "direct_reference_embedding_cosine": 0.6695172190666199,
+      "translated_results": [
+        {
+          "track_id": "9-avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.36466431617736816,
+          "global_score": 0.09263284504413605,
+          "best_segment_score": 0.36466431617736816,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 1,
+          "canonical_track_id": "9-avalon",
+          "source_rank": 1
+        },
+        {
+          "track_id": "onceuponatalept1-thereason",
+          "title": "The reason",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.3325977623462677,
+          "global_score": 0.3009366989135742,
+          "best_segment_score": 0.3325977623462677,
+          "best_segment": {
+            "start": 50.0,
+            "end": 75.0
+          },
+          "rank": 2,
+          "canonical_track_id": "onceuponatalept1-thereason",
+          "source_rank": 2
+        },
+        {
+          "track_id": "ijustcantsayfarewell-re-encarnacion",
+          "title": "Re-encarnación",
+          "album": "I just can't say Farewell",
+          "score": 0.32032984495162964,
+          "global_score": 0.1784394085407257,
+          "best_segment_score": 0.32032984495162964,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 3,
+          "canonical_track_id": "ijustcantsayfarewell-re-encarnacion",
+          "source_rank": 3
+        },
+        {
+          "track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "title": "The right side of an orange",
+          "album": "I just can't say Farewell",
+          "score": 0.31020915508270264,
+          "global_score": 0.1638851761817932,
+          "best_segment_score": 0.31020915508270264,
+          "best_segment": {
+            "start": 62.5,
+            "end": 87.5
+          },
+          "rank": 4,
+          "canonical_track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "source_rank": 4
+        },
+        {
+          "track_id": "blackandwhite-4landofnoreturn",
+          "title": "Land of No Return",
+          "album": "Black & White",
+          "score": 0.29379329085350037,
+          "global_score": 0.1716325879096985,
+          "best_segment_score": 0.29379329085350037,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 5,
+          "canonical_track_id": "blackandwhite-4landofnoreturn",
+          "source_rank": 5
+        },
+        {
+          "track_id": "thepathmaker-8-raven-lullaby",
+          "title": "Raven lullaby",
+          "album": "The pathmaker",
+          "score": 0.28062206506729126,
+          "global_score": 0.18510839343070984,
+          "best_segment_score": 0.28062206506729126,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 6,
+          "canonical_track_id": "thepathmaker-8-raven-lullaby",
+          "source_rank": 6
+        },
+        {
+          "track_id": "dragonrage-7flying-through-clouds",
+          "title": "Flying Through Clouds",
+          "album": "Dragon Rage",
+          "score": 0.26057490706443787,
+          "global_score": 0.12142150104045868,
+          "best_segment_score": 0.26057490706443787,
+          "best_segment": {
+            "start": 141.44024658203125,
+            "end": 166.44024658203125
+          },
+          "rank": 7,
+          "canonical_track_id": "dragonrage-7flying-through-clouds",
+          "source_rank": 7
+        },
+        {
+          "track_id": "onceuponatalept1-thecryoftheelves",
+          "title": "The cry of the elves",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.2501578629016876,
+          "global_score": 0.14480245113372803,
+          "best_segment_score": 0.2501578629016876,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 8,
+          "canonical_track_id": "onceuponatalept1-thecryoftheelves",
+          "source_rank": 8
+        },
+        {
+          "track_id": "ijustcantsayfarewell-live",
+          "title": "Live",
+          "album": "I just can't say Farewell",
+          "score": 0.24577338993549347,
+          "global_score": 0.07554644346237183,
+          "best_segment_score": 0.24577338993549347,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 9,
+          "canonical_track_id": "composition-live",
+          "source_rank": 9
+        },
+        {
+          "track_id": "dawninistoccar-insidethetowerofthewizard",
+          "title": "Inside the tower of the wizard",
+          "album": "Dawn in Istoccar",
+          "score": 0.22647732496261597,
+          "global_score": 0.0821545273065567,
+          "best_segment_score": 0.22647732496261597,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 10,
+          "canonical_track_id": "dawninistoccar-insidethetowerofthewizard",
+          "source_rank": 10
+        }
+      ],
+      "direct_es_results": [
+        {
+          "track_id": "ijustcantsayfarewell-re-encarnacion",
+          "title": "Re-encarnación",
+          "album": "I just can't say Farewell",
+          "score": 0.45351704955101013,
+          "global_score": 0.3262406289577484,
+          "best_segment_score": 0.45351704955101013,
+          "best_segment": {
+            "start": 192.2638702392578,
+            "end": 217.2638702392578
+          },
+          "rank": 1,
+          "canonical_track_id": "ijustcantsayfarewell-re-encarnacion",
+          "source_rank": 1
+        },
+        {
+          "track_id": "9-avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.3527846932411194,
+          "global_score": 0.1267092376947403,
+          "best_segment_score": 0.3527846932411194,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 2,
+          "canonical_track_id": "9-avalon",
+          "source_rank": 2
+        },
+        {
+          "track_id": "onceuponatalept1-thereason",
+          "title": "The reason",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.34312713146209717,
+          "global_score": 0.30558717250823975,
+          "best_segment_score": 0.34312713146209717,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 3,
+          "canonical_track_id": "onceuponatalept1-thereason",
+          "source_rank": 3
+        },
+        {
+          "track_id": "onceuponatale2-theguidegirl",
+          "title": "The Guide Girl",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.3283977508544922,
+          "global_score": 0.17385359108448029,
+          "best_segment_score": 0.3283977508544922,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 4,
+          "canonical_track_id": "onceuponatale2-theguidegirl",
+          "source_rank": 4
+        },
+        {
+          "track_id": "thepathmaker-8-raven-lullaby",
+          "title": "Raven lullaby",
+          "album": "The pathmaker",
+          "score": 0.31056731939315796,
+          "global_score": 0.15538504719734192,
+          "best_segment_score": 0.31056731939315796,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 5,
+          "canonical_track_id": "thepathmaker-8-raven-lullaby",
+          "source_rank": 5
+        },
+        {
+          "track_id": "onceuponatale2-thedistantisland",
+          "title": "The distant island",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.30513429641723633,
+          "global_score": 0.19463348388671875,
+          "best_segment_score": 0.30513429641723633,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 6,
+          "canonical_track_id": "onceuponatale2-thedistantisland",
+          "source_rank": 6
+        },
+        {
+          "track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I just can't say Farewell",
+          "score": 0.2835845947265625,
+          "global_score": 0.20407865941524506,
+          "best_segment_score": 0.2835845947265625,
+          "best_segment": {
+            "start": 125.0,
+            "end": 150.0
+          },
+          "rank": 7,
+          "canonical_track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "source_rank": 7
+        },
+        {
+          "track_id": "blackandwhite-4landofnoreturn",
+          "title": "Land of No Return",
+          "album": "Black & White",
+          "score": 0.27128636837005615,
+          "global_score": 0.09283135831356049,
+          "best_segment_score": 0.27128636837005615,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 8,
+          "canonical_track_id": "blackandwhite-4landofnoreturn",
+          "source_rank": 8
+        },
+        {
+          "track_id": "9-david",
+          "title": "David, the scholar",
+          "album": "9",
+          "score": 0.27099719643592834,
+          "global_score": -0.040354304015636444,
+          "best_segment_score": 0.27099719643592834,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 9,
+          "canonical_track_id": "9-david",
+          "source_rank": 9
+        },
+        {
+          "track_id": "onceuponatalept1-thecryoftheelves",
+          "title": "The cry of the elves",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.27050894498825073,
+          "global_score": 0.17104443907737732,
+          "best_segment_score": 0.27050894498825073,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 10,
+          "canonical_track_id": "onceuponatalept1-thecryoftheelves",
+          "source_rank": 10
+        }
+      ],
+      "reference_results": [
+        {
+          "track_id": "onceuponatalept1-thereason",
+          "title": "The reason",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.3189752697944641,
+          "global_score": 0.28112703561782837,
+          "best_segment_score": 0.3189752697944641,
+          "best_segment": {
+            "start": 50.0,
+            "end": 75.0
+          },
+          "rank": 1,
+          "canonical_track_id": "onceuponatalept1-thereason",
+          "source_rank": 1
+        },
+        {
+          "track_id": "9-avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.3160824775695801,
+          "global_score": 0.07073238492012024,
+          "best_segment_score": 0.3160824775695801,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 2,
+          "canonical_track_id": "9-avalon",
+          "source_rank": 2
+        },
+        {
+          "track_id": "ijustcantsayfarewell-re-encarnacion",
+          "title": "Re-encarnación",
+          "album": "I just can't say Farewell",
+          "score": 0.2952416241168976,
+          "global_score": 0.16218113899230957,
+          "best_segment_score": 0.2952416241168976,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 3,
+          "canonical_track_id": "ijustcantsayfarewell-re-encarnacion",
+          "source_rank": 3
+        },
+        {
+          "track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "title": "The right side of an orange",
+          "album": "I just can't say Farewell",
+          "score": 0.2630428075790405,
+          "global_score": 0.1393619179725647,
+          "best_segment_score": 0.2630428075790405,
+          "best_segment": {
+            "start": 62.5,
+            "end": 87.5
+          },
+          "rank": 4,
+          "canonical_track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "source_rank": 4
+        },
+        {
+          "track_id": "onceuponatalept1-thecryoftheelves",
+          "title": "The cry of the elves",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.2575172781944275,
+          "global_score": 0.14157705008983612,
+          "best_segment_score": 0.2575172781944275,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 5,
+          "canonical_track_id": "onceuponatalept1-thecryoftheelves",
+          "source_rank": 5
+        },
+        {
+          "track_id": "thepathmaker-8-raven-lullaby",
+          "title": "Raven lullaby",
+          "album": "The pathmaker",
+          "score": 0.25562965869903564,
+          "global_score": 0.16262778639793396,
+          "best_segment_score": 0.25562965869903564,
+          "best_segment": {
+            "start": 50.0,
+            "end": 75.0
+          },
+          "rank": 6,
+          "canonical_track_id": "thepathmaker-8-raven-lullaby",
+          "source_rank": 6
+        },
+        {
+          "track_id": "dragonrage-7flying-through-clouds",
+          "title": "Flying Through Clouds",
+          "album": "Dragon Rage",
+          "score": 0.250770628452301,
+          "global_score": 0.10412371903657913,
+          "best_segment_score": 0.250770628452301,
+          "best_segment": {
+            "start": 141.44024658203125,
+            "end": 166.44024658203125
+          },
+          "rank": 7,
+          "canonical_track_id": "dragonrage-7flying-through-clouds",
+          "source_rank": 7
+        },
+        {
+          "track_id": "blackandwhite-4landofnoreturn",
+          "title": "Land of No Return",
+          "album": "Black & White",
+          "score": 0.2499266266822815,
+          "global_score": 0.15290972590446472,
+          "best_segment_score": 0.2499266266822815,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 8,
+          "canonical_track_id": "blackandwhite-4landofnoreturn",
+          "source_rank": 8
+        },
+        {
+          "track_id": "ijustcantsayfarewell-live",
+          "title": "Live",
+          "album": "I just can't say Farewell",
+          "score": 0.22474710643291473,
+          "global_score": 0.09645320475101471,
+          "best_segment_score": 0.22474710643291473,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 9,
+          "canonical_track_id": "composition-live",
+          "source_rank": 9
+        },
+        {
+          "track_id": "onceuponatale2-thedarkside",
+          "title": "The dark side",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.22341251373291016,
+          "global_score": 0.14387783408164978,
+          "best_segment_score": 0.22341251373291016,
+          "best_segment": {
+            "start": 25.0,
+            "end": 50.0
+          },
+          "rank": 10,
+          "canonical_track_id": "onceuponatale2-thedarkside",
+          "source_rank": 10
+        }
+      ]
+    },
+    {
+      "query_id": "es065",
+      "query_original": "algo heroico pero reflexivo",
+      "detected_language": "es",
+      "query_normalized_en": "something heroic but thoughtful",
+      "reference_en": "something heroic but reflective",
+      "translation_exact_match": false,
+      "translated_reference_embedding_cosine": 0.9777565598487854,
+      "translated_vs_reference_top5": {
+        "top1_match": true,
+        "overlap_count": 4,
+        "jaccard": 0.6666666666666666
+      },
+      "translated_vs_reference_top10": {
+        "top1_match": true,
+        "overlap_count": 9,
+        "jaccard": 0.8181818181818182
+      },
+      "direct_es_vs_reference_top5": {
+        "top1_match": false,
+        "overlap_count": 2,
+        "jaccard": 0.25
+      },
+      "direct_es_vs_reference_top10": {
+        "top1_match": false,
+        "overlap_count": 9,
+        "jaccard": 0.8181818181818182
+      },
+      "direct_reference_embedding_cosine": 0.930652379989624,
+      "translated_results": [
+        {
+          "track_id": "onceuponatalept1-thereason",
+          "title": "The reason",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.42454859614372253,
+          "global_score": 0.4205745458602905,
+          "best_segment_score": 0.42454859614372253,
+          "best_segment": {
+            "start": 37.5,
+            "end": 62.5
+          },
+          "rank": 1,
+          "canonical_track_id": "onceuponatalept1-thereason",
+          "source_rank": 1
+        },
+        {
+          "track_id": "ijustcantsayfarewell-re-encarnacion",
+          "title": "Re-encarnación",
+          "album": "I just can't say Farewell",
+          "score": 0.41007041931152344,
+          "global_score": 0.3784652650356293,
+          "best_segment_score": 0.41007041931152344,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 2,
+          "canonical_track_id": "ijustcantsayfarewell-re-encarnacion",
+          "source_rank": 2
+        },
+        {
+          "track_id": "ijustcantsayfarewell-believe",
+          "title": "Believe",
+          "album": "I just can't say Farewell",
+          "score": 0.4096229374408722,
+          "global_score": 0.2807375192642212,
+          "best_segment_score": 0.4096229374408722,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 3,
+          "canonical_track_id": "composition-believe",
+          "source_rank": 3
+        },
+        {
+          "track_id": "ijustcantsayfarewell-pegasus",
+          "title": "Pegasus",
+          "album": "I just can't say Farewell",
+          "score": 0.4077474772930145,
+          "global_score": 0.34989726543426514,
+          "best_segment_score": 0.4077474772930145,
+          "best_segment": {
+            "start": 137.5,
+            "end": 162.5
+          },
+          "rank": 4,
+          "canonical_track_id": "ijustcantsayfarewell-pegasus",
+          "source_rank": 4
+        },
+        {
+          "track_id": "blackandwhite-4landofnoreturn",
+          "title": "Land of No Return",
+          "album": "Black & White",
+          "score": 0.40310075879096985,
+          "global_score": 0.3447250723838806,
+          "best_segment_score": 0.40310075879096985,
+          "best_segment": {
+            "start": 175.0,
+            "end": 200.0
+          },
+          "rank": 5,
+          "canonical_track_id": "blackandwhite-4landofnoreturn",
+          "source_rank": 5
+        },
+        {
+          "track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "title": "Awekening of the humankind",
+          "album": "Experimenting on her own",
+          "score": 0.39922085404396057,
+          "global_score": 0.37724626064300537,
+          "best_segment_score": 0.39922085404396057,
+          "best_segment": {
+            "start": 212.5,
+            "end": 237.5
+          },
+          "rank": 6,
+          "canonical_track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "source_rank": 6
+        },
+        {
+          "track_id": "onceuponatale2-thedistantisland",
+          "title": "The distant island",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.37862321734428406,
+          "global_score": 0.3460276424884796,
+          "best_segment_score": 0.37862321734428406,
+          "best_segment": {
+            "start": 125.0,
+            "end": 150.0
+          },
+          "rank": 7,
+          "canonical_track_id": "onceuponatale2-thedistantisland",
+          "source_rank": 7
+        },
+        {
+          "track_id": "experimentingonherown-6-fall-of-the-angel",
+          "title": "Fall of the angel",
+          "album": "Experimenting on her own",
+          "score": 0.37602686882019043,
+          "global_score": 0.3333766460418701,
+          "best_segment_score": 0.37602686882019043,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 8,
+          "canonical_track_id": "experimentingonherown-6-fall-of-the-angel",
+          "source_rank": 8
+        },
+        {
+          "track_id": "onceuponatale2-theguidegirl",
+          "title": "The Guide Girl",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.37346890568733215,
+          "global_score": 0.330660343170166,
+          "best_segment_score": 0.37346890568733215,
+          "best_segment": {
+            "start": 87.5,
+            "end": 112.5
+          },
+          "rank": 9,
+          "canonical_track_id": "onceuponatale2-theguidegirl",
+          "source_rank": 9
+        },
+        {
+          "track_id": "ijustcantsayfarewell-live",
+          "title": "Live",
+          "album": "I just can't say Farewell",
+          "score": 0.370952308177948,
+          "global_score": 0.3666188418865204,
+          "best_segment_score": 0.370952308177948,
+          "best_segment": {
+            "start": 87.5,
+            "end": 112.5
+          },
+          "rank": 10,
+          "canonical_track_id": "composition-live",
+          "source_rank": 10
+        }
+      ],
+      "direct_es_results": [
+        {
+          "track_id": "ijustcantsayfarewell-believe",
+          "title": "Believe",
+          "album": "I just can't say Farewell",
+          "score": 0.4395221769809723,
+          "global_score": 0.32926732301712036,
+          "best_segment_score": 0.4395221769809723,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 1,
+          "canonical_track_id": "composition-believe",
+          "source_rank": 1
+        },
+        {
+          "track_id": "ijustcantsayfarewell-pegasus",
+          "title": "Pegasus",
+          "album": "I just can't say Farewell",
+          "score": 0.4346054792404175,
+          "global_score": 0.39545148611068726,
+          "best_segment_score": 0.4346054792404175,
+          "best_segment": {
+            "start": 137.5,
+            "end": 162.5
+          },
+          "rank": 2,
+          "canonical_track_id": "ijustcantsayfarewell-pegasus",
+          "source_rank": 2
+        },
+        {
+          "track_id": "experimentingonherown-6-fall-of-the-angel",
+          "title": "Fall of the angel",
+          "album": "Experimenting on her own",
+          "score": 0.4302331507205963,
+          "global_score": 0.4039769172668457,
+          "best_segment_score": 0.4302331507205963,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 3,
+          "canonical_track_id": "experimentingonherown-6-fall-of-the-angel",
+          "source_rank": 3
+        },
+        {
+          "track_id": "ijustcantsayfarewell-live",
+          "title": "Live",
+          "album": "I just can't say Farewell",
+          "score": 0.42879968881607056,
+          "global_score": 0.4221765697002411,
+          "best_segment_score": 0.42879968881607056,
+          "best_segment": {
+            "start": 87.5,
+            "end": 112.5
+          },
+          "rank": 4,
+          "canonical_track_id": "composition-live",
+          "source_rank": 4
+        },
+        {
+          "track_id": "ijustcantsayfarewell-re-encarnacion",
+          "title": "Re-encarnación",
+          "album": "I just can't say Farewell",
+          "score": 0.42695188522338867,
+          "global_score": 0.3846856951713562,
+          "best_segment_score": 0.42695188522338867,
+          "best_segment": {
+            "start": 162.5,
+            "end": 187.5
+          },
+          "rank": 5,
+          "canonical_track_id": "ijustcantsayfarewell-re-encarnacion",
+          "source_rank": 5
+        },
+        {
+          "track_id": "onceuponatalept1-thereason",
+          "title": "The reason",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.41856878995895386,
+          "global_score": 0.3966047167778015,
+          "best_segment_score": 0.41856878995895386,
+          "best_segment": {
+            "start": 159.00070190429688,
+            "end": 184.00070190429688
+          },
+          "rank": 6,
+          "canonical_track_id": "onceuponatalept1-thereason",
+          "source_rank": 6
+        },
+        {
+          "track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "title": "Awekening of the humankind",
+          "album": "Experimenting on her own",
+          "score": 0.41352909803390503,
+          "global_score": 0.4098878502845764,
+          "best_segment_score": 0.41352909803390503,
+          "best_segment": {
+            "start": 212.5,
+            "end": 237.5
+          },
+          "rank": 7,
+          "canonical_track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "source_rank": 7
+        },
+        {
+          "track_id": "blackandwhite-4landofnoreturn",
+          "title": "Land of No Return",
+          "album": "Black & White",
+          "score": 0.4074814021587372,
+          "global_score": 0.3479449152946472,
+          "best_segment_score": 0.4074814021587372,
+          "best_segment": {
+            "start": 212.5,
+            "end": 237.5
+          },
+          "rank": 8,
+          "canonical_track_id": "blackandwhite-4landofnoreturn",
+          "source_rank": 8
+        },
+        {
+          "track_id": "onceuponatale2-thedistantisland",
+          "title": "The distant island",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.40392911434173584,
+          "global_score": 0.37031441926956177,
+          "best_segment_score": 0.40392911434173584,
+          "best_segment": {
+            "start": 125.0,
+            "end": 150.0
+          },
+          "rank": 9,
+          "canonical_track_id": "onceuponatale2-thedistantisland",
+          "source_rank": 9
+        },
+        {
+          "track_id": "onceuponatale2-theguidegirl",
+          "title": "The Guide Girl",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.39838850498199463,
+          "global_score": 0.3398701548576355,
+          "best_segment_score": 0.39838850498199463,
+          "best_segment": {
+            "start": 87.5,
+            "end": 112.5
+          },
+          "rank": 10,
+          "canonical_track_id": "onceuponatale2-theguidegirl",
+          "source_rank": 10
+        }
+      ],
+      "reference_results": [
+        {
+          "track_id": "onceuponatalept1-thereason",
+          "title": "The reason",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.4281865358352661,
+          "global_score": 0.4242253303527832,
+          "best_segment_score": 0.4281865358352661,
+          "best_segment": {
+            "start": 37.5,
+            "end": 62.5
+          },
+          "rank": 1,
+          "canonical_track_id": "onceuponatalept1-thereason",
+          "source_rank": 1
+        },
+        {
+          "track_id": "ijustcantsayfarewell-re-encarnacion",
+          "title": "Re-encarnación",
+          "album": "I just can't say Farewell",
+          "score": 0.4273657202720642,
+          "global_score": 0.39077264070510864,
+          "best_segment_score": 0.4273657202720642,
+          "best_segment": {
+            "start": 175.0,
+            "end": 200.0
+          },
+          "rank": 2,
+          "canonical_track_id": "ijustcantsayfarewell-re-encarnacion",
+          "source_rank": 2
+        },
+        {
+          "track_id": "blackandwhite-4landofnoreturn",
+          "title": "Land of No Return",
+          "album": "Black & White",
+          "score": 0.40391385555267334,
+          "global_score": 0.3497653007507324,
+          "best_segment_score": 0.40391385555267334,
+          "best_segment": {
+            "start": 212.5,
+            "end": 237.5
+          },
+          "rank": 3,
+          "canonical_track_id": "blackandwhite-4landofnoreturn",
+          "source_rank": 3
+        },
+        {
+          "track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "title": "Awekening of the humankind",
+          "album": "Experimenting on her own",
+          "score": 0.39729493856430054,
+          "global_score": 0.36598271131515503,
+          "best_segment_score": 0.39729493856430054,
+          "best_segment": {
+            "start": 212.5,
+            "end": 237.5
+          },
+          "rank": 4,
+          "canonical_track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "source_rank": 4
+        },
+        {
+          "track_id": "ijustcantsayfarewell-pegasus",
+          "title": "Pegasus",
+          "album": "I just can't say Farewell",
+          "score": 0.3966420888900757,
+          "global_score": 0.30679985880851746,
+          "best_segment_score": 0.3966420888900757,
+          "best_segment": {
+            "start": 137.5,
+            "end": 162.5
+          },
+          "rank": 5,
+          "canonical_track_id": "ijustcantsayfarewell-pegasus",
+          "source_rank": 5
+        },
+        {
+          "track_id": "onceuponatale2-thedistantisland",
+          "title": "The distant island",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.3873412013053894,
+          "global_score": 0.3549898862838745,
+          "best_segment_score": 0.3873412013053894,
+          "best_segment": {
+            "start": 125.0,
+            "end": 150.0
+          },
+          "rank": 6,
+          "canonical_track_id": "onceuponatale2-thedistantisland",
+          "source_rank": 6
+        },
+        {
+          "track_id": "ijustcantsayfarewell-live",
+          "title": "Live",
+          "album": "I just can't say Farewell",
+          "score": 0.37911680340766907,
+          "global_score": 0.3661934733390808,
+          "best_segment_score": 0.37911680340766907,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 7,
+          "canonical_track_id": "composition-live",
+          "source_rank": 7
+        },
+        {
+          "track_id": "ijustcantsayfarewell-believe",
+          "title": "Believe",
+          "album": "I just can't say Farewell",
+          "score": 0.37843042612075806,
+          "global_score": 0.26960819959640503,
+          "best_segment_score": 0.37843042612075806,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 8,
+          "canonical_track_id": "composition-believe",
+          "source_rank": 8
+        },
+        {
+          "track_id": "blackandwhite-8letthewolfout",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.37104320526123047,
+          "global_score": 0.2889888286590576,
+          "best_segment_score": 0.37104320526123047,
+          "best_segment": {
+            "start": 37.5,
+            "end": 62.5
+          },
+          "rank": 9,
+          "canonical_track_id": "blackandwhite-8letthewolfout",
+          "source_rank": 9
+        },
+        {
+          "track_id": "experimentingonherown-6-fall-of-the-angel",
+          "title": "Fall of the angel",
+          "album": "Experimenting on her own",
+          "score": 0.358052134513855,
+          "global_score": 0.30329275131225586,
+          "best_segment_score": 0.358052134513855,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 10,
+          "canonical_track_id": "experimentingonherown-6-fall-of-the-angel",
+          "source_rank": 10
+        }
+      ]
+    },
+    {
+      "query_id": "es066",
+      "query_original": "música para explorar unas ruinas antiguas",
+      "detected_language": "es",
+      "query_normalized_en": "music to explore ancient ruins",
+      "reference_en": "music for exploring ancient ruins",
+      "translation_exact_match": false,
+      "translated_reference_embedding_cosine": 0.9527950286865234,
+      "translated_vs_reference_top5": {
+        "top1_match": true,
+        "overlap_count": 4,
+        "jaccard": 0.6666666666666666
+      },
+      "translated_vs_reference_top10": {
+        "top1_match": true,
+        "overlap_count": 9,
+        "jaccard": 0.8181818181818182
+      },
+      "direct_es_vs_reference_top5": {
+        "top1_match": true,
+        "overlap_count": 3,
+        "jaccard": 0.42857142857142855
+      },
+      "direct_es_vs_reference_top10": {
+        "top1_match": true,
+        "overlap_count": 7,
+        "jaccard": 0.5384615384615384
+      },
+      "direct_reference_embedding_cosine": 0.7306846380233765,
+      "translated_results": [
+        {
+          "track_id": "onceuponatale2-beathreex",
+          "title": "Be a three X",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.5521911382675171,
+          "global_score": 0.459264874458313,
+          "best_segment_score": 0.5521911382675171,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 1,
+          "canonical_track_id": "onceuponatale2-beathreex",
+          "source_rank": 1
+        },
+        {
+          "track_id": "onceuponatalept1-ivorycastle",
+          "title": "Ivory Castle",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.5343016386032104,
+          "global_score": 0.4858051538467407,
+          "best_segment_score": 0.5343016386032104,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 2,
+          "canonical_track_id": "onceuponatalept1-ivorycastle",
+          "source_rank": 2
+        },
+        {
+          "track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I just can't say Farewell",
+          "score": 0.5283019542694092,
+          "global_score": 0.38881972432136536,
+          "best_segment_score": 0.5283019542694092,
+          "best_segment": {
+            "start": 225.0,
+            "end": 250.0
+          },
+          "rank": 3,
+          "canonical_track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "source_rank": 3
+        },
+        {
+          "track_id": "ijustcantsayfarewell-live",
+          "title": "Live",
+          "album": "I just can't say Farewell",
+          "score": 0.5247620344161987,
+          "global_score": 0.4832328259944916,
+          "best_segment_score": 0.5247620344161987,
+          "best_segment": {
+            "start": 100.0,
+            "end": 125.0
+          },
+          "rank": 4,
+          "canonical_track_id": "composition-live",
+          "source_rank": 4
+        },
+        {
+          "track_id": "9-avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.5160837173461914,
+          "global_score": 0.42387479543685913,
+          "best_segment_score": 0.5160837173461914,
+          "best_segment": {
+            "start": 387.5,
+            "end": 412.5
+          },
+          "rank": 5,
+          "canonical_track_id": "9-avalon",
+          "source_rank": 5
+        },
+        {
+          "track_id": "blackandwhite-1misunderstoodtales",
+          "title": "Misunderstood Tales",
+          "album": "Black & White",
+          "score": 0.49586308002471924,
+          "global_score": 0.2679913640022278,
+          "best_segment_score": 0.49586308002471924,
+          "best_segment": {
+            "start": 25.0,
+            "end": 50.0
+          },
+          "rank": 6,
+          "canonical_track_id": "blackandwhite-1misunderstoodtales",
+          "source_rank": 7
+        },
+        {
+          "track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "title": "Awekening of the humankind",
+          "album": "Experimenting on her own",
+          "score": 0.4748345613479614,
+          "global_score": 0.3424917459487915,
+          "best_segment_score": 0.4748345613479614,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 7,
+          "canonical_track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "source_rank": 8
+        },
+        {
+          "track_id": "experimentingonherown-1-classical-is-so-metal",
+          "title": "Classical is so metal",
+          "album": "Experimenting on her own",
+          "score": 0.4463352560997009,
+          "global_score": 0.35154569149017334,
+          "best_segment_score": 0.4463352560997009,
+          "best_segment": {
+            "start": 25.0,
+            "end": 50.0
+          },
+          "rank": 8,
+          "canonical_track_id": "experimentingonherown-1-classical-is-so-metal",
+          "source_rank": 9
+        },
+        {
+          "track_id": "thepathmaker-1-astral-door",
+          "title": "Astral door",
+          "album": "The pathmaker",
+          "score": 0.43856796622276306,
+          "global_score": 0.3596392571926117,
+          "best_segment_score": 0.43856796622276306,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 9,
+          "canonical_track_id": "thepathmaker-1-astral-door",
+          "source_rank": 10
+        },
+        {
+          "track_id": "blackandwhite-6redtatoodream",
+          "title": "Red Tattoo Dream",
+          "album": "Black & White",
+          "score": 0.43721386790275574,
+          "global_score": 0.30201035737991333,
+          "best_segment_score": 0.43721386790275574,
+          "best_segment": {
+            "start": 87.5,
+            "end": 112.5
+          },
+          "rank": 10,
+          "canonical_track_id": "blackandwhite-6redtatoodream",
+          "source_rank": 11
+        }
+      ],
+      "direct_es_results": [
+        {
+          "track_id": "onceuponatale2-beathreex",
+          "title": "Be a three X",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.45421797037124634,
+          "global_score": 0.31720179319381714,
+          "best_segment_score": 0.45421797037124634,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 1,
+          "canonical_track_id": "onceuponatale2-beathreex",
+          "source_rank": 1
+        },
+        {
+          "track_id": "ijustcantsayfarewell-live",
+          "title": "Live",
+          "album": "I just can't say Farewell",
+          "score": 0.4437471628189087,
+          "global_score": 0.3478575646877289,
+          "best_segment_score": 0.4437471628189087,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 2,
+          "canonical_track_id": "composition-live",
+          "source_rank": 2
+        },
+        {
+          "track_id": "onceuponatalept1-ivorycastle",
+          "title": "Ivory Castle",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.43974512815475464,
+          "global_score": 0.37147465348243713,
+          "best_segment_score": 0.43974512815475464,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 3,
+          "canonical_track_id": "onceuponatalept1-ivorycastle",
+          "source_rank": 3
+        },
+        {
+          "track_id": "9-avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.42829644680023193,
+          "global_score": 0.34964215755462646,
+          "best_segment_score": 0.42829644680023193,
+          "best_segment": {
+            "start": 487.5,
+            "end": 512.5
+          },
+          "rank": 4,
+          "canonical_track_id": "9-avalon",
+          "source_rank": 4
+        },
+        {
+          "track_id": "thepathmaker-2-hic-sunt-dracones",
+          "title": "Hic sunt dracones",
+          "album": "The pathmaker",
+          "score": 0.4176326394081116,
+          "global_score": 0.2176189422607422,
+          "best_segment_score": 0.4176326394081116,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 5,
+          "canonical_track_id": "thepathmaker-2-hic-sunt-dracones",
+          "source_rank": 6
+        },
+        {
+          "track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I just can't say Farewell",
+          "score": 0.41730624437332153,
+          "global_score": 0.3246232271194458,
+          "best_segment_score": 0.41730624437332153,
+          "best_segment": {
+            "start": 225.0,
+            "end": 250.0
+          },
+          "rank": 6,
+          "canonical_track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "source_rank": 7
+        },
+        {
+          "track_id": "ijustcantsayfarewell-light-awaits",
+          "title": "Light Awaits",
+          "album": "I just can't say Farewell",
+          "score": 0.3984724283218384,
+          "global_score": 0.22260552644729614,
+          "best_segment_score": 0.3984724283218384,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 7,
+          "canonical_track_id": "ijustcantsayfarewell-light-awaits",
+          "source_rank": 8
+        },
+        {
+          "track_id": "ijustcantsayfarewell-pegasus",
+          "title": "Pegasus",
+          "album": "I just can't say Farewell",
+          "score": 0.396220862865448,
+          "global_score": 0.19247111678123474,
+          "best_segment_score": 0.396220862865448,
+          "best_segment": {
+            "start": 141.00070190429688,
+            "end": 166.00070190429688
+          },
+          "rank": 8,
+          "canonical_track_id": "ijustcantsayfarewell-pegasus",
+          "source_rank": 9
+        },
+        {
+          "track_id": "dragonrage-1riding-oriental-winds",
+          "title": "Riding Oriental Winds",
+          "album": "Dragon Rage",
+          "score": 0.39480382204055786,
+          "global_score": 0.20269638299942017,
+          "best_segment_score": 0.39480382204055786,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 9,
+          "canonical_track_id": "dragonrage-1riding-oriental-winds",
+          "source_rank": 10
+        },
+        {
+          "track_id": "blackandwhite-1misunderstoodtales",
+          "title": "Misunderstood Tales",
+          "album": "Black & White",
+          "score": 0.37591296434402466,
+          "global_score": 0.1816469430923462,
+          "best_segment_score": 0.37591296434402466,
+          "best_segment": {
+            "start": 25.0,
+            "end": 50.0
+          },
+          "rank": 10,
+          "canonical_track_id": "blackandwhite-1misunderstoodtales",
+          "source_rank": 11
+        }
+      ],
+      "reference_results": [
+        {
+          "track_id": "onceuponatale2-beathreex",
+          "title": "Be a three X",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.5527318120002747,
+          "global_score": 0.45853421092033386,
+          "best_segment_score": 0.5527318120002747,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 1,
+          "canonical_track_id": "onceuponatale2-beathreex",
+          "source_rank": 1
+        },
+        {
+          "track_id": "ijustcantsayfarewell-live",
+          "title": "Live",
+          "album": "I just can't say Farewell",
+          "score": 0.5346081852912903,
+          "global_score": 0.49466419219970703,
+          "best_segment_score": 0.5346081852912903,
+          "best_segment": {
+            "start": 100.0,
+            "end": 125.0
+          },
+          "rank": 2,
+          "canonical_track_id": "composition-live",
+          "source_rank": 2
+        },
+        {
+          "track_id": "blackandwhite-1misunderstoodtales",
+          "title": "Misunderstood Tales",
+          "album": "Black & White",
+          "score": 0.5342104434967041,
+          "global_score": 0.2862357497215271,
+          "best_segment_score": 0.5342104434967041,
+          "best_segment": {
+            "start": 25.0,
+            "end": 50.0
+          },
+          "rank": 3,
+          "canonical_track_id": "blackandwhite-1misunderstoodtales",
+          "source_rank": 3
+        },
+        {
+          "track_id": "onceuponatalept1-ivorycastle",
+          "title": "Ivory Castle",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.5279597043991089,
+          "global_score": 0.48405736684799194,
+          "best_segment_score": 0.5279597043991089,
+          "best_segment": {
+            "start": 87.5,
+            "end": 112.5
+          },
+          "rank": 4,
+          "canonical_track_id": "onceuponatalept1-ivorycastle",
+          "source_rank": 4
+        },
+        {
+          "track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I just can't say Farewell",
+          "score": 0.5044323801994324,
+          "global_score": 0.3741123378276825,
+          "best_segment_score": 0.5044323801994324,
+          "best_segment": {
+            "start": 225.0,
+            "end": 250.0
+          },
+          "rank": 5,
+          "canonical_track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "source_rank": 6
+        },
+        {
+          "track_id": "9-avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.493186891078949,
+          "global_score": 0.4026809334754944,
+          "best_segment_score": 0.493186891078949,
+          "best_segment": {
+            "start": 387.5,
+            "end": 412.5
+          },
+          "rank": 6,
+          "canonical_track_id": "9-avalon",
+          "source_rank": 7
+        },
+        {
+          "track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "title": "Awekening of the humankind",
+          "album": "Experimenting on her own",
+          "score": 0.47302088141441345,
+          "global_score": 0.3505079448223114,
+          "best_segment_score": 0.47302088141441345,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 7,
+          "canonical_track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "source_rank": 8
+        },
+        {
+          "track_id": "experimentingonherown-1-classical-is-so-metal",
+          "title": "Classical is so metal",
+          "album": "Experimenting on her own",
+          "score": 0.4646211266517639,
+          "global_score": 0.3715861439704895,
+          "best_segment_score": 0.4646211266517639,
+          "best_segment": {
+            "start": 25.0,
+            "end": 50.0
+          },
+          "rank": 8,
+          "canonical_track_id": "experimentingonherown-1-classical-is-so-metal",
+          "source_rank": 9
+        },
+        {
+          "track_id": "thepathmaker-1-astral-door",
+          "title": "Astral door",
+          "album": "The pathmaker",
+          "score": 0.4463752508163452,
+          "global_score": 0.3809908628463745,
+          "best_segment_score": 0.4463752508163452,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 9,
+          "canonical_track_id": "thepathmaker-1-astral-door",
+          "source_rank": 10
+        },
+        {
+          "track_id": "ijustcantsayfarewell-light-awaits",
+          "title": "Light Awaits",
+          "album": "I just can't say Farewell",
+          "score": 0.4386872947216034,
+          "global_score": 0.36291927099227905,
+          "best_segment_score": 0.4386872947216034,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 10,
+          "canonical_track_id": "ijustcantsayfarewell-light-awaits",
+          "source_rank": 11
+        }
+      ]
+    },
+    {
+      "query_id": "es067",
+      "query_original": "una pieza emocional con violín",
+      "detected_language": "es",
+      "query_normalized_en": "an emotional piece with violin",
+      "reference_en": "an emotional piece with violin",
+      "translation_exact_match": true,
+      "translated_reference_embedding_cosine": 1.0,
+      "translated_vs_reference_top5": {
+        "top1_match": true,
+        "overlap_count": 5,
+        "jaccard": 1.0
+      },
+      "translated_vs_reference_top10": {
+        "top1_match": true,
+        "overlap_count": 10,
+        "jaccard": 1.0
+      },
+      "direct_es_vs_reference_top5": {
+        "top1_match": false,
+        "overlap_count": 5,
+        "jaccard": 1.0
+      },
+      "direct_es_vs_reference_top10": {
+        "top1_match": false,
+        "overlap_count": 6,
+        "jaccard": 0.42857142857142855
+      },
+      "direct_reference_embedding_cosine": 0.819210410118103,
+      "translated_results": [
+        {
+          "track_id": "thepathmaker-8-raven-lullaby",
+          "title": "Raven lullaby",
+          "album": "The pathmaker",
+          "score": 0.529789924621582,
+          "global_score": 0.47852426767349243,
+          "best_segment_score": 0.529789924621582,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 1,
+          "canonical_track_id": "thepathmaker-8-raven-lullaby",
+          "source_rank": 1
+        },
+        {
+          "track_id": "blackandwhite-2reachthetruth",
+          "title": "Reach the Truth",
+          "album": "Black & White",
+          "score": 0.5041000843048096,
+          "global_score": 0.45962125062942505,
+          "best_segment_score": 0.5041000843048096,
+          "best_segment": {
+            "start": 50.0,
+            "end": 75.0
+          },
+          "rank": 2,
+          "canonical_track_id": "blackandwhite-2reachthetruth",
+          "source_rank": 2
+        },
+        {
+          "track_id": "dragonrage-1riding-oriental-winds",
+          "title": "Riding Oriental Winds",
+          "album": "Dragon Rage",
+          "score": 0.5027202367782593,
+          "global_score": 0.22752773761749268,
+          "best_segment_score": 0.5027202367782593,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 3,
+          "canonical_track_id": "dragonrage-1riding-oriental-winds",
+          "source_rank": 3
+        },
+        {
+          "track_id": "dragonrage-4the-night-glides",
+          "title": "The Night Glides",
+          "album": "Dragon Rage",
+          "score": 0.43502891063690186,
+          "global_score": 0.34617191553115845,
+          "best_segment_score": 0.43502891063690186,
+          "best_segment": {
+            "start": 181.11764526367188,
+            "end": 206.11764526367188
+          },
+          "rank": 4,
+          "canonical_track_id": "dragonrage-4the-night-glides",
+          "source_rank": 4
+        },
+        {
+          "track_id": "9-iberian",
+          "title": "Iberian fields",
+          "album": "9",
+          "score": 0.42894530296325684,
+          "global_score": 0.3341344892978668,
+          "best_segment_score": 0.42894530296325684,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 5,
+          "canonical_track_id": "9-iberian",
+          "source_rank": 5
+        },
+        {
+          "track_id": "thepathmaker-6-last-man-standing",
+          "title": "Last man standing",
+          "album": "The pathmaker",
+          "score": 0.4230765998363495,
+          "global_score": 0.31552451848983765,
+          "best_segment_score": 0.4230765998363495,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 6,
+          "canonical_track_id": "thepathmaker-6-last-man-standing",
+          "source_rank": 6
+        },
+        {
+          "track_id": "experimentingonherown-9-beyond-the-axiomatic-truth",
+          "title": "Beyond the axiomatic truth",
+          "album": "Experimenting on her own",
+          "score": 0.42058318853378296,
+          "global_score": 0.2480686604976654,
+          "best_segment_score": 0.42058318853378296,
+          "best_segment": {
+            "start": 37.5,
+            "end": 62.5
+          },
+          "rank": 7,
+          "canonical_track_id": "experimentingonherown-9-beyond-the-axiomatic-truth",
+          "source_rank": 7
+        },
+        {
+          "track_id": "blackandwhite-6redtatoodream",
+          "title": "Red Tattoo Dream",
+          "album": "Black & White",
+          "score": 0.41569074988365173,
+          "global_score": 0.29093223810195923,
+          "best_segment_score": 0.41569074988365173,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 8,
+          "canonical_track_id": "blackandwhite-6redtatoodream",
+          "source_rank": 8
+        },
+        {
+          "track_id": "ijustcantsayfarewell-re-encarnacion",
+          "title": "Re-encarnación",
+          "album": "I just can't say Farewell",
+          "score": 0.41368377208709717,
+          "global_score": 0.23313380777835846,
+          "best_segment_score": 0.41368377208709717,
+          "best_segment": {
+            "start": 137.5,
+            "end": 162.5
+          },
+          "rank": 9,
+          "canonical_track_id": "ijustcantsayfarewell-re-encarnacion",
+          "source_rank": 9
+        },
+        {
+          "track_id": "blackandwhite-8letthewolfout",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.4088573455810547,
+          "global_score": 0.3122766613960266,
+          "best_segment_score": 0.4088573455810547,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 10,
+          "canonical_track_id": "blackandwhite-8letthewolfout",
+          "source_rank": 10
+        }
+      ],
+      "direct_es_results": [
+        {
+          "track_id": "dragonrage-1riding-oriental-winds",
+          "title": "Riding Oriental Winds",
+          "album": "Dragon Rage",
+          "score": 0.6811418533325195,
+          "global_score": 0.42558473348617554,
+          "best_segment_score": 0.6811418533325195,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 1,
+          "canonical_track_id": "dragonrage-1riding-oriental-winds",
+          "source_rank": 1
+        },
+        {
+          "track_id": "thepathmaker-8-raven-lullaby",
+          "title": "Raven lullaby",
+          "album": "The pathmaker",
+          "score": 0.666957437992096,
+          "global_score": 0.6064058542251587,
+          "best_segment_score": 0.666957437992096,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 2,
+          "canonical_track_id": "thepathmaker-8-raven-lullaby",
+          "source_rank": 2
+        },
+        {
+          "track_id": "9-iberian",
+          "title": "Iberian fields",
+          "album": "9",
+          "score": 0.5907701849937439,
+          "global_score": 0.4705007076263428,
+          "best_segment_score": 0.5907701849937439,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 3,
+          "canonical_track_id": "9-iberian",
+          "source_rank": 3
+        },
+        {
+          "track_id": "blackandwhite-2reachthetruth",
+          "title": "Reach the Truth",
+          "album": "Black & White",
+          "score": 0.5844202041625977,
+          "global_score": 0.5399134159088135,
+          "best_segment_score": 0.5844202041625977,
+          "best_segment": {
+            "start": 223.00070190429688,
+            "end": 248.00070190429688
+          },
+          "rank": 4,
+          "canonical_track_id": "blackandwhite-2reachthetruth",
+          "source_rank": 4
+        },
+        {
+          "track_id": "dragonrage-4the-night-glides",
+          "title": "The Night Glides",
+          "album": "Dragon Rage",
+          "score": 0.5589883327484131,
+          "global_score": 0.444955974817276,
+          "best_segment_score": 0.5589883327484131,
+          "best_segment": {
+            "start": 181.11764526367188,
+            "end": 206.11764526367188
+          },
+          "rank": 5,
+          "canonical_track_id": "dragonrage-4the-night-glides",
+          "source_rank": 5
+        },
+        {
+          "track_id": "9-edge",
+          "title": "The edge of the unknown",
+          "album": "9",
+          "score": 0.5452436804771423,
+          "global_score": 0.4474233090877533,
+          "best_segment_score": 0.5452436804771423,
+          "best_segment": {
+            "start": 100.0,
+            "end": 125.0
+          },
+          "rank": 6,
+          "canonical_track_id": "9-edge",
+          "source_rank": 6
+        },
+        {
+          "track_id": "thepathmaker-6-last-man-standing",
+          "title": "Last man standing",
+          "album": "The pathmaker",
+          "score": 0.541553795337677,
+          "global_score": 0.44186076521873474,
+          "best_segment_score": 0.541553795337677,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 7,
+          "canonical_track_id": "thepathmaker-6-last-man-standing",
+          "source_rank": 7
+        },
+        {
+          "track_id": "9-jewel",
+          "title": "Teal jewel's enigma",
+          "album": "9",
+          "score": 0.5251227021217346,
+          "global_score": 0.4228845238685608,
+          "best_segment_score": 0.5251227021217346,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 8,
+          "canonical_track_id": "9-jewel",
+          "source_rank": 8
+        },
+        {
+          "track_id": "9-avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.5234298706054688,
+          "global_score": 0.4441232681274414,
+          "best_segment_score": 0.5234298706054688,
+          "best_segment": {
+            "start": 225.0,
+            "end": 250.0
+          },
+          "rank": 9,
+          "canonical_track_id": "9-avalon",
+          "source_rank": 9
+        },
+        {
+          "track_id": "9-david",
+          "title": "David, the scholar",
+          "album": "9",
+          "score": 0.5216690301895142,
+          "global_score": 0.4235781729221344,
+          "best_segment_score": 0.5216690301895142,
+          "best_segment": {
+            "start": 175.0,
+            "end": 200.0
+          },
+          "rank": 10,
+          "canonical_track_id": "9-david",
+          "source_rank": 10
+        }
+      ],
+      "reference_results": [
+        {
+          "track_id": "thepathmaker-8-raven-lullaby",
+          "title": "Raven lullaby",
+          "album": "The pathmaker",
+          "score": 0.529789924621582,
+          "global_score": 0.47852426767349243,
+          "best_segment_score": 0.529789924621582,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 1,
+          "canonical_track_id": "thepathmaker-8-raven-lullaby",
+          "source_rank": 1
+        },
+        {
+          "track_id": "blackandwhite-2reachthetruth",
+          "title": "Reach the Truth",
+          "album": "Black & White",
+          "score": 0.5041000843048096,
+          "global_score": 0.45962125062942505,
+          "best_segment_score": 0.5041000843048096,
+          "best_segment": {
+            "start": 50.0,
+            "end": 75.0
+          },
+          "rank": 2,
+          "canonical_track_id": "blackandwhite-2reachthetruth",
+          "source_rank": 2
+        },
+        {
+          "track_id": "dragonrage-1riding-oriental-winds",
+          "title": "Riding Oriental Winds",
+          "album": "Dragon Rage",
+          "score": 0.5027202367782593,
+          "global_score": 0.22752773761749268,
+          "best_segment_score": 0.5027202367782593,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 3,
+          "canonical_track_id": "dragonrage-1riding-oriental-winds",
+          "source_rank": 3
+        },
+        {
+          "track_id": "dragonrage-4the-night-glides",
+          "title": "The Night Glides",
+          "album": "Dragon Rage",
+          "score": 0.43502891063690186,
+          "global_score": 0.34617191553115845,
+          "best_segment_score": 0.43502891063690186,
+          "best_segment": {
+            "start": 181.11764526367188,
+            "end": 206.11764526367188
+          },
+          "rank": 4,
+          "canonical_track_id": "dragonrage-4the-night-glides",
+          "source_rank": 4
+        },
+        {
+          "track_id": "9-iberian",
+          "title": "Iberian fields",
+          "album": "9",
+          "score": 0.42894530296325684,
+          "global_score": 0.3341344892978668,
+          "best_segment_score": 0.42894530296325684,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 5,
+          "canonical_track_id": "9-iberian",
+          "source_rank": 5
+        },
+        {
+          "track_id": "thepathmaker-6-last-man-standing",
+          "title": "Last man standing",
+          "album": "The pathmaker",
+          "score": 0.4230765998363495,
+          "global_score": 0.31552451848983765,
+          "best_segment_score": 0.4230765998363495,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 6,
+          "canonical_track_id": "thepathmaker-6-last-man-standing",
+          "source_rank": 6
+        },
+        {
+          "track_id": "experimentingonherown-9-beyond-the-axiomatic-truth",
+          "title": "Beyond the axiomatic truth",
+          "album": "Experimenting on her own",
+          "score": 0.42058318853378296,
+          "global_score": 0.2480686604976654,
+          "best_segment_score": 0.42058318853378296,
+          "best_segment": {
+            "start": 37.5,
+            "end": 62.5
+          },
+          "rank": 7,
+          "canonical_track_id": "experimentingonherown-9-beyond-the-axiomatic-truth",
+          "source_rank": 7
+        },
+        {
+          "track_id": "blackandwhite-6redtatoodream",
+          "title": "Red Tattoo Dream",
+          "album": "Black & White",
+          "score": 0.41569074988365173,
+          "global_score": 0.29093223810195923,
+          "best_segment_score": 0.41569074988365173,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 8,
+          "canonical_track_id": "blackandwhite-6redtatoodream",
+          "source_rank": 8
+        },
+        {
+          "track_id": "ijustcantsayfarewell-re-encarnacion",
+          "title": "Re-encarnación",
+          "album": "I just can't say Farewell",
+          "score": 0.41368377208709717,
+          "global_score": 0.23313380777835846,
+          "best_segment_score": 0.41368377208709717,
+          "best_segment": {
+            "start": 137.5,
+            "end": 162.5
+          },
+          "rank": 9,
+          "canonical_track_id": "ijustcantsayfarewell-re-encarnacion",
+          "source_rank": 9
+        },
+        {
+          "track_id": "blackandwhite-8letthewolfout",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.4088573455810547,
+          "global_score": 0.3122766613960266,
+          "best_segment_score": 0.4088573455810547,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 10,
+          "canonical_track_id": "blackandwhite-8letthewolfout",
+          "source_rank": 10
+        }
+      ]
+    },
+    {
+      "query_id": "es068",
+      "query_original": "música de fantasía con flauta y arpa",
+      "detected_language": "es",
+      "query_normalized_en": "fantasy music with flute and harp",
+      "reference_en": "fantasy music with flute and harp",
+      "translation_exact_match": true,
+      "translated_reference_embedding_cosine": 1.0,
+      "translated_vs_reference_top5": {
+        "top1_match": true,
+        "overlap_count": 5,
+        "jaccard": 1.0
+      },
+      "translated_vs_reference_top10": {
+        "top1_match": true,
+        "overlap_count": 10,
+        "jaccard": 1.0
+      },
+      "direct_es_vs_reference_top5": {
+        "top1_match": false,
+        "overlap_count": 1,
+        "jaccard": 0.1111111111111111
+      },
+      "direct_es_vs_reference_top10": {
+        "top1_match": false,
+        "overlap_count": 5,
+        "jaccard": 0.3333333333333333
+      },
+      "direct_reference_embedding_cosine": 0.4379878044128418,
+      "translated_results": [
+        {
+          "track_id": "9-avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.4058482348918915,
+          "global_score": 0.2659413516521454,
+          "best_segment_score": 0.4058482348918915,
+          "best_segment": {
+            "start": 250.0,
+            "end": 275.0
+          },
+          "rank": 1,
+          "canonical_track_id": "9-avalon",
+          "source_rank": 1
+        },
+        {
+          "track_id": "ijustcantsayfarewell-short-message-fromer-soul",
+          "title": "Short message from'er soul",
+          "album": "I just can't say Farewell",
+          "score": 0.381559818983078,
+          "global_score": 0.3512154817581177,
+          "best_segment_score": 0.381559818983078,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 2,
+          "canonical_track_id": "ijustcantsayfarewell-short-message-fromer-soul",
+          "source_rank": 2
+        },
+        {
+          "track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "title": "The right side of an orange",
+          "album": "I just can't say Farewell",
+          "score": 0.37904924154281616,
+          "global_score": 0.16037951409816742,
+          "best_segment_score": 0.37904924154281616,
+          "best_segment": {
+            "start": 62.5,
+            "end": 87.5
+          },
+          "rank": 3,
+          "canonical_track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "source_rank": 3
+        },
+        {
+          "track_id": "ijustcantsayfarewell-live",
+          "title": "Live",
+          "album": "I just can't say Farewell",
+          "score": 0.37252646684646606,
+          "global_score": 0.2601499557495117,
+          "best_segment_score": 0.37252646684646606,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 4,
+          "canonical_track_id": "composition-live",
+          "source_rank": 4
+        },
+        {
+          "track_id": "onceuponatale2-beathreex",
+          "title": "Be a three X",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.3514622449874878,
+          "global_score": 0.2545502185821533,
+          "best_segment_score": 0.3514622449874878,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 5,
+          "canonical_track_id": "onceuponatale2-beathreex",
+          "source_rank": 5
+        },
+        {
+          "track_id": "onceuponatalept1-ivorycastle",
+          "title": "Ivory Castle",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.348268985748291,
+          "global_score": 0.18659397959709167,
+          "best_segment_score": 0.348268985748291,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 6,
+          "canonical_track_id": "onceuponatalept1-ivorycastle",
+          "source_rank": 6
+        },
+        {
+          "track_id": "9-epiphany",
+          "title": "Epiphany",
+          "album": "9",
+          "score": 0.3464616537094116,
+          "global_score": 0.12184177339076996,
+          "best_segment_score": 0.3464616537094116,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 7,
+          "canonical_track_id": "9-epiphany",
+          "source_rank": 7
+        },
+        {
+          "track_id": "blackandwhite-4landofnoreturn",
+          "title": "Land of No Return",
+          "album": "Black & White",
+          "score": 0.31423866748809814,
+          "global_score": 0.24176675081253052,
+          "best_segment_score": 0.31423866748809814,
+          "best_segment": {
+            "start": 175.0,
+            "end": 200.0
+          },
+          "rank": 8,
+          "canonical_track_id": "blackandwhite-4landofnoreturn",
+          "source_rank": 9
+        },
+        {
+          "track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "title": "Awekening of the humankind",
+          "album": "Experimenting on her own",
+          "score": 0.30939793586730957,
+          "global_score": 0.15381810069084167,
+          "best_segment_score": 0.30939793586730957,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 9,
+          "canonical_track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "source_rank": 10
+        },
+        {
+          "track_id": "dawninistoccar-red-belt",
+          "title": "Red Belt",
+          "album": "Dawn in Istoccar",
+          "score": 0.30292707681655884,
+          "global_score": 0.17812176048755646,
+          "best_segment_score": 0.30292707681655884,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 10,
+          "canonical_track_id": "dawninistoccar-red-belt",
+          "source_rank": 11
+        }
+      ],
+      "direct_es_results": [
+        {
+          "track_id": "onceuponatalept1-ivorycastle",
+          "title": "Ivory Castle",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.46254244446754456,
+          "global_score": 0.4039243459701538,
+          "best_segment_score": 0.46254244446754456,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 1,
+          "canonical_track_id": "onceuponatalept1-ivorycastle",
+          "source_rank": 1
+        },
+        {
+          "track_id": "ijustcantsayfarewell-pegasus",
+          "title": "Pegasus",
+          "album": "I just can't say Farewell",
+          "score": 0.45316484570503235,
+          "global_score": 0.2775990664958954,
+          "best_segment_score": 0.45316484570503235,
+          "best_segment": {
+            "start": 141.00070190429688,
+            "end": 166.00070190429688
+          },
+          "rank": 2,
+          "canonical_track_id": "ijustcantsayfarewell-pegasus",
+          "source_rank": 2
+        },
+        {
+          "track_id": "ijustcantsayfarewell-live",
+          "title": "Live",
+          "album": "I just can't say Farewell",
+          "score": 0.42997434735298157,
+          "global_score": 0.3933789134025574,
+          "best_segment_score": 0.42997434735298157,
+          "best_segment": {
+            "start": 25.0,
+            "end": 50.0
+          },
+          "rank": 3,
+          "canonical_track_id": "composition-live",
+          "source_rank": 3
+        },
+        {
+          "track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I just can't say Farewell",
+          "score": 0.4132329523563385,
+          "global_score": 0.34176719188690186,
+          "best_segment_score": 0.4132329523563385,
+          "best_segment": {
+            "start": 225.0,
+            "end": 250.0
+          },
+          "rank": 4,
+          "canonical_track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "source_rank": 4
+        },
+        {
+          "track_id": "onceuponatale2-saluteyoking",
+          "title": "Salute Yo'king",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.41097280383110046,
+          "global_score": 0.3110184073448181,
+          "best_segment_score": 0.41097280383110046,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 5,
+          "canonical_track_id": "onceuponatale2-saluteyoking",
+          "source_rank": 5
+        },
+        {
+          "track_id": "9-avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.41067543625831604,
+          "global_score": 0.38195177912712097,
+          "best_segment_score": 0.41067543625831604,
+          "best_segment": {
+            "start": 375.0,
+            "end": 400.0
+          },
+          "rank": 6,
+          "canonical_track_id": "9-avalon",
+          "source_rank": 6
+        },
+        {
+          "track_id": "onceuponatale2-beathreex",
+          "title": "Be a three X",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.40361112356185913,
+          "global_score": 0.3368297219276428,
+          "best_segment_score": 0.40361112356185913,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 7,
+          "canonical_track_id": "onceuponatale2-beathreex",
+          "source_rank": 7
+        },
+        {
+          "track_id": "experimentingonherown-1-classical-is-so-metal",
+          "title": "Classical is so metal",
+          "album": "Experimenting on her own",
+          "score": 0.39042091369628906,
+          "global_score": 0.32418447732925415,
+          "best_segment_score": 0.39042091369628906,
+          "best_segment": {
+            "start": 25.0,
+            "end": 50.0
+          },
+          "rank": 8,
+          "canonical_track_id": "experimentingonherown-1-classical-is-so-metal",
+          "source_rank": 8
+        },
+        {
+          "track_id": "blackandwhite-4landofnoreturn",
+          "title": "Land of No Return",
+          "album": "Black & White",
+          "score": 0.37473222613334656,
+          "global_score": 0.27770453691482544,
+          "best_segment_score": 0.37473222613334656,
+          "best_segment": {
+            "start": 212.5,
+            "end": 237.5
+          },
+          "rank": 9,
+          "canonical_track_id": "blackandwhite-4landofnoreturn",
+          "source_rank": 9
+        },
+        {
+          "track_id": "onceuponatale2-thedistantisland",
+          "title": "The distant island",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.3675329089164734,
+          "global_score": 0.33728504180908203,
+          "best_segment_score": 0.3675329089164734,
+          "best_segment": {
+            "start": 100.0,
+            "end": 125.0
+          },
+          "rank": 10,
+          "canonical_track_id": "onceuponatale2-thedistantisland",
+          "source_rank": 10
+        }
+      ],
+      "reference_results": [
+        {
+          "track_id": "9-avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.4058482348918915,
+          "global_score": 0.2659413516521454,
+          "best_segment_score": 0.4058482348918915,
+          "best_segment": {
+            "start": 250.0,
+            "end": 275.0
+          },
+          "rank": 1,
+          "canonical_track_id": "9-avalon",
+          "source_rank": 1
+        },
+        {
+          "track_id": "ijustcantsayfarewell-short-message-fromer-soul",
+          "title": "Short message from'er soul",
+          "album": "I just can't say Farewell",
+          "score": 0.381559818983078,
+          "global_score": 0.3512154817581177,
+          "best_segment_score": 0.381559818983078,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 2,
+          "canonical_track_id": "ijustcantsayfarewell-short-message-fromer-soul",
+          "source_rank": 2
+        },
+        {
+          "track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "title": "The right side of an orange",
+          "album": "I just can't say Farewell",
+          "score": 0.37904924154281616,
+          "global_score": 0.16037951409816742,
+          "best_segment_score": 0.37904924154281616,
+          "best_segment": {
+            "start": 62.5,
+            "end": 87.5
+          },
+          "rank": 3,
+          "canonical_track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "source_rank": 3
+        },
+        {
+          "track_id": "ijustcantsayfarewell-live",
+          "title": "Live",
+          "album": "I just can't say Farewell",
+          "score": 0.37252646684646606,
+          "global_score": 0.2601499557495117,
+          "best_segment_score": 0.37252646684646606,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 4,
+          "canonical_track_id": "composition-live",
+          "source_rank": 4
+        },
+        {
+          "track_id": "onceuponatale2-beathreex",
+          "title": "Be a three X",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.3514622449874878,
+          "global_score": 0.2545502185821533,
+          "best_segment_score": 0.3514622449874878,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 5,
+          "canonical_track_id": "onceuponatale2-beathreex",
+          "source_rank": 5
+        },
+        {
+          "track_id": "onceuponatalept1-ivorycastle",
+          "title": "Ivory Castle",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.348268985748291,
+          "global_score": 0.18659397959709167,
+          "best_segment_score": 0.348268985748291,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 6,
+          "canonical_track_id": "onceuponatalept1-ivorycastle",
+          "source_rank": 6
+        },
+        {
+          "track_id": "9-epiphany",
+          "title": "Epiphany",
+          "album": "9",
+          "score": 0.3464616537094116,
+          "global_score": 0.12184177339076996,
+          "best_segment_score": 0.3464616537094116,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 7,
+          "canonical_track_id": "9-epiphany",
+          "source_rank": 7
+        },
+        {
+          "track_id": "blackandwhite-4landofnoreturn",
+          "title": "Land of No Return",
+          "album": "Black & White",
+          "score": 0.31423866748809814,
+          "global_score": 0.24176675081253052,
+          "best_segment_score": 0.31423866748809814,
+          "best_segment": {
+            "start": 175.0,
+            "end": 200.0
+          },
+          "rank": 8,
+          "canonical_track_id": "blackandwhite-4landofnoreturn",
+          "source_rank": 9
+        },
+        {
+          "track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "title": "Awekening of the humankind",
+          "album": "Experimenting on her own",
+          "score": 0.30939793586730957,
+          "global_score": 0.15381810069084167,
+          "best_segment_score": 0.30939793586730957,
+          "best_segment": {
+            "start": 112.5,
+            "end": 137.5
+          },
+          "rank": 9,
+          "canonical_track_id": "experimentingonherown-8-awakening-of-the-humankind",
+          "source_rank": 10
+        },
+        {
+          "track_id": "dawninistoccar-red-belt",
+          "title": "Red Belt",
+          "album": "Dawn in Istoccar",
+          "score": 0.30292707681655884,
+          "global_score": 0.17812176048755646,
+          "best_segment_score": 0.30292707681655884,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 10,
+          "canonical_track_id": "dawninistoccar-red-belt",
+          "source_rank": 11
+        }
+      ]
+    },
+    {
+      "query_id": "es069",
+      "query_original": "algo intenso pero que no parezca una batalla",
+      "detected_language": "es",
+      "query_normalized_en": "something intense but not like a battle",
+      "reference_en": "something intense but not like a battle",
+      "translation_exact_match": true,
+      "translated_reference_embedding_cosine": 1.0000001192092896,
+      "translated_vs_reference_top5": {
+        "top1_match": true,
+        "overlap_count": 5,
+        "jaccard": 1.0
+      },
+      "translated_vs_reference_top10": {
+        "top1_match": true,
+        "overlap_count": 10,
+        "jaccard": 1.0
+      },
+      "direct_es_vs_reference_top5": {
+        "top1_match": false,
+        "overlap_count": 3,
+        "jaccard": 0.42857142857142855
+      },
+      "direct_es_vs_reference_top10": {
+        "top1_match": false,
+        "overlap_count": 6,
+        "jaccard": 0.42857142857142855
+      },
+      "direct_reference_embedding_cosine": 0.9196699857711792,
+      "translated_results": [
+        {
+          "track_id": "thepathmaker-1-astral-door",
+          "title": "Astral door",
+          "album": "The pathmaker",
+          "score": 0.48609012365341187,
+          "global_score": 0.40388548374176025,
+          "best_segment_score": 0.48609012365341187,
+          "best_segment": {
+            "start": 135.0,
+            "end": 160.0
+          },
+          "rank": 1,
+          "canonical_track_id": "thepathmaker-1-astral-door",
+          "source_rank": 1
+        },
+        {
+          "track_id": "ijustcantsayfarewell-light-awaits",
+          "title": "Light Awaits",
+          "album": "I just can't say Farewell",
+          "score": 0.4790056645870209,
+          "global_score": 0.46803921461105347,
+          "best_segment_score": 0.4790056645870209,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 2,
+          "canonical_track_id": "ijustcantsayfarewell-light-awaits",
+          "source_rank": 2
+        },
+        {
+          "track_id": "onceuponatale2-nocturnalfiercesea",
+          "title": "Nocturnal fierce sea",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.47858595848083496,
+          "global_score": 0.417133629322052,
+          "best_segment_score": 0.47858595848083496,
+          "best_segment": {
+            "start": 162.5,
+            "end": 187.5
+          },
+          "rank": 3,
+          "canonical_track_id": "onceuponatale2-nocturnalfiercesea",
+          "source_rank": 3
+        },
+        {
+          "track_id": "9-chase",
+          "title": "Chase in the woods",
+          "album": "9",
+          "score": 0.4410826563835144,
+          "global_score": 0.39728450775146484,
+          "best_segment_score": 0.4410826563835144,
+          "best_segment": {
+            "start": 137.5,
+            "end": 162.5
+          },
+          "rank": 4,
+          "canonical_track_id": "9-chase",
+          "source_rank": 4
+        },
+        {
+          "track_id": "dragonrage-1riding-oriental-winds",
+          "title": "Riding Oriental Winds",
+          "album": "Dragon Rage",
+          "score": 0.43998008966445923,
+          "global_score": 0.36510854959487915,
+          "best_segment_score": 0.43998008966445923,
+          "best_segment": {
+            "start": 50.0,
+            "end": 75.0
+          },
+          "rank": 5,
+          "canonical_track_id": "dragonrage-1riding-oriental-winds",
+          "source_rank": 5
+        },
+        {
+          "track_id": "bigsteamflyingmachine-dark-crimson-oil-as-blood",
+          "title": "Dark crimsom oil as Blood",
+          "album": "Night Clockwork",
+          "score": 0.4394339919090271,
+          "global_score": 0.30423328280448914,
+          "best_segment_score": 0.4394339919090271,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 6,
+          "canonical_track_id": "bigsteamflyingmachine-dark-crimson-oil-as-blood",
+          "source_rank": 6
+        },
+        {
+          "track_id": "inloveorversus-your-crazy-moments",
+          "title": "Your crazy moments",
+          "album": "In love or versus",
+          "score": 0.43867945671081543,
+          "global_score": 0.37031102180480957,
+          "best_segment_score": 0.43867945671081543,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 7,
+          "canonical_track_id": "inloveorversus-your-crazy-moments",
+          "source_rank": 7
+        },
+        {
+          "track_id": "9-avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.43324536085128784,
+          "global_score": 0.2218354046344757,
+          "best_segment_score": 0.43324536085128784,
+          "best_segment": {
+            "start": 450.0,
+            "end": 475.0
+          },
+          "rank": 8,
+          "canonical_track_id": "9-avalon",
+          "source_rank": 8
+        },
+        {
+          "track_id": "onceuponatale2-thedarkside",
+          "title": "The dark side",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.43051978945732117,
+          "global_score": 0.36689072847366333,
+          "best_segment_score": 0.43051978945732117,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 9,
+          "canonical_track_id": "onceuponatale2-thedarkside",
+          "source_rank": 9
+        },
+        {
+          "track_id": "blackandwhite-1misunderstoodtales",
+          "title": "Misunderstood Tales",
+          "album": "Black & White",
+          "score": 0.427952378988266,
+          "global_score": 0.20480826497077942,
+          "best_segment_score": 0.427952378988266,
+          "best_segment": {
+            "start": 25.0,
+            "end": 50.0
+          },
+          "rank": 10,
+          "canonical_track_id": "blackandwhite-1misunderstoodtales",
+          "source_rank": 10
+        }
+      ],
+      "direct_es_results": [
+        {
+          "track_id": "onceuponatale2-nocturnalfiercesea",
+          "title": "Nocturnal fierce sea",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.488342821598053,
+          "global_score": 0.4398624300956726,
+          "best_segment_score": 0.488342821598053,
+          "best_segment": {
+            "start": 162.5,
+            "end": 187.5
+          },
+          "rank": 1,
+          "canonical_track_id": "onceuponatale2-nocturnalfiercesea",
+          "source_rank": 1
+        },
+        {
+          "track_id": "ijustcantsayfarewell-light-awaits",
+          "title": "Light Awaits",
+          "album": "I just can't say Farewell",
+          "score": 0.4774881601333618,
+          "global_score": 0.4720172584056854,
+          "best_segment_score": 0.4774881601333618,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 2,
+          "canonical_track_id": "ijustcantsayfarewell-light-awaits",
+          "source_rank": 2
+        },
+        {
+          "track_id": "dragonrage-1riding-oriental-winds",
+          "title": "Riding Oriental Winds",
+          "album": "Dragon Rage",
+          "score": 0.45120465755462646,
+          "global_score": 0.3965275287628174,
+          "best_segment_score": 0.45120465755462646,
+          "best_segment": {
+            "start": 50.0,
+            "end": 75.0
+          },
+          "rank": 3,
+          "canonical_track_id": "dragonrage-1riding-oriental-winds",
+          "source_rank": 3
+        },
+        {
+          "track_id": "experimentingonherown-6-fall-of-the-angel",
+          "title": "Fall of the angel",
+          "album": "Experimenting on her own",
+          "score": 0.4307796061038971,
+          "global_score": 0.3565201163291931,
+          "best_segment_score": 0.4307796061038971,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 4,
+          "canonical_track_id": "experimentingonherown-6-fall-of-the-angel",
+          "source_rank": 4
+        },
+        {
+          "track_id": "onceuponatale2-saluteyoking",
+          "title": "Salute Yo'king",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.4262371063232422,
+          "global_score": 0.36353790760040283,
+          "best_segment_score": 0.4262371063232422,
+          "best_segment": {
+            "start": 162.5,
+            "end": 187.5
+          },
+          "rank": 5,
+          "canonical_track_id": "onceuponatale2-saluteyoking",
+          "source_rank": 5
+        },
+        {
+          "track_id": "9-avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.4200260639190674,
+          "global_score": 0.2707332670688629,
+          "best_segment_score": 0.4200260639190674,
+          "best_segment": {
+            "start": 450.0,
+            "end": 475.0
+          },
+          "rank": 6,
+          "canonical_track_id": "9-avalon",
+          "source_rank": 6
+        },
+        {
+          "track_id": "thepathmaker-1-astral-door",
+          "title": "Astral door",
+          "album": "The pathmaker",
+          "score": 0.41732728481292725,
+          "global_score": 0.3772270083427429,
+          "best_segment_score": 0.41732728481292725,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 7,
+          "canonical_track_id": "thepathmaker-1-astral-door",
+          "source_rank": 7
+        },
+        {
+          "track_id": "9-chase",
+          "title": "Chase in the woods",
+          "album": "9",
+          "score": 0.41633307933807373,
+          "global_score": 0.37781286239624023,
+          "best_segment_score": 0.41633307933807373,
+          "best_segment": {
+            "start": 137.5,
+            "end": 162.5
+          },
+          "rank": 8,
+          "canonical_track_id": "9-chase",
+          "source_rank": 8
+        },
+        {
+          "track_id": "blackandwhite-5mindwithoutfrontiers",
+          "title": "Mind Without Frontiers",
+          "album": "Black & White",
+          "score": 0.41236013174057007,
+          "global_score": 0.3538331687450409,
+          "best_segment_score": 0.41236013174057007,
+          "best_segment": {
+            "start": 50.0,
+            "end": 75.0
+          },
+          "rank": 9,
+          "canonical_track_id": "blackandwhite-5mindwithoutfrontiers",
+          "source_rank": 9
+        },
+        {
+          "track_id": "experimentingonherown-4-last-beginning",
+          "title": "Last beginning",
+          "album": "Experimenting on her own",
+          "score": 0.40514570474624634,
+          "global_score": 0.3411819338798523,
+          "best_segment_score": 0.40514570474624634,
+          "best_segment": {
+            "start": 100.0,
+            "end": 125.0
+          },
+          "rank": 10,
+          "canonical_track_id": "experimentingonherown-4-last-beginning",
+          "source_rank": 10
+        }
+      ],
+      "reference_results": [
+        {
+          "track_id": "thepathmaker-1-astral-door",
+          "title": "Astral door",
+          "album": "The pathmaker",
+          "score": 0.48609012365341187,
+          "global_score": 0.40388548374176025,
+          "best_segment_score": 0.48609012365341187,
+          "best_segment": {
+            "start": 135.0,
+            "end": 160.0
+          },
+          "rank": 1,
+          "canonical_track_id": "thepathmaker-1-astral-door",
+          "source_rank": 1
+        },
+        {
+          "track_id": "ijustcantsayfarewell-light-awaits",
+          "title": "Light Awaits",
+          "album": "I just can't say Farewell",
+          "score": 0.4790056645870209,
+          "global_score": 0.46803921461105347,
+          "best_segment_score": 0.4790056645870209,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 2,
+          "canonical_track_id": "ijustcantsayfarewell-light-awaits",
+          "source_rank": 2
+        },
+        {
+          "track_id": "onceuponatale2-nocturnalfiercesea",
+          "title": "Nocturnal fierce sea",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.47858595848083496,
+          "global_score": 0.417133629322052,
+          "best_segment_score": 0.47858595848083496,
+          "best_segment": {
+            "start": 162.5,
+            "end": 187.5
+          },
+          "rank": 3,
+          "canonical_track_id": "onceuponatale2-nocturnalfiercesea",
+          "source_rank": 3
+        },
+        {
+          "track_id": "9-chase",
+          "title": "Chase in the woods",
+          "album": "9",
+          "score": 0.4410826563835144,
+          "global_score": 0.39728450775146484,
+          "best_segment_score": 0.4410826563835144,
+          "best_segment": {
+            "start": 137.5,
+            "end": 162.5
+          },
+          "rank": 4,
+          "canonical_track_id": "9-chase",
+          "source_rank": 4
+        },
+        {
+          "track_id": "dragonrage-1riding-oriental-winds",
+          "title": "Riding Oriental Winds",
+          "album": "Dragon Rage",
+          "score": 0.43998008966445923,
+          "global_score": 0.36510854959487915,
+          "best_segment_score": 0.43998008966445923,
+          "best_segment": {
+            "start": 50.0,
+            "end": 75.0
+          },
+          "rank": 5,
+          "canonical_track_id": "dragonrage-1riding-oriental-winds",
+          "source_rank": 5
+        },
+        {
+          "track_id": "bigsteamflyingmachine-dark-crimson-oil-as-blood",
+          "title": "Dark crimsom oil as Blood",
+          "album": "Night Clockwork",
+          "score": 0.4394339919090271,
+          "global_score": 0.30423328280448914,
+          "best_segment_score": 0.4394339919090271,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 6,
+          "canonical_track_id": "bigsteamflyingmachine-dark-crimson-oil-as-blood",
+          "source_rank": 6
+        },
+        {
+          "track_id": "inloveorversus-your-crazy-moments",
+          "title": "Your crazy moments",
+          "album": "In love or versus",
+          "score": 0.43867945671081543,
+          "global_score": 0.37031102180480957,
+          "best_segment_score": 0.43867945671081543,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 7,
+          "canonical_track_id": "inloveorversus-your-crazy-moments",
+          "source_rank": 7
+        },
+        {
+          "track_id": "9-avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.43324536085128784,
+          "global_score": 0.2218354046344757,
+          "best_segment_score": 0.43324536085128784,
+          "best_segment": {
+            "start": 450.0,
+            "end": 475.0
+          },
+          "rank": 8,
+          "canonical_track_id": "9-avalon",
+          "source_rank": 8
+        },
+        {
+          "track_id": "onceuponatale2-thedarkside",
+          "title": "The dark side",
+          "album": "Once Upon a Tale, Pt.2",
+          "score": 0.43051978945732117,
+          "global_score": 0.36689072847366333,
+          "best_segment_score": 0.43051978945732117,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 9,
+          "canonical_track_id": "onceuponatale2-thedarkside",
+          "source_rank": 9
+        },
+        {
+          "track_id": "blackandwhite-1misunderstoodtales",
+          "title": "Misunderstood Tales",
+          "album": "Black & White",
+          "score": 0.427952378988266,
+          "global_score": 0.20480826497077942,
+          "best_segment_score": 0.427952378988266,
+          "best_segment": {
+            "start": 25.0,
+            "end": 50.0
+          },
+          "rank": 10,
+          "canonical_track_id": "blackandwhite-1misunderstoodtales",
+          "source_rank": 10
+        }
+      ]
+    },
+    {
+      "query_id": "es070",
+      "query_original": "música para caminar solo por un bosque",
+      "detected_language": "es",
+      "query_normalized_en": "music to walk alone in a forest",
+      "reference_en": "music for walking alone through a forest",
+      "translation_exact_match": false,
+      "translated_reference_embedding_cosine": 0.9738565683364868,
+      "translated_vs_reference_top5": {
+        "top1_match": true,
+        "overlap_count": 3,
+        "jaccard": 0.42857142857142855
+      },
+      "translated_vs_reference_top10": {
+        "top1_match": true,
+        "overlap_count": 9,
+        "jaccard": 0.8181818181818182
+      },
+      "direct_es_vs_reference_top5": {
+        "top1_match": false,
+        "overlap_count": 2,
+        "jaccard": 0.25
+      },
+      "direct_es_vs_reference_top10": {
+        "top1_match": false,
+        "overlap_count": 6,
+        "jaccard": 0.42857142857142855
+      },
+      "direct_reference_embedding_cosine": 0.7547094225883484,
+      "translated_results": [
+        {
+          "track_id": "9-avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.4044746160507202,
+          "global_score": 0.2797034978866577,
+          "best_segment_score": 0.4044746160507202,
+          "best_segment": {
+            "start": 87.5,
+            "end": 112.5
+          },
+          "rank": 1,
+          "canonical_track_id": "9-avalon",
+          "source_rank": 1
+        },
+        {
+          "track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I just can't say Farewell",
+          "score": 0.39976316690444946,
+          "global_score": 0.30812203884124756,
+          "best_segment_score": 0.39976316690444946,
+          "best_segment": {
+            "start": 241.4007110595703,
+            "end": 266.40069580078125
+          },
+          "rank": 2,
+          "canonical_track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "source_rank": 2
+        },
+        {
+          "track_id": "ijustcantsayfarewell-re-encarnacion",
+          "title": "Re-encarnación",
+          "album": "I just can't say Farewell",
+          "score": 0.3951384723186493,
+          "global_score": 0.3387259840965271,
+          "best_segment_score": 0.3951384723186493,
+          "best_segment": {
+            "start": 192.2638702392578,
+            "end": 217.2638702392578
+          },
+          "rank": 3,
+          "canonical_track_id": "ijustcantsayfarewell-re-encarnacion",
+          "source_rank": 3
+        },
+        {
+          "track_id": "onceuponatalept1-thereason",
+          "title": "The reason",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.3817371129989624,
+          "global_score": 0.35751596093177795,
+          "best_segment_score": 0.3817371129989624,
+          "best_segment": {
+            "start": 125.0,
+            "end": 150.0
+          },
+          "rank": 4,
+          "canonical_track_id": "onceuponatalept1-thereason",
+          "source_rank": 4
+        },
+        {
+          "track_id": "experimentingonherown-6-fall-of-the-angel",
+          "title": "Fall of the angel",
+          "album": "Experimenting on her own",
+          "score": 0.37014663219451904,
+          "global_score": 0.2720515727996826,
+          "best_segment_score": 0.37014663219451904,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 5,
+          "canonical_track_id": "experimentingonherown-6-fall-of-the-angel",
+          "source_rank": 5
+        },
+        {
+          "track_id": "ijustcantsayfarewell-live",
+          "title": "Live",
+          "album": "I just can't say Farewell",
+          "score": 0.3550751209259033,
+          "global_score": 0.26849937438964844,
+          "best_segment_score": 0.3550751209259033,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 6,
+          "canonical_track_id": "composition-live",
+          "source_rank": 6
+        },
+        {
+          "track_id": "ijustcantsayfarewell-pegasus",
+          "title": "Pegasus",
+          "album": "I just can't say Farewell",
+          "score": 0.35151660442352295,
+          "global_score": 0.2661726176738739,
+          "best_segment_score": 0.35151660442352295,
+          "best_segment": {
+            "start": 137.5,
+            "end": 162.5
+          },
+          "rank": 7,
+          "canonical_track_id": "ijustcantsayfarewell-pegasus",
+          "source_rank": 7
+        },
+        {
+          "track_id": "blackandwhite-8letthewolfout",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.3510949909687042,
+          "global_score": 0.1548505425453186,
+          "best_segment_score": 0.3510949909687042,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 8,
+          "canonical_track_id": "blackandwhite-8letthewolfout",
+          "source_rank": 8
+        },
+        {
+          "track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "title": "The right side of an orange",
+          "album": "I just can't say Farewell",
+          "score": 0.35025838017463684,
+          "global_score": 0.22624927759170532,
+          "best_segment_score": 0.35025838017463684,
+          "best_segment": {
+            "start": 62.5,
+            "end": 87.5
+          },
+          "rank": 9,
+          "canonical_track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "source_rank": 9
+        },
+        {
+          "track_id": "onceuponatalept1-ivorycastle",
+          "title": "Ivory Castle",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.3392992615699768,
+          "global_score": 0.292108416557312,
+          "best_segment_score": 0.3392992615699768,
+          "best_segment": {
+            "start": 75.0,
+            "end": 100.0
+          },
+          "rank": 10,
+          "canonical_track_id": "onceuponatalept1-ivorycastle",
+          "source_rank": 10
+        }
+      ],
+      "direct_es_results": [
+        {
+          "track_id": "thepathmaker-5-healing-wind",
+          "title": "Healing Wind",
+          "album": "The pathmaker",
+          "score": 0.3698153495788574,
+          "global_score": 0.2780081033706665,
+          "best_segment_score": 0.3698153495788574,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 1,
+          "canonical_track_id": "thepathmaker-5-healing-wind",
+          "source_rank": 1
+        },
+        {
+          "track_id": "ijustcantsayfarewell-thanks-to-my-gipsy-roots",
+          "title": "Thanks to my gipsy roots",
+          "album": "I just can't say Farewell",
+          "score": 0.3488745093345642,
+          "global_score": 0.31544896960258484,
+          "best_segment_score": 0.3488745093345642,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 2,
+          "canonical_track_id": "ijustcantsayfarewell-thanks-to-my-gipsy-roots",
+          "source_rank": 2
+        },
+        {
+          "track_id": "experimentingonherown-1-classical-is-so-metal",
+          "title": "Classical is so metal",
+          "album": "Experimenting on her own",
+          "score": 0.34238293766975403,
+          "global_score": 0.2870967388153076,
+          "best_segment_score": 0.34238293766975403,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 3,
+          "canonical_track_id": "experimentingonherown-1-classical-is-so-metal",
+          "source_rank": 3
+        },
+        {
+          "track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I just can't say Farewell",
+          "score": 0.329012006521225,
+          "global_score": 0.2429305613040924,
+          "best_segment_score": 0.329012006521225,
+          "best_segment": {
+            "start": 237.5,
+            "end": 262.5
+          },
+          "rank": 4,
+          "canonical_track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "source_rank": 4
+        },
+        {
+          "track_id": "ijustcantsayfarewell-re-encarnacion",
+          "title": "Re-encarnación",
+          "album": "I just can't say Farewell",
+          "score": 0.3203381299972534,
+          "global_score": 0.24738946557044983,
+          "best_segment_score": 0.3203381299972534,
+          "best_segment": {
+            "start": 192.2638702392578,
+            "end": 217.2638702392578
+          },
+          "rank": 5,
+          "canonical_track_id": "ijustcantsayfarewell-re-encarnacion",
+          "source_rank": 5
+        },
+        {
+          "track_id": "9-avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.3198235034942627,
+          "global_score": 0.24683736264705658,
+          "best_segment_score": 0.3198235034942627,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 6,
+          "canonical_track_id": "9-avalon",
+          "source_rank": 6
+        },
+        {
+          "track_id": "blackandwhite-8letthewolfout",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.31896430253982544,
+          "global_score": 0.11863848567008972,
+          "best_segment_score": 0.31896430253982544,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 7,
+          "canonical_track_id": "blackandwhite-8letthewolfout",
+          "source_rank": 7
+        },
+        {
+          "track_id": "ijustcantsayfarewell-live",
+          "title": "Live",
+          "album": "I just can't say Farewell",
+          "score": 0.3178163468837738,
+          "global_score": 0.19050440192222595,
+          "best_segment_score": 0.3178163468837738,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 8,
+          "canonical_track_id": "composition-live",
+          "source_rank": 8
+        },
+        {
+          "track_id": "dragonrage-1riding-oriental-winds",
+          "title": "Riding Oriental Winds",
+          "album": "Dragon Rage",
+          "score": 0.3130910396575928,
+          "global_score": 0.1511206179857254,
+          "best_segment_score": 0.3130910396575928,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 9,
+          "canonical_track_id": "dragonrage-1riding-oriental-winds",
+          "source_rank": 9
+        },
+        {
+          "track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "title": "The right side of an orange",
+          "album": "I just can't say Farewell",
+          "score": 0.3121432960033417,
+          "global_score": 0.17637164890766144,
+          "best_segment_score": 0.3121432960033417,
+          "best_segment": {
+            "start": 62.5,
+            "end": 87.5
+          },
+          "rank": 10,
+          "canonical_track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "source_rank": 10
+        }
+      ],
+      "reference_results": [
+        {
+          "track_id": "9-avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.43916335701942444,
+          "global_score": 0.2935178279876709,
+          "best_segment_score": 0.43916335701942444,
+          "best_segment": {
+            "start": 87.5,
+            "end": 112.5
+          },
+          "rank": 1,
+          "canonical_track_id": "9-avalon",
+          "source_rank": 1
+        },
+        {
+          "track_id": "ijustcantsayfarewell-re-encarnacion",
+          "title": "Re-encarnación",
+          "album": "I just can't say Farewell",
+          "score": 0.41970089077949524,
+          "global_score": 0.337951123714447,
+          "best_segment_score": 0.41970089077949524,
+          "best_segment": {
+            "start": 192.2638702392578,
+            "end": 217.2638702392578
+          },
+          "rank": 2,
+          "canonical_track_id": "ijustcantsayfarewell-re-encarnacion",
+          "source_rank": 2
+        },
+        {
+          "track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "title": "The right side of an orange",
+          "album": "I just can't say Farewell",
+          "score": 0.396459698677063,
+          "global_score": 0.2493230700492859,
+          "best_segment_score": 0.396459698677063,
+          "best_segment": {
+            "start": 62.5,
+            "end": 87.5
+          },
+          "rank": 3,
+          "canonical_track_id": "ijustcantsayfarewell-the-right-side-of-an-orange",
+          "source_rank": 3
+        },
+        {
+          "track_id": "ijustcantsayfarewell-live",
+          "title": "Live",
+          "album": "I just can't say Farewell",
+          "score": 0.3927590548992157,
+          "global_score": 0.2560582756996155,
+          "best_segment_score": 0.3927590548992157,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 4,
+          "canonical_track_id": "composition-live",
+          "source_rank": 4
+        },
+        {
+          "track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I just can't say Farewell",
+          "score": 0.3906593918800354,
+          "global_score": 0.3006886839866638,
+          "best_segment_score": 0.3906593918800354,
+          "best_segment": {
+            "start": 241.4007110595703,
+            "end": 266.40069580078125
+          },
+          "rank": 5,
+          "canonical_track_id": "ijustcantsayfarewell-dark-blue-horizon",
+          "source_rank": 5
+        },
+        {
+          "track_id": "onceuponatalept1-thereason",
+          "title": "The reason",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.3888709545135498,
+          "global_score": 0.36471182107925415,
+          "best_segment_score": 0.3888709545135498,
+          "best_segment": {
+            "start": 125.0,
+            "end": 150.0
+          },
+          "rank": 6,
+          "canonical_track_id": "onceuponatalept1-thereason",
+          "source_rank": 6
+        },
+        {
+          "track_id": "experimentingonherown-6-fall-of-the-angel",
+          "title": "Fall of the angel",
+          "album": "Experimenting on her own",
+          "score": 0.35041242837905884,
+          "global_score": 0.23335015773773193,
+          "best_segment_score": 0.35041242837905884,
+          "best_segment": {
+            "start": 12.5,
+            "end": 37.5
+          },
+          "rank": 7,
+          "canonical_track_id": "experimentingonherown-6-fall-of-the-angel",
+          "source_rank": 8
+        },
+        {
+          "track_id": "blackandwhite-8letthewolfout",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.34645742177963257,
+          "global_score": 0.16058087348937988,
+          "best_segment_score": 0.34645742177963257,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 8,
+          "canonical_track_id": "blackandwhite-8letthewolfout",
+          "source_rank": 9
+        },
+        {
+          "track_id": "ijustcantsayfarewell-pegasus",
+          "title": "Pegasus",
+          "album": "I just can't say Farewell",
+          "score": 0.3419131338596344,
+          "global_score": 0.2398461401462555,
+          "best_segment_score": 0.3419131338596344,
+          "best_segment": {
+            "start": 137.5,
+            "end": 162.5
+          },
+          "rank": 9,
+          "canonical_track_id": "ijustcantsayfarewell-pegasus",
+          "source_rank": 10
+        },
+        {
+          "track_id": "thepathmaker-8-raven-lullaby",
+          "title": "Raven lullaby",
+          "album": "The pathmaker",
+          "score": 0.33976227045059204,
+          "global_score": 0.2415330857038498,
+          "best_segment_score": 0.33976227045059204,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 10,
+          "canonical_track_id": "thepathmaker-8-raven-lullaby",
+          "source_rank": 11
+        }
+      ]
+    }
+  ]
+}

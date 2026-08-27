@@ -1,0 +1,10 @@
+{
+  "opus_es_en": {
+    "display_name": "OPUS-MT Spanish to English",
+    "checkpoint": "Helsinki-NLP/opus-mt-es-en",
+    "revision": "c96e2c5399ebfae4fc43d9669556b9afa74bb69d",
+    "license": "Apache-2.0",
+    "local_path": "data/music-intelligence-v2/models/opus-mt-es-en",
+    "source": "https://huggingface.co/Helsinki-NLP/opus-mt-es-en"
+  }
+}

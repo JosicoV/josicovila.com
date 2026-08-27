@@ -1,0 +1,23 @@
+{
+  "status": "complete",
+  "english_queries": 60,
+  "spanish_queries": 10,
+  "summary": {
+    "language_detector_scope": "bounded_es_en_search_queries",
+    "canonical_groups": 3,
+    "grouped_catalog_entries": 6,
+    "english_queries_with_duplicate_slots_in_raw_top10": 29,
+    "total_duplicate_slots_removed_from_english_top10": 29,
+    "spanish_queries": 10,
+    "language_detection_accuracy": 1.0,
+    "translation_exact_matches": 6,
+    "mean_translation_reference_embedding_cosine": 0.9861497521400452,
+    "translated_top1_match_rate": 0.9,
+    "direct_es_top1_match_rate": 0.2,
+    "translated_mean_top5_overlap": 0.9,
+    "direct_es_mean_top5_overlap": 0.52,
+    "translated_mean_top10_overlap": 0.96,
+    "direct_es_mean_top10_overlap": 0.5799999999999998,
+    "recommended_spanish_strategy": "local_translation"
+  }
+}

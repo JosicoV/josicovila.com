@@ -1,0 +1,17 @@
+*
+!.gitignore
+!README.md
+!source/
+!source/.gitkeep
+!derived/
+!derived/.gitkeep
+!embeddings/
+!embeddings/.gitkeep
+!embeddings-phase2/
+!embeddings-phase2/.gitkeep
+!index/
+!index/.gitkeep
+!models/
+!models/.gitkeep
+!cache/
+!cache/.gitkeep

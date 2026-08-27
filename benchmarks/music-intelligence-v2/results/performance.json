@@ -1,0 +1,1350 @@
+{
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "torch": "2.10.0+cu130",
+    "torchaudio": "2.10.0+cu130",
+    "transformers": "4.57.6",
+    "cuda_available": true,
+    "cuda_runtime": "13.0",
+    "device": "cuda",
+    "gpu": {
+      "name": "NVIDIA GeForce RTX 4060",
+      "vram_bytes": 8585216000,
+      "compute_capability": "8.9"
+    },
+    "nvidia_smi": "NVIDIA GeForce RTX 4060, 610.88, 8188",
+    "cpu_count": 16,
+    "system_ram_bytes": 17033416704,
+    "system_ram_available_bytes_at_start": 6855417856,
+    "process_ram_bytes_at_start": 607170560
+  },
+  "models": {
+    "figma": {
+      "model": {
+        "key": "figma",
+        "name": "FIGMA",
+        "checkpoint": "nishitanand/FIGMA:figma.ckpt",
+        "revision": "18b215fa5b6e5e7bc7f5807a7a51f50890c0a10a",
+        "device": "cuda",
+        "sample_rate": 24000,
+        "audio_input_seconds": 10.0,
+        "embedding_dimension": 512,
+        "license": "CC-BY-NC-4.0"
+      },
+      "load_seconds": 17.97692669997923,
+      "peak_vram_bytes": 3880820224,
+      "process_ram_bytes": 4133851136,
+      "embedding": {
+        "preprocessing": {
+          "segment_seconds": 25.0,
+          "segment_count": 6,
+          "sample_rate": 24000,
+          "audio_input_seconds": 10.0,
+          "excerpt_strategy": "center-crop-or-right-pad",
+          "global_strategy": "l2-normalized mean of all segment embeddings"
+        },
+        "tracks": [
+          {
+            "track_id": "avalon",
+            "cache_hit": false,
+            "total_seconds": 6.110847200034186,
+            "segment_inference_seconds": [
+              1.158615999855101,
+              0.08970950008369982,
+              0.08068690006621182,
+              0.062055000104010105,
+              0.05664380011148751,
+              0.06181210000067949
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/figma/avalon-5890f528cd15ea96ab35.npz",
+            "cache_bytes": 14414
+          },
+          {
+            "track_id": "let_the_wolf_out",
+            "cache_hit": false,
+            "total_seconds": 0.8607594000641257,
+            "segment_inference_seconds": [
+              0.0650065999943763,
+              0.06720510008744895,
+              0.06265520001761615,
+              0.06361340009607375,
+              0.06412400002591312,
+              0.06575020006857812
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/figma/let_the_wolf_out-2009319199eaa44957de.npz",
+            "cache_bytes": 14413
+          },
+          {
+            "track_id": "alone_in_the_crowd",
+            "cache_hit": false,
+            "total_seconds": 0.9378137001767755,
+            "segment_inference_seconds": [
+              0.05683919996954501,
+              0.06201360002160072,
+              0.06203510006889701,
+              0.05916189984418452,
+              0.059956900076940656,
+              0.06768810003995895
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/figma/alone_in_the_crowd-c6d5ee82850ac5d10921.npz",
+            "cache_bytes": 14423
+          },
+          {
+            "track_id": "dawn_in_istoccar",
+            "cache_hit": false,
+            "total_seconds": 0.7030229999218136,
+            "segment_inference_seconds": [
+              0.06045980006456375,
+              0.059759399853646755,
+              0.061934599885717034,
+              0.06307619996368885,
+              0.06272509996779263,
+              0.05872240010648966
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/figma/dawn_in_istoccar-aafce2e0536c461e7dfa.npz",
+            "cache_bytes": 14406
+          },
+          {
+            "track_id": "edge",
+            "cache_hit": false,
+            "total_seconds": 0.912632399937138,
+            "segment_inference_seconds": [
+              0.056869199965149164,
+              0.0631982998456806,
+              0.060382100054994226,
+              0.06147429998964071,
+              0.06219550012610853,
+              0.06692589982412755
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/figma/edge-0c8f56fa496be4d4220c.npz",
+            "cache_bytes": 14429
+          },
+          {
+            "track_id": "classical_is_so_metal",
+            "cache_hit": false,
+            "total_seconds": 0.6631296998821199,
+            "segment_inference_seconds": [
+              0.06003729999065399,
+              0.05809679999947548,
+              0.05960860010236502,
+              0.060236799996346235,
+              0.059912600088864565,
+              0.06240589986555278
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/figma/classical_is_so_metal-61d59a237d086eaafdc4.npz",
+            "cache_bytes": 14409
+          },
+          {
+            "track_id": "ancient_ritual",
+            "cache_hit": false,
+            "total_seconds": 0.7155126000288874,
+            "segment_inference_seconds": [
+              0.05922759999521077,
+              0.0683935999404639,
+              0.06487719994038343,
+              0.06448890012688935,
+              0.06459289998747408,
+              0.06566440011374652
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/figma/ancient_ritual-f0b8d54e7126af4944c6.npz",
+            "cache_bytes": 14431
+          },
+          {
+            "track_id": "raven_lullaby",
+            "cache_hit": false,
+            "total_seconds": 0.9089864999987185,
+            "segment_inference_seconds": [
+              0.05714079993776977,
+              0.06397290015593171,
+              0.0643028998747468,
+              0.05788600002415478,
+              0.06010379991494119,
+              0.06159919989295304
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/figma/raven_lullaby-ee3f90fbac2c19c12391.npz",
+            "cache_bytes": 14408
+          },
+          {
+            "track_id": "marching_city_gates",
+            "cache_hit": false,
+            "total_seconds": 0.568121800199151,
+            "segment_inference_seconds": [
+              0.061238600173965096,
+              0.06154340016655624,
+              0.05873799999244511,
+              0.05692400014959276,
+              0.06153049995191395,
+              0.06221090001054108
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/figma/marching_city_gates-7639fdaebc5d6fe88ced.npz",
+            "cache_bytes": 14407
+          },
+          {
+            "track_id": "night_at_the_tavern",
+            "cache_hit": false,
+            "total_seconds": 0.5476281000301242,
+            "segment_inference_seconds": [
+              0.05833819997496903,
+              0.06293440004810691,
+              0.05802780017256737,
+              0.06416209996677935,
+              0.06079940008930862,
+              0.06244489992968738
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/figma/night_at_the_tavern-26349a44441657be866d.npz",
+            "cache_bytes": 14434
+          },
+          {
+            "track_id": "icebreaker_storm",
+            "cache_hit": false,
+            "total_seconds": 0.6239883999805897,
+            "segment_inference_seconds": [
+              0.05850270017981529,
+              0.0593083999119699,
+              0.06066740001551807,
+              0.06270819995552301,
+              0.05845210002735257,
+              0.06509469985030591
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/figma/icebreaker_storm-9105bef072f900337db1.npz",
+            "cache_bytes": 14385
+          },
+          {
+            "track_id": "healing_wind",
+            "cache_hit": false,
+            "total_seconds": 0.6487116999924183,
+            "segment_inference_seconds": [
+              0.06309129996225238,
+              0.05905840010382235,
+              0.06154889985918999,
+              0.0628809998743236,
+              0.0632949999999255,
+              0.058577199932187796
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/figma/healing_wind-bf7a933044bdbd1d747a.npz",
+            "cache_bytes": 14435
+          },
+          {
+            "track_id": "galloping_to_kugrant",
+            "cache_hit": false,
+            "total_seconds": 0.6054133998695761,
+            "segment_inference_seconds": [
+              0.060609899926930666,
+              0.06768930004909635,
+              0.06358219985850155,
+              0.06470220000483096,
+              0.06411830009892583,
+              0.06245379988104105
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/figma/galloping_to_kugrant-1d60b7043fd9d1b6ef12.npz",
+            "cache_bytes": 14438
+          },
+          {
+            "track_id": "cry_of_the_elves",
+            "cache_hit": false,
+            "total_seconds": 0.7609908001031727,
+            "segment_inference_seconds": [
+              0.05831149988807738,
+              0.06081649987027049,
+              0.06091900006867945,
+              0.05973959993571043,
+              0.06322090001776814,
+              0.05881930002942681
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/figma/cry_of_the_elves-a902fa17416b55a0f270.npz",
+            "cache_bytes": 14420
+          },
+          {
+            "track_id": "dark_blue_horizon",
+            "cache_hit": false,
+            "total_seconds": 0.9747496000491083,
+            "segment_inference_seconds": [
+              0.059362699976190925,
+              0.06083610001951456,
+              0.06224609981290996,
+              0.05989750009030104,
+              0.06081980001181364,
+              0.06233710004016757
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/figma/dark_blue_horizon-8e11551178a2553a2bbc.npz",
+            "cache_bytes": 14452
+          }
+        ]
+      },
+      "queries": [
+        {
+          "query_id": "q01",
+          "text_embedding_seconds": 0.26519060018472373,
+          "retrieval_seconds_by_mode": {
+            "global": 0.0006048998329788446,
+            "segment": 0.00012059998698532581,
+            "hybrid": 0.0004412999842315912
+          }
+        },
+        {
+          "query_id": "q02",
+          "text_embedding_seconds": 0.025125599931925535,
+          "retrieval_seconds_by_mode": {
+            "global": 9.629991836845875e-05,
+            "segment": 9.190011769533157e-05,
+            "hybrid": 0.00013979990035295486
+          }
+        },
+        {
+          "query_id": "q03",
+          "text_embedding_seconds": 0.023023599991574883,
+          "retrieval_seconds_by_mode": {
+            "global": 8.919998072087765e-05,
+            "segment": 8.650007657706738e-05,
+            "hybrid": 0.00012059998698532581
+          }
+        },
+        {
+          "query_id": "q04",
+          "text_embedding_seconds": 0.026655300054699183,
+          "retrieval_seconds_by_mode": {
+            "global": 8.87999776750803e-05,
+            "segment": 8.679996244609356e-05,
+            "hybrid": 0.00011550006456673145
+          }
+        },
+        {
+          "query_id": "q05",
+          "text_embedding_seconds": 0.023691199952736497,
+          "retrieval_seconds_by_mode": {
+            "global": 9.409990161657333e-05,
+            "segment": 8.839997462928295e-05,
+            "hybrid": 0.00011690007522702217
+          }
+        },
+        {
+          "query_id": "q06",
+          "text_embedding_seconds": 0.022458599880337715,
+          "retrieval_seconds_by_mode": {
+            "global": 0.00018989993259310722,
+            "segment": 0.00012420001439750195,
+            "hybrid": 0.00012759980745613575
+          }
+        },
+        {
+          "query_id": "q07",
+          "text_embedding_seconds": 0.02143139997497201,
+          "retrieval_seconds_by_mode": {
+            "global": 8.87999776750803e-05,
+            "segment": 8.990010246634483e-05,
+            "hybrid": 0.00011330004781484604
+          }
+        },
+        {
+          "query_id": "q08",
+          "text_embedding_seconds": 0.022716500097885728,
+          "retrieval_seconds_by_mode": {
+            "global": 0.00010750000365078449,
+            "segment": 0.00011319993063807487,
+            "hybrid": 0.00012049986980855465
+          }
+        },
+        {
+          "query_id": "q09",
+          "text_embedding_seconds": 0.021633800119161606,
+          "retrieval_seconds_by_mode": {
+            "global": 0.00011330004781484604,
+            "segment": 8.679996244609356e-05,
+            "hybrid": 0.00011559994891285896
+          }
+        },
+        {
+          "query_id": "q10",
+          "text_embedding_seconds": 0.02053159987553954,
+          "retrieval_seconds_by_mode": {
+            "global": 9.059999138116837e-05,
+            "segment": 8.740019984543324e-05,
+            "hybrid": 0.00011559994891285896
+          }
+        },
+        {
+          "query_id": "q11",
+          "text_embedding_seconds": 0.024696300039067864,
+          "retrieval_seconds_by_mode": {
+            "global": 0.00010149995796382427,
+            "segment": 8.629984222352505e-05,
+            "hybrid": 0.00011240015737712383
+          }
+        },
+        {
+          "query_id": "q12",
+          "text_embedding_seconds": 0.02335299993865192,
+          "retrieval_seconds_by_mode": {
+            "global": 8.649984374642372e-05,
+            "segment": 8.5500068962574e-05,
+            "hybrid": 0.00011110003106296062
+          }
+        },
+        {
+          "query_id": "q13",
+          "text_embedding_seconds": 0.02444240008480847,
+          "retrieval_seconds_by_mode": {
+            "global": 8.749985136091709e-05,
+            "segment": 8.5500068962574e-05,
+            "hybrid": 0.00011010002344846725
+          }
+        },
+        {
+          "query_id": "q14",
+          "text_embedding_seconds": 0.021504299947991967,
+          "retrieval_seconds_by_mode": {
+            "global": 8.570007048547268e-05,
+            "segment": 8.479994721710682e-05,
+            "hybrid": 0.00010810000821948051
+          }
+        },
+        {
+          "query_id": "q15",
+          "text_embedding_seconds": 0.02220309991389513,
+          "retrieval_seconds_by_mode": {
+            "global": 8.850009180605412e-05,
+            "segment": 8.590007200837135e-05,
+            "hybrid": 0.00011059991084039211
+          }
+        },
+        {
+          "query_id": "q16",
+          "text_embedding_seconds": 0.021105200052261353,
+          "retrieval_seconds_by_mode": {
+            "global": 8.639995940029621e-05,
+            "segment": 8.430005982518196e-05,
+            "hybrid": 0.00010879989713430405
+          }
+        },
+        {
+          "query_id": "q17",
+          "text_embedding_seconds": 0.021953599993139505,
+          "retrieval_seconds_by_mode": {
+            "global": 9.42000187933445e-05,
+            "segment": 8.379993960261345e-05,
+            "hybrid": 0.0001097000204026699
+          }
+        },
+        {
+          "query_id": "q18",
+          "text_embedding_seconds": 0.021196099929511547,
+          "retrieval_seconds_by_mode": {
+            "global": 9.290012530982494e-05,
+            "segment": 8.749985136091709e-05,
+            "hybrid": 0.0001105000264942646
+          }
+        },
+        {
+          "query_id": "q19",
+          "text_embedding_seconds": 0.022722099907696247,
+          "retrieval_seconds_by_mode": {
+            "global": 8.979998528957367e-05,
+            "segment": 8.469983004033566e-05,
+            "hybrid": 0.00011070002801716328
+          }
+        },
+        {
+          "query_id": "q20",
+          "text_embedding_seconds": 0.021474899956956506,
+          "retrieval_seconds_by_mode": {
+            "global": 8.979998528957367e-05,
+            "segment": 8.5500068962574e-05,
+            "hybrid": 0.00011300016194581985
+          }
+        }
+      ],
+      "text_embedding_validation": {
+        "mean_off_diagonal_cosine": 0.5348833203315735,
+        "max_off_diagonal_cosine": 0.9031904935836792,
+        "collapse_threshold": 0.995,
+        "collapsed": false
+      },
+      "cache_total_bytes": 216304
+    },
+    "muq_mulan": {
+      "model": {
+        "key": "muq_mulan",
+        "name": "MuQ-MuLan",
+        "checkpoint": "OpenMuQ/MuQ-MuLan-large",
+        "revision": "2e01c796b71dca71b45251384c04cd7b237c9020",
+        "device": "cuda",
+        "sample_rate": 24000,
+        "audio_input_seconds": 25.0,
+        "embedding_dimension": 512,
+        "license": "CC-BY-NC-4.0"
+      },
+      "load_seconds": 8.724136600038037,
+      "peak_vram_bytes": 2920060928,
+      "process_ram_bytes": 7126937600,
+      "embedding": {
+        "preprocessing": {
+          "segment_seconds": 25.0,
+          "segment_count": 6,
+          "sample_rate": 24000,
+          "audio_input_seconds": 25.0,
+          "excerpt_strategy": "center-crop-or-right-pad",
+          "global_strategy": "l2-normalized mean of all segment embeddings"
+        },
+        "tracks": [
+          {
+            "track_id": "avalon",
+            "cache_hit": false,
+            "total_seconds": 2.516113300109282,
+            "segment_inference_seconds": [
+              0.19726679986342788,
+              0.1798797999508679,
+              0.17516989982686937,
+              0.17490469990298152,
+              0.18500009994022548,
+              0.17855060007423162
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/muq_mulan/avalon-ffee89cd6a23f2e98335.npz",
+            "cache_bytes": 14431
+          },
+          {
+            "track_id": "let_the_wolf_out",
+            "cache_hit": false,
+            "total_seconds": 1.5349204000085592,
+            "segment_inference_seconds": [
+              0.17926139989867806,
+              0.1766168000176549,
+              0.17668889998458326,
+              0.17818950000219047,
+              0.18699580011889338,
+              0.19572730013169348
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/muq_mulan/let_the_wolf_out-c242c982e6098ebaae50.npz",
+            "cache_bytes": 14417
+          },
+          {
+            "track_id": "alone_in_the_crowd",
+            "cache_hit": false,
+            "total_seconds": 1.6018725000321865,
+            "segment_inference_seconds": [
+              0.19109410000965,
+              0.17973430012352765,
+              0.17540639988146722,
+              0.17525419988669455,
+              0.18218300002627075,
+              0.17574630002491176
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/muq_mulan/alone_in_the_crowd-4bdb54f2596b6cfffebb.npz",
+            "cache_bytes": 14437
+          },
+          {
+            "track_id": "dawn_in_istoccar",
+            "cache_hit": false,
+            "total_seconds": 1.4225272999610752,
+            "segment_inference_seconds": [
+              0.17213930003345013,
+              0.18142080004327,
+              0.17469750018790364,
+              0.1782836001366377,
+              0.17744709993712604,
+              0.1825540999416262
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/muq_mulan/dawn_in_istoccar-eecdb34153a46e9bac3d.npz",
+            "cache_bytes": 14396
+          },
+          {
+            "track_id": "edge",
+            "cache_hit": false,
+            "total_seconds": 1.602786999894306,
+            "segment_inference_seconds": [
+              0.17578529985621572,
+              0.19114480004645884,
+              0.19551050011068583,
+              0.18995600007474422,
+              0.19635419989936054,
+              0.19627960002981126
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/muq_mulan/edge-d82ab5eebf478b8b81d5.npz",
+            "cache_bytes": 14428
+          },
+          {
+            "track_id": "classical_is_so_metal",
+            "cache_hit": false,
+            "total_seconds": 1.3526128998491913,
+            "segment_inference_seconds": [
+              0.17821580008603632,
+              0.17594329989515245,
+              0.17509009991772473,
+              0.17994670011103153,
+              0.17913029994815588,
+              0.17891370016150177
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/muq_mulan/classical_is_so_metal-b731ea6390855ea15759.npz",
+            "cache_bytes": 14442
+          },
+          {
+            "track_id": "ancient_ritual",
+            "cache_hit": false,
+            "total_seconds": 1.3938981001265347,
+            "segment_inference_seconds": [
+              0.17443490005098283,
+              0.18434790009632707,
+              0.17903460003435612,
+              0.1743962001055479,
+              0.18571979994885623,
+              0.1755209001712501
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/muq_mulan/ancient_ritual-43210f33537c60da9bf5.npz",
+            "cache_bytes": 14408
+          },
+          {
+            "track_id": "raven_lullaby",
+            "cache_hit": false,
+            "total_seconds": 1.6901979001704603,
+            "segment_inference_seconds": [
+              0.19719249987974763,
+              0.18880180013366044,
+              0.19627970014698803,
+              0.1888552000746131,
+              0.18197589996270835,
+              0.18282500002533197
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/muq_mulan/raven_lullaby-54612ce24972e907f0f3.npz",
+            "cache_bytes": 14447
+          },
+          {
+            "track_id": "marching_city_gates",
+            "cache_hit": false,
+            "total_seconds": 1.2894584001041949,
+            "segment_inference_seconds": [
+              0.17938749981112778,
+              0.17764540016651154,
+              0.17889610002748668,
+              0.18196870014071465,
+              0.17772840010002255,
+              0.18432680005207658
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/muq_mulan/marching_city_gates-fa82d4418ba722003abf.npz",
+            "cache_bytes": 14410
+          },
+          {
+            "track_id": "night_at_the_tavern",
+            "cache_hit": false,
+            "total_seconds": 1.2565906001254916,
+            "segment_inference_seconds": [
+              0.1783048000652343,
+              0.1835489000659436,
+              0.17758870008401573,
+              0.181802999926731,
+              0.17517770011909306,
+              0.18200739985331893
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/muq_mulan/night_at_the_tavern-e2681de2eaedbfcd5a19.npz",
+            "cache_bytes": 14404
+          },
+          {
+            "track_id": "icebreaker_storm",
+            "cache_hit": false,
+            "total_seconds": 1.4003802998922765,
+            "segment_inference_seconds": [
+              0.19500910001806915,
+              0.19530360004864633,
+              0.19222480012103915,
+              0.19217870011925697,
+              0.18294299999251962,
+              0.17739309999160469
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/muq_mulan/icebreaker_storm-8230a06e128994fa9d9f.npz",
+            "cache_bytes": 14408
+          },
+          {
+            "track_id": "healing_wind",
+            "cache_hit": false,
+            "total_seconds": 1.3619418998714536,
+            "segment_inference_seconds": [
+              0.1798820998519659,
+              0.1818983000703156,
+              0.17790440004318953,
+              0.1756213998887688,
+              0.18440619995817542,
+              0.17833520006388426
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/muq_mulan/healing_wind-b709de466f3b1298135f.npz",
+            "cache_bytes": 14393
+          },
+          {
+            "track_id": "galloping_to_kugrant",
+            "cache_hit": false,
+            "total_seconds": 1.2852302000392228,
+            "segment_inference_seconds": [
+              0.180546399904415,
+              0.17700410005636513,
+              0.17756609991192818,
+              0.17991609987802804,
+              0.17128929984755814,
+              0.18558549997396767
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/muq_mulan/galloping_to_kugrant-cedfd7c7b77e5fa6d748.npz",
+            "cache_bytes": 14420
+          },
+          {
+            "track_id": "cry_of_the_elves",
+            "cache_hit": false,
+            "total_seconds": 1.5114441998302937,
+            "segment_inference_seconds": [
+              0.19601120008155704,
+              0.18753220001235604,
+              0.19215599982999265,
+              0.184006700059399,
+              0.17821260006166995,
+              0.17809669999405742
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/muq_mulan/cry_of_the_elves-f2d8f850dd162724e04d.npz",
+            "cache_bytes": 14444
+          },
+          {
+            "track_id": "dark_blue_horizon",
+            "cache_hit": false,
+            "total_seconds": 1.6116833998821676,
+            "segment_inference_seconds": [
+              0.1776882999110967,
+              0.1793519000057131,
+              0.17667030007578433,
+              0.17871510004624724,
+              0.18126380001194775,
+              0.17827649996615946
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/muq_mulan/dark_blue_horizon-323f66f05f0ba2b369bf.npz",
+            "cache_bytes": 14428
+          }
+        ]
+      },
+      "queries": [
+        {
+          "query_id": "q01",
+          "text_embedding_seconds": 2.078558800043538,
+          "retrieval_seconds_by_mode": {
+            "global": 0.00015249988064169884,
+            "segment": 0.00010719988495111465,
+            "hybrid": 0.00015620002523064613
+          }
+        },
+        {
+          "query_id": "q02",
+          "text_embedding_seconds": 0.043141899863258004,
+          "retrieval_seconds_by_mode": {
+            "global": 9.280000813305378e-05,
+            "segment": 9.26000066101551e-05,
+            "hybrid": 0.00012340000830590725
+          }
+        },
+        {
+          "query_id": "q03",
+          "text_embedding_seconds": 0.02560029993765056,
+          "retrieval_seconds_by_mode": {
+            "global": 8.990010246634483e-05,
+            "segment": 8.659996092319489e-05,
+            "hybrid": 0.00011550006456673145
+          }
+        },
+        {
+          "query_id": "q04",
+          "text_embedding_seconds": 0.01885360013693571,
+          "retrieval_seconds_by_mode": {
+            "global": 8.850009180605412e-05,
+            "segment": 8.479994721710682e-05,
+            "hybrid": 0.00012969993986189365
+          }
+        },
+        {
+          "query_id": "q05",
+          "text_embedding_seconds": 0.01908780005760491,
+          "retrieval_seconds_by_mode": {
+            "global": 0.00013439985923469067,
+            "segment": 8.570007048547268e-05,
+            "hybrid": 0.00012250011786818504
+          }
+        },
+        {
+          "query_id": "q06",
+          "text_embedding_seconds": 0.018413899932056665,
+          "retrieval_seconds_by_mode": {
+            "global": 8.869986049830914e-05,
+            "segment": 8.5500068962574e-05,
+            "hybrid": 0.0001121999230235815
+          }
+        },
+        {
+          "query_id": "q07",
+          "text_embedding_seconds": 0.02205189992673695,
+          "retrieval_seconds_by_mode": {
+            "global": 8.650007657706738e-05,
+            "segment": 0.00010310020297765732,
+            "hybrid": 0.00011679995805025101
+          }
+        },
+        {
+          "query_id": "q08",
+          "text_embedding_seconds": 0.022249399917200208,
+          "retrieval_seconds_by_mode": {
+            "global": 8.619995787739754e-05,
+            "segment": 8.290004916489124e-05,
+            "hybrid": 0.00010799989104270935
+          }
+        },
+        {
+          "query_id": "q09",
+          "text_embedding_seconds": 0.021141899982467294,
+          "retrieval_seconds_by_mode": {
+            "global": 8.529983460903168e-05,
+            "segment": 8.290004916489124e-05,
+            "hybrid": 0.00010740011930465698
+          }
+        },
+        {
+          "query_id": "q10",
+          "text_embedding_seconds": 0.026582200080156326,
+          "retrieval_seconds_by_mode": {
+            "global": 8.389982394874096e-05,
+            "segment": 8.130003698170185e-05,
+            "hybrid": 0.00010519986972212791
+          }
+        },
+        {
+          "query_id": "q11",
+          "text_embedding_seconds": 0.022752299904823303,
+          "retrieval_seconds_by_mode": {
+            "global": 8.410005830228329e-05,
+            "segment": 8.280016481876373e-05,
+            "hybrid": 0.00017189979553222656
+          }
+        },
+        {
+          "query_id": "q12",
+          "text_embedding_seconds": 0.020083399955183268,
+          "retrieval_seconds_by_mode": {
+            "global": 8.5099833086133e-05,
+            "segment": 8.25000461190939e-05,
+            "hybrid": 0.00011030002497136593
+          }
+        },
+        {
+          "query_id": "q13",
+          "text_embedding_seconds": 0.019604200031608343,
+          "retrieval_seconds_by_mode": {
+            "global": 8.360017091035843e-05,
+            "segment": 8.190004155039787e-05,
+            "hybrid": 0.00010850001126527786
+          }
+        },
+        {
+          "query_id": "q14",
+          "text_embedding_seconds": 0.022021899931132793,
+          "retrieval_seconds_by_mode": {
+            "global": 8.41999426484108e-05,
+            "segment": 8.270004764199257e-05,
+            "hybrid": 0.00010790000669658184
+          }
+        },
+        {
+          "query_id": "q15",
+          "text_embedding_seconds": 0.021005499875172973,
+          "retrieval_seconds_by_mode": {
+            "global": 8.379993960261345e-05,
+            "segment": 8.25000461190939e-05,
+            "hybrid": 0.00010649999603629112
+          }
+        },
+        {
+          "query_id": "q16",
+          "text_embedding_seconds": 0.020516499876976013,
+          "retrieval_seconds_by_mode": {
+            "global": 8.41999426484108e-05,
+            "segment": 8.239992894232273e-05,
+            "hybrid": 0.00010580010712146759
+          }
+        },
+        {
+          "query_id": "q17",
+          "text_embedding_seconds": 0.019478500122204423,
+          "retrieval_seconds_by_mode": {
+            "global": 8.390005677938461e-05,
+            "segment": 8.219992741942406e-05,
+            "hybrid": 0.00010689999908208847
+          }
+        },
+        {
+          "query_id": "q18",
+          "text_embedding_seconds": 0.01922410004772246,
+          "retrieval_seconds_by_mode": {
+            "global": 8.350005373358727e-05,
+            "segment": 8.190004155039787e-05,
+            "hybrid": 0.00010569998994469643
+          }
+        },
+        {
+          "query_id": "q19",
+          "text_embedding_seconds": 0.021272999932989478,
+          "retrieval_seconds_by_mode": {
+            "global": 9.050010703504086e-05,
+            "segment": 8.270004764199257e-05,
+            "hybrid": 0.00010700011625885963
+          }
+        },
+        {
+          "query_id": "q20",
+          "text_embedding_seconds": 0.02085390011779964,
+          "retrieval_seconds_by_mode": {
+            "global": 8.279993198812008e-05,
+            "segment": 8.119991980493069e-05,
+            "hybrid": 0.00010409997776150703
+          }
+        }
+      ],
+      "text_embedding_validation": {
+        "mean_off_diagonal_cosine": 0.2939005494117737,
+        "max_off_diagonal_cosine": 0.857754647731781,
+        "collapse_threshold": 0.995,
+        "collapsed": false
+      },
+      "cache_total_bytes": 216313
+    },
+    "laion_clap": {
+      "model": {
+        "key": "laion_clap",
+        "name": "LAION-CLAP HTSAT unfused baseline",
+        "checkpoint": "laion/clap-htsat-unfused",
+        "revision": "8fa0f1c6d0433df6e97c127f64b2a1d6c0dcda8a",
+        "device": "cuda",
+        "sample_rate": 48000,
+        "audio_input_seconds": 10.0,
+        "embedding_dimension": 512,
+        "license": "Apache-2.0"
+      },
+      "load_seconds": 14.239104999927804,
+      "peak_vram_bytes": 692616192,
+      "process_ram_bytes": 6832574464,
+      "embedding": {
+        "preprocessing": {
+          "segment_seconds": 25.0,
+          "segment_count": 6,
+          "sample_rate": 48000,
+          "audio_input_seconds": 10.0,
+          "excerpt_strategy": "center-crop-or-right-pad",
+          "global_strategy": "l2-normalized mean of all segment embeddings"
+        },
+        "tracks": [
+          {
+            "track_id": "avalon",
+            "cache_hit": false,
+            "total_seconds": 1.7353481000754982,
+            "segment_inference_seconds": [
+              0.09274639980867505,
+              0.04561119992285967,
+              0.06381550012156367,
+              0.053479199996218085,
+              0.044214299879968166,
+              0.05058719986118376
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/laion_clap/avalon-6b6ef3389418699e9ab3.npz",
+            "cache_bytes": 14403
+          },
+          {
+            "track_id": "let_the_wolf_out",
+            "cache_hit": false,
+            "total_seconds": 0.7508672999683768,
+            "segment_inference_seconds": [
+              0.05090709985233843,
+              0.05711160018108785,
+              0.045571799855679274,
+              0.04978960007429123,
+              0.047241299878805876,
+              0.050960500026121736
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/laion_clap/let_the_wolf_out-915e98f50d537b616440.npz",
+            "cache_bytes": 14458
+          },
+          {
+            "track_id": "alone_in_the_crowd",
+            "cache_hit": false,
+            "total_seconds": 1.0554478999692947,
+            "segment_inference_seconds": [
+              0.04467930016107857,
+              0.045524399960413575,
+              0.055223300121724606,
+              0.12752420012839139,
+              0.16798429982736707,
+              0.07349069998599589
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/laion_clap/alone_in_the_crowd-03788493d76ca4edd0e3.npz",
+            "cache_bytes": 14450
+          },
+          {
+            "track_id": "dawn_in_istoccar",
+            "cache_hit": false,
+            "total_seconds": 0.7975825001485646,
+            "segment_inference_seconds": [
+              0.04868689994327724,
+              0.050679099978879094,
+              0.06929649994708598,
+              0.06189520005136728,
+              0.05528880003839731,
+              0.0650305999442935
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/laion_clap/dawn_in_istoccar-009b2a2ab7bb07f4e514.npz",
+            "cache_bytes": 14429
+          },
+          {
+            "track_id": "edge",
+            "cache_hit": false,
+            "total_seconds": 0.9143584000412375,
+            "segment_inference_seconds": [
+              0.07853280007839203,
+              0.08725099987350404,
+              0.04642699984833598,
+              0.04772610007785261,
+              0.04814670002087951,
+              0.05280869989655912
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/laion_clap/edge-ed0f1e38521d0c46ea5d.npz",
+            "cache_bytes": 14451
+          },
+          {
+            "track_id": "classical_is_so_metal",
+            "cache_hit": false,
+            "total_seconds": 0.7024832998868078,
+            "segment_inference_seconds": [
+              0.05077279987744987,
+              0.11895280005410314,
+              0.052178199868649244,
+              0.05429409979842603,
+              0.052422699984163046,
+              0.04809539997950196
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/laion_clap/classical_is_so_metal-454c67c1ff523288d4ab.npz",
+            "cache_bytes": 14414
+          },
+          {
+            "track_id": "ancient_ritual",
+            "cache_hit": false,
+            "total_seconds": 0.8311195999849588,
+            "segment_inference_seconds": [
+              0.16071910015307367,
+              0.04808390000835061,
+              0.046673399861902,
+              0.052045000018551946,
+              0.05430379998870194,
+              0.047551200026646256
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/laion_clap/ancient_ritual-e39518d06984dca6f8a7.npz",
+            "cache_bytes": 14442
+          },
+          {
+            "track_id": "raven_lullaby",
+            "cache_hit": false,
+            "total_seconds": 1.1455932999961078,
+            "segment_inference_seconds": [
+              0.05951320007443428,
+              0.05078189983032644,
+              0.12429700000211596,
+              0.05097580002620816,
+              0.051665599923580885,
+              0.09819319983944297
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/laion_clap/raven_lullaby-df294efd9acc14ef787e.npz",
+            "cache_bytes": 14425
+          },
+          {
+            "track_id": "marching_city_gates",
+            "cache_hit": false,
+            "total_seconds": 0.718265000032261,
+            "segment_inference_seconds": [
+              0.0506937000900507,
+              0.049616700038313866,
+              0.04990199999883771,
+              0.05521540017798543,
+              0.12596730003133416,
+              0.11888989992439747
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/laion_clap/marching_city_gates-a21c4e3d5b4b58e8fcd9.npz",
+            "cache_bytes": 14425
+          },
+          {
+            "track_id": "night_at_the_tavern",
+            "cache_hit": false,
+            "total_seconds": 0.5877028999384493,
+            "segment_inference_seconds": [
+              0.07069940003566444,
+              0.1013553999364376,
+              0.04980699997395277,
+              0.04634299990721047,
+              0.045391099993139505,
+              0.04376340005546808
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/laion_clap/night_at_the_tavern-28c5417be3dc49ea4f3f.npz",
+            "cache_bytes": 14430
+          },
+          {
+            "track_id": "icebreaker_storm",
+            "cache_hit": false,
+            "total_seconds": 0.5838315999135375,
+            "segment_inference_seconds": [
+              0.04500870010815561,
+              0.04974519996903837,
+              0.04492420004680753,
+              0.04319480014964938,
+              0.045873999828472733,
+              0.04615289997309446
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/laion_clap/icebreaker_storm-885b1163fdf9b8fb7437.npz",
+            "cache_bytes": 14424
+          },
+          {
+            "track_id": "healing_wind",
+            "cache_hit": false,
+            "total_seconds": 0.7391422998625785,
+            "segment_inference_seconds": [
+              0.04679530020803213,
+              0.049638899974524975,
+              0.105132200056687,
+              0.048284699907526374,
+              0.051008500158786774,
+              0.045917300041764975
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/laion_clap/healing_wind-7ad9ffd7a1607040170b.npz",
+            "cache_bytes": 14411
+          },
+          {
+            "track_id": "galloping_to_kugrant",
+            "cache_hit": false,
+            "total_seconds": 0.5565861000213772,
+            "segment_inference_seconds": [
+              0.047752499813213944,
+              0.05013049999251962,
+              0.04653219995088875,
+              0.051266999915242195,
+              0.05357329989783466,
+              0.0553723000921309
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/laion_clap/galloping_to_kugrant-7ef49bf8e54613daf5d3.npz",
+            "cache_bytes": 14463
+          },
+          {
+            "track_id": "cry_of_the_elves",
+            "cache_hit": false,
+            "total_seconds": 0.6910152998752892,
+            "segment_inference_seconds": [
+              0.04447049996815622,
+              0.04320730012841523,
+              0.05414390005171299,
+              0.044054599944502115,
+              0.04715230013243854,
+              0.05031730001792312
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/laion_clap/cry_of_the_elves-2e96c5d2951c786066b5.npz",
+            "cache_bytes": 14426
+          },
+          {
+            "track_id": "dark_blue_horizon",
+            "cache_hit": false,
+            "total_seconds": 0.9576034999918193,
+            "segment_inference_seconds": [
+              0.05363850016146898,
+              0.049313300056383014,
+              0.05006130016408861,
+              0.055584599962458014,
+              0.0460230999160558,
+              0.10612539993599057
+            ],
+            "cache_file": "data/music-intelligence-v2/embeddings/laion_clap/dark_blue_horizon-e0c0d2330fe135b8a232.npz",
+            "cache_bytes": 14426
+          }
+        ]
+      },
+      "queries": [
+        {
+          "query_id": "q01",
+          "text_embedding_seconds": 0.019802900031208992,
+          "retrieval_seconds_by_mode": {
+            "global": 0.00013420009054243565,
+            "segment": 9.440002031624317e-05,
+            "hybrid": 0.00013830000534653664
+          }
+        },
+        {
+          "query_id": "q02",
+          "text_embedding_seconds": 0.013637500116601586,
+          "retrieval_seconds_by_mode": {
+            "global": 8.870009332895279e-05,
+            "segment": 8.66998452693224e-05,
+            "hybrid": 0.00011819996871054173
+          }
+        },
+        {
+          "query_id": "q03",
+          "text_embedding_seconds": 0.014803400030359626,
+          "retrieval_seconds_by_mode": {
+            "global": 9.059999138116837e-05,
+            "segment": 8.939998224377632e-05,
+            "hybrid": 0.00011159991845488548
+          }
+        },
+        {
+          "query_id": "q04",
+          "text_embedding_seconds": 0.01603420008905232,
+          "retrieval_seconds_by_mode": {
+            "global": 8.639995940029621e-05,
+            "segment": 8.529983460903168e-05,
+            "hybrid": 0.00011950009502470493
+          }
+        },
+        {
+          "query_id": "q05",
+          "text_embedding_seconds": 0.01477160002104938,
+          "retrieval_seconds_by_mode": {
+            "global": 8.620019070804119e-05,
+            "segment": 8.759996853768826e-05,
+            "hybrid": 0.00011439993977546692
+          }
+        },
+        {
+          "query_id": "q06",
+          "text_embedding_seconds": 0.0155821000225842,
+          "retrieval_seconds_by_mode": {
+            "global": 8.910009637475014e-05,
+            "segment": 8.729984983801842e-05,
+            "hybrid": 0.0001113000325858593
+          }
+        },
+        {
+          "query_id": "q07",
+          "text_embedding_seconds": 0.016978499945253134,
+          "retrieval_seconds_by_mode": {
+            "global": 8.709984831511974e-05,
+            "segment": 8.619995787739754e-05,
+            "hybrid": 0.00010920013301074505
+          }
+        },
+        {
+          "query_id": "q08",
+          "text_embedding_seconds": 0.017008600058034062,
+          "retrieval_seconds_by_mode": {
+            "global": 8.569983765482903e-05,
+            "segment": 0.0002087999600917101,
+            "hybrid": 0.00011419993825256824
+          }
+        },
+        {
+          "query_id": "q09",
+          "text_embedding_seconds": 0.015705499798059464,
+          "retrieval_seconds_by_mode": {
+            "global": 8.63000750541687e-05,
+            "segment": 8.499994874000549e-05,
+            "hybrid": 0.00011040014214813709
+          }
+        },
+        {
+          "query_id": "q10",
+          "text_embedding_seconds": 0.014466699911281466,
+          "retrieval_seconds_by_mode": {
+            "global": 8.639995940029621e-05,
+            "segment": 8.560018613934517e-05,
+            "hybrid": 0.0001091999001801014
+          }
+        },
+        {
+          "query_id": "q11",
+          "text_embedding_seconds": 0.013549699913710356,
+          "retrieval_seconds_by_mode": {
+            "global": 9.350012987852097e-05,
+            "segment": 8.410005830228329e-05,
+            "hybrid": 0.00010910001583397388
+          }
+        },
+        {
+          "query_id": "q12",
+          "text_embedding_seconds": 0.012546199839562178,
+          "retrieval_seconds_by_mode": {
+            "global": 8.470006287097931e-05,
+            "segment": 8.350005373358727e-05,
+            "hybrid": 0.00010730000212788582
+          }
+        },
+        {
+          "query_id": "q13",
+          "text_embedding_seconds": 0.014105099951848388,
+          "retrieval_seconds_by_mode": {
+            "global": 0.00011789985001087189,
+            "segment": 9.0000219643116e-05,
+            "hybrid": 0.00012820004485547543
+          }
+        },
+        {
+          "query_id": "q14",
+          "text_embedding_seconds": 0.014961699955165386,
+          "retrieval_seconds_by_mode": {
+            "global": 8.96998681128025e-05,
+            "segment": 8.79000872373581e-05,
+            "hybrid": 0.0001175999641418457
+          }
+        },
+        {
+          "query_id": "q15",
+          "text_embedding_seconds": 0.014179399935528636,
+          "retrieval_seconds_by_mode": {
+            "global": 8.899997919797897e-05,
+            "segment": 8.649984374642372e-05,
+            "hybrid": 0.00011370005086064339
+          }
+        },
+        {
+          "query_id": "q16",
+          "text_embedding_seconds": 0.012773999944329262,
+          "retrieval_seconds_by_mode": {
+            "global": 8.79999715834856e-05,
+            "segment": 8.71000811457634e-05,
+            "hybrid": 0.00011230004020035267
+          }
+        },
+        {
+          "query_id": "q17",
+          "text_embedding_seconds": 0.012500399956479669,
+          "retrieval_seconds_by_mode": {
+            "global": 8.92002135515213e-05,
+            "segment": 8.650007657706738e-05,
+            "hybrid": 0.0001121999230235815
+          }
+        },
+        {
+          "query_id": "q18",
+          "text_embedding_seconds": 0.012911399826407433,
+          "retrieval_seconds_by_mode": {
+            "global": 8.859997615218163e-05,
+            "segment": 9.400001727044582e-05,
+            "hybrid": 0.00011559994891285896
+          }
+        },
+        {
+          "query_id": "q19",
+          "text_embedding_seconds": 0.013628700049594045,
+          "retrieval_seconds_by_mode": {
+            "global": 8.749985136091709e-05,
+            "segment": 8.620019070804119e-05,
+            "hybrid": 0.00011259992606937885
+          }
+        },
+        {
+          "query_id": "q20",
+          "text_embedding_seconds": 0.013558799866586924,
+          "retrieval_seconds_by_mode": {
+            "global": 8.949986658990383e-05,
+            "segment": 8.819997310638428e-05,
+            "hybrid": 0.00011230004020035267
+          }
+        }
+      ],
+      "text_embedding_validation": {
+        "mean_off_diagonal_cosine": 0.5524523854255676,
+        "max_off_diagonal_cosine": 0.900554358959198,
+        "collapse_threshold": 0.995,
+        "collapsed": false
+      },
+      "cache_total_bytes": 432556
+    }
+  }
+}

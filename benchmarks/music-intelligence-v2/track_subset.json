@@ -1,0 +1,107 @@
+[
+  {
+    "track_id": "avalon",
+    "title": "Quest for Avalon",
+    "album": "9",
+    "audio_path": "data/musica/9/Avalon.mp3",
+    "reason_selected": "Long-form fantasy journey and required anchor track."
+  },
+  {
+    "track_id": "let_the_wolf_out",
+    "title": "Let the Wolf Out",
+    "album": "Black & White",
+    "audio_path": "data/musica/blackAndWhite/8letTheWolfOut.mp3",
+    "reason_selected": "Required anchor with a contrasting forceful character."
+  },
+  {
+    "track_id": "alone_in_the_crowd",
+    "title": "Alone In the Crowd",
+    "album": "Black & White",
+    "audio_path": "data/musica/blackAndWhite/9aloneInTheCrowd.mp3",
+    "reason_selected": "Required reflective and emotionally contrasting anchor."
+  },
+  {
+    "track_id": "dawn_in_istoccar",
+    "title": "Dawn in Istoccar",
+    "album": "Dawn in Istoccar",
+    "audio_path": "data/musica/DawnInIstoccar/Dawn-in-Istoccar.mp3",
+    "reason_selected": "Required sunrise/fantasy anchor for calm scene queries."
+  },
+  {
+    "track_id": "edge",
+    "title": "The Edge of the Unknown",
+    "album": "9",
+    "audio_path": "data/musica/9/Edge.mp3",
+    "reason_selected": "Required exploration anchor with an unknown-frontier narrative."
+  },
+  {
+    "track_id": "classical_is_so_metal",
+    "title": "Classical Is So Metal",
+    "album": "Experimenting on Her Own",
+    "audio_path": "data/musica/ExperimentingOnHerOwn/1.-classical-is-so-metal.mp3",
+    "reason_selected": "Strong classical/heavy contrast for energy and instrumentation."
+  },
+  {
+    "track_id": "ancient_ritual",
+    "title": "Ancient Ritual",
+    "album": "Never Without the Bards",
+    "audio_path": "data/musica/NeverWithoutTheBards/ancient-ritual.mp3",
+    "reason_selected": "Ancient tribal/ritual scene and percussion contrast."
+  },
+  {
+    "track_id": "raven_lullaby",
+    "title": "Raven Lullaby",
+    "album": "The Pathmaker",
+    "audio_path": "data/musica/ThePathmaker/8.-raven-lullaby.mp3",
+    "reason_selected": "Quiet lullaby contrast for gentle and peaceful queries."
+  },
+  {
+    "track_id": "marching_city_gates",
+    "title": "Marching Through City Gates",
+    "album": "Reunion's Tavern",
+    "audio_path": "data/musica/ReunionsTavern/4.-marching-through-city-gates.mp3",
+    "reason_selected": "Marching army scene for heroic, battle and percussion retrieval."
+  },
+  {
+    "track_id": "night_at_the_tavern",
+    "title": "A Night at the Tavern",
+    "album": "Reunion's Tavern",
+    "audio_path": "data/musica/ReunionsTavern/1.-a-night-at-the-tavern.mp3",
+    "reason_selected": "Medieval social scene distinct from orchestral battle material."
+  },
+  {
+    "track_id": "icebreaker_storm",
+    "title": "Icebreaker Into the Storm",
+    "album": "Night Clockwork",
+    "audio_path": "data/musica/BigSteamFlyingMachine/Icebreaker-into-the-storm.mp3",
+    "reason_selected": "Industrial storm scene and heavy mechanical energy."
+  },
+  {
+    "track_id": "healing_wind",
+    "title": "Healing Wind",
+    "album": "The Pathmaker",
+    "audio_path": "data/musica/ThePathmaker/5.-Healing-wind.mp3",
+    "reason_selected": "Restorative calm contrast for soft and peaceful language."
+  },
+  {
+    "track_id": "galloping_to_kugrant",
+    "title": "Galloping to Kugrant",
+    "album": "Dawn in Istoccar",
+    "audio_path": "data/musica/DawnInIstoccar/galloping-to-kugrant.mp3",
+    "reason_selected": "Riding and open-landscape motion with urgent energy."
+  },
+  {
+    "track_id": "cry_of_the_elves",
+    "title": "The Cry of the Elves",
+    "album": "Once Upon a Tale, Pt.1",
+    "audio_path": "data/musica/Onceuponatalept1/Thecryoftheelves.mp3",
+    "reason_selected": "Fantasy lament chosen for choir, emotion and melancholy queries."
+  },
+  {
+    "track_id": "dark_blue_horizon",
+    "title": "Dark Blue Horizon",
+    "album": "I Just Can't Say Farewell",
+    "audio_path": "data/musica/IJustCantSayFarewell/Dark-Blue-Horizon.mp3",
+    "reason_selected": "Quiet nocturnal and reflective contrast."
+  }
+]

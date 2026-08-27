@@ -1,0 +1,362 @@
+[
+  {
+    "query_id": "en001",
+    "text": "epic music",
+    "category": "Broad mood / genre",
+    "language": "en"
+  },
+  {
+    "query_id": "en002",
+    "text": "dark fantasy music",
+    "category": "Broad mood / genre",
+    "language": "en"
+  },
+  {
+    "query_id": "en003",
+    "text": "peaceful fantasy music",
+    "category": "Broad mood / genre",
+    "language": "en"
+  },
+  {
+    "query_id": "en004",
+    "text": "emotional orchestral music",
+    "category": "Broad mood / genre",
+    "language": "en"
+  },
+  {
+    "query_id": "en005",
+    "text": "heroic adventure music",
+    "category": "Broad mood / genre",
+    "language": "en"
+  },
+  {
+    "query_id": "en006",
+    "text": "mysterious and atmospheric",
+    "category": "Broad mood / genre",
+    "language": "en"
+  },
+  {
+    "query_id": "en007",
+    "text": "melancholic but beautiful",
+    "category": "Broad mood / genre",
+    "language": "en"
+  },
+  {
+    "query_id": "en008",
+    "text": "intense cinematic music",
+    "category": "Broad mood / genre",
+    "language": "en"
+  },
+  {
+    "query_id": "en009",
+    "text": "soft medieval flute",
+    "category": "Fine-grained instrument queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en010",
+    "text": "emotional solo violin",
+    "category": "Fine-grained instrument queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en011",
+    "text": "music with choir and heavy percussion",
+    "category": "Fine-grained instrument queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en012",
+    "text": "gentle strings and flute",
+    "category": "Fine-grained instrument queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en013",
+    "text": "dark low strings",
+    "category": "Fine-grained instrument queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en014",
+    "text": "music with harp and a peaceful mood",
+    "category": "Fine-grained instrument queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en015",
+    "text": "strong horns and driving strings",
+    "category": "Fine-grained instrument queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en016",
+    "text": "folk music with drums and plucked strings",
+    "category": "Fine-grained instrument queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en017",
+    "text": "soft medieval flute, melancholic and peaceful",
+    "category": "Compound queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en018",
+    "text": "epic orchestral music with choir but not too aggressive",
+    "category": "Compound queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en019",
+    "text": "dark but not aggressive",
+    "category": "Compound queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en020",
+    "text": "heroic but reflective",
+    "category": "Compound queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en021",
+    "text": "mysterious music with low strings and slow energy",
+    "category": "Compound queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en022",
+    "text": "peaceful fantasy with flute and a sense of nostalgia",
+    "category": "Compound queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en023",
+    "text": "intense orchestral music without sounding like battle music",
+    "category": "Compound queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en024",
+    "text": "emotional strings with a hopeful ending",
+    "category": "Compound queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en025",
+    "text": "music for exploring ancient ruins",
+    "category": "Scene / narrative queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en026",
+    "text": "music for walking through a silent forest",
+    "category": "Scene / narrative queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en027",
+    "text": "music for a dragon scene",
+    "category": "Scene / narrative queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en028",
+    "text": "music for a quiet sunrise",
+    "category": "Scene / narrative queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en029",
+    "text": "music for a lonely journey",
+    "category": "Scene / narrative queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en030",
+    "text": "music for a magical ritual",
+    "category": "Scene / narrative queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en031",
+    "text": "music for a final confrontation",
+    "category": "Scene / narrative queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en032",
+    "text": "music for riding across an open landscape",
+    "category": "Scene / narrative queries",
+    "language": "en"
+  },
+  {
+    "query_id": "en033",
+    "text": "medieval and cinematic",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en034",
+    "text": "celtic but atmospheric",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en035",
+    "text": "symphonic metal without being too aggressive",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en036",
+    "text": "dark folk fantasy",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en037",
+    "text": "western cinematic fantasy",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en038",
+    "text": "intimate chamber music with fantasy atmosphere",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en039",
+    "text": "orchestral music that feels ancient",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en040",
+    "text": "dreamlike fantasy soundtrack",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en041",
+    "text": "epic but calm",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en042",
+    "text": "dark but peaceful",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en043",
+    "text": "heroic without battle",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en044",
+    "text": "melancholic without sounding sad",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en045",
+    "text": "medieval without drums",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en046",
+    "text": "fantasy flute without epic orchestra",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en047",
+    "text": "intense but not aggressive",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en048",
+    "text": "choir without heavy percussion",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en049",
+    "text": "slow music that still feels adventurous",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en050",
+    "text": "mysterious but warm",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en051",
+    "text": "I want something that feels like discovering an old forgotten kingdom",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en052",
+    "text": "give me music for watching the sunrise from a mountain",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en053",
+    "text": "something for reading a fantasy novel late at night",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en054",
+    "text": "music for walking alone through an ancient city",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en055",
+    "text": "something powerful but still emotional",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en056",
+    "text": "I want a track that feels magical, calm and slightly sad",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en057",
+    "text": "something that sounds like a journey beginning",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en058",
+    "text": "music for a scene where the hero has already won",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en059",
+    "text": "something wild and primal",
+    "category": "Style mixtures",
+    "language": "en"
+  },
+  {
+    "query_id": "en060",
+    "text": "a quiet piece that slowly becomes more powerful",
+    "category": "Style mixtures",
+    "language": "en"
+  }
+]

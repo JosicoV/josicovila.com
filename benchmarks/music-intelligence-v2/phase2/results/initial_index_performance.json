@@ -1,0 +1,20 @@
+{
+  "model_load_seconds": 15.071010699961334,
+  "peak_vram_bytes": 2886370816,
+  "process_ram_bytes_end": 2137137152,
+  "embedding": {
+    "preprocessing": {
+      "strategy": "sliding-window",
+      "segment_seconds": 25.0,
+      "stride_seconds": 12.5,
+      "overlap_fraction": 0.5,
+      "sample_rate": 24000,
+      "audio_input_seconds": 25.0,
+      "global_strategy": "l2-normalized mean of all segment embeddings"
+    },
+    "total_seconds": 544.3173664000351,
+    "total_inference_seconds": 495.6521482975222,
+    "total_segments": 1429,
+    "cache_hits": 5
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "muq_mulan": {
+    "display_name": "MuQ-MuLan",
+    "checkpoint": "OpenMuQ/MuQ-MuLan-large",
+    "revision": "2e01c796b71dca71b45251384c04cd7b237c9020",
+    "sample_rate": 24000,
+    "audio_input_seconds": 25.0,
+    "license": "CC-BY-NC-4.0"
+  },
+  "figma": {
+    "display_name": "FIGMA",
+    "checkpoint": "nishitanand/FIGMA:figma.ckpt",
+    "revision": "18b215fa5b6e5e7bc7f5807a7a51f50890c0a10a",
+    "audio_encoder_revision": "0562a57814f6f8bbd9fdea0a25921a2fce1a841a",
+    "text_encoder_revision": "274baa43b0e13e37fafa6428dbc7938e62e5c439",
+    "sample_rate": 24000,
+    "audio_input_seconds": 10.0,
+    "license": "CC-BY-NC-4.0"
+  },
+  "laion_clap": {
+    "display_name": "LAION-CLAP HTSAT unfused baseline",
+    "checkpoint": "laion/clap-htsat-unfused",
+    "revision": "8fa0f1c6d0433df6e97c127f64b2a1d6c0dcda8a",
+    "sample_rate": 48000,
+    "audio_input_seconds": 10.0,
+    "license": "Apache-2.0"
+  },
+  "tp_clap": {
+    "display_name": "TP-CLAP",
+    "checkpoint": null,
+    "revision": null,
+    "status": "unavailable",
+    "reason": "No official public checkpoint or reproducible inference repository was found for arXiv:2607.25085 as of 2026-08-27."
+  }
+}

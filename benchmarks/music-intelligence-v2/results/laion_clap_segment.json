@@ -1,0 +1,2258 @@
+{
+  "model": {
+    "key": "laion_clap",
+    "name": "LAION-CLAP HTSAT unfused baseline",
+    "checkpoint": "laion/clap-htsat-unfused",
+    "revision": "8fa0f1c6d0433df6e97c127f64b2a1d6c0dcda8a",
+    "device": "cuda",
+    "sample_rate": 48000,
+    "audio_input_seconds": 10.0,
+    "embedding_dimension": 512,
+    "license": "Apache-2.0"
+  },
+  "retrieval_mode": "segment",
+  "top_k": 8,
+  "hybrid_weights": null,
+  "queries": [
+    {
+      "query_id": "q01",
+      "query": "epic music",
+      "text_embedding_seconds": 0.019802900031208992,
+      "retrieval_seconds": 9.440002031624317e-05,
+      "results": [
+        {
+          "track_id": "let_the_wolf_out",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.5665356516838074,
+          "global_score": 0.48107409477233887,
+          "best_segment_score": 0.5665356516838074,
+          "best_segment": {
+            "start": 137.8672332763672,
+            "end": 162.8672332763672
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "edge",
+          "title": "The Edge of the Unknown",
+          "album": "9",
+          "score": 0.5535120964050293,
+          "global_score": 0.5571458339691162,
+          "best_segment_score": 0.5535120964050293,
+          "best_segment": {
+            "start": 70.2288589477539,
+            "end": 95.2288589477539
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "dark_blue_horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I Just Can't Say Farewell",
+          "score": 0.5498178005218506,
+          "global_score": 0.5599703788757324,
+          "best_segment_score": 0.5498178005218506,
+          "best_segment": {
+            "start": 241.4007110595703,
+            "end": 266.40069580078125
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "alone_in_the_crowd",
+          "title": "Alone In the Crowd",
+          "album": "Black & White",
+          "score": 0.5477058291435242,
+          "global_score": 0.4976169466972351,
+          "best_segment_score": 0.5477058291435242,
+          "best_segment": {
+            "start": 166.13389587402344,
+            "end": 191.13389587402344
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "dawn_in_istoccar",
+          "title": "Dawn in Istoccar",
+          "album": "Dawn in Istoccar",
+          "score": 0.5447865724563599,
+          "global_score": 0.5454866886138916,
+          "best_segment_score": 0.5447865724563599,
+          "best_segment": {
+            "start": 96.0,
+            "end": 121.0
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "icebreaker_storm",
+          "title": "Icebreaker Into the Storm",
+          "album": "Night Clockwork",
+          "score": 0.5405709147453308,
+          "global_score": 0.48942333459854126,
+          "best_segment_score": 0.5405709147453308,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "classical_is_so_metal",
+          "title": "Classical Is So Metal",
+          "album": "Experimenting on Her Own",
+          "score": 0.5213549733161926,
+          "global_score": 0.4796934723854065,
+          "best_segment_score": 0.5213549733161926,
+          "best_segment": {
+            "start": 84.80000305175781,
+            "end": 109.80000305175781
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "marching_city_gates",
+          "title": "Marching Through City Gates",
+          "album": "Reunion's Tavern",
+          "score": 0.4903470277786255,
+          "global_score": 0.43645310401916504,
+          "best_segment_score": 0.4903470277786255,
+          "best_segment": {
+            "start": 48.79999923706055,
+            "end": 73.80000305175781
+          },
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "query_id": "q02",
+      "query": "dark fantasy music",
+      "text_embedding_seconds": 0.013637500116601586,
+      "retrieval_seconds": 8.66998452693224e-05,
+      "results": [
+        {
+          "track_id": "edge",
+          "title": "The Edge of the Unknown",
+          "album": "9",
+          "score": 0.6080325245857239,
+          "global_score": 0.6088875532150269,
+          "best_segment_score": 0.6080325245857239,
+          "best_segment": {
+            "start": 70.2288589477539,
+            "end": 95.2288589477539
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "dark_blue_horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I Just Can't Say Farewell",
+          "score": 0.5959028005599976,
+          "global_score": 0.6242225170135498,
+          "best_segment_score": 0.5959028005599976,
+          "best_segment": {
+            "start": 144.84042358398438,
+            "end": 169.84042358398438
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "dawn_in_istoccar",
+          "title": "Dawn in Istoccar",
+          "album": "Dawn in Istoccar",
+          "score": 0.5815298557281494,
+          "global_score": 0.5659695863723755,
+          "best_segment_score": 0.5815298557281494,
+          "best_segment": {
+            "start": 120.0,
+            "end": 145.0
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "let_the_wolf_out",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.575722336769104,
+          "global_score": 0.5407990217208862,
+          "best_segment_score": 0.575722336769104,
+          "best_segment": {
+            "start": 137.8672332763672,
+            "end": 162.8672332763672
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "classical_is_so_metal",
+          "title": "Classical Is So Metal",
+          "album": "Experimenting on Her Own",
+          "score": 0.5745035409927368,
+          "global_score": 0.49114763736724854,
+          "best_segment_score": 0.5745035409927368,
+          "best_segment": {
+            "start": 84.80000305175781,
+            "end": 109.80000305175781
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "alone_in_the_crowd",
+          "title": "Alone In the Crowd",
+          "album": "Black & White",
+          "score": 0.5664385557174683,
+          "global_score": 0.5501527786254883,
+          "best_segment_score": 0.5664385557174683,
+          "best_segment": {
+            "start": 83.06694793701172,
+            "end": 108.06694793701172
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "icebreaker_storm",
+          "title": "Icebreaker Into the Storm",
+          "album": "Night Clockwork",
+          "score": 0.5533175468444824,
+          "global_score": 0.5058577656745911,
+          "best_segment_score": 0.5533175468444824,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.512188732624054,
+          "global_score": 0.44882291555404663,
+          "best_segment_score": 0.512188732624054,
+          "best_segment": {
+            "start": 228.40028381347656,
+            "end": 253.40028381347656
+          },
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "query_id": "q03",
+      "query": "peaceful fantasy music",
+      "text_embedding_seconds": 0.014803400030359626,
+      "retrieval_seconds": 8.939998224377632e-05,
+      "results": [
+        {
+          "track_id": "dark_blue_horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I Just Can't Say Farewell",
+          "score": 0.6139575242996216,
+          "global_score": 0.5984957218170166,
+          "best_segment_score": 0.6139575242996216,
+          "best_segment": {
+            "start": 241.4007110595703,
+            "end": 266.40069580078125
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "edge",
+          "title": "The Edge of the Unknown",
+          "album": "9",
+          "score": 0.5667301416397095,
+          "global_score": 0.5532490015029907,
+          "best_segment_score": 0.5667301416397095,
+          "best_segment": {
+            "start": 70.2288589477539,
+            "end": 95.2288589477539
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "alone_in_the_crowd",
+          "title": "Alone In the Crowd",
+          "album": "Black & White",
+          "score": 0.5614761710166931,
+          "global_score": 0.5457930564880371,
+          "best_segment_score": 0.5614761710166931,
+          "best_segment": {
+            "start": 83.06694793701172,
+            "end": 108.06694793701172
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "classical_is_so_metal",
+          "title": "Classical Is So Metal",
+          "album": "Experimenting on Her Own",
+          "score": 0.5613783597946167,
+          "global_score": 0.4996405243873596,
+          "best_segment_score": 0.5613783597946167,
+          "best_segment": {
+            "start": 84.80000305175781,
+            "end": 109.80000305175781
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "let_the_wolf_out",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.5537247657775879,
+          "global_score": 0.5414351224899292,
+          "best_segment_score": 0.5537247657775879,
+          "best_segment": {
+            "start": 34.4668083190918,
+            "end": 59.4668083190918
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "dawn_in_istoccar",
+          "title": "Dawn in Istoccar",
+          "album": "Dawn in Istoccar",
+          "score": 0.5346261262893677,
+          "global_score": 0.5364052057266235,
+          "best_segment_score": 0.5346261262893677,
+          "best_segment": {
+            "start": 96.0,
+            "end": 121.0
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.5318215489387512,
+          "global_score": 0.4970782995223999,
+          "best_segment_score": 0.5318215489387512,
+          "best_segment": {
+            "start": 228.40028381347656,
+            "end": 253.40028381347656
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "icebreaker_storm",
+          "title": "Icebreaker Into the Storm",
+          "album": "Night Clockwork",
+          "score": 0.5234028697013855,
+          "global_score": 0.4825510084629059,
+          "best_segment_score": 0.5234028697013855,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "query_id": "q04",
+      "query": "emotional orchestral music",
+      "text_embedding_seconds": 0.01603420008905232,
+      "retrieval_seconds": 8.529983460903168e-05,
+      "results": [
+        {
+          "track_id": "dark_blue_horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I Just Can't Say Farewell",
+          "score": 0.5954258441925049,
+          "global_score": 0.5719334483146667,
+          "best_segment_score": 0.5954258441925049,
+          "best_segment": {
+            "start": 241.4007110595703,
+            "end": 266.40069580078125
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "edge",
+          "title": "The Edge of the Unknown",
+          "album": "9",
+          "score": 0.5938965678215027,
+          "global_score": 0.5335334539413452,
+          "best_segment_score": 0.5938965678215027,
+          "best_segment": {
+            "start": 70.2288589477539,
+            "end": 95.2288589477539
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "icebreaker_storm",
+          "title": "Icebreaker Into the Storm",
+          "album": "Night Clockwork",
+          "score": 0.575291097164154,
+          "global_score": 0.5217854380607605,
+          "best_segment_score": 0.575291097164154,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "raven_lullaby",
+          "title": "Raven Lullaby",
+          "album": "The Pathmaker",
+          "score": 0.5624369978904724,
+          "global_score": 0.559775173664093,
+          "best_segment_score": 0.5624369978904724,
+          "best_segment": {
+            "start": 83.19999694824219,
+            "end": 108.19999694824219
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "dawn_in_istoccar",
+          "title": "Dawn in Istoccar",
+          "album": "Dawn in Istoccar",
+          "score": 0.5338383316993713,
+          "global_score": 0.5376037359237671,
+          "best_segment_score": 0.5338383316993713,
+          "best_segment": {
+            "start": 96.0,
+            "end": 121.0
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.5225218534469604,
+          "global_score": 0.49863705039024353,
+          "best_segment_score": 0.5225218534469604,
+          "best_segment": {
+            "start": 114.20014190673828,
+            "end": 139.2001495361328
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "let_the_wolf_out",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.5144603252410889,
+          "global_score": 0.5232386589050293,
+          "best_segment_score": 0.5144603252410889,
+          "best_segment": {
+            "start": 137.8672332763672,
+            "end": 162.8672332763672
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "galloping_to_kugrant",
+          "title": "Galloping to Kugrant",
+          "album": "Dawn in Istoccar",
+          "score": 0.5013556480407715,
+          "global_score": 0.4929559826850891,
+          "best_segment_score": 0.5013556480407715,
+          "best_segment": {
+            "start": 27.600000381469727,
+            "end": 52.599998474121094
+          },
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "query_id": "q05",
+      "query": "soft medieval flute",
+      "text_embedding_seconds": 0.01477160002104938,
+      "retrieval_seconds": 8.759996853768826e-05,
+      "results": [
+        {
+          "track_id": "cry_of_the_elves",
+          "title": "The Cry of the Elves",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.41928786039352417,
+          "global_score": 0.3948245048522949,
+          "best_segment_score": 0.41928786039352417,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "ancient_ritual",
+          "title": "Ancient Ritual",
+          "album": "Never Without the Bards",
+          "score": 0.41804784536361694,
+          "global_score": 0.2444899082183838,
+          "best_segment_score": 0.41804784536361694,
+          "best_segment": {
+            "start": 22.828571319580078,
+            "end": 47.82857131958008
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "icebreaker_storm",
+          "title": "Icebreaker Into the Storm",
+          "album": "Night Clockwork",
+          "score": 0.40138208866119385,
+          "global_score": 0.3128206133842468,
+          "best_segment_score": 0.40138208866119385,
+          "best_segment": {
+            "start": 70.01599884033203,
+            "end": 95.01599884033203
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "night_at_the_tavern",
+          "title": "A Night at the Tavern",
+          "album": "Reunion's Tavern",
+          "score": 0.37212935090065,
+          "global_score": 0.3100828230381012,
+          "best_segment_score": 0.37212935090065,
+          "best_segment": {
+            "start": 20.75885772705078,
+            "end": 45.75885772705078
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.37027785181999207,
+          "global_score": 0.3231375217437744,
+          "best_segment_score": 0.37027785181999207,
+          "best_segment": {
+            "start": 114.20014190673828,
+            "end": 139.2001495361328
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "galloping_to_kugrant",
+          "title": "Galloping to Kugrant",
+          "album": "Dawn in Istoccar",
+          "score": 0.3684391379356384,
+          "global_score": 0.3540151119232178,
+          "best_segment_score": 0.3684391379356384,
+          "best_segment": {
+            "start": 55.20000076293945,
+            "end": 80.19999694824219
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "raven_lullaby",
+          "title": "Raven Lullaby",
+          "album": "The Pathmaker",
+          "score": 0.3659331202507019,
+          "global_score": 0.3461223840713501,
+          "best_segment_score": 0.3659331202507019,
+          "best_segment": {
+            "start": 83.19999694824219,
+            "end": 108.19999694824219
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "let_the_wolf_out",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.3462636470794678,
+          "global_score": 0.27429312467575073,
+          "best_segment_score": 0.3462636470794678,
+          "best_segment": {
+            "start": 103.40042877197266,
+            "end": 128.40042114257812
+          },
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "query_id": "q06",
+      "query": "emotional solo violin",
+      "text_embedding_seconds": 0.0155821000225842,
+      "retrieval_seconds": 8.729984983801842e-05,
+      "results": [
+        {
+          "track_id": "raven_lullaby",
+          "title": "Raven Lullaby",
+          "album": "The Pathmaker",
+          "score": 0.5898511409759521,
+          "global_score": 0.5596338510513306,
+          "best_segment_score": 0.5898511409759521,
+          "best_segment": {
+            "start": 83.19999694824219,
+            "end": 108.19999694824219
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "icebreaker_storm",
+          "title": "Icebreaker Into the Storm",
+          "album": "Night Clockwork",
+          "score": 0.517324686050415,
+          "global_score": 0.41164666414260864,
+          "best_segment_score": 0.517324686050415,
+          "best_segment": {
+            "start": 70.01599884033203,
+            "end": 95.01599884033203
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "edge",
+          "title": "The Edge of the Unknown",
+          "album": "9",
+          "score": 0.4919794201850891,
+          "global_score": 0.3962686061859131,
+          "best_segment_score": 0.4919794201850891,
+          "best_segment": {
+            "start": 70.2288589477539,
+            "end": 95.2288589477539
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.46498388051986694,
+          "global_score": 0.3329223096370697,
+          "best_segment_score": 0.46498388051986694,
+          "best_segment": {
+            "start": 114.20014190673828,
+            "end": 139.2001495361328
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "galloping_to_kugrant",
+          "title": "Galloping to Kugrant",
+          "album": "Dawn in Istoccar",
+          "score": 0.45831212401390076,
+          "global_score": 0.43554744124412537,
+          "best_segment_score": 0.45831212401390076,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "dark_blue_horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I Just Can't Say Farewell",
+          "score": 0.4410581588745117,
+          "global_score": 0.43468400835990906,
+          "best_segment_score": 0.4410581588745117,
+          "best_segment": {
+            "start": 48.28014373779297,
+            "end": 73.28014373779297
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "let_the_wolf_out",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.4208081364631653,
+          "global_score": 0.36702626943588257,
+          "best_segment_score": 0.4208081364631653,
+          "best_segment": {
+            "start": 103.40042877197266,
+            "end": 128.40042114257812
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "marching_city_gates",
+          "title": "Marching Through City Gates",
+          "album": "Reunion's Tavern",
+          "score": 0.4117959141731262,
+          "global_score": 0.38212093710899353,
+          "best_segment_score": 0.4117959141731262,
+          "best_segment": {
+            "start": 24.399999618530273,
+            "end": 49.400001525878906
+          },
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "query_id": "q07",
+      "query": "music with choir and heavy percussion",
+      "text_embedding_seconds": 0.016978499945253134,
+      "retrieval_seconds": 8.619995787739754e-05,
+      "results": [
+        {
+          "track_id": "marching_city_gates",
+          "title": "Marching Through City Gates",
+          "album": "Reunion's Tavern",
+          "score": 0.6850926280021667,
+          "global_score": 0.6536610126495361,
+          "best_segment_score": 0.6850926280021667,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.6544598937034607,
+          "global_score": 0.6379594802856445,
+          "best_segment_score": 0.6544598937034607,
+          "best_segment": {
+            "start": 342.6004333496094,
+            "end": 367.6004333496094
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "icebreaker_storm",
+          "title": "Icebreaker Into the Storm",
+          "album": "Night Clockwork",
+          "score": 0.6037615537643433,
+          "global_score": 0.5631358623504639,
+          "best_segment_score": 0.6037615537643433,
+          "best_segment": {
+            "start": 17.503999710083008,
+            "end": 42.50400161743164
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "dark_blue_horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I Just Can't Say Farewell",
+          "score": 0.5718351602554321,
+          "global_score": 0.51467365026474,
+          "best_segment_score": 0.5718351602554321,
+          "best_segment": {
+            "start": 241.4007110595703,
+            "end": 266.40069580078125
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "edge",
+          "title": "The Edge of the Unknown",
+          "album": "9",
+          "score": 0.5662161111831665,
+          "global_score": 0.5945008993148804,
+          "best_segment_score": 0.5662161111831665,
+          "best_segment": {
+            "start": 175.5721435546875,
+            "end": 200.5721435546875
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "healing_wind",
+          "title": "Healing Wind",
+          "album": "The Pathmaker",
+          "score": 0.5530474185943604,
+          "global_score": 0.5553529262542725,
+          "best_segment_score": 0.5530474185943604,
+          "best_segment": {
+            "start": 18.899999618530273,
+            "end": 43.900001525878906
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "dawn_in_istoccar",
+          "title": "Dawn in Istoccar",
+          "album": "Dawn in Istoccar",
+          "score": 0.5420500040054321,
+          "global_score": 0.5358690619468689,
+          "best_segment_score": 0.5420500040054321,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "let_the_wolf_out",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.5128767490386963,
+          "global_score": 0.4727902412414551,
+          "best_segment_score": 0.5128767490386963,
+          "best_segment": {
+            "start": 68.9336166381836,
+            "end": 93.9336166381836
+          },
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "query_id": "q08",
+      "query": "gentle strings and flute",
+      "text_embedding_seconds": 0.017008600058034062,
+      "retrieval_seconds": 0.0002087999600917101,
+      "results": [
+        {
+          "track_id": "raven_lullaby",
+          "title": "Raven Lullaby",
+          "album": "The Pathmaker",
+          "score": 0.5486096739768982,
+          "global_score": 0.507710337638855,
+          "best_segment_score": 0.5486096739768982,
+          "best_segment": {
+            "start": 83.19999694824219,
+            "end": 108.19999694824219
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.5151122808456421,
+          "global_score": 0.4375617206096649,
+          "best_segment_score": 0.5151122808456421,
+          "best_segment": {
+            "start": 114.20014190673828,
+            "end": 139.2001495361328
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "dark_blue_horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I Just Can't Say Farewell",
+          "score": 0.46561720967292786,
+          "global_score": 0.39834120869636536,
+          "best_segment_score": 0.46561720967292786,
+          "best_segment": {
+            "start": 241.4007110595703,
+            "end": 266.40069580078125
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "ancient_ritual",
+          "title": "Ancient Ritual",
+          "album": "Never Without the Bards",
+          "score": 0.4542275071144104,
+          "global_score": 0.2604667544364929,
+          "best_segment_score": 0.4542275071144104,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "let_the_wolf_out",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.4408969581127167,
+          "global_score": 0.4111589193344116,
+          "best_segment_score": 0.4408969581127167,
+          "best_segment": {
+            "start": 103.40042877197266,
+            "end": 128.40042114257812
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "edge",
+          "title": "The Edge of the Unknown",
+          "album": "9",
+          "score": 0.434220552444458,
+          "global_score": 0.3726018965244293,
+          "best_segment_score": 0.434220552444458,
+          "best_segment": {
+            "start": 140.4577178955078,
+            "end": 165.4577178955078
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "galloping_to_kugrant",
+          "title": "Galloping to Kugrant",
+          "album": "Dawn in Istoccar",
+          "score": 0.41792741417884827,
+          "global_score": 0.4015406370162964,
+          "best_segment_score": 0.41792741417884827,
+          "best_segment": {
+            "start": 55.20000076293945,
+            "end": 80.19999694824219
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "icebreaker_storm",
+          "title": "Icebreaker Into the Storm",
+          "album": "Night Clockwork",
+          "score": 0.40223953127861023,
+          "global_score": 0.3672346770763397,
+          "best_segment_score": 0.40223953127861023,
+          "best_segment": {
+            "start": 70.01599884033203,
+            "end": 95.01599884033203
+          },
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "query_id": "q09",
+      "query": "soft medieval flute, melancholic and peaceful",
+      "text_embedding_seconds": 0.015705499798059464,
+      "retrieval_seconds": 8.499994874000549e-05,
+      "results": [
+        {
+          "track_id": "ancient_ritual",
+          "title": "Ancient Ritual",
+          "album": "Never Without the Bards",
+          "score": 0.5572563409805298,
+          "global_score": 0.35802698135375977,
+          "best_segment_score": 0.5572563409805298,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.5048710107803345,
+          "global_score": 0.37128931283950806,
+          "best_segment_score": 0.5048710107803345,
+          "best_segment": {
+            "start": 114.20014190673828,
+            "end": 139.2001495361328
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "raven_lullaby",
+          "title": "Raven Lullaby",
+          "album": "The Pathmaker",
+          "score": 0.4914475083351135,
+          "global_score": 0.4566524624824524,
+          "best_segment_score": 0.4914475083351135,
+          "best_segment": {
+            "start": 83.19999694824219,
+            "end": 108.19999694824219
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "cry_of_the_elves",
+          "title": "The Cry of the Elves",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.4572502374649048,
+          "global_score": 0.4606052339076996,
+          "best_segment_score": 0.4572502374649048,
+          "best_segment": {
+            "start": 31.266807556152344,
+            "end": 56.266807556152344
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "let_the_wolf_out",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.4558559060096741,
+          "global_score": 0.4039774537086487,
+          "best_segment_score": 0.4558559060096741,
+          "best_segment": {
+            "start": 103.40042877197266,
+            "end": 128.40042114257812
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "icebreaker_storm",
+          "title": "Icebreaker Into the Storm",
+          "album": "Night Clockwork",
+          "score": 0.44598376750946045,
+          "global_score": 0.3724706470966339,
+          "best_segment_score": 0.44598376750946045,
+          "best_segment": {
+            "start": 70.01599884033203,
+            "end": 95.01599884033203
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "galloping_to_kugrant",
+          "title": "Galloping to Kugrant",
+          "album": "Dawn in Istoccar",
+          "score": 0.4431193172931671,
+          "global_score": 0.42776963114738464,
+          "best_segment_score": 0.4431193172931671,
+          "best_segment": {
+            "start": 27.600000381469727,
+            "end": 52.599998474121094
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "dark_blue_horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I Just Can't Say Farewell",
+          "score": 0.4367072880268097,
+          "global_score": 0.42013806104660034,
+          "best_segment_score": 0.4367072880268097,
+          "best_segment": {
+            "start": 241.4007110595703,
+            "end": 266.40069580078125
+          },
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "query_id": "q10",
+      "query": "epic orchestral music with choir but not too aggressive",
+      "text_embedding_seconds": 0.014466699911281466,
+      "retrieval_seconds": 8.560018613934517e-05,
+      "results": [
+        {
+          "track_id": "dark_blue_horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I Just Can't Say Farewell",
+          "score": 0.6794415712356567,
+          "global_score": 0.6485646963119507,
+          "best_segment_score": 0.6794415712356567,
+          "best_segment": {
+            "start": 241.4007110595703,
+            "end": 266.40069580078125
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "edge",
+          "title": "The Edge of the Unknown",
+          "album": "9",
+          "score": 0.6748536825180054,
+          "global_score": 0.6113767027854919,
+          "best_segment_score": 0.6748536825180054,
+          "best_segment": {
+            "start": 70.2288589477539,
+            "end": 95.2288589477539
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "icebreaker_storm",
+          "title": "Icebreaker Into the Storm",
+          "album": "Night Clockwork",
+          "score": 0.661851167678833,
+          "global_score": 0.6236217021942139,
+          "best_segment_score": 0.661851167678833,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "marching_city_gates",
+          "title": "Marching Through City Gates",
+          "album": "Reunion's Tavern",
+          "score": 0.6291001439094543,
+          "global_score": 0.6072351932525635,
+          "best_segment_score": 0.6291001439094543,
+          "best_segment": {
+            "start": 12.199999809265137,
+            "end": 37.20000076293945
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.6125824451446533,
+          "global_score": 0.5722293853759766,
+          "best_segment_score": 0.6125824451446533,
+          "best_segment": {
+            "start": 114.20014190673828,
+            "end": 139.2001495361328
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "dawn_in_istoccar",
+          "title": "Dawn in Istoccar",
+          "album": "Dawn in Istoccar",
+          "score": 0.6086403131484985,
+          "global_score": 0.6025159358978271,
+          "best_segment_score": 0.6086403131484985,
+          "best_segment": {
+            "start": 24.0,
+            "end": 49.0
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "galloping_to_kugrant",
+          "title": "Galloping to Kugrant",
+          "album": "Dawn in Istoccar",
+          "score": 0.5963852405548096,
+          "global_score": 0.5856826305389404,
+          "best_segment_score": 0.5963852405548096,
+          "best_segment": {
+            "start": 27.600000381469727,
+            "end": 52.599998474121094
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "let_the_wolf_out",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.5949795246124268,
+          "global_score": 0.6263282895088196,
+          "best_segment_score": 0.5949795246124268,
+          "best_segment": {
+            "start": 34.4668083190918,
+            "end": 59.4668083190918
+          },
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "query_id": "q11",
+      "query": "dark but not aggressive",
+      "text_embedding_seconds": 0.013549699913710356,
+      "retrieval_seconds": 8.410005830228329e-05,
+      "results": [
+        {
+          "track_id": "dark_blue_horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I Just Can't Say Farewell",
+          "score": 0.3007170557975769,
+          "global_score": 0.2080223262310028,
+          "best_segment_score": 0.3007170557975769,
+          "best_segment": {
+            "start": 144.84042358398438,
+            "end": 169.84042358398438
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "dawn_in_istoccar",
+          "title": "Dawn in Istoccar",
+          "album": "Dawn in Istoccar",
+          "score": 0.2757072150707245,
+          "global_score": 0.22332413494586945,
+          "best_segment_score": 0.2757072150707245,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "edge",
+          "title": "The Edge of the Unknown",
+          "album": "9",
+          "score": 0.2712514400482178,
+          "global_score": 0.2116350382566452,
+          "best_segment_score": 0.2712514400482178,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "ancient_ritual",
+          "title": "Ancient Ritual",
+          "album": "Never Without the Bards",
+          "score": 0.23916466534137726,
+          "global_score": 0.21929940581321716,
+          "best_segment_score": 0.23916466534137726,
+          "best_segment": {
+            "start": 45.657142639160156,
+            "end": 70.65714263916016
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "marching_city_gates",
+          "title": "Marching Through City Gates",
+          "album": "Reunion's Tavern",
+          "score": 0.22041016817092896,
+          "global_score": 0.17469526827335358,
+          "best_segment_score": 0.22041016817092896,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "let_the_wolf_out",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.21973836421966553,
+          "global_score": 0.15996623039245605,
+          "best_segment_score": 0.21973836421966553,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "raven_lullaby",
+          "title": "Raven Lullaby",
+          "album": "The Pathmaker",
+          "score": 0.21864625811576843,
+          "global_score": 0.1781885325908661,
+          "best_segment_score": 0.21864625811576843,
+          "best_segment": {
+            "start": 124.80000305175781,
+            "end": 149.8000030517578
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "cry_of_the_elves",
+          "title": "The Cry of the Elves",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.20909738540649414,
+          "global_score": 0.1800711452960968,
+          "best_segment_score": 0.20909738540649414,
+          "best_segment": {
+            "start": 62.53361511230469,
+            "end": 87.53361511230469
+          },
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "query_id": "q12",
+      "query": "heroic but reflective",
+      "text_embedding_seconds": 0.012546199839562178,
+      "retrieval_seconds": 8.350005373358727e-05,
+      "results": [
+        {
+          "track_id": "cry_of_the_elves",
+          "title": "The Cry of the Elves",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.3570285737514496,
+          "global_score": 0.2997371554374695,
+          "best_segment_score": 0.3570285737514496,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "dark_blue_horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I Just Can't Say Farewell",
+          "score": 0.3129117488861084,
+          "global_score": 0.28964805603027344,
+          "best_segment_score": 0.3129117488861084,
+          "best_segment": {
+            "start": 48.28014373779297,
+            "end": 73.28014373779297
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "icebreaker_storm",
+          "title": "Icebreaker Into the Storm",
+          "album": "Night Clockwork",
+          "score": 0.2924066483974457,
+          "global_score": 0.2518409490585327,
+          "best_segment_score": 0.2924066483974457,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "raven_lullaby",
+          "title": "Raven Lullaby",
+          "album": "The Pathmaker",
+          "score": 0.2905495762825012,
+          "global_score": 0.28337010741233826,
+          "best_segment_score": 0.2905495762825012,
+          "best_segment": {
+            "start": 124.80000305175781,
+            "end": 149.8000030517578
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "let_the_wolf_out",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.2819839119911194,
+          "global_score": 0.2544885277748108,
+          "best_segment_score": 0.2819839119911194,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.2757422924041748,
+          "global_score": 0.1593240201473236,
+          "best_segment_score": 0.2757422924041748,
+          "best_segment": {
+            "start": 114.20014190673828,
+            "end": 139.2001495361328
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "edge",
+          "title": "The Edge of the Unknown",
+          "album": "9",
+          "score": 0.26924216747283936,
+          "global_score": 0.21489419043064117,
+          "best_segment_score": 0.26924216747283936,
+          "best_segment": {
+            "start": 70.2288589477539,
+            "end": 95.2288589477539
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "dawn_in_istoccar",
+          "title": "Dawn in Istoccar",
+          "album": "Dawn in Istoccar",
+          "score": 0.2677195072174072,
+          "global_score": 0.23827368021011353,
+          "best_segment_score": 0.2677195072174072,
+          "best_segment": {
+            "start": 96.0,
+            "end": 121.0
+          },
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "query_id": "q13",
+      "query": "music for exploring ancient ruins",
+      "text_embedding_seconds": 0.014105099951848388,
+      "retrieval_seconds": 9.0000219643116e-05,
+      "results": [
+        {
+          "track_id": "dark_blue_horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I Just Can't Say Farewell",
+          "score": 0.5391414761543274,
+          "global_score": 0.5149492025375366,
+          "best_segment_score": 0.5391414761543274,
+          "best_segment": {
+            "start": 241.4007110595703,
+            "end": 266.40069580078125
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "edge",
+          "title": "The Edge of the Unknown",
+          "album": "9",
+          "score": 0.51469886302948,
+          "global_score": 0.5135233402252197,
+          "best_segment_score": 0.51469886302948,
+          "best_segment": {
+            "start": 70.2288589477539,
+            "end": 95.2288589477539
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "let_the_wolf_out",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.5139191746711731,
+          "global_score": 0.5101786851882935,
+          "best_segment_score": 0.5139191746711731,
+          "best_segment": {
+            "start": 137.8672332763672,
+            "end": 162.8672332763672
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "dawn_in_istoccar",
+          "title": "Dawn in Istoccar",
+          "album": "Dawn in Istoccar",
+          "score": 0.505874514579773,
+          "global_score": 0.5065504312515259,
+          "best_segment_score": 0.505874514579773,
+          "best_segment": {
+            "start": 96.0,
+            "end": 121.0
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "alone_in_the_crowd",
+          "title": "Alone In the Crowd",
+          "album": "Black & White",
+          "score": 0.5044775009155273,
+          "global_score": 0.5009946823120117,
+          "best_segment_score": 0.5044775009155273,
+          "best_segment": {
+            "start": 124.60042572021484,
+            "end": 149.6004180908203
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "classical_is_so_metal",
+          "title": "Classical Is So Metal",
+          "album": "Experimenting on Her Own",
+          "score": 0.496242880821228,
+          "global_score": 0.4311659634113312,
+          "best_segment_score": 0.496242880821228,
+          "best_segment": {
+            "start": 106.0,
+            "end": 131.0
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "icebreaker_storm",
+          "title": "Icebreaker Into the Storm",
+          "album": "Night Clockwork",
+          "score": 0.48929083347320557,
+          "global_score": 0.4709162712097168,
+          "best_segment_score": 0.48929083347320557,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "raven_lullaby",
+          "title": "Raven Lullaby",
+          "album": "The Pathmaker",
+          "score": 0.482535183429718,
+          "global_score": 0.45266634225845337,
+          "best_segment_score": 0.482535183429718,
+          "best_segment": {
+            "start": 124.80000305175781,
+            "end": 149.8000030517578
+          },
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "query_id": "q14",
+      "query": "music for a quiet sunrise",
+      "text_embedding_seconds": 0.014961699955165386,
+      "retrieval_seconds": 8.79000872373581e-05,
+      "results": [
+        {
+          "track_id": "let_the_wolf_out",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.4919017255306244,
+          "global_score": 0.4257660508155823,
+          "best_segment_score": 0.4919017255306244,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "ancient_ritual",
+          "title": "Ancient Ritual",
+          "album": "Never Without the Bards",
+          "score": 0.4569578766822815,
+          "global_score": 0.3592449426651001,
+          "best_segment_score": 0.4569578766822815,
+          "best_segment": {
+            "start": 22.828571319580078,
+            "end": 47.82857131958008
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "dark_blue_horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I Just Can't Say Farewell",
+          "score": 0.4559306800365448,
+          "global_score": 0.4261567294597626,
+          "best_segment_score": 0.4559306800365448,
+          "best_segment": {
+            "start": 241.4007110595703,
+            "end": 266.40069580078125
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "healing_wind",
+          "title": "Healing Wind",
+          "album": "The Pathmaker",
+          "score": 0.45159369707107544,
+          "global_score": 0.3933730721473694,
+          "best_segment_score": 0.45159369707107544,
+          "best_segment": {
+            "start": 56.70000076293945,
+            "end": 81.69999694824219
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "alone_in_the_crowd",
+          "title": "Alone In the Crowd",
+          "album": "Black & White",
+          "score": 0.4345875084400177,
+          "global_score": 0.3908766508102417,
+          "best_segment_score": 0.4345875084400177,
+          "best_segment": {
+            "start": 207.66737365722656,
+            "end": 232.66737365722656
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "cry_of_the_elves",
+          "title": "The Cry of the Elves",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.407286673784256,
+          "global_score": 0.3907216191291809,
+          "best_segment_score": 0.407286673784256,
+          "best_segment": {
+            "start": 93.80042266845703,
+            "end": 118.80042266845703
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.40513360500335693,
+          "global_score": 0.34018421173095703,
+          "best_segment_score": 0.40513360500335693,
+          "best_segment": {
+            "start": 114.20014190673828,
+            "end": 139.2001495361328
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "edge",
+          "title": "The Edge of the Unknown",
+          "album": "9",
+          "score": 0.39712250232696533,
+          "global_score": 0.38672155141830444,
+          "best_segment_score": 0.39712250232696533,
+          "best_segment": {
+            "start": 105.3432846069336,
+            "end": 130.34329223632812
+          },
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "query_id": "q15",
+      "query": "music for riding across an open landscape",
+      "text_embedding_seconds": 0.014179399935528636,
+      "retrieval_seconds": 8.649984374642372e-05,
+      "results": [
+        {
+          "track_id": "dark_blue_horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I Just Can't Say Farewell",
+          "score": 0.5292549729347229,
+          "global_score": 0.5041534900665283,
+          "best_segment_score": 0.5292549729347229,
+          "best_segment": {
+            "start": 241.4007110595703,
+            "end": 266.40069580078125
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "raven_lullaby",
+          "title": "Raven Lullaby",
+          "album": "The Pathmaker",
+          "score": 0.49971193075180054,
+          "global_score": 0.4688583314418793,
+          "best_segment_score": 0.49971193075180054,
+          "best_segment": {
+            "start": 124.80000305175781,
+            "end": 149.8000030517578
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.4988386929035187,
+          "global_score": 0.4815586805343628,
+          "best_segment_score": 0.4988386929035187,
+          "best_segment": {
+            "start": 228.40028381347656,
+            "end": 253.40028381347656
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "dawn_in_istoccar",
+          "title": "Dawn in Istoccar",
+          "album": "Dawn in Istoccar",
+          "score": 0.497463196516037,
+          "global_score": 0.49988651275634766,
+          "best_segment_score": 0.497463196516037,
+          "best_segment": {
+            "start": 96.0,
+            "end": 121.0
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "edge",
+          "title": "The Edge of the Unknown",
+          "album": "9",
+          "score": 0.49333423376083374,
+          "global_score": 0.5075880289077759,
+          "best_segment_score": 0.49333423376083374,
+          "best_segment": {
+            "start": 140.4577178955078,
+            "end": 165.4577178955078
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "let_the_wolf_out",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.4900078773498535,
+          "global_score": 0.47576087713241577,
+          "best_segment_score": 0.4900078773498535,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "marching_city_gates",
+          "title": "Marching Through City Gates",
+          "album": "Reunion's Tavern",
+          "score": 0.4634752571582794,
+          "global_score": 0.4500160217285156,
+          "best_segment_score": 0.4634752571582794,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "alone_in_the_crowd",
+          "title": "Alone In the Crowd",
+          "album": "Black & White",
+          "score": 0.46140414476394653,
+          "global_score": 0.44416913390159607,
+          "best_segment_score": 0.46140414476394653,
+          "best_segment": {
+            "start": 124.60042572021484,
+            "end": 149.6004180908203
+          },
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "query_id": "q16",
+      "query": "epic but calm",
+      "text_embedding_seconds": 0.012773999944329262,
+      "retrieval_seconds": 8.71000811457634e-05,
+      "results": [
+        {
+          "track_id": "dark_blue_horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I Just Can't Say Farewell",
+          "score": 0.5700902342796326,
+          "global_score": 0.5699619650840759,
+          "best_segment_score": 0.5700902342796326,
+          "best_segment": {
+            "start": 144.84042358398438,
+            "end": 169.84042358398438
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "let_the_wolf_out",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.5251655578613281,
+          "global_score": 0.5073151588439941,
+          "best_segment_score": 0.5251655578613281,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "edge",
+          "title": "The Edge of the Unknown",
+          "album": "9",
+          "score": 0.5232590436935425,
+          "global_score": 0.49066975712776184,
+          "best_segment_score": 0.5232590436935425,
+          "best_segment": {
+            "start": 70.2288589477539,
+            "end": 95.2288589477539
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "dawn_in_istoccar",
+          "title": "Dawn in Istoccar",
+          "album": "Dawn in Istoccar",
+          "score": 0.5124855041503906,
+          "global_score": 0.5002219676971436,
+          "best_segment_score": 0.5124855041503906,
+          "best_segment": {
+            "start": 120.0,
+            "end": 145.0
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "icebreaker_storm",
+          "title": "Icebreaker Into the Storm",
+          "album": "Night Clockwork",
+          "score": 0.5051751732826233,
+          "global_score": 0.4288751482963562,
+          "best_segment_score": 0.5051751732826233,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "raven_lullaby",
+          "title": "Raven Lullaby",
+          "album": "The Pathmaker",
+          "score": 0.49163490533828735,
+          "global_score": 0.46545329689979553,
+          "best_segment_score": 0.49163490533828735,
+          "best_segment": {
+            "start": 83.19999694824219,
+            "end": 108.19999694824219
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "galloping_to_kugrant",
+          "title": "Galloping to Kugrant",
+          "album": "Dawn in Istoccar",
+          "score": 0.4818733334541321,
+          "global_score": 0.4550899267196655,
+          "best_segment_score": 0.4818733334541321,
+          "best_segment": {
+            "start": 27.600000381469727,
+            "end": 52.599998474121094
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "cry_of_the_elves",
+          "title": "The Cry of the Elves",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.4807537794113159,
+          "global_score": 0.46138307452201843,
+          "best_segment_score": 0.4807537794113159,
+          "best_segment": {
+            "start": 62.53361511230469,
+            "end": 87.53361511230469
+          },
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "query_id": "q17",
+      "query": "heroic without battle",
+      "text_embedding_seconds": 0.012500399956479669,
+      "retrieval_seconds": 8.650007657706738e-05,
+      "results": [
+        {
+          "track_id": "icebreaker_storm",
+          "title": "Icebreaker Into the Storm",
+          "album": "Night Clockwork",
+          "score": 0.5066402554512024,
+          "global_score": 0.46434420347213745,
+          "best_segment_score": 0.5066402554512024,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "marching_city_gates",
+          "title": "Marching Through City Gates",
+          "album": "Reunion's Tavern",
+          "score": 0.48380160331726074,
+          "global_score": 0.45646780729293823,
+          "best_segment_score": 0.48380160331726074,
+          "best_segment": {
+            "start": 48.79999923706055,
+            "end": 73.80000305175781
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "dawn_in_istoccar",
+          "title": "Dawn in Istoccar",
+          "album": "Dawn in Istoccar",
+          "score": 0.47404229640960693,
+          "global_score": 0.47113004326820374,
+          "best_segment_score": 0.47404229640960693,
+          "best_segment": {
+            "start": 96.0,
+            "end": 121.0
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "raven_lullaby",
+          "title": "Raven Lullaby",
+          "album": "The Pathmaker",
+          "score": 0.44778233766555786,
+          "global_score": 0.38528260588645935,
+          "best_segment_score": 0.44778233766555786,
+          "best_segment": {
+            "start": 124.80000305175781,
+            "end": 149.8000030517578
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "edge",
+          "title": "The Edge of the Unknown",
+          "album": "9",
+          "score": 0.44637125730514526,
+          "global_score": 0.42239052057266235,
+          "best_segment_score": 0.44637125730514526,
+          "best_segment": {
+            "start": 70.2288589477539,
+            "end": 95.2288589477539
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "let_the_wolf_out",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.4381953775882721,
+          "global_score": 0.34675318002700806,
+          "best_segment_score": 0.4381953775882721,
+          "best_segment": {
+            "start": 137.8672332763672,
+            "end": 162.8672332763672
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "galloping_to_kugrant",
+          "title": "Galloping to Kugrant",
+          "album": "Dawn in Istoccar",
+          "score": 0.43559566140174866,
+          "global_score": 0.39397934079170227,
+          "best_segment_score": 0.43559566140174866,
+          "best_segment": {
+            "start": 41.400001525878906,
+            "end": 66.4000015258789
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "alone_in_the_crowd",
+          "title": "Alone In the Crowd",
+          "album": "Black & White",
+          "score": 0.4346294403076172,
+          "global_score": 0.34701675176620483,
+          "best_segment_score": 0.4346294403076172,
+          "best_segment": {
+            "start": 166.13389587402344,
+            "end": 191.13389587402344
+          },
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "query_id": "q18",
+      "query": "fantasy flute without epic orchestra",
+      "text_embedding_seconds": 0.012911399826407433,
+      "retrieval_seconds": 9.400001727044582e-05,
+      "results": [
+        {
+          "track_id": "icebreaker_storm",
+          "title": "Icebreaker Into the Storm",
+          "album": "Night Clockwork",
+          "score": 0.6035580635070801,
+          "global_score": 0.5858696699142456,
+          "best_segment_score": 0.6035580635070801,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "dark_blue_horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I Just Can't Say Farewell",
+          "score": 0.5959097146987915,
+          "global_score": 0.5656187534332275,
+          "best_segment_score": 0.5959097146987915,
+          "best_segment": {
+            "start": 241.4007110595703,
+            "end": 266.40069580078125
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "edge",
+          "title": "The Edge of the Unknown",
+          "album": "9",
+          "score": 0.5956778526306152,
+          "global_score": 0.5663752555847168,
+          "best_segment_score": 0.5956778526306152,
+          "best_segment": {
+            "start": 70.2288589477539,
+            "end": 95.2288589477539
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "dawn_in_istoccar",
+          "title": "Dawn in Istoccar",
+          "album": "Dawn in Istoccar",
+          "score": 0.594064474105835,
+          "global_score": 0.5925952196121216,
+          "best_segment_score": 0.594064474105835,
+          "best_segment": {
+            "start": 96.0,
+            "end": 121.0
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "galloping_to_kugrant",
+          "title": "Galloping to Kugrant",
+          "album": "Dawn in Istoccar",
+          "score": 0.589599609375,
+          "global_score": 0.5746851563453674,
+          "best_segment_score": 0.589599609375,
+          "best_segment": {
+            "start": 27.600000381469727,
+            "end": 52.599998474121094
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "raven_lullaby",
+          "title": "Raven Lullaby",
+          "album": "The Pathmaker",
+          "score": 0.5884155035018921,
+          "global_score": 0.59541255235672,
+          "best_segment_score": 0.5884155035018921,
+          "best_segment": {
+            "start": 124.80000305175781,
+            "end": 149.8000030517578
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "avalon",
+          "title": "Quest for Avalon",
+          "album": "9",
+          "score": 0.5611867904663086,
+          "global_score": 0.547850489616394,
+          "best_segment_score": 0.5611867904663086,
+          "best_segment": {
+            "start": 228.40028381347656,
+            "end": 253.40028381347656
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "alone_in_the_crowd",
+          "title": "Alone In the Crowd",
+          "album": "Black & White",
+          "score": 0.5519411563873291,
+          "global_score": 0.5382769703865051,
+          "best_segment_score": 0.5519411563873291,
+          "best_segment": {
+            "start": 124.60042572021484,
+            "end": 149.6004180908203
+          },
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "query_id": "q19",
+      "query": "something powerful but still emotional",
+      "text_embedding_seconds": 0.013628700049594045,
+      "retrieval_seconds": 8.620019070804119e-05,
+      "results": [
+        {
+          "track_id": "edge",
+          "title": "The Edge of the Unknown",
+          "album": "9",
+          "score": 0.5643502473831177,
+          "global_score": 0.5509113073348999,
+          "best_segment_score": 0.5643502473831177,
+          "best_segment": {
+            "start": 70.2288589477539,
+            "end": 95.2288589477539
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "let_the_wolf_out",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.5582599639892578,
+          "global_score": 0.5695680379867554,
+          "best_segment_score": 0.5582599639892578,
+          "best_segment": {
+            "start": 172.33404541015625,
+            "end": 197.33404541015625
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "icebreaker_storm",
+          "title": "Icebreaker Into the Storm",
+          "album": "Night Clockwork",
+          "score": 0.5355035066604614,
+          "global_score": 0.5026329755783081,
+          "best_segment_score": 0.5355035066604614,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "alone_in_the_crowd",
+          "title": "Alone In the Crowd",
+          "album": "Black & White",
+          "score": 0.5295682549476624,
+          "global_score": 0.5322442054748535,
+          "best_segment_score": 0.5295682549476624,
+          "best_segment": {
+            "start": 207.66737365722656,
+            "end": 232.66737365722656
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "dark_blue_horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I Just Can't Say Farewell",
+          "score": 0.5264567136764526,
+          "global_score": 0.5572494268417358,
+          "best_segment_score": 0.5264567136764526,
+          "best_segment": {
+            "start": 193.1205596923828,
+            "end": 218.1205596923828
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "dawn_in_istoccar",
+          "title": "Dawn in Istoccar",
+          "album": "Dawn in Istoccar",
+          "score": 0.5052629709243774,
+          "global_score": 0.5047752857208252,
+          "best_segment_score": 0.5052629709243774,
+          "best_segment": {
+            "start": 24.0,
+            "end": 49.0
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "galloping_to_kugrant",
+          "title": "Galloping to Kugrant",
+          "album": "Dawn in Istoccar",
+          "score": 0.49120086431503296,
+          "global_score": 0.4690624475479126,
+          "best_segment_score": 0.49120086431503296,
+          "best_segment": {
+            "start": 27.600000381469727,
+            "end": 52.599998474121094
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "classical_is_so_metal",
+          "title": "Classical Is So Metal",
+          "album": "Experimenting on Her Own",
+          "score": 0.489660382270813,
+          "global_score": 0.4253607392311096,
+          "best_segment_score": 0.489660382270813,
+          "best_segment": {
+            "start": 106.0,
+            "end": 131.0
+          },
+          "rank": 8
+        }
+      ]
+    },
+    {
+      "query_id": "q20",
+      "query": "a quiet piece that slowly becomes more powerful",
+      "text_embedding_seconds": 0.013558799866586924,
+      "retrieval_seconds": 8.819997310638428e-05,
+      "results": [
+        {
+          "track_id": "let_the_wolf_out",
+          "title": "Let the Wolf Out",
+          "album": "Black & White",
+          "score": 0.4994143545627594,
+          "global_score": 0.4906578063964844,
+          "best_segment_score": 0.4994143545627594,
+          "best_segment": {
+            "start": 68.9336166381836,
+            "end": 93.9336166381836
+          },
+          "rank": 1
+        },
+        {
+          "track_id": "dark_blue_horizon",
+          "title": "Dark Blue Horizon",
+          "album": "I Just Can't Say Farewell",
+          "score": 0.48616689443588257,
+          "global_score": 0.4607379138469696,
+          "best_segment_score": 0.48616689443588257,
+          "best_segment": {
+            "start": 144.84042358398438,
+            "end": 169.84042358398438
+          },
+          "rank": 2
+        },
+        {
+          "track_id": "raven_lullaby",
+          "title": "Raven Lullaby",
+          "album": "The Pathmaker",
+          "score": 0.47722965478897095,
+          "global_score": 0.43696123361587524,
+          "best_segment_score": 0.47722965478897095,
+          "best_segment": {
+            "start": 83.19999694824219,
+            "end": 108.19999694824219
+          },
+          "rank": 3
+        },
+        {
+          "track_id": "edge",
+          "title": "The Edge of the Unknown",
+          "album": "9",
+          "score": 0.4648175537586212,
+          "global_score": 0.4726780951023102,
+          "best_segment_score": 0.4648175537586212,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 4
+        },
+        {
+          "track_id": "cry_of_the_elves",
+          "title": "The Cry of the Elves",
+          "album": "Once Upon a Tale, Pt.1",
+          "score": 0.4647475481033325,
+          "global_score": 0.43840956687927246,
+          "best_segment_score": 0.4647475481033325,
+          "best_segment": {
+            "start": 93.80042266845703,
+            "end": 118.80042266845703
+          },
+          "rank": 5
+        },
+        {
+          "track_id": "dawn_in_istoccar",
+          "title": "Dawn in Istoccar",
+          "album": "Dawn in Istoccar",
+          "score": 0.45902538299560547,
+          "global_score": 0.44850265979766846,
+          "best_segment_score": 0.45902538299560547,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 6
+        },
+        {
+          "track_id": "icebreaker_storm",
+          "title": "Icebreaker Into the Storm",
+          "album": "Night Clockwork",
+          "score": 0.4365413188934326,
+          "global_score": 0.39044681191444397,
+          "best_segment_score": 0.4365413188934326,
+          "best_segment": {
+            "start": 0.0,
+            "end": 25.0
+          },
+          "rank": 7
+        },
+        {
+          "track_id": "galloping_to_kugrant",
+          "title": "Galloping to Kugrant",
+          "album": "Dawn in Istoccar",
+          "score": 0.4315224289894104,
+          "global_score": 0.41317760944366455,
+          "best_segment_score": 0.4315224289894104,
+          "best_segment": {
+            "start": 13.800000190734863,
+            "end": 38.79999923706055
+          },
+          "rank": 8
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "python": "3.11.9",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "torch": "2.10.0+cu130",
+  "torchaudio": "2.10.0+cu130",
+  "transformers": "4.57.6",
+  "device": "cuda",
+  "cuda_available": true,
+  "cuda_runtime": "13.0",
+  "gpu": {
+    "name": "NVIDIA GeForce RTX 4060",
+    "vram_bytes": 8585216000
+  },
+  "nvidia_smi_at_start": "NVIDIA GeForce RTX 4060, 610.88, 8188, 2058, 5899",
+  "system_ram_bytes": 17033416704,
+  "system_ram_available_bytes_at_start": 5857906688
+}

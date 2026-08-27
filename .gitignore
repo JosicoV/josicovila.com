@@ -1,5 +1,10 @@
 # Persistent media
 /data/musica/
+/data/3Dassets/
+
+# Local reference snapshots
+/PRIMER_INTENTO/
+/docs/
 
 # OS / editor noise
 .DS_Store

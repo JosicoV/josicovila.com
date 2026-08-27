@@ -1,0 +1,105 @@
+{
+  "status": "complete",
+  "report": {
+    "measured_at": "2026-08-27T21:40:53+00:00",
+    "device": "cuda",
+    "index_version": "muq-segment-20260827T213721+0000",
+    "catalogue_tracks": 115,
+    "catalogue_segments": 1429,
+    "startup": {
+      "total_seconds": 25.208,
+      "index_load_seconds": 0.024,
+      "translator_load_seconds": 8.261,
+      "model_load_seconds": 13.168
+    },
+    "peak_vram_bytes": 2683638272,
+    "english_in_process": {
+      "queries": 6,
+      "total": {
+        "count": 30,
+        "mean_ms": 20.85,
+        "median_ms": 20.42,
+        "min_ms": 19.77,
+        "max_ms": 28.85,
+        "p95_ms": 24.57
+      },
+      "translation": {
+        "count": 30,
+        "mean_ms": 0.0,
+        "median_ms": 0.0,
+        "min_ms": 0.0,
+        "max_ms": 0.0,
+        "p95_ms": 0.0
+      },
+      "text_embedding": {
+        "count": 30,
+        "mean_ms": 20.29,
+        "median_ms": 19.83,
+        "min_ms": 19.2,
+        "max_ms": 28.23,
+        "p95_ms": 24.02
+      },
+      "retrieval_and_ranking": {
+        "count": 30,
+        "mean_ms": 0.5,
+        "median_ms": 0.48,
+        "min_ms": 0.45,
+        "max_ms": 0.73,
+        "p95_ms": 0.59
+      }
+    },
+    "spanish_in_process": {
+      "queries": 4,
+      "total": {
+        "count": 20,
+        "mean_ms": 190.52,
+        "median_ms": 188.05,
+        "min_ms": 140.3,
+        "max_ms": 249.82,
+        "p95_ms": 237.78
+      },
+      "translation": {
+        "count": 20,
+        "mean_ms": 162.57,
+        "median_ms": 157.21,
+        "min_ms": 112.92,
+        "max_ms": 216.57,
+        "p95_ms": 208.3
+      },
+      "text_embedding": {
+        "count": 20,
+        "mean_ms": 27.15,
+        "median_ms": 26.85,
+        "min_ms": 22.39,
+        "max_ms": 32.52,
+        "p95_ms": 30.33
+      },
+      "retrieval_and_ranking": {
+        "count": 20,
+        "mean_ms": 0.7,
+        "median_ms": 0.67,
+        "min_ms": 0.54,
+        "max_ms": 0.87,
+        "p95_ms": 0.86
+      }
+    },
+    "http_round_trip": {
+      "search": {
+        "count": 30,
+        "mean_ms": 26.42,
+        "median_ms": 24.2,
+        "min_ms": 22.25,
+        "max_ms": 51.35,
+        "p95_ms": 43.51
+      },
+      "health": {
+        "count": 5,
+        "mean_ms": 1.11,
+        "median_ms": 1.07,
+        "min_ms": 1.02,
+        "max_ms": 1.33,
+        "p95_ms": 1.33
+      }
+    }
+  }
+}

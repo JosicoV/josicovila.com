@@ -1,0 +1,22 @@
+[
+  {"query_id": "q01", "text": "epic music"},
+  {"query_id": "q02", "text": "dark fantasy music"},
+  {"query_id": "q03", "text": "peaceful fantasy music"},
+  {"query_id": "q04", "text": "emotional orchestral music"},
+  {"query_id": "q05", "text": "soft medieval flute"},
+  {"query_id": "q06", "text": "emotional solo violin"},
+  {"query_id": "q07", "text": "music with choir and heavy percussion"},
+  {"query_id": "q08", "text": "gentle strings and flute"},
+  {"query_id": "q09", "text": "soft medieval flute, melancholic and peaceful"},
+  {"query_id": "q10", "text": "epic orchestral music with choir but not too aggressive"},
+  {"query_id": "q11", "text": "dark but not aggressive"},
+  {"query_id": "q12", "text": "heroic but reflective"},
+  {"query_id": "q13", "text": "music for exploring ancient ruins"},
+  {"query_id": "q14", "text": "music for a quiet sunrise"},
+  {"query_id": "q15", "text": "music for riding across an open landscape"},
+  {"query_id": "q16", "text": "epic but calm"},
+  {"query_id": "q17", "text": "heroic without battle"},
+  {"query_id": "q18", "text": "fantasy flute without epic orchestra"},
+  {"query_id": "q19", "text": "something powerful but still emotional"},
+  {"query_id": "q20", "text": "a quiet piece that slowly becomes more powerful"}
+]

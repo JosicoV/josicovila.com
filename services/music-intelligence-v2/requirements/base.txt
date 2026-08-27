@@ -1,0 +1,17 @@
+easydict==1.13
+einops==0.8.2
+huggingface-hub==0.36.2
+hf-xet==1.6.0
+librosa==0.11.0
+muq==0.1.0
+mutagen==1.48.1
+nnAudio==0.3.4
+numpy==2.4.6
+psutil==7.2.2
+pytest==9.1.1
+safetensors==0.8.0
+sacremoses==0.2.0
+sentencepiece==0.2.2
+soundfile==0.14.0
+transformers==4.57.6
+x-clip==0.14.4

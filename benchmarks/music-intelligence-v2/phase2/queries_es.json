@@ -1,0 +1,62 @@
+[
+  {
+    "query_id": "es061",
+    "text": "música épica con coro",
+    "category": "Spanish input benchmark",
+    "language": "es"
+  },
+  {
+    "query_id": "es062",
+    "text": "música medieval suave con flauta",
+    "category": "Spanish input benchmark",
+    "language": "es"
+  },
+  {
+    "query_id": "es063",
+    "text": "algo oscuro pero no agresivo",
+    "category": "Spanish input benchmark",
+    "language": "es"
+  },
+  {
+    "query_id": "es064",
+    "text": "música tranquila y melancólica",
+    "category": "Spanish input benchmark",
+    "language": "es"
+  },
+  {
+    "query_id": "es065",
+    "text": "algo heroico pero reflexivo",
+    "category": "Spanish input benchmark",
+    "language": "es"
+  },
+  {
+    "query_id": "es066",
+    "text": "música para explorar unas ruinas antiguas",
+    "category": "Spanish input benchmark",
+    "language": "es"
+  },
+  {
+    "query_id": "es067",
+    "text": "una pieza emocional con violín",
+    "category": "Spanish input benchmark",
+    "language": "es"
+  },
+  {
+    "query_id": "es068",
+    "text": "música de fantasía con flauta y arpa",
+    "category": "Spanish input benchmark",
+    "language": "es"
+  },
+  {
+    "query_id": "es069",
+    "text": "algo intenso pero que no parezca una batalla",
+    "category": "Spanish input benchmark",
+    "language": "es"
+  },
+  {
+    "query_id": "es070",
+    "text": "música para caminar solo por un bosque",
+    "category": "Spanish input benchmark",
+    "language": "es"
+  }
+]

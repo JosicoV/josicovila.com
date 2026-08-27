@@ -1,0 +1,173 @@
+{
+  "thresholds": {
+    "minimum_embedding_cosine": 0.9,
+    "maximum_duration_delta_seconds": 1.0
+  },
+  "groups": [
+    {
+      "canonical_track_id": "composition-believe",
+      "title": "Believe",
+      "members": [
+        "ijustcantsayfarewell-believe",
+        "feelbelievelive-believe"
+      ],
+      "comparisons": [
+        {
+          "left": "ijustcantsayfarewell-believe",
+          "right": "feelbelievelive-believe",
+          "duration_delta_seconds": 0.0,
+          "global_embedding_cosine": 0.9522426128387451
+        }
+      ]
+    },
+    {
+      "canonical_track_id": "composition-feel",
+      "title": "Feel",
+      "members": [
+        "ijustcantsayfarewell-feel",
+        "feelbelievelive-feel"
+      ],
+      "comparisons": [
+        {
+          "left": "ijustcantsayfarewell-feel",
+          "right": "feelbelievelive-feel",
+          "duration_delta_seconds": 0.0,
+          "global_embedding_cosine": 0.9674772024154663
+        }
+      ]
+    },
+    {
+      "canonical_track_id": "composition-live",
+      "title": "Live",
+      "members": [
+        "ijustcantsayfarewell-live",
+        "feelbelievelive-live"
+      ],
+      "comparisons": [
+        {
+          "left": "ijustcantsayfarewell-live",
+          "right": "feelbelievelive-live",
+          "duration_delta_seconds": 0.0,
+          "global_embedding_cosine": 0.9452521204948425
+        }
+      ]
+    }
+  ],
+  "canonical_by_track": {
+    "dragonrage-1riding-oriental-winds": "dragonrage-1riding-oriental-winds",
+    "dragonrage-2blue-fire-nest": "dragonrage-2blue-fire-nest",
+    "dragonrage-3first-flight-leaving-the-nest": "dragonrage-3first-flight-leaving-the-nest",
+    "dragonrage-4the-night-glides": "dragonrage-4the-night-glides",
+    "dragonrage-5dracones-venandi": "dragonrage-5dracones-venandi",
+    "dragonrage-6wind-in-my-wings": "dragonrage-6wind-in-my-wings",
+    "dragonrage-7flying-through-clouds": "dragonrage-7flying-through-clouds",
+    "dragonrage-8dragon-rage": "dragonrage-8dragon-rage",
+    "dragonrage-9-learning-to-fly": "dragonrage-9-learning-to-fly",
+    "dragonrage-10drakonian-warcry": "dragonrage-10drakonian-warcry",
+    "blackandwhite-1misunderstoodtales": "blackandwhite-1misunderstoodtales",
+    "blackandwhite-2reachthetruth": "blackandwhite-2reachthetruth",
+    "blackandwhite-3whisperalietome": "blackandwhite-3whisperalietome",
+    "blackandwhite-4landofnoreturn": "blackandwhite-4landofnoreturn",
+    "blackandwhite-5mindwithoutfrontiers": "blackandwhite-5mindwithoutfrontiers",
+    "blackandwhite-6redtatoodream": "blackandwhite-6redtatoodream",
+    "blackandwhite-7whaticarrywithme": "blackandwhite-7whaticarrywithme",
+    "blackandwhite-8letthewolfout": "blackandwhite-8letthewolfout",
+    "blackandwhite-9aloneinthecrowd": "blackandwhite-9aloneinthecrowd",
+    "blackandwhite-10evenandprime": "blackandwhite-10evenandprime",
+    "blackandwhite-11whatnow": "blackandwhite-11whatnow",
+    "onceuponatale2-thedistantisland": "onceuponatale2-thedistantisland",
+    "onceuponatale2-theguidegirl": "onceuponatale2-theguidegirl",
+    "onceuponatale2-saluteyoking": "onceuponatale2-saluteyoking",
+    "onceuponatale2-thedarkside": "onceuponatale2-thedarkside",
+    "onceuponatale2-beathreex": "onceuponatale2-beathreex",
+    "onceuponatale2-nocturnalfiercesea": "onceuponatale2-nocturnalfiercesea",
+    "onceuponatalept1-thecryoftheelves": "onceuponatalept1-thecryoftheelves",
+    "onceuponatalept1-ivorycastle": "onceuponatalept1-ivorycastle",
+    "onceuponatalept1-thevalleyofthedragons": "onceuponatalept1-thevalleyofthedragons",
+    "onceuponatalept1-talesoftheenchantedsword": "onceuponatalept1-talesoftheenchantedsword",
+    "onceuponatalept1-thereason": "onceuponatalept1-thereason",
+    "ijustcantsayfarewell-pegasus": "ijustcantsayfarewell-pegasus",
+    "ijustcantsayfarewell-live": "composition-live",
+    "ijustcantsayfarewell-the-right-side-of-an-orange": "ijustcantsayfarewell-the-right-side-of-an-orange",
+    "ijustcantsayfarewell-dark-blue-horizon": "ijustcantsayfarewell-dark-blue-horizon",
+    "ijustcantsayfarewell-believe": "composition-believe",
+    "ijustcantsayfarewell-light-awaits": "ijustcantsayfarewell-light-awaits",
+    "ijustcantsayfarewell-re-encarnacion": "ijustcantsayfarewell-re-encarnacion",
+    "ijustcantsayfarewell-short-message-fromer-soul": "ijustcantsayfarewell-short-message-fromer-soul",
+    "ijustcantsayfarewell-thanks-to-my-gipsy-roots": "ijustcantsayfarewell-thanks-to-my-gipsy-roots",
+    "ijustcantsayfarewell-feel": "composition-feel",
+    "feelbelievelive-feel": "composition-feel",
+    "feelbelievelive-believe": "composition-believe",
+    "feelbelievelive-live": "composition-live",
+    "9-chase": "9-chase",
+    "9-iberian": "9-iberian",
+    "9-dreaming1": "9-dreaming1",
+    "9-dreaming2": "9-dreaming2",
+    "9-david": "9-david",
+    "9-avalon": "9-avalon",
+    "9-edge": "9-edge",
+    "9-jewel": "9-jewel",
+    "9-epiphany": "9-epiphany",
+    "experimentingonherown-1-classical-is-so-metal": "experimentingonherown-1-classical-is-so-metal",
+    "experimentingonherown-2-wardrums-on-a-saturday-night": "experimentingonherown-2-wardrums-on-a-saturday-night",
+    "experimentingonherown-3-classics-go-on-fiesta": "experimentingonherown-3-classics-go-on-fiesta",
+    "experimentingonherown-4-last-beginning": "experimentingonherown-4-last-beginning",
+    "experimentingonherown-5-epic-western": "experimentingonherown-5-epic-western",
+    "experimentingonherown-6-fall-of-the-angel": "experimentingonherown-6-fall-of-the-angel",
+    "experimentingonherown-7-ascension-of-a-demon": "experimentingonherown-7-ascension-of-a-demon",
+    "experimentingonherown-8-awakening-of-the-humankind": "experimentingonherown-8-awakening-of-the-humankind",
+    "experimentingonherown-9-beyond-the-axiomatic-truth": "experimentingonherown-9-beyond-the-axiomatic-truth",
+    "experimentingonherown-10-sir-hector": "experimentingonherown-10-sir-hector",
+    "thepathmaker-1-astral-door": "thepathmaker-1-astral-door",
+    "thepathmaker-2-hic-sunt-dracones": "thepathmaker-2-hic-sunt-dracones",
+    "thepathmaker-3-bread-crumbs": "thepathmaker-3-bread-crumbs",
+    "thepathmaker-4-wounded": "thepathmaker-4-wounded",
+    "thepathmaker-5-healing-wind": "thepathmaker-5-healing-wind",
+    "thepathmaker-6-last-man-standing": "thepathmaker-6-last-man-standing",
+    "thepathmaker-7-a-narrow-passage": "thepathmaker-7-a-narrow-passage",
+    "thepathmaker-8-raven-lullaby": "thepathmaker-8-raven-lullaby",
+    "thepathmaker-9-bonus-returning-home": "thepathmaker-9-bonus-returning-home",
+    "inloveorversus-this-primal-feeling-from-you": "inloveorversus-this-primal-feeling-from-you",
+    "inloveorversus-when-you-say-hi": "inloveorversus-when-you-say-hi",
+    "inloveorversus-your-crazy-moments": "inloveorversus-your-crazy-moments",
+    "inloveorversus-my-finger-on-your-back": "inloveorversus-my-finger-on-your-back",
+    "inloveorversus-that-tickels": "inloveorversus-that-tickels",
+    "inloveorversus-a-minute-to-be-with-you": "inloveorversus-a-minute-to-be-with-you",
+    "inloveorversus-making-war": "inloveorversus-making-war",
+    "inloveorversus-the-time-i-win": "inloveorversus-the-time-i-win",
+    "inloveorversus-what-you-give-me": "inloveorversus-what-you-give-me",
+    "dawninistoccar-dawn-in-istoccar": "dawninistoccar-dawn-in-istoccar",
+    "dawninistoccar-fly-no-matter-how-far": "dawninistoccar-fly-no-matter-how-far",
+    "dawninistoccar-insidethetowerofthewizard": "dawninistoccar-insidethetowerofthewizard",
+    "dawninistoccar-red-belt": "dawninistoccar-red-belt",
+    "dawninistoccar-galloping-to-kugrant": "dawninistoccar-galloping-to-kugrant",
+    "dawninistoccar-regunast-at-war": "dawninistoccar-regunast-at-war",
+    "dawninistoccar-bloody-and-metalish": "dawninistoccar-bloody-and-metalish",
+    "dawninistoccar-not-all-the-answers": "dawninistoccar-not-all-the-answers",
+    "dawninistoccar-back-cover": "dawninistoccar-back-cover",
+    "dawninistoccar-back-cover-massive": "dawninistoccar-back-cover-massive",
+    "neverwithoutthebards-ancient-ritual": "neverwithoutthebards-ancient-ritual",
+    "neverwithoutthebards-goblins-path": "neverwithoutthebards-goblins-path",
+    "neverwithoutthebards-wizard-on-the-cliff": "neverwithoutthebards-wizard-on-the-cliff",
+    "neverwithoutthebards-the-elders-will": "neverwithoutthebards-the-elders-will",
+    "neverwithoutthebards-rise-of-the-young-heroine": "neverwithoutthebards-rise-of-the-young-heroine",
+    "neverwithoutthebards-dragon-revenge": "neverwithoutthebards-dragon-revenge",
+    "neverwithoutthebards-and-the-journey-ends": "neverwithoutthebards-and-the-journey-ends",
+    "bigsteamflyingmachine-big-steam-flying-machine": "bigsteamflyingmachine-big-steam-flying-machine",
+    "bigsteamflyingmachine-icebreaker-into-the-storm": "bigsteamflyingmachine-icebreaker-into-the-storm",
+    "bigsteamflyingmachine-heavy-fuel-hearted": "bigsteamflyingmachine-heavy-fuel-hearted",
+    "bigsteamflyingmachine-cracked-soul-engine": "bigsteamflyingmachine-cracked-soul-engine",
+    "bigsteamflyingmachine-dark-crimson-oil-as-blood": "bigsteamflyingmachine-dark-crimson-oil-as-blood",
+    "reunionstavern-0-intro": "reunionstavern-0-intro",
+    "reunionstavern-1-a-night-at-the-tavern": "reunionstavern-1-a-night-at-the-tavern",
+    "reunionstavern-2-the-sinner-mission": "reunionstavern-2-the-sinner-mission",
+    "reunionstavern-3-heros-pray-for-duty": "reunionstavern-3-heros-pray-for-duty",
+    "reunionstavern-4-marching-through-city-gates": "reunionstavern-4-marching-through-city-gates",
+    "reunionstavern-5-hero-versus-sinner": "reunionstavern-5-hero-versus-sinner",
+    "newoldworldorder-1-behind-the-door": "newoldworldorder-1-behind-the-door",
+    "newoldworldorder-2-cristal-mines": "newoldworldorder-2-cristal-mines",
+    "newoldworldorder-3-cristal-wars": "newoldworldorder-3-cristal-wars",
+    "newoldworldorder-4-doubtfull-goddess": "newoldworldorder-4-doubtfull-goddess",
+    "newoldworldorder-5-of-goddess-and-mankind": "newoldworldorder-5-of-goddess-and-mankind"
+  }
+}
