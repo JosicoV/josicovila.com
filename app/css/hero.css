@@ -85,7 +85,7 @@ header #busqueda {
 /* El rótulo va como pseudoelemento porque el JS reescribe .selected entero
    cada vez que cambia de disco; así no hay nada que volver a pintar. */
 .custom-select::before {
-  content: 'CURRENT ALBUM';
+  content: attr(data-current-label);
   position: absolute;
   left: 66px;
   top: 11px;
@@ -277,20 +277,22 @@ body.modo-captura .sphereRanges {
   pointer-events: none;
   z-index: 0;
   background:
+    /* El velo va por encima de la niebla y termina opaco. Así el azul se
+       oscurece gradualmente y no puede dejar una franja distinta en la unión
+       con la sección de álbumes. */
+    linear-gradient(to bottom,
+      rgba(6, 14, 30, 0) 0%,
+      rgba(7, 18, 38, 0.18) 30%,
+      rgba(6, 15, 32, 0.52) 58%,
+      rgba(4, 10, 22, 0.82) 82%,
+      #030710 100%),
     /* Núcleo de niebla bajo la esfera: es lo que la corta. Va ceñido al centro
        para no borrar el bosque de los bordes. */
     radial-gradient(72% 68% at 50% 88%,
       rgba(14, 34, 70, 0.94) 0%,
       rgba(10, 24, 50, 0.7) 38%,
       rgba(7, 16, 34, 0.28) 62%,
-      rgba(6, 14, 30, 0) 78%),
-    /* Velo general, suave: sólo asienta el texto. */
-    linear-gradient(to bottom,
-      rgba(6, 14, 30, 0) 0%,
-      rgba(7, 18, 38, 0.14) 30%,
-      rgba(6, 15, 32, 0.4) 58%,
-      rgba(4, 10, 22, 0.62) 82%,
-      rgba(3, 7, 16, 0.72) 100%);
+      rgba(6, 14, 30, 0) 78%);
 }
 
 #hero-content {
@@ -407,7 +409,24 @@ body.modo-captura .sphereRanges {
   -webkit-backdrop-filter: blur(14px);
   /* Por encima del reproductor (z-index 5000): si no, la lista queda tapada. */
   z-index: 5100;
+  scrollbar-color: #1d4f7f rgba(5, 10, 18, 0.72);
+  scrollbar-width: thin;
 }
+
+#searchResults::-webkit-scrollbar { width: 10px; }
+
+#searchResults::-webkit-scrollbar-track {
+  background: rgba(5, 10, 18, 0.72);
+  border-radius: 999px;
+}
+
+#searchResults::-webkit-scrollbar-thumb {
+  background: #1d4f7f;
+  border: 2px solid rgba(5, 10, 18, 0.72);
+  border-radius: 999px;
+}
+
+#searchResults::-webkit-scrollbar-thumb:hover { background: #28669f; }
 
 .result {
   border-bottom: none;
@@ -617,15 +636,13 @@ body.modo-captura .sphereRanges {
   padding: 3rem 1.5rem calc(var(--barra-altura) + 3rem);
   box-sizing: border-box;
   position: relative;
-  /* Arranca EXACTAMENTE en el color con el que termina la niebla del hero
-     (rgba(3,7,16,.72)) y sigue oscureciendo. Antes empezaba más claro y se veía
-     una costura azul/negra justo en la unión. El paisaje del fondo es fijo, así
-     que continúa por detrás y la transición no tiene salto. */
+  /* Arranca en el mismo color sólido con el que termina el Hero. Después deja
+     reaparecer el paisaje muy poco a poco, sin una costura entre secciones. */
   background: linear-gradient(
     to bottom,
-    rgba(3, 7, 16, 0.72) 0%,
-    rgba(3, 7, 16, 0.86) 22%,
-    rgba(3, 6, 14, 0.94) 100%
+    #030710 0%,
+    rgba(3, 7, 16, 0.94) 22%,
+    rgba(3, 6, 14, 0.96) 100%
   );
 }
 

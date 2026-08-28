@@ -1,5 +1,8 @@
 ﻿import * as AUDIO3D from './3D.module.js';
 
+import { applyTranslations, text as uiText } from './i18n.js';
+
+applyTranslations();
 
 /**
  * Gestiona un tooltip global para las descripciones de las canciones.
@@ -640,7 +643,9 @@ function marcarReproduciendo(sonando) {
   if (!iconoPlay || !iconoPausa) return;
   iconoPlay.style.display  = sonando ? 'none' : '';
   iconoPausa.style.display = sonando ? '' : 'none';
-  if (btnPlay) btnPlay.setAttribute('aria-label', sonando ? 'Pause' : 'Play');
+  if (btnPlay) {
+    btnPlay.setAttribute('aria-label', sonando ? uiText('pause', 'Pause') : uiText('play', 'Play'));
+  }
 }
 
 function pistasActuales() {
@@ -969,13 +974,21 @@ containerSlider.addEventListener('mouseleave', () => {
    * adelante se quiere un detalle tipo "¿por qué?".
    */
   const MOTIVOS_LITERALES = /title|album/i;
+  const MOTIVOS_TRADUCIDOS = {
+    'Exact title match': 'reasonExactTitle',
+    'Title match': 'reasonTitle',
+    'Partial title match': 'reasonPartialTitle',
+    'Similar title': 'reasonSimilarTitle',
+    'Album match': 'reasonAlbum',
+    'Partial album match': 'reasonPartialAlbum',
+  };
 
   function etiquetasDeCoincidencia(motivos) {
     if (!Array.isArray(motivos)) return '';
     const utiles = motivos.filter(m => MOTIVOS_LITERALES.test(m));
     if (!utiles.length) return '';
     return `<div class="reasons">${utiles
-      .map(m => `<span class="reason reason-literal">${m}</span>`)
+      .map(m => `<span class="reason reason-literal">${uiText(MOTIVOS_TRADUCIDOS[m], m)}</span>`)
       .join('')}</div>`;
   }
 
@@ -990,9 +1003,9 @@ containerSlider.addEventListener('mouseleave', () => {
     if (!trackId || !TELEMETRIA.activa) return '';
     return `
       <div class="feedback" data-trackid="${trackId}" data-rank="${rank || ''}">
-        <span class="feedback-q">Good match?</span>
-        <button type="button" class="feedback-btn" data-vote="match" aria-label="Yes, this matches what I was looking for">Yes</button>
-        <button type="button" class="feedback-btn" data-vote="no_match" aria-label="No, this does not match">No</button>
+        <span class="feedback-q">${uiText('goodMatch', 'Good match?')}</span>
+        <button type="button" class="feedback-btn" data-vote="match" aria-label="${uiText('yesMatchAria', 'Yes, this matches what I was looking for')}">${uiText('yes', 'Yes')}</button>
+        <button type="button" class="feedback-btn" data-vote="no_match" aria-label="${uiText('noMatchAria', 'No, this does not match')}">${uiText('no', 'No')}</button>
       </div>`;
   }
 
@@ -1001,11 +1014,11 @@ containerSlider.addEventListener('mouseleave', () => {
     salirDeLaColaDeResultados();
     results.classList.remove('cola-de-album');
     if (!lista.length) {
-      results.innerHTML = '<div class="no-results">No matching music found.</div>';
+      results.innerHTML = `<div class="no-results">${uiText('noResults', 'No matching music found.')}</div>`;
       return;
     }
     const cabecera = nota
-      ? `<div class="search-note">Searched in English as <em>${nota}</em></div>`
+      ? `<div class="search-note">${uiText('searchedInEnglishAs', 'Searched in English as')} <em>${nota}</em></div>`
       : '';
     results.innerHTML = cabecera + lista.map(item => `
       <div class="result" data-albumlabel="${item.albumCode}" data-cover="${item.cover}" data-albumname="${item.albumName}" data-songnumber="${item.songnumber}" data-trackid="${item.trackId || ''}" data-rank="${item.rank || ''}" data-albumdescription="${encodeURIComponent(item.albumDescription || "")}">
@@ -1075,7 +1088,7 @@ containerSlider.addEventListener('mouseleave', () => {
       if (TELEMETRIA.sesion) form.append('session', TELEMETRIA.sesion);
 
       mostrarPanel(true);
-      results.innerHTML = '<div class="no-results">Listening to your words...</div>';
+      results.innerHTML = `<div class="no-results">${uiText('listening', 'Listening to your words...')}</div>`;
 
       fetch('includes/ajax.semanticSearch.php', { method: 'POST', body: form })
         .then(res => res.json().then(cuerpo => ({ ok: res.ok, cuerpo })))
@@ -1092,7 +1105,7 @@ containerSlider.addEventListener('mouseleave', () => {
           console.warn('Búsqueda semántica no disponible, usando búsqueda literal:', err.message);
           busquedaLiteral(q, token).catch(() => {
             if (token !== peticionEnCurso) return;
-            results.innerHTML = '<div class="no-results">Search is unavailable right now.</div>';
+            results.innerHTML = `<div class="no-results">${uiText('searchUnavailable', 'Search is unavailable right now.')}</div>`;
           });
         });
     }, 350);
@@ -1175,7 +1188,7 @@ function cargarAlbumEnElHero(album, temas, indice) {
   results.innerHTML =
     `<div class="search-note cola-origen">
        <img class="cola-portada" src="musica/DISCOS/${cover}" alt="">
-       <span>From the album <em>${albumName}</em></span>
+       <span>${uiText('fromAlbum', 'From the album')} <em>${albumName}</em></span>
      </div>` +
     temas.map((t, n) => `
       <div class="result" data-albumlabel="${albumCode}" data-cover="${cover}" data-albumname="${albumName}"

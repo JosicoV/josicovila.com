@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
@@ -8,18 +8,18 @@
     <!-- SEO: Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://josicovila.com/">
-    <meta property="og:title" content="Josico Vila | Epic and Fantastic Instrumental Music">
-    <meta property="og:description" content="Listen to all the instrumental music from Josico Vila. All the epic albums since 2018.">
+    <meta property="og:title" content="Josico Vila | Epic and Fantastic Instrumental Music" data-i18n-content="pageTitle">
+    <meta property="og:description" content="Listen to all the instrumental music from Josico Vila. All the epic albums since 2018." data-i18n-content="pageDescription">
     <meta property="og:image" content="https://josicovila.com/img/social-share.png">
 
     <!-- SEO: Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://josicovila.com/">
-    <meta property="twitter:title" content="Josico Vila | Epic and Fantastic Instrumental Music">
-    <meta property="twitter:description" content="Listen to all the instrumental music from Josico Vila. All the epic albums since 2018.">
+    <meta property="twitter:title" content="Josico Vila | Epic and Fantastic Instrumental Music" data-i18n-content="pageTitle">
+    <meta property="twitter:description" content="Listen to all the instrumental music from Josico Vila. All the epic albums since 2018." data-i18n-content="pageDescription">
     <meta property="twitter:image" content="https://josicovila.com/img/social-share.png">
 
-    <meta name="description" content="Listen to all the instrumental music from Josico Vila. All the epic albums since 2018.">
+    <meta name="description" content="Listen to all the instrumental music from Josico Vila. All the epic albums since 2018." data-i18n-content="pageDescription">
     <link rel="icon" type="image/png" href="img/tercero.png" />
     <link rel="preload" as="image" href="img/hero-desktop.webp" media="(min-width: 861px)">
     <link rel="preload" as="image" href="img/hero-mobile.webp" media="(max-width: 860px)">
@@ -48,11 +48,11 @@
     ?>
     <header>
         <!-- SEO: AÃ±adido atributo alt para describir la imagen a los buscadores -->
-        <img id="firma" src="img/firma-blanca.png" alt="Firma de Josico Vila">
+        <img id="firma" src="img/firma-blanca.png" alt="Josico Vila signature" data-i18n-alt="signatureAlt">
         <div id="busqueda">
-            <div class="custom-select" id="miSelect">
+            <div class="custom-select" id="miSelect" data-current-label="CURRENT ALBUM">
                 <div class="selected">
-                  <span>Select an album...</span>
+                  <span data-i18n="selectAlbum">Select an album...</span>
                 </div>
                 <div class="options">
                   <?php
@@ -82,8 +82,8 @@
     <main id="scroll-root">
       <section id="hero">
         <div id="hero-content">
-          <h1 class="hero-title">Type a feeling. Discover a world.</h1>
-          <p class="hero-subtitle">Describe a mood, a scene, or a story &mdash; and find the music behind it.</p>
+          <h1 class="hero-title" data-i18n="heroTitle">Type a feeling. Discover a world.</h1>
+          <p class="hero-subtitle" data-i18n="heroSubtitle">Describe a mood, a scene, or a story &mdash; and find the music behind it.</p>
           <div id="searchContainer">
             <div id="searchField">
               <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true">
@@ -93,7 +93,7 @@
                    capitalizan la primera letra y autocorrigen por su cuenta, y
                    eso hacia que la misma busqueda diera resultados distintos en
                    movil y en escritorio. -->
-              <input type="text" id="songSearch" placeholder="epic with choir, music for dragons, soft medieval flute..." autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" aria-label="Search music by mood, scene or story">
+              <input type="text" id="songSearch" placeholder="epic with choir, music for dragons, soft medieval flute..." data-i18n-placeholder="searchPlaceholder" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" aria-label="Search music by mood, scene or story" data-i18n-aria="searchAria">
               <!-- Rombo tallado, como una tachuela. Sustituye a la estrella de
                    destellos, demasiado parecida a la de Gemini. -->
               <svg class="gem-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
@@ -105,15 +105,15 @@
           </div>
         </div>
         <div id="scroll-hint" aria-hidden="true">
-          <span>Browse the albums</span>
+          <span data-i18n="browseAlbums">Browse the albums</span>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 16.5l-6-6 1.4-1.4 4.6 4.6 4.6-4.6L18 10.5z"/></svg>
         </div>
       </section>
 
       <section id="album-section">
         <div class="albumes-cabecera">
-          <h2>The albums</h2>
-          <p>Fifteen records. Pick one and it plays from the top.</p>
+          <h2 data-i18n="albumsTitle">The albums</h2>
+          <p data-i18n="albumsIntro">Fifteen records. Pick one and it plays from the top.</p>
         </div>
 
         <?php
@@ -139,9 +139,9 @@
             <span class="album-info">
               <span class="album-name" itemprop="name"><?= $album['nombre'] ?></span>
               <span class="album-text" itemprop="description"><?= strip_tags($album['texto']) ?></span>
-              <span class="album-count"><?= count($album['canciones']) ?> tracks</span>
+              <span class="album-count"><span><?= count($album['canciones']) ?></span> <span data-i18n="tracks">tracks</span></span>
             </span>
-            <span class="album-playing" aria-hidden="true">Now playing</span>
+            <span class="album-playing" aria-hidden="true" data-i18n="nowPlaying">Now playing</span>
             <svg class="album-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5l-6-6L7.4 8l4.6 4.6L16.6 8 18 9.5z"/></svg>
           </button>
 
@@ -189,8 +189,8 @@
          visibilidad se llevan desde hero.css: en línea ganaban a la hoja de
          estilos y caían justo encima del ojo. -->
     <div class="sphereRanges">
-         <div class="sphere-range"><label for="radius">Radius</label><input id="radius" type="range" min="10" max="140" value="20" /></div>
-         <div class="sphere-range"><label for="deform">Deform</label><input id="deform" type="range" min="0" max="40" value="10" /></div>
+         <div class="sphere-range"><label for="radius" data-i18n="radius">Radius</label><input id="radius" type="range" min="10" max="140" value="20" /></div>
+         <div class="sphere-range"><label for="deform" data-i18n="deform">Deform</label><input id="deform" type="range" min="0" max="40" value="10" /></div>
     </div>
 
     <div id="container-track-time">
@@ -204,20 +204,20 @@
         </div>
 
         <div class="player-controls">
-          <button type="button" id="btn-shuffle" class="player-btn" aria-label="Shuffle" aria-pressed="false">
+          <button type="button" id="btn-shuffle" class="player-btn" aria-label="Shuffle" data-i18n-aria="shuffle" aria-pressed="false">
             <svg viewBox="0 0 24 24"><path d="M17 3l4 4-4 4V8h-2.2l-2.1 3-1.2-1.7L13.6 6H17V3zM3 6h4.6l6.2 9H17v-3l4 4-4 4v-3h-3.6L7.2 8H3V6zm0 10h4.2l1.7-2.4L10.1 15l-2.2 3H3v-2z"/></svg>
           </button>
-          <button type="button" id="btn-prev" class="player-btn" aria-label="Previous track">
+          <button type="button" id="btn-prev" class="player-btn" aria-label="Previous track" data-i18n-aria="previousTrack">
             <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6V6zm3.5 6l8.5 6V6l-8.5 6z"/></svg>
           </button>
-          <button type="button" id="btn-play" class="player-btn player-btn-main" aria-label="Play">
+          <button type="button" id="btn-play" class="player-btn player-btn-main" aria-label="Play" data-i18n-aria="play">
             <svg id="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
             <svg id="icon-pause" viewBox="0 0 24 24" style="display:none"><path d="M7 5h3.5v14H7V5zm6.5 0H17v14h-3.5V5z"/></svg>
           </button>
-          <button type="button" id="btn-next" class="player-btn" aria-label="Next track">
+          <button type="button" id="btn-next" class="player-btn" aria-label="Next track" data-i18n-aria="nextTrack">
             <svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2V6zM6 6l8.5 6L6 18V6z"/></svg>
           </button>
-          <button type="button" id="btn-repeat" class="player-btn" aria-label="Repeat" aria-pressed="false">
+          <button type="button" id="btn-repeat" class="player-btn" aria-label="Repeat" data-i18n-aria="repeat" aria-pressed="false">
             <svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
           </button>
         </div>
@@ -232,11 +232,11 @@
         </div>
 
         <div class="player-volume">
-          <button type="button" id="btn-mute" class="player-btn" aria-label="Mute">
+          <button type="button" id="btn-mute" class="player-btn" aria-label="Mute" data-i18n-aria="mute">
             <svg id="icon-volume" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a6.8 6.8 0 0 1 0 13.4v2.1a8.9 8.9 0 0 0 0-17.6z"/></svg>
             <svg id="icon-muted" viewBox="0 0 24 24" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm18.5-1.1L20.1 6.5 17.6 9l-2.5-2.5-1.4 1.4L16.2 10.4l-2.5 2.5 1.4 1.4 2.5-2.5 2.5 2.5 1.4-1.4-2.5-2.5 2.5-2.5z"/></svg>
           </button>
-          <input type="range" id="volume-slider" min="0" max="100" value="100" aria-label="Volume">
+          <input type="range" id="volume-slider" min="0" max="100" value="100" aria-label="Volume" data-i18n-aria="volume">
         </div>
       </div>
     </div>
@@ -248,13 +248,13 @@
         <div id="click-firma" class="glass-form">
           <div id="texto-firma">            
             <!-- SEO: Usar h2 para el titular de la biografía -->
-            <h2>About the artist</h2>
+            <h2 data-i18n="aboutTitle">About the artist</h2>
             <h3>José "Josico" Vila Villa-Ceballos</h3>
-            A Spanish music composer who has learned on his own everything he knows about music.<br>
+            <span data-i18n="aboutParagraph1">A Spanish music composer who has learned on his own everything he knows about music.</span><br>
             <br>
-            He loves computers for all the potential they have. And he likes, apart from composing music on them, designing and programming his own web sites and attending to his social media.<br>
+            <span data-i18n="aboutParagraph2">He loves computers for all the potential they have. And he likes, apart from composing music on them, designing and programming his own web sites and attending to his social media.</span><br>
             <br>
-            He has written four books and thirteen short stories that can be read at josicovila.es (Spanish).<br>
+            <span data-i18n="aboutParagraph3">He has written four books and thirteen short stories that can be read at josicovila.es (Spanish).</span><br>
             <div class="social-links-firma">
               <a href="https://www.facebook.com/JosicoVila78" target="_blank" rel="noopener noreferrer">Facebook</a>
               <a href="https://www.instagram.com/josicovila/" target="_blank" rel="noopener noreferrer">Instagram</a>
@@ -263,7 +263,7 @@
             </div>
           </div>
           <!-- SEO: AÃ±adido atributo alt para describir la imagen -->
-          <img id='imagen-firma' src="img/defrente.png" alt="Foto de Josico Vila" />
+          <img id='imagen-firma' src="img/defrente.png" alt="Photo of Josico Vila" data-i18n-alt="artistPhotoAlt" />
         </div>
       </div>
     </div>
@@ -271,8 +271,8 @@
     <script type="module" src="js/js.js"></script>
 
     <div id="cookieConsentBanner">
-        <p>This website uses cookies to enhance your experience and for analytics purposes. By clicking 'Accept', you consent to the use of cookies. Read our <a href="privacy-policy.html" target="_blank">Privacy Policy</a> for more information.</p>
-        <button id="acceptCookieConsent">Accept</button>
+        <p><span data-i18n="cookieTextBefore">This website uses cookies to enhance your experience and for analytics purposes. By clicking 'Accept', you consent to the use of cookies. Read our</span> <a href="privacy-policy.html" target="_blank" data-i18n="privacyPolicy">Privacy Policy</a> <span data-i18n="cookieTextAfter">for more information.</span></p>
+        <button id="acceptCookieConsent" data-i18n="acceptCookies">Accept</button>
     </div>
 
     <script>
