@@ -76,11 +76,19 @@ if ($limite < 1 || $limite > SEARCH_MAX_LIMIT) {
     $limite = SEARCH_MAX_LIMIT;
 }
 
-$peticion = json_encode([
+$cuerpoPeticion = [
     'query'    => $consulta,
     'language' => 'auto',
     'limit'    => $limite,
-], JSON_UNESCAPED_UNICODE);
+];
+
+// Identificador anónimo de sesión, generado por el navegador. Sirve para
+// enlazar búsqueda -> clic -> escucha -> feedback. No contiene nada personal.
+if (isset($_POST['session']) && preg_match('/^[0-9a-f]{8,64}$/', (string) $_POST['session'])) {
+    $cuerpoPeticion['anon_session_id'] = (string) $_POST['session'];
+}
+
+$peticion = json_encode($cuerpoPeticion, JSON_UNESCAPED_UNICODE);
 
 $curl = curl_init(url_del_servicio() . '/search');
 curl_setopt_array($curl, [
@@ -129,8 +137,15 @@ foreach (($datos['results'] ?? []) as $resultado) {
         continue;
     }
     $resultados[] = $indice[$clave] + [
+        // Identificador del índice. Lo necesita la telemetría para referirse a
+        // esta pista; el reproductor sigue usando álbum + número.
+        'trackId'          => $resultado['track_id'] ?? null,
+        'compositionId'    => $resultado['composition_id'] ?? null,
         'rank'             => $resultado['rank'] ?? null,
         'bestSegmentStart' => $resultado['match']['best_segment_start'] ?? null,
+        // Por qué aparece este resultado. Vocabulario cerrado del servicio
+        // ("Exact title match", "Strong musical match"...), nunca porcentajes.
+        'matchReasons'     => $resultado['match_reasons'] ?? [],
     ];
 }
 
@@ -138,5 +153,8 @@ echo json_encode([
     'query'            => $consulta,
     'detectedLanguage' => $datos['detected_language'] ?? null,
     'normalizedQuery'  => $datos['query_normalized_en'] ?? null,
+    // Referencia de esta búsqueda para los eventos posteriores. Null si la
+    // telemetría está desactivada, y entonces el frontend no envía nada.
+    'searchId'         => $datos['search_id'] ?? null,
     'results'          => $resultados,
 ], JSON_UNESCAPED_UNICODE);

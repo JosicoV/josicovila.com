@@ -163,7 +163,64 @@ de modo que `/health` responde `ok` únicamente cuando los tres están listos.
 `--log-queries` activa el registro del texto del usuario, desactivado por
 defecto.
 
-### 3. Medir latencia
+### 3. Añadir música: actualización incremental
+
+Cuando añadas un disco o cambies un título, **no hay que reconstruir nada a
+mano**. El actualizador compara el catálogo PHP con el índice publicado y sólo
+analiza con MuQ lo que de verdad lo necesita:
+
+```powershell
+$env:HF_HUB_OFFLINE='1'
+$env:TRANSFORMERS_OFFLINE='1'
+services\music-intelligence-v2\.venv\Scripts\python.exe `
+  services\music-intelligence-v2\update_index.py
+```
+
+Antes de nada conviene ver qué haría, que no toca nada y no carga el modelo:
+
+```powershell
+services\music-intelligence-v2\.venv\Scripts\python.exe `
+  services\music-intelligence-v2\update_index.py --dry-run
+```
+
+Cada pista se clasifica comparando dos sumas de comprobación independientes:
+
+| Cambio | Suma que cambia | Coste |
+| --- | --- | --- |
+| Nada | ninguna | se reutiliza todo |
+| Título, álbum, portada | `metadata_sha256` | metadatos, sin tocar el audio |
+| El MP3 | `audio_sha256` | se reanaliza sólo esa pista |
+| Disco nuevo | — | se analizan sólo sus pistas |
+
+El audio se identifica por el SHA-256 de su **contenido**, no por su fecha: así
+copiar los ficheros o restaurar un backup no invalida el trabajo del catálogo
+entero.
+
+Los índices se publican versionados, y el activo lo marca un puntero:
+
+```text
+data/music-intelligence-v2/indexes/
+  index-v001/     index.npz, index_meta.json, update_report.json
+  index-v002/
+  current.json    {"active_index": "index-v002"}
+```
+
+Nunca se escribe sobre el índice en uso: se construye un candidato aparte, se
+valida y sólo entonces se mueve el puntero. Si algo falla, el activo se queda
+como estaba. Para volver a la versión anterior basta con mover el puntero:
+
+```powershell
+services\music-intelligence-v2\.venv\Scripts\python.exe `
+  services\music-intelligence-v2\update_index.py --rollback
+```
+
+`--rebuild` recalcula todo desde cero. Sólo hace falta si cambias el modelo, la
+ventana de segmentación o los umbrales de agrupación, cosas que invalidan los
+embeddings existentes; el script detecta las dos primeras y avisa por su cuenta.
+
+Al terminar imprime los comandos exactos para subir el índice nuevo al VPS.
+
+### 4. Medir latencia
 
 ```powershell
 $env:HF_HUB_OFFLINE='1'

@@ -65,6 +65,11 @@ class TrackEntry:
     duration_seconds: float
     segment_offset: int
     segment_count: int
+    # Opcionales a propósito: los índices construidos antes de la Fase 5 no los
+    # llevan y tienen que seguir cargando. Sólo los usa el actualizador
+    # incremental, nunca la búsqueda.
+    audio_sha256: str = ""
+    metadata_sha256: str = ""
 
     @classmethod
     def from_meta(cls, payload: dict[str, Any]) -> TrackEntry:
@@ -80,6 +85,8 @@ class TrackEntry:
             duration_seconds=float(payload["duration_seconds"]),
             segment_offset=int(payload["segment_offset"]),
             segment_count=int(payload["segment_count"]),
+            audio_sha256=str(payload.get("audio_sha256", "")),
+            metadata_sha256=str(payload.get("metadata_sha256", "")),
         )
 
 

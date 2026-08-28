@@ -155,6 +155,50 @@ suena sin bajar al álbum.
 
 ---
 
+## 6-bis. Actualizaciones posteriores (fases 5 a 7)
+
+Después del primer despliegue hubo tres cambios que requieren pasos extra.
+
+### Índice versionado
+
+La Fase 5 introdujo índices versionados con un puntero. El servicio sigue
+cayendo al `index/` antiguo si no encuentra el nuevo, así que **no se rompe
+nada** si no se hace, pero conviene igualar VPS y local:
+
+```bash
+ssh USUARIO@HOST "mkdir -p /opt/containers/josicovila-com/data/music-intelligence-v2/indexes/index-v001"
+
+scp data/music-intelligence-v2/indexes/index-v001/index.npz \
+    data/music-intelligence-v2/indexes/index-v001/index_meta.json \
+    USUARIO@HOST:/opt/containers/josicovila-com/data/music-intelligence-v2/indexes/index-v001/
+
+# El puntero, el último: hasta moverlo el VPS sigue con el índice anterior.
+scp data/music-intelligence-v2/indexes/current.json \
+    USUARIO@HOST:/opt/containers/josicovila-com/data/music-intelligence-v2/indexes/
+```
+
+`update_index.py` imprime estos comandos ya rellenados al publicar.
+
+### Telemetría
+
+Está desactivada por defecto en la imagen. Para activarla hay que añadir el
+bloque `command:` del compose de referencia al servicio `music-search`.
+
+Si se deja sin activar, la web funciona igual: el servicio devuelve
+`search_id: null` y los botones de feedback **no se muestran**.
+
+### Retención
+
+Con `--store-raw-query` se guarda el texto de las consultas. Conviene programar
+la limpieza, por ejemplo en cron semanal:
+
+```bash
+cd /opt/containers/josicovila-com
+docker compose exec music-search python telemetry_cleanup.py --apply
+```
+
+---
+
 ## 7. Consolidar en `main`
 
 Sólo cuando lo anterior esté verificado:

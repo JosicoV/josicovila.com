@@ -184,6 +184,143 @@ let slider = document.querySelector('#slider');
 const results = document.getElementById('searchResults');
 const input   = document.getElementById('songSearch');
 let currentIndex = null;
+
+/************************ TELEMETRÍA ***************************************
+ * Señales anónimas de búsqueda y escucha para poder mejorar el ranking más
+ * adelante. Nada de esto puede romper la web: todos los envíos fallan en
+ * silencio y ninguna respuesta se espera.
+ *
+ * El identificador de sesión vive en sessionStorage: muere al cerrar la
+ * pestaña, así que no es seguimiento persistente y no requiere consentimiento
+ * de cookies. Si algún día se moviera a localStorage habría que añadirlo al
+ * banner y a la política de privacidad.
+ **************************************************************************/
+const TELEMETRIA = (() => {
+  const CLAVE_SESION = 'jv_anon_session';
+  const SALTO_RAPIDO_SEGUNDOS = 8;
+
+  let sesion = null;
+  try {
+    sesion = sessionStorage.getItem(CLAVE_SESION);
+    if (!sesion) {
+      // crypto.randomUUID no existe en navegadores antiguos ni fuera de HTTPS.
+      sesion = (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()) + Date.now())
+        .replace(/-/g, '').slice(0, 32);
+      sessionStorage.setItem(CLAVE_SESION, sesion);
+    }
+  } catch (e) {
+    // Modo privado o almacenamiento bloqueado: se sigue sin sesión.
+    sesion = null;
+  }
+
+  let busquedaActual = null;   // search_id de la última búsqueda
+  let escucha = null;          // pista sonando y cuánto lleva
+
+  function enviar(evento) {
+    if (!busquedaActual) return;   // sin búsqueda asociada no hay nada que anotar
+    try {
+      fetch('includes/ajax.telemetry.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...evento, search_id: busquedaActual, anon_session_id: sesion || undefined }),
+        keepalive: true,   // sobrevive a que el usuario cierre la pestaña
+      }).catch(() => {});
+    } catch (e) { /* la telemetría nunca interrumpe */ }
+  }
+
+  return {
+    get sesion() { return sesion; },
+
+    /** Hay telemetría si el servicio devolvió un search_id al que referirse. */
+    get activa() { return Boolean(busquedaActual); },
+
+    busquedaNueva(searchId) {
+      cerrarEscucha();
+      busquedaActual = searchId || null;
+    },
+
+    clic(trackId, rank) {
+      enviar({ event_type: 'result_clicked', track_id: trackId, rank });
+    },
+
+    feedback(trackId, rank, voto) {
+      enviar({ event_type: voto === 'match' ? 'feedback_match' : 'feedback_no_match', track_id: trackId, rank });
+    },
+
+    /** Empieza a contar una escucha. Si es la misma pista otra vez, es repetición. */
+    empiezaEscucha(trackId, rank) {
+      const repetida = escucha && escucha.trackId === trackId;
+      cerrarEscucha();
+      escucha = { trackId, rank, desde: Date.now(), acumulado: 0 };
+      enviar({ event_type: repetida ? 'replay' : 'play_started', track_id: trackId, rank });
+    },
+
+    /**
+     * Pausar ES dejar de escuchar, así que el resumen se escribe ya.
+     * Antes sólo se acumulaba en memoria y se volcaba al cambiar de búsqueda o
+     * al cerrar la pestaña: quien pausaba y se marchaba perdía el dato, que es
+     * justo el más informativo (cuánto aguantó antes de parar).
+     * Si luego reanuda se emitirá otro resumen; al consolidar gana el mayor,
+     * así que duplicar no falsea nada.
+     */
+    pausa() { emitirResumen(); },
+    reanuda() { if (escucha) escucha.desde = Date.now(); },
+
+    completa(duracion) {
+      if (!escucha) return;
+      acumular();
+      enviar({
+        event_type: 'play_completed',
+        track_id: escucha.trackId,
+        rank: escucha.rank,
+        seconds_listened: escucha.acumulado,
+        track_duration: duracion || 0,
+        completed: true,
+      });
+      escucha = null;
+    },
+
+    cierra: cerrarEscucha,
+  };
+
+  function acumular() {
+    if (!escucha || !escucha.desde) return;
+    escucha.acumulado += (Date.now() - escucha.desde) / 1000;
+    escucha.desde = null;
+  }
+
+  /**
+   * Emite el resumen de lo escuchado hasta ahora. Un evento por parada, no uno
+   * por segundo: el disco no debe llenarse de ruido.
+   */
+  function emitirResumen() {
+    if (!escucha) return;
+    acumular();
+    const segundos = Math.round(escucha.acumulado * 10) / 10;
+    if (segundos <= 0.5) return;
+    enviar({
+      // Un salto muy temprano es señal negativa débil, nunca un "no" explícito:
+      // puede ser que el usuario ya conociera la canción.
+      event_type: segundos < SALTO_RAPIDO_SEGUNDOS ? 'quick_skip' : 'play_summary',
+      track_id: escucha.trackId,
+      rank: escucha.rank,
+      seconds_listened: segundos,
+      track_duration: AUDIO3D.audioElB.duration || 0,
+      completed: false,
+    });
+  }
+
+  /** Cierra definitivamente la escucha en curso. */
+  function cerrarEscucha() {
+    if (!escucha) return;
+    emitirResumen();
+    escucha = null;
+  }
+})();
+
+// Al cerrar la pestaña se cierra la escucha en curso, si da tiempo.
+window.addEventListener('pagehide', () => TELEMETRIA.cierra());
+
 const tiempoActualSpan = document.querySelector('.track-time-current');
 const tiempoTotalSpan  = document.querySelector('.track-time-total');
 
@@ -583,11 +720,12 @@ if (btnMute) btnMute.addEventListener('click', () => {
   if (volumeSlider) volumeSlider.value = audio.muted ? 0 : Math.round(audio.volume * 100);
 });
 
-AUDIO3D.audioElB.addEventListener('play',  () => marcarReproduciendo(true));
-AUDIO3D.audioElB.addEventListener('pause', () => marcarReproduciendo(false));
+AUDIO3D.audioElB.addEventListener('play',  () => { marcarReproduciendo(true); TELEMETRIA.reanuda(); });
+AUDIO3D.audioElB.addEventListener('pause', () => { marcarReproduciendo(false); TELEMETRIA.pausa(); });
 
 // Esto se ejecuta UNA sola vez
 AUDIO3D.audioElB.addEventListener('ended', () => {
+  TELEMETRIA.completa(AUDIO3D.audioElB.duration);
   const tracks = pistasActuales();
   const siguiente = siguienteIndice(tracks.length);
 
@@ -649,6 +787,13 @@ function buscarSiguienteDisco(nombreDisco) { //nombre del disco
 }
 
 function playSongResult(result) {
+  // Clic en un resultado: señal positiva débil. Se anota antes de reproducir,
+  // con el puesto que ocupaba, que es lo que hace falta para evaluar el ranking.
+  if (result.dataset.trackid) {
+    TELEMETRIA.clic(result.dataset.trackid, Number(result.dataset.rank) || null);
+    TELEMETRIA.empiezaEscucha(result.dataset.trackid, Number(result.dataset.rank) || null);
+  }
+
   const songnumber = parseInt(result.dataset.songnumber);
   const albumlabel = result.dataset.albumlabel;
   const albumcover = result.dataset.cover;
@@ -669,9 +814,12 @@ function playSongResult(result) {
   buscarCanciones(albumlabel, songnumber);
   conseguirColores(albumlabel);
 
-  //Cerrar lista results
-  cerrarResultados();
-  document.querySelector('#songSearch').value = '';
+  // La lista se queda abierta a propósito. Antes se cerraba al elegir, pero
+  // entonces el feedback ("¿Encaja?") desaparecía justo cuando el usuario podía
+  // opinar: hay que escuchar la canción para saber si acierta. Además permite
+  // probar varios resultados de la misma búsqueda sin volver a escribir.
+  results.querySelectorAll('.result').forEach(r => r.classList.remove('is-playing'));
+  result.classList.add('is-playing');
 
   tooltip.style.visibility = 'hidden';
 
@@ -766,6 +914,46 @@ containerSlider.addEventListener('mouseleave', () => {
     if (hero) hero.classList.toggle('con-resultados', visible);
   }
 
+  /**
+   * Etiqueta del motivo por el que aparece un resultado.
+   *
+   * Solo se pintan los motivos literales (título o álbum). Los musicales se
+   * omiten a propósito: en una búsqueda descriptiva TODOS los resultados salen
+   * por parecido musical, así que la etiqueta aparecería en el 100% de las
+   * filas y no distinguiría nada. Lo que el usuario no puede deducir solo es
+   * que algo ha salido por su nombre y no por cómo suena.
+   *
+   * La respuesta de la API sigue trayendo los motivos musicales por si más
+   * adelante se quiere un detalle tipo "¿por qué?".
+   */
+  const MOTIVOS_LITERALES = /title|album/i;
+
+  function etiquetasDeCoincidencia(motivos) {
+    if (!Array.isArray(motivos)) return '';
+    const utiles = motivos.filter(m => MOTIVOS_LITERALES.test(m));
+    if (!utiles.length) return '';
+    return `<div class="reasons">${utiles
+      .map(m => `<span class="reason reason-literal">${m}</span>`)
+      .join('')}</div>`;
+  }
+
+  /**
+   * Botones de feedback explícito. Es la señal más valiosa que se recoge:
+   * un juicio directo del usuario, no una inferencia sobre su comportamiento.
+   * Opcionales por completo; la búsqueda funciona igual si nadie los pulsa.
+   */
+  function botonesDeFeedback(trackId, rank) {
+    // Sin telemetría el voto no llegaría a ninguna parte: mejor no ofrecerlo
+    // que mostrar unos botones que no hacen nada.
+    if (!trackId || !TELEMETRIA.activa) return '';
+    return `
+      <div class="feedback" data-trackid="${trackId}" data-rank="${rank || ''}">
+        <span class="feedback-q">Good match?</span>
+        <button type="button" class="feedback-btn" data-vote="match" aria-label="Yes, this matches what I was looking for">Yes</button>
+        <button type="button" class="feedback-btn" data-vote="no_match" aria-label="No, this does not match">No</button>
+      </div>`;
+  }
+
   function pintarResultados(lista, nota) {
     if (!lista.length) {
       results.innerHTML = '<div class="no-results">No matching music found.</div>';
@@ -775,20 +963,39 @@ containerSlider.addEventListener('mouseleave', () => {
       ? `<div class="search-note">Searched in English as <em>${nota}</em></div>`
       : '';
     results.innerHTML = cabecera + lista.map(item => `
-      <div class="result" data-albumlabel="${item.albumCode}" data-cover="${item.cover}" data-albumname="${item.albumName}" data-songnumber="${item.songnumber}" data-albumdescription="${encodeURIComponent(item.albumDescription || "")}">
+      <div class="result" data-albumlabel="${item.albumCode}" data-cover="${item.cover}" data-albumname="${item.albumName}" data-songnumber="${item.songnumber}" data-trackid="${item.trackId || ''}" data-rank="${item.rank || ''}" data-albumdescription="${encodeURIComponent(item.albumDescription || "")}">
         <img src="musica/DISCOS/${item.cover}" alt="${item.albumName}">
         <div class="info">
           <div class="song">${item.songName}</div>
           <div class="meta">${item.albumName}</div>
         </div>
+        ${etiquetasDeCoincidencia(item.matchReasons)}
+        ${botonesDeFeedback(item.trackId, item.rank)}
       </div>
     `).join('');
 
     results.querySelectorAll('.result').forEach(result => {
       result.addEventListener('click', (e) => {
+        // Los botones de feedback viven dentro de la fila: pulsarlos no debe
+        // reproducir la canción.
+        if (e.target.closest('.feedback')) return;
         const item = e.target.closest('.result');
         if (!item) return;
         playSongResult(item);
+      });
+    });
+
+    results.querySelectorAll('.feedback-btn').forEach(boton => {
+      boton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const caja = boton.closest('.feedback');
+        const voto = boton.dataset.vote;
+        TELEMETRIA.feedback(caja.dataset.trackid, Number(caja.dataset.rank) || null, voto);
+        // Se puede cambiar de opinión: el histórico guarda ambos y al exportar
+        // vale el último.
+        caja.querySelectorAll('.feedback-btn').forEach(b => b.classList.remove('is-selected'));
+        boton.classList.add('is-selected');
+        caja.classList.add('has-vote');
       });
     });
   }
@@ -819,6 +1026,7 @@ containerSlider.addEventListener('mouseleave', () => {
       const form = new FormData();
       form.append('query', q);
       form.append('limit', '8');
+      if (TELEMETRIA.sesion) form.append('session', TELEMETRIA.sesion);
 
       mostrarPanel(true);
       results.innerHTML = '<div class="no-results">Listening to your words...</div>';
@@ -829,6 +1037,7 @@ containerSlider.addEventListener('mouseleave', () => {
           // Una respuesta vieja no debe pisar a la última que escribió el usuario.
           if (token !== peticionEnCurso) return;
           if (!ok) throw new Error(cuerpo?.error?.code || 'search_failed');
+          TELEMETRIA.busquedaNueva(cuerpo.searchId);
           const traducida = cuerpo.detectedLanguage === 'es' ? cuerpo.normalizedQuery : null;
           pintarResultados(cuerpo.results || [], traducida);
         })

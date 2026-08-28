@@ -15,19 +15,26 @@ SERVICE_ROOT = Path(__file__).resolve().parent
 REPOSITORY_ROOT = SERVICE_ROOT.parents[1]
 sys.path.insert(0, str(SERVICE_ROOT / "src"))
 
+from music_intelligence_v2.indexing import resolve_index_dir  # noqa: E402
 from music_intelligence_v2.service.bootstrap import build_service  # noqa: E402
 from music_intelligence_v2.service.errors import ServiceError  # noqa: E402
 from music_intelligence_v2.service.http import create_server  # noqa: E402
 from music_intelligence_v2.service.observability import StructuredLogger  # noqa: E402
 
-DEFAULT_INDEX_DIR = REPOSITORY_ROOT / "data" / "music-intelligence-v2" / "index"
+DATA_ROOT = REPOSITORY_ROOT / "data" / "music-intelligence-v2"
 
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8100)
-    parser.add_argument("--index-dir", type=Path, default=DEFAULT_INDEX_DIR)
+    parser.add_argument(
+        "--index-dir",
+        type=Path,
+        default=None,
+        help="Directorio de un índice concreto. Por defecto se resuelve el activo "
+             "desde indexes/current.json, y si no existe se usa el index/ heredado.",
+    )
     parser.add_argument("--model-registry", type=Path, default=SERVICE_ROOT / "config" / "model_registry.json")
     parser.add_argument(
         "--translation-registry",
@@ -41,6 +48,22 @@ def parse_arguments() -> argparse.Namespace:
         help="Log raw user text. Development only; off by default.",
     )
     parser.add_argument(
+        "--telemetry",
+        action="store_true",
+        help="Activa la recogida de eventos JSONL. Desactivada por defecto.",
+    )
+    parser.add_argument(
+        "--telemetry-dir",
+        type=Path,
+        default=DATA_ROOT / "telemetry",
+        help="Directorio de los ficheros JSONL. Nunca dentro de la raíz web.",
+    )
+    parser.add_argument(
+        "--store-raw-query",
+        action="store_true",
+        help="Guarda el texto literal de las consultas. Documéntalo si lo activas.",
+    )
+    parser.add_argument(
         "--skip-models",
         action="store_true",
         help="Load the index only. /health reports degraded and /search returns model_unavailable.",
@@ -52,14 +75,26 @@ def main() -> int:
     args = parse_arguments()
     logger = StructuredLogger(log_queries=args.log_queries)
     started = time.perf_counter()
+
+    index_dir = args.index_dir or resolve_index_dir(DATA_ROOT)
+    if index_dir is None:
+        logger.emit(
+            "startup_failed",
+            error_code="index_not_loaded",
+            error_detail=f"No hay ningún índice bajo {DATA_ROOT}",
+        )
+        return 1
+
     try:
         bootstrap = build_service(
-            index_dir=args.index_dir,
+            index_dir=index_dir,
             model_registry=args.model_registry,
             translation_registry=args.translation_registry,
             repository_root=REPOSITORY_ROOT,
             device=args.device,
             load_models=not args.skip_models,
+            telemetry_dir=args.telemetry_dir if args.telemetry else None,
+            store_raw_query=args.store_raw_query,
         )
     except ServiceError as error:
         logger.emit("startup_failed", error_code=error.code, error_detail=error.detail)
@@ -72,6 +107,7 @@ def main() -> int:
         port=args.port,
         device=bootstrap.device,
         status=health["status"],
+        index_dir=index_dir.name,
         index_version=health.get("index_version"),
         catalogue_tracks=health.get("catalogue_tracks"),
         startup_seconds=round(time.perf_counter() - started, 3),

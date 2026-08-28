@@ -33,6 +33,8 @@ def build_service(
     repository_root: Path,
     device: str = "auto",
     load_models: bool = True,
+    telemetry_dir: Path | None = None,
+    store_raw_query: bool = False,
 ) -> BootstrapResult:
     """Load index, retriever and translator eagerly so /health is truthful."""
     timings: dict[str, float] = {}
@@ -62,8 +64,14 @@ def build_service(
         encoder.load()
         timings["model_load_seconds"] = time.perf_counter() - started
 
+    collector = None
+    if telemetry_dir is not None:
+        from .collector import TelemetryCollector
+
+        collector = TelemetryCollector(telemetry_dir, store_raw_query=store_raw_query)
+
     return BootstrapResult(
-        service=SearchService(index, encoder, translator),
+        service=SearchService(index, encoder, translator, telemetry=collector),
         device=resolved_device,
         timings=timings,
     )

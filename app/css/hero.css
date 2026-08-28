@@ -357,6 +357,14 @@ header #busqueda {
 
 .result:hover { background: rgba(255, 255, 255, 0.08); }
 
+/* El resultado que está sonando, para no perderlo de vista con la lista abierta. */
+.result.is-playing {
+  background: rgba(143, 196, 255, 0.12);
+  box-shadow: inset 2px 0 0 var(--acento);
+}
+
+.result.is-playing .feedback { opacity: 1; }
+
 .result img {
   width: 46px;
   height: 46px;
@@ -364,8 +372,98 @@ header #busqueda {
   margin-right: 0;
 }
 
+.result .info { min-width: 0; }
 .result .info .song { font-weight: 600; font-size: 0.95rem; }
 .result .info .meta { color: var(--texto-tenue); font-size: 0.8rem; }
+
+/* Por qué aparece cada resultado. Etiquetas de un vocabulario cerrado, nunca
+   porcentajes: las similitudes internas no son probabilidades calibradas. */
+.result .reasons {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+  padding-left: 10px;
+}
+
+.reason {
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+/* La coincidencia de título es la que de verdad explica algo: se destaca. */
+.reason-literal {
+  color: var(--acento);
+  border-color: rgba(143, 196, 255, 0.35);
+  background: rgba(143, 196, 255, 0.1);
+}
+
+.reason-musical {
+  color: var(--texto-tenue);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Feedback explícito. Discreto hasta que pasas el ratón por el resultado:
+   es opcional y no debe competir con la música. */
+.result .feedback {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding-left: 12px;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.result:hover .feedback,
+.result .feedback.has-vote,
+.result .feedback:focus-within { opacity: 1; }
+
+.feedback-q {
+  font-size: 0.7rem;
+  color: var(--texto-tenue);
+  white-space: nowrap;
+}
+
+.feedback-btn {
+  font: inherit;
+  font-size: 0.72rem;
+  line-height: 1;
+  padding: 5px 11px;
+  border-radius: 999px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.feedback-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: var(--borde-fuerte);
+  color: white;
+}
+
+.feedback-btn.is-selected {
+  color: var(--acento);
+  border-color: rgba(143, 196, 255, 0.6);
+  background: rgba(143, 196, 255, 0.16);
+}
+
+@media (max-width: 860px) {
+  /* En estrecho las etiquetas caen bajo el título en vez de comprimirlo. */
+  .result { flex-wrap: wrap; }
+  .result .reasons { margin-left: 58px; padding-left: 0; justify-content: flex-start; width: 100%; }
+  /* Sin hover en táctil: el feedback se ve siempre. */
+  .result .feedback { opacity: 1; margin-left: 58px; padding-left: 0; }
+}
 
 .no-results { color: var(--texto-tenue); font-size: 0.9rem; }
 

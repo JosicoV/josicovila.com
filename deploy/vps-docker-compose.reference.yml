@@ -48,14 +48,26 @@ services:
       dockerfile: Dockerfile
     container_name: josicovila-com-search
     restart: unless-stopped
+    # La telemetría está DESACTIVADA por defecto en la imagen y se activa aquí.
+    # `--store-raw-query` guarda el texto de las consultas, que es lo que
+    # permitirá reentrenar el ranking; la contrapartida es la retención de 90
+    # días (telemetry_cleanup.py). Si se quita, la web sigue funcionando y los
+    # botones de feedback simplemente no aparecen.
+    command: >
+      python serve.py --host 0.0.0.0 --port 8100 --device cpu
+      --telemetry --store-raw-query
     # Sin `ports:` y sin la red `proxy`: el servicio no es alcanzable desde
     # internet, sólo desde el contenedor web. Tampoco lleva etiquetas de
     # Traefik, así que no se le puede enrutar por accidente.
     networks:
       - interna
     volumes:
-      # Índice y traductor. La ruta imita la del repositorio porque serve.py
-      # deduce su raíz subiendo dos niveles desde su propio archivo.
+      # Índice, traductor y telemetría. La ruta imita la del repositorio porque
+      # serve.py deduce su raíz subiendo dos niveles desde su propio archivo.
+      #
+      # Este montaje NO existe en el contenedor web, así que los ficheros JSONL
+      # de telemetría no son descargables desde internet. No es una regla de
+      # Apache: sencillamente no están ahí.
       - ./data/music-intelligence-v2:/srv/data/music-intelligence-v2
       # Caché de modelos de HuggingFace, ~4,9 GB. En volumen para que
       # sobreviva a las reconstrucciones de la imagen.

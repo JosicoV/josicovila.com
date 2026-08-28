@@ -89,6 +89,18 @@ class MethodNotAllowed(ServiceError):
     message = "Method not allowed for this endpoint."
 
 
+class InvalidEvent(ServiceError):
+    code = "invalid_event"
+    http_status = 400
+    message = "Event payload is not valid."
+
+
+class TelemetryUnavailable(ServiceError):
+    code = "telemetry_unavailable"
+    http_status = 503
+    message = "Telemetry is not enabled."
+
+
 class PayloadTooLarge(ServiceError):
     code = "payload_too_large"
     http_status = 413

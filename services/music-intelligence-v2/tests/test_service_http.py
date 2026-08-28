@@ -49,7 +49,11 @@ def serve(service):
 
 @pytest.fixture
 def client():
-    service = SearchService(build_index(), FakeEncoder(), FakeTranslator())
+    # El corte por relevancia se prueba en el pipeline; aquí interesa la capa
+    # HTTP, así que se desactiva para que el número de resultados sea estable.
+    service = SearchService(
+        build_index(), FakeEncoder(), FakeTranslator(), relevance={"strategy": "none"}
+    )
     server, thread, http_client, logger = serve(service)
     try:
         yield http_client, logger

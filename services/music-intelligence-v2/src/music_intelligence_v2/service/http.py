@@ -16,7 +16,7 @@ from .observability import StructuredLogger, new_request_id
 from .pipeline import SearchService
 
 MAX_BODY_BYTES = 16 * 1024
-POST_ROUTES = ("/search", "/suggest")
+POST_ROUTES = ("/search", "/suggest", "/events")
 GET_ROUTES = ("/health",)
 
 
@@ -82,6 +82,18 @@ def create_handler(service: SearchService, logger: StructuredLogger) -> type[Bas
                     return
 
                 body = _read_json_body(self)
+                if path == "/events":
+                    payload = service.record_event(body)
+                    self._respond(200, payload, request_id)
+                    logger.emit(
+                        "event_recorded",
+                        request_id=request_id,
+                        http_status=200,
+                        event_type=body.get("event_type") if isinstance(body, dict) else None,
+                        total_ms=round((time.perf_counter() - started) * 1000, 3),
+                    )
+                    return
+
                 if path == "/suggest":
                     payload = service.suggest(body)
                     self._respond(200, payload, request_id)

@@ -99,7 +99,8 @@ def test_grouping_keeps_the_best_version_and_drops_siblings():
 
 
 def test_result_ordering_is_stable_across_calls():
-    service = make_service()
+    # Sin corte por relevancia: aquí se comprueba el orden, no cuántos pasan.
+    service = SearchService(build_index(), FakeEncoder(), FakeTranslator(), relevance={"strategy": "none"})
 
     first, _ = service.search({"query": "believe"})
     second, _ = service.search({"query": "believe"})
@@ -215,6 +216,7 @@ def test_response_hides_model_internals():
     result = response["results"][0]
     assert set(result) == {
         "rank",
+        "match_reasons",
         "track_id",
         "composition_id",
         "title",
@@ -225,4 +227,7 @@ def test_response_hides_model_internals():
         "alternate_versions",
         "match",
     }
+    # Etiquetas legibles, nunca porcentajes: las similitudes internas no son
+    # probabilidades calibradas.
+    assert all(isinstance(r, str) and "%" not in r for r in result["match_reasons"])
     assert set(result["match"]) == {"best_segment_start", "best_segment_end"}
