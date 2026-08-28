@@ -359,6 +359,9 @@ document.querySelector('.lista-disco').style.opacity = 1;
 customSelect.querySelectorAll('.option').forEach(option => {
   
 option.addEventListener('click', () => {
+    // Entrar a un disco abandona la cola de resultados: a partir de aquí manda
+    // el orden del álbum.
+    salirDeLaColaDeResultados();
     //Mostramos el primer disco seleccionado
     document.querySelector('.portada').style.opacity = 1;
     document.querySelector('.lista-disco').style.opacity = 1;
@@ -598,6 +601,8 @@ function initReproductor() {
     const idx = allSongs.indexOf(trackEl);
 
     if (btn.classList.contains('play-button')) {
+      // Pulsar una canción de la lista del disco también sale de la cola.
+      salirDeLaColaDeResultados();
       playByIndex(idx);
     } else {
       AUDIO3D.audioElB.pause();
@@ -675,12 +680,14 @@ if (btnPrev) btnPrev.addEventListener('click', () => {
   const audio = AUDIO3D.audioElB;
   // Convención habitual: si ya han sonado 3 s, "anterior" reinicia la pista.
   if (audio.currentTime > 3) { audio.currentTime = 0; return; }
+  if (colaResultados) return void reproducirDeLaCola(colaResultados.indice - 1);
   if (currentIndex === null) return;
   if (currentIndex > 0) playByIndex(currentIndex - 1);
   else audio.currentTime = 0;
 });
 
 if (btnNext) btnNext.addEventListener('click', () => {
+  if (colaResultados) return void reproducirDeLaCola(colaResultados.indice + 1);
   const total = pistasActuales().length;
   if (currentIndex === null || !total) return;
   const siguiente = aleatorio ? siguienteIndice(total) : currentIndex + 1;
@@ -726,6 +733,19 @@ AUDIO3D.audioElB.addEventListener('pause', () => { marcarReproduciendo(false); T
 // Esto se ejecuta UNA sola vez
 AUDIO3D.audioElB.addEventListener('ended', () => {
   TELEMETRIA.completa(AUDIO3D.audioElB.duration);
+
+  // Si venimos de una búsqueda, la cola es la lista de resultados y da la
+  // vuelta al llegar al final; no se salta al disco de la última canción.
+  if (colaResultados) {
+    const total = colaResultados.elementos.length;
+    if (repetir) return reproducirDeLaCola(colaResultados.indice);
+    const siguiente = aleatorio && total > 1
+      ? (colaResultados.indice + 1 + Math.floor(Math.random() * (total - 1))) % total
+      : colaResultados.indice + 1;
+    reproducirDeLaCola(siguiente);
+    return;
+  }
+
   const tracks = pistasActuales();
   const siguiente = siguienteIndice(tracks.length);
 
@@ -786,12 +806,44 @@ function buscarSiguienteDisco(nombreDisco) { //nombre del disco
   });
 }
 
-function playSongResult(result) {
-  // Clic en un resultado: señal positiva débil. Se anota antes de reproducir,
-  // con el puesto que ocupaba, que es lo que hace falta para evaluar el ranking.
+/************************ COLA DE REPRODUCCIÓN *****************************
+ * Al buscar, lo que suena es la LISTA DE RESULTADOS, en orden y en bucle.
+ * Antes se reproducía el resultado elegido y al terminar seguía por el disco
+ * al que pertenecía, que puede no tener nada que ver con lo buscado.
+ *
+ * Se vuelve al modo disco al elegir un álbum o al pulsar una canción de la
+ * lista del disco.
+ **************************************************************************/
+let colaResultados = null;   // { elementos: [...], indice: n }
+
+function salirDeLaColaDeResultados() {
+  colaResultados = null;
+}
+
+/** Reproduce el resultado que ocupa `indice` en la cola, con vuelta al inicio. */
+function reproducirDeLaCola(indice) {
+  if (!colaResultados || !colaResultados.elementos.length) return false;
+  const total = colaResultados.elementos.length;
+  const destino = ((indice % total) + total) % total;   // envuelve por los dos lados
+  playSongResult(colaResultados.elementos[destino], { porEleccion: false });
+  return true;
+}
+
+/**
+ * @param {boolean} opciones.porEleccion  false cuando la cola avanza sola. Un
+ *   avance automático no es un clic del usuario y no debe registrarse como tal.
+ */
+function playSongResult(result, { porEleccion = true } = {}) {
+  // La cola pasa a ser la lista de resultados visible, empezando por el elegido.
+  const filas = Array.from(results.querySelectorAll('.result'));
+  const posicion = filas.indexOf(result);
+  if (posicion !== -1) colaResultados = { elementos: filas, indice: posicion };
+
   if (result.dataset.trackid) {
-    TELEMETRIA.clic(result.dataset.trackid, Number(result.dataset.rank) || null);
-    TELEMETRIA.empiezaEscucha(result.dataset.trackid, Number(result.dataset.rank) || null);
+    const rank = Number(result.dataset.rank) || null;
+    // Clic en un resultado: señal positiva débil, sólo si lo eligió el usuario.
+    if (porEleccion) TELEMETRIA.clic(result.dataset.trackid, rank);
+    TELEMETRIA.empiezaEscucha(result.dataset.trackid, rank);
   }
 
   const songnumber = parseInt(result.dataset.songnumber);
@@ -834,31 +886,21 @@ function ojo(){
   const ojocerradopath = '<path d="M320 400c-97 0-185.16-56.16-233.6-144a263.03 263.03 0 0 1 61.66-76.62L55.69 89.18a16 16 0 0 1 22.63-22.63l572 572a16 16 0 0 1-22.63 22.63L454.47 379.16A263.03 263.03 0 0 1 320 400zm0-288c97 0 185.16 56.16 233.6 144a263.03 263.03 0 0 1-61.66 76.62L584.31 422.82a16 16 0 0 1-22.63 22.63l-572-572a16 16 0 1 1 22.63-22.63l95.17 95.17A263.03 263.03 0 0 1 320 112z"/>';
   const ojoabiertopath = '<path d="M572.52 241.4C518.6 135.5 407.6 64 288 64S57.4 135.5 3.48 241.4a48.11 48.11 0 0 0 0 29.2C57.4 376.5 168.4 448 288 448s230.6-71.5 284.52-177.4a48.11 48.11 0 0 0 0-29.2zM288 400c-97 0-185.16-56.16-233.6-144C102.84 168.16 191 112 288 112s185.16 56.16 233.6 144C473.16 343.84 385 400 288 400zm0-272a128 128 0 1 0 128 128 128.15 128.15 0 0 0-128-128zm0 208a80 80 0 1 1 80-80 80.09 80.09 0 0 1-80 80z"/>';
 
+  /**
+   * Modo captura: la pantalla debe enseñar EXACTAMENTE lo que saldrá en el PNG
+   * —fondo, esfera tal como está en ese momento y logo— y nada más.
+   *
+   * Se hace con una clase en <body> en vez de apagar elementos uno a uno: así
+   * no se queda nada visible por olvido, que era lo que pasaba con el titular,
+   * la lista de resultados y la sección de discos.
+   */
   let abierto = true;
   document.querySelector('#ojo').addEventListener('click', () => {
-    
-    if(abierto){ //cerrado
-      abierto=false;
-      document.querySelector('#ojo').innerHTML = ojocerradopath;
-      document.querySelector('#firma').style.opacity = 0;
-      document.querySelector('#miSelect').style.opacity = 0;
-      document.querySelector('#searchContainer').style.opacity = 0;
-      document.querySelector('.portada').style.opacity = 0;
-      document.querySelector('.lista-disco').style.opacity = 0;
-      document.querySelector('#container-track-time').style.opacity = 0;
-      document.querySelector('.sphereRanges').style.display = 'flex';
-    } else { //abierto
-      abierto=true;
-      document.querySelector('#ojo').innerHTML = ojoabiertopath;
-      document.querySelector('#firma').style.opacity = 1;
-      document.querySelector('#miSelect').style.opacity = 1;
-      document.querySelector('#searchContainer').style.opacity = 1;
-      document.querySelector('.portada').style.opacity = 1;
-      document.querySelector('.lista-disco').style.opacity = 1;
-      document.querySelector('#container-track-time').style.opacity = 1;
-      document.querySelector('.sphereRanges').style.display = 'none';
-    }
-  })
+    abierto = !abierto;
+    document.querySelector('#ojo').innerHTML = abierto ? ojoabiertopath : ojocerradopath;
+    document.body.classList.toggle('modo-captura', !abierto);
+    if (!abierto) window.scrollTo({ top: 0, behavior: 'auto' });
+  });
 }
 ojo();
 
@@ -955,6 +997,9 @@ containerSlider.addEventListener('mouseleave', () => {
   }
 
   function pintarResultados(lista, nota) {
+    // Resultados nuevos: la cola anterior apunta a filas que ya no existen.
+    salirDeLaColaDeResultados();
+    results.classList.remove('cola-de-album');
     if (!lista.length) {
       results.innerHTML = '<div class="no-results">No matching music found.</div>';
       return;
@@ -1018,6 +1063,7 @@ containerSlider.addEventListener('mouseleave', () => {
     if (!q) {
       results.innerHTML = '';
       mostrarPanel(false);
+      salirDeLaColaDeResultados();
       return;
     }
     // espera tras la última letra: cada consulta cuesta una inferencia
@@ -1080,3 +1126,89 @@ initTooltips();
 
 
 
+
+/************************ ACORDEÓN DE DISCOS *******************************
+ * Los quince discos vienen renderizados del servidor; aquí sólo se pliegan.
+ * Al elegir un tema, la lista del disco se convierte en la cola y sube al
+ * hero: allí es donde la esfera reacciona y desde donde se salta entre temas.
+ **************************************************************************/
+(function(){
+  const seccion = document.querySelector('#album-section');
+  if (!seccion) return;
+
+  seccion.querySelectorAll('.album-head').forEach(cabecera => {
+    cabecera.addEventListener('click', () => {
+      const album = cabecera.closest('.album');
+      const abrir = !album.classList.contains('is-open');
+      // Acordeón de uno en uno: con quince discos, varios abiertos son
+      // kilómetros de scroll.
+      seccion.querySelectorAll('.album').forEach(otro => {
+        const activo = otro === album && abrir;
+        otro.classList.toggle('is-open', activo);
+        otro.querySelector('.album-head').setAttribute('aria-expanded', String(activo));
+      });
+    });
+  });
+
+  seccion.querySelectorAll('.album-track').forEach(tema => {
+    tema.addEventListener('click', () => {
+      const album = tema.closest('.album');
+      const temas = [...album.querySelectorAll('.album-track')];
+      cargarAlbumEnElHero(album, temas, temas.indexOf(tema));
+    });
+  });
+})();
+
+/**
+ * Vuelca los temas de un disco en el panel del hero y reproduce el elegido.
+ *
+ * El panel deja de ser "resultados de búsqueda" para ser LA COLA: da igual que
+ * venga de buscar o de un disco, porque funcionalmente es lo mismo, una lista
+ * ordenada de la que se elige y que suena en bucle.
+ */
+function cargarAlbumEnElHero(album, temas, indice) {
+  const cover = album.dataset.cover;
+  const albumName = album.dataset.title;
+  const albumCode = album.dataset.album;
+  const descripcion = album.dataset.description || '';
+
+  results.innerHTML =
+    `<div class="search-note cola-origen">
+       <img class="cola-portada" src="musica/DISCOS/${cover}" alt="">
+       <span>From the album <em>${albumName}</em></span>
+     </div>` +
+    temas.map((t, n) => `
+      <div class="result" data-albumlabel="${albumCode}" data-cover="${cover}" data-albumname="${albumName}"
+           data-songnumber="${t.dataset.songnumber}" data-rank="${n + 1}"
+           data-albumdescription="${encodeURIComponent(descripcion)}">
+        <span class="cola-numero">${n + 1}</span>
+        <div class="info">
+          <div class="song">${t.querySelector('.track-name').textContent}</div>
+          <div class="meta">${t.querySelector('.track-text').textContent}</div>
+        </div>
+      </div>`).join('');
+
+  results.querySelectorAll('.result').forEach(fila => {
+    fila.addEventListener('click', e => {
+      const item = e.target.closest('.result');
+      if (item) playSongResult(item);
+    });
+  });
+
+  document.querySelector('#songSearch').value = '';
+  results.classList.add('cola-de-album');
+  results.style.display = 'flex';
+  const hero = document.querySelector('#hero');
+  if (hero) hero.classList.add('con-resultados');
+
+  // Marca en el acordeón qué disco y qué tema están sonando.
+  document.querySelectorAll('.album').forEach(a => a.classList.toggle('is-playing', a === album));
+  document.querySelectorAll('.album-track').forEach(t => t.classList.remove('is-playing'));
+  if (temas[indice]) temas[indice].classList.add('is-playing');
+
+  const filas = results.querySelectorAll('.result');
+  if (filas[indice]) playSongResult(filas[indice]);
+
+  // Sube al hero: es donde la esfera responde y donde vive el reproductor.
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}

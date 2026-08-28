@@ -71,8 +71,10 @@
               <svg id="ojo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 576 512">
                 <path d="M572.52 241.4C518.6 135.5 407.6 64 288 64S57.4 135.5 3.48 241.4a48.11 48.11 0 0 0 0 29.2C57.4 376.5 168.4 448 288 448s230.6-71.5 284.52-177.4a48.11 48.11 0 0 0 0-29.2zM288 400c-97 0-185.16-56.16-233.6-144C102.84 168.16 191 112 288 112s185.16 56.16 233.6 144C473.16 343.84 385 400 288 400zm0-272a128 128 0 1 0 128 128 128.15 128.15 0 0 0-128-128zm0 208a80 80 0 1 1 80-80 80.09 80.09 0 0 1-80 80z"/>
               </svg>
-              <svg id="camera" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 512 512">
-                <path d="M149.1 64.1L123.3 96H48C21.5 96 0 117.5 0 144v256c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V144c0-26.5-21.5-48-48-48h-75.3l-25.8-31.9c-5.5-6.8-14.6-10.1-23.5-8.2l-48 10.7c-9.3 2.1-17.3 9.2-20.4 18.4L273 128H239l-37.9-73.8c-3.1-9.2-11.1-16.3-20.4-18.4l-48-10.7c-8.9-2-18 1.4-23.5 8.2zM256 176c61.9 0 112 50.1 112 112s-50.1 112-112 112S144 349.9 144 288s50.1-112 112-112zm0 176c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64z"/>
+              <!-- Cámara redibujada: cuerpo, saliente del visor y lente hueca
+                   (fill-rule evenodd). La anterior costaba reconocerla. -->
+              <svg id="camera" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill-rule="evenodd">
+                <path d="M9.1 2.6h5.8l1.4 2.2H20a2.4 2.4 0 0 1 2.4 2.4v11A2.4 2.4 0 0 1 20 20.6H4a2.4 2.4 0 0 1-2.4-2.4v-11A2.4 2.4 0 0 1 4 4.8h3.7l1.4-2.2zM12 8.6a4.4 4.4 0 1 0 0 8.8 4.4 4.4 0 0 0 0-8.8zm0 1.9a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z"/>
               </svg>
             </div>
     </header>
@@ -92,8 +94,11 @@
                    eso hacia que la misma busqueda diera resultados distintos en
                    movil y en escritorio. -->
               <input type="text" id="songSearch" placeholder="epic with choir, music for dragons, soft medieval flute..." autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" aria-label="Search music by mood, scene or story">
-              <svg class="sparkle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 2l1.9 5.6c.3.9 1 1.6 1.9 1.9L21.4 12l-5.6 1.9c-.9.3-1.6 1-1.9 1.9L12 21.4l-1.9-5.6c-.3-.9-1-1.6-1.9-1.9L2.6 12l5.6-1.9c.9-.3 1.6-1 1.9-1.9L12 2z"/>
+              <!-- Rombo tallado, como una tachuela. Sustituye a la estrella de
+                   destellos, demasiado parecida a la de Gemini. -->
+              <svg class="gem-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2.2 21.8 12 12 21.8 2.2 12z"/>
+                <path class="gem-facet" d="M12 2.2 21.8 12H2.2z"/>
               </svg>
             </div>
             <div id="searchResults"></div>
@@ -106,49 +111,86 @@
       </section>
 
       <section id="album-section">
-    <div class="disco">
-        <!-- SEO: AÃ±adido itemscope y itemtype para definir esta secciÃ³n como un Ãlbum de MÃºsica -->
-        <div class="portada img-difuminada" itemscope itemtype="https://schema.org/MusicAlbum">
-          <div itemprop="byArtist" itemscope itemtype="https://schema.org/Person">
-            <meta itemprop="name" content="Josico Vila" />
-          </div>
-          <!-- Portada del primer disco: la sección ya es visible al cargar. -->
-          <img itemprop="image" src="musica/DISCOS/<?= $disco[0]['imagen'] ?>" alt="<?= htmlspecialchars($disco[0]['nombre']) ?>">
+        <div class="albumes-cabecera">
+          <h2>The albums</h2>
+          <p>Fifteen records. Pick one and it plays from the top.</p>
         </div>
-        
-        <div class="lista-disco">          
-          <?php
-          
-          echo '<h1 class="album-title" itemprop="name">' . $disco[0]['nombre'] . '</h1>';
-          echo '<p class="album-description">' . $disco[0]['texto'] . '</p>';
-          $canciones = $disco[0]['canciones'];
-          $i=0;
-          foreach ($canciones as $cancion) {
 
-          ?>
-            <!-- SEO: AÃ±adido itemscope y itemtype para definir cada canciÃ³n como una GrabaciÃ³n Musical -->
-            <div class="cancion <?php if($i==0) echo "active" ?>" data-label="<?= $cancion['nombrejs']?>" data-ruta="<?= $cancion['ruta']?>" itemprop="track" itemscope itemtype="https://schema.org/MusicRecording">
-              <div class="play-button"></div> 
-              <div class="titulo-cancion" itemprop="name">
-                <span><?= $cancion['nombre'] ?></span>
-                <svg class="info-icon" data-description="<?= htmlspecialchars($cancion['texto']) ?>" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 15c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1zm1-8h-2V7h2v2z"></path></svg>
-              </div>
-              <canvas id="visualizador2d" class="canvas-<?= $cancion['nombrejs']?>"></canvas><meta itemprop="duration" content="PT0M0S" /> <!-- DuraciÃ³n, idealmente actualizada con JS -->
-            </div>
-          <?php
-            $i++;
-          }
-          
-          
-          ?>            
+        <?php
+        /* Los quince discos se renderizan AQUÍ, en el servidor.
+           Antes solo salía el primero y los demás llegaban por AJAX, así que
+           para un buscador la página tenía un disco y diez temas. Ahora están
+           los 115 con sus descripciones en el HTML; el acordeón sólo los pliega
+           con CSS, y eso Google lo indexa igual. */
+        foreach ($disco as $indice => $album):
+            $abierto = $indice === 0;
+            $panelId = 'album-panel-' . $indice;
+        ?>
+        <article class="album<?= $abierto ? ' is-open' : '' ?>"
+                 itemscope itemtype="https://schema.org/MusicAlbum"
+                 data-album="<?= htmlspecialchars($album['nombrejs']) ?>"
+                 data-cover="<?= htmlspecialchars($album['imagen']) ?>"
+                 data-title="<?= htmlspecialchars($album['nombre']) ?>"
+                 data-description="<?= htmlspecialchars($album['texto']) ?>">
+          <meta itemprop="byArtist" content="Josico Vila">
+
+          <button type="button" class="album-head" aria-expanded="<?= $abierto ? 'true' : 'false' ?>" aria-controls="<?= $panelId ?>">
+            <img class="album-cover" src="musica/DISCOS/<?= $album['imagen'] ?>" alt="<?= htmlspecialchars($album['nombre']) ?>" loading="lazy" itemprop="image">
+            <span class="album-info">
+              <span class="album-name" itemprop="name"><?= $album['nombre'] ?></span>
+              <span class="album-text" itemprop="description"><?= strip_tags($album['texto']) ?></span>
+              <span class="album-count"><?= count($album['canciones']) ?> tracks</span>
+            </span>
+            <span class="album-playing" aria-hidden="true">Now playing</span>
+            <svg class="album-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5l-6-6L7.4 8l4.6 4.6L16.6 8 18 9.5z"/></svg>
+          </button>
+
+          <div class="album-panel" id="<?= $panelId ?>">
+            <ol class="album-tracks">
+              <?php foreach ($album['canciones'] as $n => $cancion): ?>
+              <li class="album-track"
+                  itemprop="track" itemscope itemtype="https://schema.org/MusicRecording"
+                  data-ruta="<?= htmlspecialchars($cancion['ruta']) ?>"
+                  data-label="<?= htmlspecialchars($cancion['nombrejs']) ?>"
+                  data-songnumber="<?= $n ?>">
+                <span class="track-number"><?= $n + 1 ?></span>
+                <span class="track-body">
+                  <span class="track-name" itemprop="name"><?= $cancion['nombre'] ?></span>
+                  <span class="track-text"><?= strip_tags($cancion['texto']) ?></span>
+                </span>
+                <span class="track-play" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </span>
+                <meta itemprop="duration" content="PT0M0S">
+              </li>
+              <?php endforeach; ?>
+            </ol>
+          </div>
+        </article>
+        <?php endforeach; ?>
+
+    <!-- Motor de reproducción por álbum. Oculto y vacío: lo rellena
+         buscarCanciones() bajo demanda. Se deja fuera del HTML servido para no
+         duplicar el contenido que ya está arriba en el acordeón. -->
+    <div class="disco disco-motor" aria-hidden="true">
+        <!-- Andamiaje minimo que espera el reproductor. Se rellena bajo
+             demanda con ajax.buscarCanciones.php; se sirve vacio para no
+             duplicar el contenido que ya esta en el acordeon de arriba. -->
+        <div class="portada img-difuminada"><img alt=""></div>
+        <div class="lista-disco">
+          <span class="album-title"></span>
+          <span class="album-description"></span>
         </div>
     </div>
       </section>
     </main>
 
-    <div class="sphereRanges" style="display: none; flex-direction: column; align-items: center;gap: 20px; right: 20px; top: 20px; position: absolute; z-index:5000;">
-         <div style="display:flex; gap:20px;"><label>Radius</label><input id="radius" type="range" min="10" max="140" value="20" /></div>
-         <div style="display:flex; gap:20px;"><label>Deform</label><input id="deform" type="range" min="0" max="40" value="10" /></div>
+    <!-- Controles de la esfera, sólo visibles en modo captura. La posición y la
+         visibilidad se llevan desde hero.css: en línea ganaban a la hoja de
+         estilos y caían justo encima del ojo. -->
+    <div class="sphereRanges">
+         <div class="sphere-range"><label for="radius">Radius</label><input id="radius" type="range" min="10" max="140" value="20" /></div>
+         <div class="sphere-range"><label for="deform">Deform</label><input id="deform" type="range" min="0" max="40" value="10" /></div>
     </div>
 
     <div id="container-track-time">
