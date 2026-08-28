@@ -44,6 +44,26 @@ body {
   background-repeat: no-repeat;
 }
 
+/* La biografía es un modal de viewport. En el diseño con scroll, dejar su
+   wrapper en el flujo la desplazaba hasta el final de la página en escritorio;
+   el móvil lo ocultaba porque una media query fijaba sólo el hijo interior. */
+#wrapper-glass-forms {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 7000;
+}
+
+#container-glass-forms,
+#container-click-firma {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
 /* ============================ CABECERA ================================== */
 
 header {

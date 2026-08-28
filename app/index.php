@@ -24,7 +24,7 @@
     <link rel="preload" as="image" href="img/hero-desktop.webp" media="(min-width: 861px)">
     <link rel="preload" as="image" href="img/hero-mobile.webp" media="(max-width: 860px)">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/hero.css?v=<?= filemtime(__DIR__ . '/css/hero.css') ?>">
     <script type="importmap">
         {
           "imports": {
