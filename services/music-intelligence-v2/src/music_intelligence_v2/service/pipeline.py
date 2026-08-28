@@ -81,7 +81,15 @@ class SearchService:
 
         language = detect_es_or_en(request.query) if request.language == "auto" else request.language
         translation_used = language == "es"
-        normalized_query = request.query
+
+        # Se busca siempre en minúsculas. El codificador de texto de MuQ
+        # distingue mayúsculas, así que "Música tranquila" y "música tranquila"
+        # daban rankings distintos; los teclados de móvil capitalizan la primera
+        # letra por su cuenta y la misma consulta devolvía resultados distintos
+        # según el dispositivo. Además alinea la ejecución con el benchmark de
+        # Fase 2, cuyas consultas son todas minúsculas.
+        # `query_original` conserva lo que escribió el usuario.
+        normalized_query = request.query.lower()
         translation_seconds = 0.0
         if translation_used:
             if self.translator is None:
@@ -89,7 +97,9 @@ class SearchService:
             translation_started = time.perf_counter()
             with self._model_lock:
                 try:
-                    normalized_query = self.translator.translate(request.query).strip()
+                    # También en minúsculas a la salida: OPUS capitaliza la
+                    # primera palabra aunque la entrada no lo estuviera.
+                    normalized_query = self.translator.translate(normalized_query).strip().lower()
                 except ServiceError:
                     raise
                 except Exception as error:  # noqa: BLE001 - surfaced as a stable service error

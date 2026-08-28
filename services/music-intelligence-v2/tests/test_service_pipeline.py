@@ -53,6 +53,27 @@ def test_spanish_query_is_translated_before_embedding():
     assert telemetry["translation_ms"] >= 0
 
 
+def test_capitalisation_does_not_change_results():
+    """Los teclados de móvil capitalizan solos: la consulta no puede depender de eso."""
+    minusculas, _ = make_service().search({"query": "believe in dragons"})
+    capitalizada, _ = make_service().search({"query": "Believe In Dragons"})
+
+    assert [r["track_id"] for r in minusculas["results"]] == [r["track_id"] for r in capitalizada["results"]]
+    # Lo que escribió el usuario se conserva; lo que se busca va en minúsculas.
+    assert capitalizada["query_original"] == "Believe In Dragons"
+    assert capitalizada["query_normalized_en"] == "believe in dragons"
+
+
+def test_spanish_translation_output_is_lowercased():
+    encoder = FakeEncoder()
+    service = make_service(encoder=encoder, translator=FakeTranslator("Quiet And Melancholy Music"))
+
+    response, _ = service.search({"query": "Musica tranquila"})
+
+    assert response["query_normalized_en"] == "quiet and melancholy music"
+    assert encoder.calls == ["quiet and melancholy music"]
+
+
 def test_explicit_language_overrides_detection():
     translator = FakeTranslator()
     service = make_service(translator=translator)

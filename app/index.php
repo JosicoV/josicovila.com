@@ -87,7 +87,11 @@
               <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true">
                 <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
               </svg>
-              <input type="text" id="songSearch" placeholder="epic with choir, music for dragons, soft medieval flute..." autocomplete="off" aria-label="Search music by mood, scene or story">
+              <!-- autocapitalize/autocorrect desactivados: los teclados de movil
+                   capitalizan la primera letra y autocorrigen por su cuenta, y
+                   eso hacia que la misma busqueda diera resultados distintos en
+                   movil y en escritorio. -->
+              <input type="text" id="songSearch" placeholder="epic with choir, music for dragons, soft medieval flute..." autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" aria-label="Search music by mood, scene or story">
               <svg class="sparkle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 2l1.9 5.6c.3.9 1 1.6 1.9 1.9L21.4 12l-5.6 1.9c-.9.3-1.6 1-1.9 1.9L12 21.4l-1.9-5.6c-.3-.9-1-1.6-1.9-1.9L2.6 12l5.6-1.9c.9-.3 1.6-1 1.9-1.9L12 2z"/>
               </svg>
