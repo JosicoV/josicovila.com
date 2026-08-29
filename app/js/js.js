@@ -822,6 +822,21 @@ function reproducirDeLaCola(indice) {
   return true;
 }
 
+/** Mantiene sincronizado el indicador "SONANDO" del acordeón. */
+function marcarTemaEnAcordeon(albumCode, songNumber) {
+  const albums = Array.from(document.querySelectorAll('.album'));
+  const activeAlbum = albums.find(album => album.dataset.album === albumCode) || null;
+
+  albums.forEach(album => album.classList.toggle('is-playing', album === activeAlbum));
+  document.querySelectorAll('.album-track').forEach(track => track.classList.remove('is-playing'));
+
+  if (!activeAlbum) return;
+
+  const activeTrack = Array.from(activeAlbum.querySelectorAll('.album-track'))
+    .find(track => Number(track.dataset.songnumber) === Number(songNumber));
+  if (activeTrack) activeTrack.classList.add('is-playing');
+}
+
 /**
  * @param {boolean} opciones.porEleccion  false cuando la cola avanza sola. Un
  *   avance automático no es un clic del usuario y no debe registrarse como tal.
@@ -843,6 +858,8 @@ function playSongResult(result, { porEleccion = true } = {}) {
   const albumlabel = result.dataset.albumlabel;
   const albumcover = result.dataset.cover;
   const albumname  = result.dataset.albumname;
+
+  marcarTemaEnAcordeon(albumlabel, songnumber);
 
   //Cambio de disco
   document.querySelector('.portada').style.opacity = 1;
@@ -1201,11 +1218,6 @@ function cargarAlbumEnElHero(album, temas, indice) {
   results.style.display = 'flex';
   const hero = document.querySelector('#hero');
   if (hero) hero.classList.add('con-resultados');
-
-  // Marca en el acordeón qué disco y qué tema están sonando.
-  document.querySelectorAll('.album').forEach(a => a.classList.toggle('is-playing', a === album));
-  document.querySelectorAll('.album-track').forEach(t => t.classList.remove('is-playing'));
-  if (temas[indice]) temas[indice].classList.add('is-playing');
 
   const filas = results.querySelectorAll('.result');
   if (filas[indice]) playSongResult(filas[indice]);
