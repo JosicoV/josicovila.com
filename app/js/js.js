@@ -429,6 +429,7 @@ function buscarCanciones(label, songnumber=null) {
         const listaDisco = document.querySelector('.disco .lista-disco');
         const albumTitleElement = listaDisco.querySelector('.album-title'); // Guardamos el H1
         const albumDescElement = listaDisco.querySelector('.album-description'); // Guardamos la descripciÃ³n
+        listaDisco.dataset.album = label;
         listaDisco.innerHTML = respuesta; // Insertamos las nuevas canciones
         listaDisco.prepend(albumTitleElement); // Volvemos a colocar el H1 al principio
         albumTitleElement.after(albumDescElement); // Volvemos a colocar la descripciÃ³n despuÃ©s del H1
@@ -518,6 +519,9 @@ function playByIndex(idx) {
   const track = tracks[idx];
   const songName = track.querySelector('.titulo-cancion span').textContent;
   const albumName = document.querySelector('.album-title').textContent;
+  const albumCode = document.querySelector('.disco .lista-disco').dataset.album;
+
+  marcarTemaEnAcordeon(albumCode, idx);
   
   // Inicia la animaciÃ³n del tÃ­tulo con la nueva canciÃ³n
   startTitleScroll(`▶ ${songName} - ${albumName}`);
@@ -858,8 +862,6 @@ function playSongResult(result, { porEleccion = true } = {}) {
   const albumlabel = result.dataset.albumlabel;
   const albumcover = result.dataset.cover;
   const albumname  = result.dataset.albumname;
-
-  marcarTemaEnAcordeon(albumlabel, songnumber);
 
   //Cambio de disco
   document.querySelector('.portada').style.opacity = 1;
