@@ -1,4 +1,4 @@
-﻿import * as AUDIO3D from './3D.module.js';
+﻿import * as AUDIO3D from 'app-3d';
 
 import { applyTranslations, text as uiText } from './i18n.js';
 
@@ -388,10 +388,6 @@ option.addEventListener('click', () => {
             document.querySelector('.album-title').textContent = title;
             document.querySelector('.album-description').innerHTML = description;
             buscarCanciones(label, 0);
-            // Si es la primera vez que se selecciona un disco, iniciamos la reproducciÃ³n.
-            if (currentIndex === null) {
-              playByIndex(0);
-            }
             setTimeout(() => {
                 conseguirColores(label);
             }, 500);                    
@@ -436,14 +432,6 @@ function buscarCanciones(label, songnumber=null) {
         listaDisco.innerHTML = respuesta; // Insertamos las nuevas canciones
         listaDisco.prepend(albumTitleElement); // Volvemos a colocar el H1 al principio
         albumTitleElement.after(albumDescElement); // Volvemos a colocar la descripciÃ³n despuÃ©s del H1
-        //Play la primera cancion del album
-
-        // FIX: Iniciar el canvas 2D para la primera canciÃ³n DESPUÃ‰S de cargar la lista.
-        let primeraCancionLabel = document.querySelector('.disco .lista-disco .cancion:first-of-type').dataset.label;
-        AUDIO3D.initCanvas2D(document.querySelector('.canvas-'+ primeraCancionLabel));
-        //let ruta = document.querySelector('.disco .lista-disco .cancion').dataset.ruta;
-        
-
         //Cambiar el boton de play a pause
         /*
         let playBtn = document.querySelector('.disco .lista-disco .cancion .play-button');

@@ -375,12 +375,17 @@ function animateVisualizers(analyser, dataArray, mesh, composer, ctx2d, opts) {
     const S         = opts.deformScale || 8;
     const barWidth  = (W / BAR_COUNT) * 1;
     const barGap    = (W / BAR_COUNT) * 0;
+    const generation = animationGeneration;
+    let previousFrameTime = null;
   
     // Bucle de animación
-    (function draw() {
+    function draw(frameTime) {
+      // Una animación sustituida no puede volver a engancharse aunque su
+      // callback ya estuviera en la cola del navegador.
+      if (generation !== animationGeneration) return;
       lastRaf = requestAnimationFrame(draw);
-
-      
+      const deltaSeconds = frameDeltaSeconds(frameTime, previousFrameTime);
+      previousFrameTime = frameTime;
   
       // 1) Obtener datos de frecuencia
       analyser.getByteFrequencyData(dataArray);
@@ -431,9 +436,7 @@ function animateVisualizers(analyser, dataArray, mesh, composer, ctx2d, opts) {
       }
       
 
-      mesh.rotation.y += 0.004; // Rotación de la esfera
-      mesh.rotation.x += 0.004; // Rotación de la esfera
-      vertices.rotation.copy(mesh.rotation); // los vértices acompañan a las aristas
+      avanzarRotacionEsfera(deltaSeconds);
 
       if (logoMesh) {
         // Vaivén, no giro completo: el logo es plano y de canto desaparecería.
@@ -444,7 +447,9 @@ function animateVisualizers(analyser, dataArray, mesh, composer, ctx2d, opts) {
       }
       // 4) Renderizar la escena 3D con bloom
       composer.render();
-    })();
+    }
+
+    lastRaf = requestAnimationFrame(draw);
     
   }
   
@@ -496,8 +501,24 @@ analyser.connect(audioCtx.destination);
 
 let lastRaf = null;
 let lastCanvas = null;
+let animationGeneration = 0;
+const SPHERE_ROTATION_SPEED = 0.24; // radianes/segundo; equivale a 0.004 a 60 FPS
+const MAX_FRAME_DELTA = 0.05;       // evita saltos al volver de una pestaña inactiva
+
+function frameDeltaSeconds(frameTime, previousFrameTime) {
+  if (previousFrameTime === null) return 0;
+  return Math.min(Math.max((frameTime - previousFrameTime) / 1000, 0), MAX_FRAME_DELTA);
+}
+
+function avanzarRotacionEsfera(deltaSeconds) {
+  const step = SPHERE_ROTATION_SPEED * deltaSeconds;
+  mesh.rotation.y += step;
+  mesh.rotation.x += step;
+  vertices.rotation.copy(mesh.rotation);
+}
 
 function stopPrevious() {
+  animationGeneration += 1;
   if (lastRaf !== null) {
     cancelAnimationFrame(lastRaf);
     lastRaf = null;
@@ -518,6 +539,10 @@ export function aplicarTresColores2D(c1, c2, c3){
 
 
 export function initCanvas2D(canvas2d){
+
+// Esta función es la única puerta de entrada a la animación musical: antes de
+// crearla invalida cualquier bucle anterior y conserva la orientación actual.
+stopPrevious();
 
 lastCanvas = canvas2d;
 
@@ -549,17 +574,18 @@ animateVisualizers(analyser, dataArray, mesh, composer, ctx2d, opts);
  * Inicia un bucle de renderizado estático para la carga inicial.
  * Se cancelará cuando comience la animación con música.
  */
-function startStaticRender() {
+let staticPreviousFrameTime = null;
+function startStaticRender(frameTime) {
   // Si ya hay una animación musical, no hacemos nada.
   if (lastRaf !== null) return;
 
-  mesh.rotation.y += 0.004; // Rotación unificada
-  mesh.rotation.x += 0.004;
-  vertices.rotation.copy(mesh.rotation);
+  const deltaSeconds = frameDeltaSeconds(frameTime, staticPreviousFrameTime);
+  staticPreviousFrameTime = frameTime;
+  avanzarRotacionEsfera(deltaSeconds);
   oscilarLogo();
   composer.render();
   requestAnimationFrame(startStaticRender);
 }
 
 // Inicia el renderizado estático en la carga de la página.
-startStaticRender();
+requestAnimationFrame(startStaticRender);

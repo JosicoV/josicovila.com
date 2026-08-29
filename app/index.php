@@ -28,7 +28,8 @@
     <script type="importmap">
         {
           "imports": {
-            "three": "https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js"
+            "three": "https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js",
+            "app-3d": "./js/3D.module.js?v=<?= filemtime(__DIR__ . '/js/3D.module.js') ?>"
           }
         }
     </script>
@@ -267,8 +268,7 @@
         </div>
       </div>
     </div>
-    <script type="module" src="./js/3D.module.js"></script>
-    <script type="module" src="js/js.js"></script>
+    <script type="module" src="js/js.js?v=<?= filemtime(__DIR__ . '/js/js.js') ?>"></script>
 
     <div id="cookieConsentBanner">
         <p><span data-i18n="cookieTextBefore">This website uses cookies to enhance your experience and for analytics purposes. By clicking 'Accept', you consent to the use of cookies. Read our</span> <a href="privacy-policy.html" target="_blank" data-i18n="privacyPolicy">Privacy Policy</a> <span data-i18n="cookieTextAfter">for more information.</span></p>
