@@ -29,7 +29,8 @@
         {
           "imports": {
             "three": "https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js",
-            "app-3d": "./js/3D.module.js?v=<?= filemtime(__DIR__ . '/js/3D.module.js') ?>"
+            "app-3d": "./js/3D.module.js?v=<?= filemtime(__DIR__ . '/js/3D.module.js') ?>",
+            "app-i18n": "./js/i18n.js?v=<?= filemtime(__DIR__ . '/js/i18n.js') ?>"
           }
         }
     </script>

@@ -561,7 +561,7 @@ body.modo-captura .sphereRanges {
 @media (max-width: 860px) {
   /* En estrecho las etiquetas caen bajo el título en vez de comprimirlo. */
   .result { flex-wrap: wrap; }
-  .result .reasons { margin-left: 58px; padding-left: 0; justify-content: flex-start; width: 100%; }
+  .result .reasons { margin-left: 58px; padding-left: 0; justify-content: flex-start; width: calc(100% - 58px); }
   /* Sin hover en táctil: el feedback se ve siempre. */
   .result .feedback { opacity: 1; margin-left: 58px; padding-left: 0; }
 }

@@ -48,6 +48,8 @@ const ENGLISH = Object.freeze({
   reasonSimilarTitle: 'Similar title',
   reasonAlbum: 'Album match',
   reasonPartialAlbum: 'Partial album match',
+  reasonStrongMusical: 'Strong musical match',
+  reasonMusicalSimilarity: 'Musical similarity',
 });
 
 const SPANISH = Object.freeze({
@@ -101,6 +103,8 @@ const SPANISH = Object.freeze({
   reasonSimilarTitle: 'Título similar',
   reasonAlbum: 'Coincidencia con el álbum',
   reasonPartialAlbum: 'Coincidencia parcial con el álbum',
+  reasonStrongMusical: 'Coincidencia musical destacada',
+  reasonMusicalSimilarity: 'Similitud musical',
 });
 
 export function languageFromBrowser(value) {

@@ -1,6 +1,6 @@
 ﻿import * as AUDIO3D from 'app-3d';
 
-import { applyTranslations, text as uiText } from './i18n.js';
+import { applyTranslations, text as uiText } from 'app-i18n';
 
 applyTranslations();
 
@@ -968,18 +968,7 @@ containerSlider.addEventListener('mouseleave', () => {
     if (hero) hero.classList.toggle('con-resultados', visible);
   }
 
-  /**
-   * Etiqueta del motivo por el que aparece un resultado.
-   *
-   * Solo se pintan los motivos literales (título o álbum). Los musicales se
-   * omiten a propósito: en una búsqueda descriptiva TODOS los resultados salen
-   * por parecido musical, así que la etiqueta aparecería en el 100% de las
-   * filas y no distinguiría nada. Lo que el usuario no puede deducir solo es
-   * que algo ha salido por su nombre y no por cómo suena.
-   *
-   * La respuesta de la API sigue trayendo los motivos musicales por si más
-   * adelante se quiere un detalle tipo "¿por qué?".
-   */
+  /** Motivos legibles devueltos por el vocabulario cerrado de la API. */
   const MOTIVOS_LITERALES = /title|album/i;
   const MOTIVOS_TRADUCIDOS = {
     'Exact title match': 'reasonExactTitle',
@@ -988,14 +977,19 @@ containerSlider.addEventListener('mouseleave', () => {
     'Similar title': 'reasonSimilarTitle',
     'Album match': 'reasonAlbum',
     'Partial album match': 'reasonPartialAlbum',
+    'Strong musical match': 'reasonStrongMusical',
+    'Musical similarity': 'reasonMusicalSimilarity',
   };
 
   function etiquetasDeCoincidencia(motivos) {
     if (!Array.isArray(motivos)) return '';
-    const utiles = motivos.filter(m => MOTIVOS_LITERALES.test(m));
+    const utiles = motivos.filter(m => MOTIVOS_TRADUCIDOS[m]);
     if (!utiles.length) return '';
     return `<div class="reasons">${utiles
-      .map(m => `<span class="reason reason-literal">${uiText(MOTIVOS_TRADUCIDOS[m], m)}</span>`)
+      .map(m => {
+        const tipo = MOTIVOS_LITERALES.test(m) ? 'reason-literal' : 'reason-musical';
+        return `<span class="reason ${tipo}">${uiText(MOTIVOS_TRADUCIDOS[m], m)}</span>`;
+      })
       .join('')}</div>`;
   }
 
