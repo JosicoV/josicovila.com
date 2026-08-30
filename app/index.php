@@ -83,8 +83,8 @@
     <main id="scroll-root">
       <section id="hero">
         <div id="hero-content">
-          <h1 class="hero-title" data-i18n="heroTitle">Type a feeling. Discover a world.</h1>
-          <p class="hero-subtitle" data-i18n="heroSubtitle">Describe a mood, a scene, or a story &mdash; and find the music behind it.</p>
+          <h1 class="hero-title" data-i18n="heroTitle">Find the music you imagine.</h1>
+          <p class="hero-subtitle" data-i18n="heroSubtitle">Explore my discography: search by title, name an instrument, or describe an idea.</p>
           <div id="searchContainer">
             <div id="searchField">
               <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true">
