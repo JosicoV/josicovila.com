@@ -4,6 +4,41 @@ import { applyTranslations, text as uiText } from 'app-i18n';
 
 applyTranslations();
 
+function initMusicPlatforms() {
+  const menu = document.querySelector('#music-platforms');
+  const toggle = menu?.querySelector('.music-platforms-toggle');
+  const panel = menu?.querySelector('.music-platforms-panel');
+  if (!menu || !toggle || !panel) return;
+
+  const setOpen = open => {
+    menu.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    panel.setAttribute('aria-hidden', String(!open));
+    panel.toggleAttribute('inert', !open);
+  };
+
+  toggle.addEventListener('click', () => {
+    setOpen(!menu.classList.contains('is-open'));
+  });
+
+  document.addEventListener('click', event => {
+    if (!menu.contains(event.target)) setOpen(false);
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+
+  panel.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => setOpen(false));
+  });
+}
+
+initMusicPlatforms();
+
 /**
  * Gestiona un tooltip global para las descripciones de las canciones.
  * Se crea un Ãºnico tooltip en el body y se mueve/actualiza dinÃ¡micamente.

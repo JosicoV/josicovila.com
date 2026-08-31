@@ -81,6 +81,42 @@
             </div>
     </header>
 
+    <aside id="music-platforms" class="music-platforms">
+      <button type="button" class="music-platforms-toggle" aria-expanded="false"
+              aria-controls="music-platforms-panel" aria-label="Listen on other platforms"
+              data-i18n-aria="musicPlatformsToggle">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9 18V5.4L20 3v12.2a3.7 3.7 0 1 1-2-3.3V7.5l-7 1.5v9a3.7 3.7 0 1 1-2-3.3z"/>
+        </svg>
+      </button>
+
+      <nav id="music-platforms-panel" class="music-platforms-panel"
+           aria-label="Josico Vila on music platforms" data-i18n-aria="musicPlatformsNav"
+           aria-hidden="true" inert>
+        <span class="music-platforms-title" data-i18n="musicPlatformsTitle">Listen on</span>
+        <a href="https://open.spotify.com/artist/1wtDiEERoMaAm4jxutvLtZ" target="_blank" rel="noopener noreferrer">
+          <span class="platform-mark platform-spotify" aria-hidden="true">SP</span>
+          <span>Spotify</span>
+        </a>
+        <a href="https://music.apple.com/es/artist/josico-vila/1530780806" target="_blank" rel="noopener noreferrer">
+          <span class="platform-mark platform-apple" aria-hidden="true">AM</span>
+          <span>Apple Music</span>
+        </a>
+        <a href="https://music.amazon.com/artists/B08HHZYYQ3/josico-vila" target="_blank" rel="noopener noreferrer">
+          <span class="platform-mark platform-amazon" aria-hidden="true">AZ</span>
+          <span>Amazon Music</span>
+        </a>
+        <a href="https://www.deezer.com/artist/106390352" target="_blank" rel="noopener noreferrer">
+          <span class="platform-mark platform-deezer" aria-hidden="true">DZ</span>
+          <span>Deezer</span>
+        </a>
+        <a href="https://soundcloud.com/josicovila" target="_blank" rel="noopener noreferrer">
+          <span class="platform-mark platform-soundcloud" aria-hidden="true">SC</span>
+          <span>SoundCloud</span>
+        </a>
+      </nav>
+    </aside>
+
     <main id="scroll-root">
       <section id="hero">
         <div id="hero-content">

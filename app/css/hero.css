@@ -80,6 +80,132 @@ header {
   -webkit-backdrop-filter: blur(6px);
 }
 
+/* ===================== PLATAFORMAS MUSICALES ========================== */
+
+.music-platforms {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  z-index: 4900;
+  transform: translateY(-50%);
+}
+
+.music-platforms-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  color: white;
+  background: rgba(8, 12, 20, 0.82);
+  border: 1px solid var(--borde-fuerte);
+  border-radius: 17px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.music-platforms-toggle:hover,
+.music-platforms-toggle:focus-visible,
+.music-platforms.is-open .music-platforms-toggle {
+  background: rgba(20, 45, 75, 0.92);
+  border-color: rgba(143, 196, 255, 0.72);
+}
+
+.music-platforms-toggle:hover { transform: translateX(-2px); }
+.music-platforms-toggle:focus-visible,
+.music-platforms-panel a:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 3px;
+}
+
+.music-platforms-toggle svg {
+  width: 25px;
+  height: 25px;
+  fill: currentColor;
+}
+
+.music-platforms-panel {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 12px);
+  width: 208px;
+  box-sizing: border-box;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(7, 12, 21, 0.94);
+  border: 1px solid var(--borde);
+  border-radius: 18px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(10px, -50%) scale(0.97);
+  transform-origin: right center;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.music-platforms.is-open .music-platforms-panel {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(0, -50%) scale(1);
+}
+
+.music-platforms-title {
+  padding: 2px 8px 9px;
+  color: var(--texto-tenue);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.music-platforms-panel a {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 40px;
+  padding: 5px 8px;
+  border-radius: 11px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.84rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+}
+
+.music-platforms-panel a:hover {
+  color: white;
+  background: rgba(143, 196, 255, 0.1);
+  transform: translateX(-2px);
+}
+
+.platform-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  border-radius: 9px;
+  color: white;
+  font-size: 0.59rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.platform-spotify { background: #1db954; }
+.platform-apple { background: linear-gradient(145deg, #fa5b70, #d91445); }
+.platform-amazon { background: #1685b8; }
+.platform-deezer { background: linear-gradient(145deg, #a238ff, #ef3f80); }
+.platform-soundcloud { background: #f4511e; }
+
 #firma {
   height: 46px;
   width: auto;
@@ -1147,11 +1273,30 @@ body.modo-captura .sphereRanges {
   .player-controls { order: 3; }
   .player-progress { order: 4; width: 100%; flex-basis: 100%; }
   #player-cover { width: 40px; height: 40px; }
+
+  .music-platforms {
+    top: auto;
+    right: 12px;
+    bottom: 118px;
+    transform: none;
+  }
+
+  .music-platforms-panel {
+    top: auto;
+    bottom: 0;
+    transform: translateX(10px) scale(0.97);
+    transform-origin: right bottom;
+  }
+
+  .music-platforms.is-open .music-platforms-panel {
+    transform: translateX(0) scale(1);
+  }
 }
 
 @media (max-width: 560px) {
   .player-controls { width: 100%; justify-content: center; }
   .player-now { flex-basis: 100%; }
+  .music-platforms { bottom: 190px; }
 }
 
 /* Menos movimiento para quien lo pida en el sistema. */
