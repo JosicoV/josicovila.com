@@ -35,6 +35,7 @@ SPANISH_MARKERS = {
     "hacia",
     "hasta",
     "heroico",
+    "juego",
     "lenta",
     "lento",
     "magia",

@@ -17,6 +17,7 @@ def test_bounded_language_detector_handles_benchmark_inputs():
         "quiero algo poderoso",
         "viaje hacia el misterio",
         "guitarra triste",
+        "juego de rol medieval",
     ],
 )
 def test_strategic_spanish_markers_detect_short_queries(query):

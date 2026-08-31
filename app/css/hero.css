@@ -17,6 +17,9 @@
   --acento: #8fc4ff;
   --texto-tenue: rgba(255, 255, 255, 0.62);
   --barra-altura: 92px;
+  --search-top-gap: 18px;
+  --search-field-height: 64px;
+  --reproductor-reserva: 130px;
 }
 
 /* El canvas 3D sale opaco: el EffectComposer con bloom escribe alfa 1, así que
@@ -456,6 +459,14 @@ body.modo-captura .sphereRanges {
    `justify-content: flex-end` un margin-top sobre el hijo no mueve nada. */
 #hero.con-resultados { padding-bottom: calc(var(--barra-altura) + 22rem); }
 
+/* Una búsqueda semántica usa el alto completo del hero: el campo sube hasta
+   quedar justo bajo la cabecera y la lista crece hacia el reproductor. Las
+   colas de álbum conservan la disposición anterior, más centrada. */
+#hero.busqueda-activa {
+  padding-bottom: calc(var(--barra-altura) + 8rem);
+  transition: none;
+}
+
 .hero-title {
   font-family: 'Playfair Display', Georgia, serif;
   font-weight: 400;
@@ -464,6 +475,7 @@ body.modo-captura .sphereRanges {
   line-height: 1.15;
   margin: 0 0 0.5rem;
   text-shadow: 0 4px 30px rgba(0, 0, 0, 0.85);
+  transition: opacity 0.25s ease, transform 0.3s ease;
 }
 
 .hero-subtitle {
@@ -472,6 +484,14 @@ body.modo-captura .sphereRanges {
   color: rgba(255, 255, 255, 0.82);
   margin: 0 0 2rem;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.85);
+  transition: opacity 0.25s ease, transform 0.3s ease;
+}
+
+#hero.busqueda-activa .hero-title,
+#hero.busqueda-activa .hero-subtitle {
+  opacity: 0;
+  transform: translateY(-12px);
+  pointer-events: none;
 }
 
 /* Buscador --------------------------------------------------------------- */
@@ -481,6 +501,12 @@ body.modo-captura .sphereRanges {
   margin: 0 auto;
   position: relative;
   text-align: left;
+  transform: translateY(0);
+  transition: transform 0.35s ease;
+}
+
+#hero.busqueda-activa #searchContainer {
+  transform: translateY(var(--search-shift, 0px));
 }
 
 #searchField {
@@ -557,6 +583,13 @@ body.modo-captura .sphereRanges {
   z-index: 5100;
   scrollbar-color: #1d4f7f rgba(5, 10, 18, 0.72);
   scrollbar-width: thin;
+}
+
+#hero.busqueda-activa #searchResults {
+  max-height: min(
+    62vh,
+    calc(100dvh - var(--barra-altura) - var(--search-top-gap) - var(--search-field-height) - 10px - var(--reproductor-reserva))
+  );
 }
 
 #searchResults::-webkit-scrollbar { width: 10px; }
@@ -1223,7 +1256,12 @@ body.modo-captura .sphereRanges {
     background-attachment: scroll;
   }
 
-  :root { --barra-altura: 76px; }
+  :root {
+    --barra-altura: 76px;
+    --search-top-gap: 16px;
+    --search-field-height: 54px;
+    --reproductor-reserva: 196px;
+  }
 
   /* styles.css trae un bloque móvil del diseño anterior (max-width:770px) que
      apila la cabecera en columna y saca el ojo/cámara con position:absolute.

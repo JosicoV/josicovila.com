@@ -374,16 +374,7 @@ function actualizarTiempos() {
 
 selected.addEventListener('click', () => {
   options.style.display = options.style.display === 'flex' ? 'none' : 'flex';
-  cerrarResultados();
-  input.value = '';
 });
-
-/** Cierra el panel de resultados y devuelve el hero a su posición. */
-function cerrarResultados() {
-  results.style.display = 'none';
-  const hero = document.querySelector('#hero');
-  if (hero) hero.classList.remove('con-resultados');
-}
 
 // Iniciar colores del primer disco.
 const firstAlbumLabel = document.querySelector('.options .option').dataset.label;
@@ -978,12 +969,33 @@ containerSlider.addEventListener('mouseleave', () => {
   let timer;
   let peticionEnCurso = 0;
   const hero = document.querySelector('#hero');
+  const header = document.querySelector('header');
+  const searchField = document.querySelector('#searchField');
 
-  /** Abre o cierra el panel, subiendo el hero para dejarle sitio. */
+  function actualizarPosicionBusqueda() {
+    if (!hero?.classList.contains('busqueda-activa') || !header || !searchField) return;
+    const desplazamientoActual = Number.parseFloat(hero.style.getPropertyValue('--search-shift')) || 0;
+    const posicionSinDesplazar = searchField.getBoundingClientRect().top - desplazamientoActual;
+    const margen = window.innerWidth <= 860 ? 16 : 18;
+    const destino = header.getBoundingClientRect().bottom + margen;
+    hero.style.setProperty('--search-shift', `${destino - posicionSinDesplazar}px`);
+  }
+
+  /** Abre o cierra el panel y activa su disposición elevada bajo la cabecera. */
   function mostrarPanel(visible) {
     results.style.display = visible ? 'flex' : 'none';
-    if (hero) hero.classList.toggle('con-resultados', visible);
+    if (!hero) return;
+
+    hero.classList.toggle('con-resultados', visible);
+    hero.classList.toggle('busqueda-activa', visible);
+    if (visible) {
+      requestAnimationFrame(actualizarPosicionBusqueda);
+    } else {
+      hero.style.removeProperty('--search-shift');
+    }
   }
+
+  window.addEventListener('resize', actualizarPosicionBusqueda);
 
   /** Motivos legibles devueltos por el vocabulario cerrado de la API. */
   const MOTIVOS_LITERALES = /title|album/i;
@@ -1230,7 +1242,11 @@ function cargarAlbumEnElHero(album, temas, indice) {
   results.classList.add('cola-de-album');
   results.style.display = 'flex';
   const hero = document.querySelector('#hero');
-  if (hero) hero.classList.add('con-resultados');
+  if (hero) {
+    hero.classList.remove('busqueda-activa');
+    hero.style.removeProperty('--search-shift');
+    hero.classList.add('con-resultados');
+  }
 
   const filas = results.querySelectorAll('.result');
   if (filas[indice]) playSongResult(filas[indice]);
