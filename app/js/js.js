@@ -350,51 +350,27 @@ function cerrarResultados() {
   if (hero) hero.classList.remove('con-resultados');
 }
 
-//Inciar colores primer disco
-let label = document.querySelector('.options .option').dataset.label;
-conseguirColores(label);
+// Iniciar colores del primer disco.
+const firstAlbumLabel = document.querySelector('.options .option').dataset.label;
+conseguirColores(firstAlbumLabel);
 
 // El disco vive ahora en su propia sección bajo el hero, así que se muestra
 // desde el principio: quien baja espera encontrar algo.
 document.querySelector('.portada').style.opacity = 1;
 document.querySelector('.lista-disco').style.opacity = 1;
 
-customSelect.querySelectorAll('.option').forEach(option => {
-  
-option.addEventListener('click', () => {
-    // Entrar a un disco abandona la cola de resultados: a partir de aquí manda
-    // el orden del álbum.
-    salirDeLaColaDeResultados();
-    //Mostramos el primer disco seleccionado
-    document.querySelector('.portada').style.opacity = 1;
-    document.querySelector('.lista-disco').style.opacity = 1;
-    const img = option.dataset.img;
-    label = option.dataset.label;
-    const title = option.dataset.title;    
-    const description = option.dataset.description;
-    selected.innerHTML = `<img src="${img}" alt=""> <span>${title}</span>`;
-    options.style.display = 'none';
+function seleccionarDisco(option) {
+  options.style.display = 'none';
+  const album = Array.from(document.querySelectorAll('.album'))
+    .find(item => item.dataset.album === option.dataset.label);
+  if (!album) return;
 
-    // Animation Change Album
-    changeAlbumAnimation();    
-   
-    // Cambiar informacion del nuevo album: portada, lista de canciones, etc.
-    let portada = document.querySelector('.disco .portada');
-    setTimeout(() => {
-        setTimeout(() => {
-            //portada.style.backgroundImage = `url(${img})`;
-            portada.querySelector('img').src = img;
-            // SEO: Actualizamos el contenido del h1 visible con el tÃ­tulo del nuevo Ã¡lbum.
-            document.querySelector('.album-title').textContent = title;
-            document.querySelector('.album-description').innerHTML = description;
-            buscarCanciones(label, 0);
-            setTimeout(() => {
-                conseguirColores(label);
-            }, 500);                    
-        },10)
-    },800)
-    
-});
+  const temas = Array.from(album.querySelectorAll('.album-track'));
+  cargarAlbumEnElHero(album, temas, 0);
+}
+
+customSelect.querySelectorAll('.option').forEach(option => {
+  option.addEventListener('click', () => seleccionarDisco(option));
 });
 
 // Cerrar si haces clic fuera
@@ -660,8 +636,14 @@ function siguienteIndice(total) {
 if (btnPlay) btnPlay.addEventListener('click', () => {
   const audio = AUDIO3D.audioElB;
   if (!audio.src) {
-    // Nada cargado todavía: arranca por la primera pista de la lista.
-    if (pistasActuales().length) playByIndex(0);
+    // El motor se sirve vacío para no duplicar el catálogo en el HTML. En el
+    // primer Play cargamos el primer disco por la misma ruta que el selector.
+    if (pistasActuales().length) {
+      playByIndex(0);
+    } else {
+      const primerDisco = customSelect.querySelector('.option');
+      if (primerDisco) seleccionarDisco(primerDisco);
+    }
     return;
   }
   if (audio.paused) {
