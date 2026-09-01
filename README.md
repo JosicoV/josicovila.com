@@ -28,6 +28,7 @@ El código fuente de [josicovila.com](https://josicovila.com) — un reproductor
 - **Discografía completa** — todas las pistas en inglés organizadas y reproducibles desde el navegador
 - **Sin dependencias de framework** — JavaScript vanilla puro salvo Three.js
 - **Reproductor completo** — play/pause, navegación entre pistas y visualización en tiempo real
+- **Escena propia por tema** — cada una de las 115 pistas cambia el paisaje del hero y la miniatura del reproductor
 
 ---
 
@@ -82,6 +83,17 @@ open http://localhost:8082
 ```
 
 > El reproductor necesita los volúmenes de audio para funcionar. Sin ellos, la interfaz carga pero no hay pistas disponibles.
+
+### Importar imágenes aprobadas
+
+La aplicación local `music-image-generator/` mantiene los originales y el historial fuera del repositorio web. Después de exportar allí las versiones aprobadas, se publican los WebP y su manifiesto con:
+
+```powershell
+.\music-image-generator\.venv\Scripts\python.exe scripts\import_approved_track_images.py
+```
+
+El importador exige exactamente 115 pistas, comprueba álbum, orden, título, formato y rutas duplicadas, y escribe los recursos públicos en `app/img/track-scenes/`.
+Esta carpeta no se versiona: se copia por `scp` al mismo destino dentro del checkout del VPS antes de desplegar el código que la consume.
 
 ---
 

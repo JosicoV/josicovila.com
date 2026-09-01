@@ -47,6 +47,24 @@
 <body>
     <?php
         include_once 'includes/musica.estructura-datos.php';
+
+        /* Relación generada por scripts/import_approved_track_images.py.
+           Se entrega al reproductor en el HTML para que cambiar de tema no
+           necesite otra petición ni pueda quedarse esperando al manifest. */
+        $trackImagesByAudio = [];
+        $trackImagesManifestPath = __DIR__ . '/img/track-scenes/manifest.json';
+        if (is_file($trackImagesManifestPath)) {
+            $trackImagesManifest = json_decode(file_get_contents($trackImagesManifestPath), true);
+            foreach (($trackImagesManifest['tracks'] ?? []) as $trackImage) {
+                if (isset($trackImage['audio'], $trackImage['image'])) {
+                    $audioKey = strtolower(str_replace('\\', '/', $trackImage['audio']));
+                    $imageVersion = isset($trackImage['generationId'])
+                        ? '?v=' . rawurlencode((string) $trackImage['generationId'])
+                        : '';
+                    $trackImagesByAudio[$audioKey] = $trackImage['image'] . $imageVersion;
+                }
+            }
+        }
     ?>
     <header>
         <!-- SEO: AÃ±adido atributo alt para describir la imagen a los buscadores -->
@@ -305,6 +323,12 @@
         </div>
       </div>
     </div>
+    <script>
+      window.JV_TRACK_IMAGES = <?= json_encode(
+        $trackImagesByAudio,
+        JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP
+      ) ?>;
+    </script>
     <script type="module" src="js/js.js?v=<?= filemtime(__DIR__ . '/js/js.js') ?>"></script>
 
     <div id="cookieConsentBanner">

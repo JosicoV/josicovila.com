@@ -223,6 +223,34 @@ const results = document.getElementById('searchResults');
 const input   = document.getElementById('songSearch');
 let currentIndex = null;
 
+/* Las escenas se publican desde el generador local como un mapa ruta de audio
+   -> WebP. La ruta de audio es el identificador estable que ya comparten PHP,
+   el buscador semántico y el reproductor. */
+const TRACK_IMAGES = Object.freeze(window.JV_TRACK_IMAGES || {});
+let pendingTrackArtwork = '';
+
+function imagenDelTema(audioPath) {
+  const key = String(audioPath || '').replace(/\\/g, '/').toLocaleLowerCase('es');
+  return TRACK_IMAGES[key] || '';
+}
+
+function aplicarImagenDelTema(audioPath, fallbackCover = '') {
+  const artwork = imagenDelTema(audioPath);
+  const playerCover = document.querySelector('#player-cover');
+  if (playerCover) playerCover.src = artwork || fallbackCover || playerCover.src;
+  if (!artwork) return;
+
+  // Precarga antes de sustituir el paisaje para que no aparezca un fogonazo
+  // del color de fondo entre dos pistas.
+  pendingTrackArtwork = artwork;
+  const image = new Image();
+  image.onload = () => {
+    if (pendingTrackArtwork !== artwork) return;
+    document.body.style.backgroundImage = `url("${artwork}")`;
+  };
+  image.src = artwork;
+}
+
 /************************ TELEMETRÍA ***************************************
  * Señales anónimas de búsqueda y escucha para poder mejorar el ranking más
  * adelante. Nada de esto puede romper la web: todos los envíos fallan en
@@ -540,10 +568,9 @@ function playByIndex(idx) {
 
   // Refleja la pista en la barra inferior
   const portadaActual = document.querySelector('.portada img');
-  const playerCover = document.querySelector('#player-cover');
   const playerTitle = document.querySelector('#player-title');
   if (playerTitle) playerTitle.textContent = songName;
-  if (playerCover && portadaActual && portadaActual.src) playerCover.src = portadaActual.src;
+  aplicarImagenDelTema(track.dataset.ruta, portadaActual?.src || '');
   marcarReproduciendo(true);
 }
 
@@ -871,6 +898,8 @@ function playSongResult(result, { porEleccion = true } = {}) {
   const albumcover = result.dataset.cover;
   const albumname  = result.dataset.albumname;
 
+  aplicarImagenDelTema(result.dataset.ruta, `musica/DISCOS/${albumcover}`);
+
   //Cambio de disco
   document.querySelector('.portada').style.opacity = 1;
   document.querySelector('.lista-disco').style.opacity = 1;
@@ -1051,8 +1080,8 @@ containerSlider.addEventListener('mouseleave', () => {
       ? `<div class="search-note">${uiText('searchedInEnglishAs', 'Searched in English as')} <em>${nota}</em></div>`
       : '';
     results.innerHTML = cabecera + lista.map(item => `
-      <div class="result" data-albumlabel="${item.albumCode}" data-cover="${item.cover}" data-albumname="${item.albumName}" data-songnumber="${item.songnumber}" data-trackid="${item.trackId || ''}" data-rank="${item.rank || ''}" data-albumdescription="${encodeURIComponent(item.albumDescription || "")}">
-        <img src="musica/DISCOS/${item.cover}" alt="${item.albumName}">
+      <div class="result" data-albumlabel="${item.albumCode}" data-cover="${item.cover}" data-albumname="${item.albumName}" data-songnumber="${item.songnumber}" data-ruta="${item.songSrc}" data-trackid="${item.trackId || ''}" data-rank="${item.rank || ''}" data-albumdescription="${encodeURIComponent(item.albumDescription || "")}">
+        <img src="${imagenDelTema(item.songSrc) || `musica/DISCOS/${item.cover}`}" alt="${item.songName}">
         <div class="info">
           <div class="song">${item.songName}</div>
           <div class="meta">${item.albumName}</div>
@@ -1222,7 +1251,7 @@ function cargarAlbumEnElHero(album, temas, indice) {
      </div>` +
     temas.map((t, n) => `
       <div class="result" data-albumlabel="${albumCode}" data-cover="${cover}" data-albumname="${albumName}"
-           data-songnumber="${t.dataset.songnumber}" data-rank="${n + 1}"
+           data-songnumber="${t.dataset.songnumber}" data-ruta="${t.dataset.ruta}" data-rank="${n + 1}"
            data-albumdescription="${encodeURIComponent(descripcion)}">
         <span class="cola-numero">${n + 1}</span>
         <div class="info">

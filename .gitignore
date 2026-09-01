@@ -13,3 +13,10 @@ desktop.ini
 .idea/
 .vscode/
 *.log
+
+# Generador local de imagenes: herramienta de escritorio, no forma parte de la
+# web. Se excluye entera, codigo incluido, por decision explicita.
+/music-image-generator/
+
+# Escenas aprobadas: se publican por SCP para no versionar 115 binarios.
+/app/img/track-scenes/
