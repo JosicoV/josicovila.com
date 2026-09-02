@@ -14,6 +14,12 @@ DEFAULT_RETRIEVAL_KEY = "muq_mulan"
 DEFAULT_TRANSLATION_KEY = "opus_es_en"
 
 
+def load_catalogue_fit(ranking_config: Path | None) -> dict[str, Any] | None:
+    if ranking_config is None or not ranking_config.is_file():
+        return None
+    return read_json(ranking_config).get("catalogue_fit")
+
+
 @dataclass
 class BootstrapResult:
     service: SearchService
@@ -35,6 +41,7 @@ def build_service(
     load_models: bool = True,
     telemetry_dir: Path | None = None,
     store_raw_query: bool = False,
+    ranking_config: Path | None = None,
 ) -> BootstrapResult:
     """Load index, retriever and translator eagerly so /health is truthful."""
     timings: dict[str, float] = {}
@@ -44,6 +51,10 @@ def build_service(
     started = time.perf_counter()
     index = SearchIndex.load(index_dir, expected_model=retrieval_config)
     timings["index_load_seconds"] = time.perf_counter() - started
+
+    started = time.perf_counter()
+    catalogue_fit = load_catalogue_fit(ranking_config)
+    timings["ranking_config_load_seconds"] = time.perf_counter() - started
 
     encoder: MuQTextEncoder | None = None
     translator: OpusTranslator | None = None
@@ -71,7 +82,13 @@ def build_service(
         collector = TelemetryCollector(telemetry_dir, store_raw_query=store_raw_query)
 
     return BootstrapResult(
-        service=SearchService(index, encoder, translator, telemetry=collector),
+        service=SearchService(
+            index,
+            encoder,
+            translator,
+            telemetry=collector,
+            catalogue_fit=catalogue_fit,
+        ),
         device=resolved_device,
         timings=timings,
     )

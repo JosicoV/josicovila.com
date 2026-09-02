@@ -173,7 +173,7 @@ header {
   display: flex;
   align-items: center;
   gap: 11px;
-  min-height: 40px;
+  min-height: 48px;
   padding: 5px 8px;
   border-radius: 11px;
   color: rgba(255, 255, 255, 0.88);
@@ -189,25 +189,21 @@ header {
   transform: translateX(-2px);
 }
 
-.platform-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  flex: 0 0 30px;
-  border-radius: 9px;
-  color: white;
-  font-size: 0.59rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
+.platform-logo {
+  display: block;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  object-fit: contain;
 }
 
-.platform-spotify { background: #1db954; }
-.platform-apple { background: linear-gradient(145deg, #fa5b70, #d91445); }
-.platform-amazon { background: #1685b8; }
-.platform-deezer { background: linear-gradient(145deg, #a238ff, #ef3f80); }
-.platform-soundcloud { background: #f4511e; }
+/* El Cloudmark oficial tiene un tamaño digital mínimo de 48 px. */
+.platform-soundcloud {
+  width: 48px;
+  height: 48px;
+  flex-basis: 48px;
+  margin-inline: -4px;
+}
 
 #firma {
   height: 46px;
@@ -754,6 +750,12 @@ body.modo-captura .sphereRanges {
 
 .search-note em { color: rgba(255, 255, 255, 0.85); font-style: normal; }
 
+.search-note-closest {
+  color: rgba(219, 234, 255, 0.92);
+  background: rgba(29, 79, 127, 0.18);
+  line-height: 1.4;
+}
+
 /* Cabecera de una cola de disco: la portada, pequeña, para saber de un vistazo
    qué se está escuchando sin repetirla en cada fila. */
 .cola-origen { display: flex; align-items: center; gap: 10px; }
@@ -1134,6 +1136,27 @@ body.modo-captura .sphereRanges {
   background: var(--acento);
 }
 .player-btn { position: relative; }
+
+.player-btn-shuffle-all { margin-right: 2px; }
+.player-all-badge {
+  position: absolute;
+  right: -3px;
+  top: 1px;
+  min-width: 17px;
+  padding: 1px 2px;
+  border-radius: 5px;
+  color: var(--texto-tenue);
+  background: var(--panel-solido);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.43rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+.player-btn-shuffle-all[aria-pressed="true"] .player-all-badge {
+  color: var(--acento);
+  border-color: rgba(143, 196, 255, 0.65);
+}
 
 .player-btn-main {
   width: 44px;

@@ -66,6 +66,7 @@ Cuerpo máximo: 16 KiB.
   "detected_language": "es",
   "query_normalized_en": "quiet and melancholy music",
   "translation_used": true,
+  "catalogue_fit": "clear",
   "limit": 8,
   "results": [
     {
@@ -90,6 +91,13 @@ el reproductor de producción (`musica/${ruta}`, `musica/DISCOS/${imagen}`).
 `alternate_versions` indica cuántas versiones equivalentes de esa composición
 existen en el índice pero se han suprimido del ranking visible. Nunca se
 devuelven puntuaciones, embeddings ni identificadores de checkpoint.
+
+`catalogue_fit` es una orientación para redactar la interfaz, no una
+probabilidad ni una orden de filtrado. Vale `clear` cuando la consulta tiene un
+encaje absoluto suficiente o una coincidencia fuerte de título, y `closest`
+cuando el servicio conserva los resultados pero sólo puede ofrecer lo más
+cercano dentro de esta discografía. En ambos casos el ranking y su número de
+resultados permanecen intactos.
 
 ## `POST /suggest`
 
@@ -134,6 +142,7 @@ validar entrada
 → si es español: OPUS-MT es→en
 → embedding de texto con MuQ-MuLan
 → máximo por pista sobre 1.429 segmentos
+→ estimar el ajuste global a la discografía sin filtrar resultados
 → agrupar por composition_id, conservar la mejor versión
 → diversificar hasta el top-10 interno
 → recortar a `limit` (8 por defecto)

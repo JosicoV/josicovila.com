@@ -7,7 +7,7 @@ from typing import Any, Protocol
 import numpy as np
 
 from ..retrieval import diversify_results
-from ..translation import detect_es_or_en
+from ..translation import detect_es_or_en, literal_alias_queries
 from .contract import CONTRACT_VERSION, MAX_LIMIT, SearchRequest, parse_search_request, parse_suggest_request
 from ..telemetry import EventValidationError
 from .errors import (
@@ -23,6 +23,7 @@ from .hybrid import (
     SEMANTIC_POOL_SIZE,
     STRONG_TITLE_MATCHES,
     apply_relevance,
+    catalogue_fit_level,
     classify_intent,
     effective_intent,
     hybrid_score,
@@ -60,6 +61,7 @@ class SearchService:
         relevance: dict[str, Any] | None = None,
         semantic_pool: int = SEMANTIC_POOL_SIZE,
         telemetry: Any = None,
+        catalogue_fit: dict[str, Any] | None = None,
     ) -> None:
         self.semantic_pool = semantic_pool
         # Opcional a propósito: benchmarks y tests corren sin telemetría, y un
@@ -73,6 +75,7 @@ class SearchService:
         # sin mantener dos implementaciones.
         self.hybrid = hybrid
         self.relevance = relevance
+        self.catalogue_fit = catalogue_fit
         # MuQ inference and Marian generation are not safe to run concurrently
         # from several request threads on one model instance.
         self._model_lock = threading.Lock()
@@ -171,18 +174,27 @@ class SearchService:
         ranked = self._rank_tracks(embedding)
         retrieval_seconds = time.perf_counter() - retrieval_started
 
-        # La coincidencia literal usa la consulta ORIGINAL, no la traducida:
-        # los títulos del catálogo están en inglés, pero quien busca "Believe"
-        # lo escribe igual en los dos idiomas, y traducir el título lo rompería.
+        # La coincidencia literal conserva la consulta original para títulos
+        # ingleses escritos dentro de una frase española, pero también usa la
+        # traducción. Sin la segunda variante, "taberna medieval" llega bien al
+        # modelo como "medieval tavern" pero nunca puede coincidir con el álbum
+        # Reunion's Tavern ni con A night at the tavern.
         rerank_started = time.perf_counter()
         intent = classify_intent(request.query)
         if self.hybrid:
-            ranked, intent = self._apply_hybrid(ranked, request.query, intent)
+            ranked, intent = self._apply_hybrid(
+                ranked,
+                request.query,
+                intent,
+                translated_query=normalized_query if translation_used else None,
+            )
         else:
             for item in ranked:
                 item["literal"] = LiteralMatch()
                 item["hybrid_score"] = item["score"]
                 item["semantic_normalized"] = item["score"]
+
+        fit_level = catalogue_fit_level(ranked, self.catalogue_fit)
 
         diversified = diversify_results(ranked, self.index.composition_by_track, top_k=self.internal_top_k)
         visible = diversified[: request.limit]
@@ -210,13 +222,18 @@ class SearchService:
             "detected_language": language,
             "query_normalized_en": normalized_query,
             "translation_used": translation_used,
+            "catalogue_fit": fit_level,
             "limit": request.limit,
-            "results": [self._public_result(item, diagnostics=diagnostics) for item in visible],
+            "results": [
+                self._public_result(item, diagnostics=diagnostics, catalogue_fit=fit_level)
+                for item in visible
+            ],
         }
         telemetry = {
             "detected_language": language,
             "translation_used": translation_used,
             "query_intent": intent,
+            "catalogue_fit": fit_level,
             "result_count": len(visible),
             "index_version": self.index.index_version,
             "translation_ms": round(translation_seconds * 1000, 3),
@@ -262,7 +279,11 @@ class SearchService:
             return None
 
     def _apply_hybrid(
-        self, ranked: list[dict[str, Any]], query: str, intent: str
+        self,
+        ranked: list[dict[str, Any]],
+        query: str,
+        intent: str,
+        translated_query: str | None = None,
     ) -> tuple[list[dict[str, Any]], str]:
         """Rerankea la unión de los mejores semánticos y los aciertos literales.
 
@@ -273,9 +294,23 @@ class SearchService:
         index = self.index
         assert index is not None
 
+        literal_queries = [query]
+        if translated_query and translated_query.casefold() != query.casefold():
+            literal_queries.append(translated_query)
+            literal_queries.extend(literal_alias_queries(query))
+
         literales: dict[str, LiteralMatch] = {}
         for track in index.tracks:
-            literales[track.track_id] = score_literal(query, track.title, track.album)
+            coincidencias = [
+                score_literal(literal_query, track.title, track.album)
+                for literal_query in literal_queries
+            ]
+            # En empate gana la original por estar primero. Así no cambia la
+            # explicación de los títulos que ya funcionaban antes.
+            literales[track.track_id] = max(
+                coincidencias,
+                key=lambda match: (match.score, match.title_score, match.album_score),
+            )
 
         por_id = {item["track_id"]: item for item in ranked}
         piscina = [item["track_id"] for item in ranked[: self.semantic_pool]]
@@ -327,11 +362,13 @@ class SearchService:
             window = scores[track.segment_offset : track.segment_offset + track.segment_count]
             local = int(np.argmax(window))
             absolute = track.segment_offset + local
+            score = float(window[local])
             ranked.append(
                 {
                     "track_id": track.track_id,
                     "row": track.row,
-                    "score": float(window[local]),
+                    "score": score,
+                    "semantic_raw": score,
                     "best_segment": {
                         "start": float(index.segment_starts[absolute]),
                         "end": float(index.segment_ends[absolute]),
@@ -343,7 +380,13 @@ class SearchService:
             item["rank"] = rank
         return ranked
 
-    def _public_result(self, item: dict[str, Any], *, diagnostics: bool = False) -> dict[str, Any]:
+    def _public_result(
+        self,
+        item: dict[str, Any],
+        *,
+        diagnostics: bool = False,
+        catalogue_fit: str = "clear",
+    ) -> dict[str, Any]:
         index = self.index
         assert index is not None
         track = index.tracks[item["row"]]
@@ -351,7 +394,7 @@ class SearchService:
         extra = {}
         if diagnostics:
             extra["diagnostics"] = {
-                "semantic_score": round(float(item["score"]), 6),
+                "semantic_score": round(float(item.get("semantic_raw", item["score"])), 6),
                 "semantic_normalized": round(float(item.get("semantic_normalized", 0.0)), 6),
                 "literal_title_score": round(literal.title_score, 6),
                 "literal_album_score": round(literal.album_score, 6),
@@ -362,7 +405,11 @@ class SearchService:
             **extra,
             "rank": item["rank"],
             # Campo nuevo y opcional: el contrato anterior se mantiene intacto.
-            "match_reasons": match_reasons(literal, item.get("semantic_normalized", 0.0)),
+            "match_reasons": match_reasons(
+                literal,
+                item.get("semantic_normalized", 0.0),
+                catalogue_fit=catalogue_fit,
+            ),
             "track_id": track.track_id,
             "composition_id": track.composition_id,
             "title": track.title,

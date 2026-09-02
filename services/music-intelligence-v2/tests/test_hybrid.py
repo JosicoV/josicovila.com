@@ -7,6 +7,7 @@ from music_intelligence_v2.service.hybrid import (
     classify_intent,
     effective_intent,
     match_reasons,
+    catalogue_fit_level,
 )
 from music_intelligence_v2.service.pipeline import SearchService
 from music_intelligence_v2.service.textmatch import normalize, score_literal, tokenize
@@ -193,6 +194,30 @@ def test_el_titulo_en_ingles_se_encuentra_con_el_detector_en_espanol():
     assert titulos(respuesta)[0] == "Dragon Rage"
 
 
+def test_la_traduccion_tambien_participa_en_la_coincidencia_literal():
+    """Una traducción puede identificar un título que la frase española no contiene."""
+    respuesta, _ = servicio(
+        translator=FakeTranslator("quiet forest"), semantic_pool=1, relevance=SIN_CORTE
+    ).search({"query": "bosque tranquilo"})
+
+    assert titulos(respuesta)[0] == "Quiet Forest"
+    assert "Exact title match" in respuesta["results"][0]["match_reasons"]
+
+
+def test_una_palabra_traducida_rescata_un_titulo_en_una_frase_descriptiva(monkeypatch):
+    monkeypatch.setattr(
+        "music_intelligence_v2.service.pipeline.literal_alias_queries",
+        lambda _query: ["forest"],
+    )
+    svc = servicio(
+        translator=FakeTranslator("medieval tavern"), semantic_pool=1, relevance=SIN_CORTE
+    )
+
+    respuesta, _ = svc.search({"query": "taberna medieval"})
+
+    assert "Quiet Forest" in titulos(respuesta)
+
+
 # --------------------------------------------------------------------------
 # Explicaciones
 # --------------------------------------------------------------------------
@@ -208,6 +233,26 @@ def test_las_etiquetas_son_legibles_y_sin_porcentajes():
 def test_una_coincidencia_solo_musical_se_etiqueta_como_tal():
     razones = match_reasons(score_literal("nada", "Otro", "Otro"), 0.2)
     assert razones == ["Musical similarity"]
+
+
+def test_baja_confianza_se_presenta_como_lo_mas_cercano():
+    razones = match_reasons(
+        score_literal("nada", "Otro", "Otro"),
+        1.0,
+        catalogue_fit="closest",
+    )
+    assert razones == ["Closest in the discography"]
+
+
+def test_ajuste_al_catalogo_usa_score_absoluto_y_respeta_titulos():
+    debil = [{"score": 1.0, "semantic_raw": 0.29, "literal": score_literal("x", "Otro", "Otro")}]
+    fuerte = [{"score": 1.0, "semantic_raw": 0.31, "literal": score_literal("x", "Otro", "Otro")}]
+    titulo = [{"score": 1.0, "semantic_raw": 0.10, "literal": score_literal("dragon rage", "Dragon Rage", "Otro")}]
+    config = {"enabled": True, "absolute_minimum": 0.30}
+
+    assert catalogue_fit_level(debil, config) == "closest"
+    assert catalogue_fit_level(fuerte, config) == "clear"
+    assert catalogue_fit_level(titulo, config) == "clear"
 
 
 # --------------------------------------------------------------------------

@@ -153,6 +153,7 @@ echo json_encode([
     'query'            => $consulta,
     'detectedLanguage' => $datos['detected_language'] ?? null,
     'normalizedQuery'  => $datos['query_normalized_en'] ?? null,
+    'catalogueFit'     => $datos['catalogue_fit'] ?? 'clear',
     // Referencia de esta búsqueda para los eventos posteriores. Null si la
     // telemetría está desactivada, y entonces el frontend no envía nada.
     'searchId'         => $datos['search_id'] ?? null,

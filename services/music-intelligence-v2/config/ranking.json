@@ -1,0 +1,7 @@
+{
+  "catalogue_fit": {
+    "enabled": true,
+    "absolute_minimum": 0.3,
+    "note": "No altera ni recorta el ranking. Marca como aproximadas las consultas cuyo mejor coseno MuQ absoluto queda por debajo del umbral; las coincidencias fuertes de título siempre pasan."
+  }
+}

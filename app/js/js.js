@@ -650,11 +650,13 @@ const btnPlay    = document.querySelector('#btn-play');
 const btnPrev    = document.querySelector('#btn-prev');
 const btnNext    = document.querySelector('#btn-next');
 const btnShuffle = document.querySelector('#btn-shuffle');
+const btnShuffleAll = document.querySelector('#btn-shuffle-all');
 const btnRepeat  = document.querySelector('#btn-repeat');
 const btnMute    = document.querySelector('#btn-mute');
 const volumeSlider = document.querySelector('#volume-slider');
 
 let aleatorio = false;
+let aleatorioGlobal = false;
 let repetir   = false;
 
 /** Alterna los iconos play/pausa de la barra. */
@@ -686,9 +688,28 @@ function siguienteIndice(total) {
   return currentIndex + 1 < total ? currentIndex + 1 : null;
 }
 
+/** Elige cualquier tema del catálogo, evitando repetir el que ya suena. */
+function reproducirAleatorioDiscografia() {
+  const catalogo = Array.from(document.querySelectorAll('.album-track'));
+  if (!catalogo.length) return false;
+
+  const actual = document.querySelector('.album-track.is-playing');
+  const candidatos = catalogo.length > 1 && actual
+    ? catalogo.filter(tema => tema !== actual)
+    : catalogo;
+  const tema = candidatos[Math.floor(Math.random() * candidatos.length)];
+  const album = tema.closest('.album');
+  if (!album) return false;
+
+  const temas = Array.from(album.querySelectorAll('.album-track'));
+  cargarAlbumEnElHero(album, temas, temas.indexOf(tema));
+  return true;
+}
+
 if (btnPlay) btnPlay.addEventListener('click', () => {
   const audio = AUDIO3D.audioElB;
   if (!audio.src) {
+    if (aleatorioGlobal && reproducirAleatorioDiscografia()) return;
     // El motor se sirve vacío para no duplicar el catálogo en el HTML. En el
     // primer Play cargamos el primer disco por la misma ruta que el selector.
     if (pistasActuales().length) {
@@ -719,7 +740,14 @@ if (btnPrev) btnPrev.addEventListener('click', () => {
 });
 
 if (btnNext) btnNext.addEventListener('click', () => {
-  if (colaResultados) return void reproducirDeLaCola(colaResultados.indice + 1);
+  if (aleatorioGlobal) return void reproducirAleatorioDiscografia();
+  if (colaResultados) {
+    const total = colaResultados.elementos.length;
+    const siguiente = aleatorio && total > 1
+      ? (colaResultados.indice + 1 + Math.floor(Math.random() * (total - 1))) % total
+      : colaResultados.indice + 1;
+    return void reproducirDeLaCola(siguiente);
+  }
   const total = pistasActuales().length;
   if (currentIndex === null || !total) return;
   const siguiente = aleatorio ? siguienteIndice(total) : currentIndex + 1;
@@ -729,7 +757,20 @@ if (btnNext) btnNext.addEventListener('click', () => {
 
 if (btnShuffle) btnShuffle.addEventListener('click', () => {
   aleatorio = !aleatorio;
+  if (aleatorio) {
+    aleatorioGlobal = false;
+    btnShuffleAll?.setAttribute('aria-pressed', 'false');
+  }
   btnShuffle.setAttribute('aria-pressed', String(aleatorio));
+});
+
+if (btnShuffleAll) btnShuffleAll.addEventListener('click', () => {
+  aleatorioGlobal = !aleatorioGlobal;
+  if (aleatorioGlobal) {
+    aleatorio = false;
+    btnShuffle?.setAttribute('aria-pressed', 'false');
+  }
+  btnShuffleAll.setAttribute('aria-pressed', String(aleatorioGlobal));
 });
 
 if (btnRepeat) btnRepeat.addEventListener('click', () => {
@@ -765,6 +806,11 @@ AUDIO3D.audioElB.addEventListener('pause', () => { marcarReproduciendo(false); T
 // Esto se ejecuta UNA sola vez
 AUDIO3D.audioElB.addEventListener('ended', () => {
   TELEMETRIA.completa(AUDIO3D.audioElB.duration);
+
+  if (aleatorioGlobal && !repetir) {
+    reproducirAleatorioDiscografia();
+    return;
+  }
 
   // Si venimos de una búsqueda, la cola es la lista de resultados y da la
   // vuelta al llegar al final; no se salta al disco de la última canción.
@@ -1037,6 +1083,7 @@ containerSlider.addEventListener('mouseleave', () => {
     'Partial album match': 'reasonPartialAlbum',
     'Strong musical match': 'reasonStrongMusical',
     'Musical similarity': 'reasonMusicalSimilarity',
+    'Closest in the discography': 'reasonClosestCatalogue',
   };
 
   function etiquetasDeCoincidencia(motivos) {
@@ -1068,7 +1115,7 @@ containerSlider.addEventListener('mouseleave', () => {
       </div>`;
   }
 
-  function pintarResultados(lista, nota) {
+  function pintarResultados(lista, nota, catalogueFit = 'clear') {
     // Resultados nuevos: la cola anterior apunta a filas que ya no existen.
     salirDeLaColaDeResultados();
     results.classList.remove('cola-de-album');
@@ -1076,10 +1123,14 @@ containerSlider.addEventListener('mouseleave', () => {
       results.innerHTML = `<div class="no-results">${uiText('noResults', 'No matching music found.')}</div>`;
       return;
     }
-    const cabecera = nota
-      ? `<div class="search-note">${uiText('searchedInEnglishAs', 'Searched in English as')} <em>${nota}</em></div>`
-      : '';
-    results.innerHTML = cabecera + lista.map(item => `
+    const notas = [];
+    if (catalogueFit === 'closest') {
+      notas.push(`<div class="search-note search-note-closest">${uiText('closestNotice', 'I could not find a clear match for the whole idea. Here are the closest tracks in my discography.')}</div>`);
+    }
+    if (nota) {
+      notas.push(`<div class="search-note">${uiText('searchedInEnglishAs', 'Searched in English as')} <em>${nota}</em></div>`);
+    }
+    results.innerHTML = notas.join('') + lista.map(item => `
       <div class="result" data-albumlabel="${item.albumCode}" data-cover="${item.cover}" data-albumname="${item.albumName}" data-songnumber="${item.songnumber}" data-ruta="${item.songSrc}" data-trackid="${item.trackId || ''}" data-rank="${item.rank || ''}" data-albumdescription="${encodeURIComponent(item.albumDescription || "")}">
         <img src="${imagenDelTema(item.songSrc) || `musica/DISCOS/${item.cover}`}" alt="${item.songName}">
         <div class="info">
@@ -1157,7 +1208,7 @@ containerSlider.addEventListener('mouseleave', () => {
           if (!ok) throw new Error(cuerpo?.error?.code || 'search_failed');
           TELEMETRIA.busquedaNueva(cuerpo.searchId);
           const traducida = cuerpo.detectedLanguage === 'es' ? cuerpo.normalizedQuery : null;
-          pintarResultados(cuerpo.results || [], traducida);
+          pintarResultados(cuerpo.results || [], traducida, cuerpo.catalogueFit || 'clear');
         })
         .catch(err => {
           if (token !== peticionEnCurso) return;

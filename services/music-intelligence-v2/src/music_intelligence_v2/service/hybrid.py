@@ -145,21 +145,69 @@ MATCH_LABELS = {
     "partial_album": "Partial album match",
 }
 
+CLOSEST_CATALOGUE_LABEL = "Closest in the discography"
+
 STRONG_SEMANTIC_NORMALIZED = 0.75
 
 
-def match_reasons(literal: LiteralMatch, semantic_normalized: float) -> list[str]:
+def match_reasons(
+    literal: LiteralMatch,
+    semantic_normalized: float,
+    *,
+    catalogue_fit: str = "clear",
+) -> list[str]:
     """Motivos legibles por los que una pista aparece. Nunca porcentajes:
     las similitudes internas no son probabilidades calibradas."""
     razones = []
     etiqueta = MATCH_LABELS.get(literal.match_type or "")
     if etiqueta:
         razones.append(etiqueta)
+    if catalogue_fit == "closest":
+        razones.append(CLOSEST_CATALOGUE_LABEL)
+        return razones
     if semantic_normalized >= STRONG_SEMANTIC_NORMALIZED:
         razones.append("Strong musical match")
     elif not razones:
         razones.append("Musical similarity")
     return razones
+
+
+# --------------------------------------------------------------------------
+# Ajuste global de la consulta a la discografía
+# --------------------------------------------------------------------------
+
+DEFAULT_CATALOGUE_FIT = {
+    "enabled": False,
+    # Calibrado con consultas propias y deliberadamente ajenas al catálogo.
+    # Sólo cambia el lenguaje de la interfaz: nunca elimina ni reordena pistas.
+    "absolute_minimum": 0.30,
+}
+
+
+def catalogue_fit_level(
+    ranked: list[dict[str, Any]],
+    config: dict[str, Any] | None = None,
+) -> str:
+    """Indica si hay un encaje claro o sólo candidatos cercanos.
+
+    La señal usa el coseno original de MuQ, antes de normalizar y mezclar el
+    ranking. El máximo normalizado siempre vale 1 y no permite distinguir una
+    consulta excelente de otra completamente ajena al catálogo.
+    """
+    settings = {**DEFAULT_CATALOGUE_FIT, **(config or {})}
+    if not settings["enabled"] or not ranked:
+        return "clear"
+
+    # Un título completo es evidencia directa aunque el audio-texto puntúe
+    # bajo; nunca se presenta como una mera aproximación.
+    if any(
+        (item.get("literal") or LiteralMatch()).match_type in STRONG_TITLE_MATCHES
+        for item in ranked
+    ):
+        return "clear"
+
+    best_raw = max(float(item.get("semantic_raw", item["score"])) for item in ranked)
+    return "clear" if best_raw >= float(settings["absolute_minimum"]) else "closest"
 
 
 # --------------------------------------------------------------------------

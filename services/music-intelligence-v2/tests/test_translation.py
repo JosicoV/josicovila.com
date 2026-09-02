@@ -1,6 +1,6 @@
 import pytest
 
-from music_intelligence_v2.translation import detect_es_or_en
+from music_intelligence_v2.translation import detect_es_or_en, literal_alias_queries
 
 
 def test_bounded_language_detector_handles_benchmark_inputs():
@@ -18,6 +18,7 @@ def test_bounded_language_detector_handles_benchmark_inputs():
         "viaje hacia el misterio",
         "guitarra triste",
         "juego de rol medieval",
+        "taberna medieval",
     ],
 )
 def test_strategic_spanish_markers_detect_short_queries(query):
@@ -36,3 +37,8 @@ def test_strategic_spanish_markers_detect_short_queries(query):
 )
 def test_shared_or_english_music_words_stay_english(query):
     assert detect_es_or_en(query) == "en"
+
+
+def test_tavern_alias_is_only_derived_from_the_spanish_word():
+    assert literal_alias_queries("taberna medieval") == ["tavern"]
+    assert literal_alias_queries("medieval tavern") == []

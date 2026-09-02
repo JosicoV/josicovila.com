@@ -68,6 +68,7 @@ SPANISH_MARKERS = {
     "suave",
     "suena",
     "suene",
+    "taberna",
     "tambores",
     "tranquila",
     "triste",
@@ -79,9 +80,24 @@ SPANISH_MARKERS = {
     "y",
 }
 
+# Variantes muy acotadas para que una palabra traducida pueda rescatar un
+# título o álbum aunque la consulta completa contenga además una descripción.
+# No se usa un diccionario general: añadir términos aquí cambia qué pistas
+# pueden entrar en la piscina literal y debe responder a casos comprobados.
+SPANISH_LITERAL_ALIASES = {
+    "taberna": "tavern",
+}
+
 
 def detect_es_or_en(text: str) -> str:
     """Deterministic detector for the deliberately bounded es/en search input."""
     normalized = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii").casefold()
     tokens = set(re.findall(r"[a-z]+", normalized))
     return "es" if tokens & SPANISH_MARKERS else "en"
+
+
+def literal_alias_queries(text: str) -> list[str]:
+    """Devuelve variantes inglesas concretas presentes en una consulta ES."""
+    normalized = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii").casefold()
+    tokens = set(re.findall(r"[a-z]+", normalized))
+    return [alias for source, alias in SPANISH_LITERAL_ALIASES.items() if source in tokens]

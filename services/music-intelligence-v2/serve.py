@@ -64,6 +64,12 @@ def parse_arguments() -> argparse.Namespace:
         help="Guarda el texto literal de las consultas. Documéntalo si lo activas.",
     )
     parser.add_argument(
+        "--ranking-config",
+        type=Path,
+        default=SERVICE_ROOT / "config" / "ranking.json",
+        help="Ajustes de presentación y confianza del ranking.",
+    )
+    parser.add_argument(
         "--skip-models",
         action="store_true",
         help="Load the index only. /health reports degraded and /search returns model_unavailable.",
@@ -95,6 +101,7 @@ def main() -> int:
             load_models=not args.skip_models,
             telemetry_dir=args.telemetry_dir if args.telemetry else None,
             store_raw_query=args.store_raw_query,
+            ranking_config=args.ranking_config,
         )
     except ServiceError as error:
         logger.emit("startup_failed", error_code=error.code, error_detail=error.detail)

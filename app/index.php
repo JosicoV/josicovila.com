@@ -113,23 +113,23 @@
            aria-hidden="true" inert>
         <span class="music-platforms-title" data-i18n="musicPlatformsTitle">Listen on</span>
         <a href="https://open.spotify.com/artist/1wtDiEERoMaAm4jxutvLtZ" target="_blank" rel="noopener noreferrer">
-          <span class="platform-mark platform-spotify" aria-hidden="true">SP</span>
+          <img class="platform-logo platform-spotify" src="img/platforms/spotify.png" alt="" aria-hidden="true">
           <span>Spotify</span>
         </a>
         <a href="https://music.apple.com/es/artist/josico-vila/1530780806" target="_blank" rel="noopener noreferrer">
-          <span class="platform-mark platform-apple" aria-hidden="true">AM</span>
+          <img class="platform-logo platform-apple" src="img/platforms/apple-music.svg" alt="" aria-hidden="true">
           <span>Apple Music</span>
         </a>
         <a href="https://music.amazon.com/artists/B08HHZYYQ3/josico-vila" target="_blank" rel="noopener noreferrer">
-          <span class="platform-mark platform-amazon" aria-hidden="true">AZ</span>
+          <img class="platform-logo platform-amazon" src="img/platforms/amazon-music.png" alt="" aria-hidden="true">
           <span>Amazon Music</span>
         </a>
         <a href="https://www.deezer.com/artist/106390352" target="_blank" rel="noopener noreferrer">
-          <span class="platform-mark platform-deezer" aria-hidden="true">DZ</span>
+          <img class="platform-logo platform-deezer" src="img/platforms/deezer.png" alt="" aria-hidden="true">
           <span>Deezer</span>
         </a>
         <a href="https://soundcloud.com/josicovila" target="_blank" rel="noopener noreferrer">
-          <span class="platform-mark platform-soundcloud" aria-hidden="true">SC</span>
+          <img class="platform-logo platform-soundcloud" src="img/platforms/soundcloud.png" alt="" aria-hidden="true">
           <span>SoundCloud</span>
         </a>
       </nav>
@@ -139,7 +139,7 @@
       <section id="hero">
         <div id="hero-content">
           <h1 class="hero-title" data-i18n="heroTitle">Find the music you imagine.</h1>
-          <p class="hero-subtitle" data-i18n="heroSubtitle">Explore my discography: search by title, name an instrument, or describe an idea.</p>
+          <p class="hero-subtitle" data-i18n="heroSubtitle">Explore my instrumental, cinematic discography — fantasy, orchestral music, intimate passages and touches of rock. Search by title, instrument or idea.</p>
           <div id="searchContainer">
             <div id="searchField">
               <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true">
@@ -260,8 +260,12 @@
         </div>
 
         <div class="player-controls">
-          <button type="button" id="btn-shuffle" class="player-btn" aria-label="Shuffle" data-i18n-aria="shuffle" aria-pressed="false">
+          <button type="button" id="btn-shuffle" class="player-btn" aria-label="Shuffle current list" data-i18n-aria="shuffle" title="Shuffle current list" data-i18n-title="shuffle" aria-pressed="false">
             <svg viewBox="0 0 24 24"><path d="M17 3l4 4-4 4V8h-2.2l-2.1 3-1.2-1.7L13.6 6H17V3zM3 6h4.6l6.2 9H17v-3l4 4-4 4v-3h-3.6L7.2 8H3V6zm0 10h4.2l1.7-2.4L10.1 15l-2.2 3H3v-2z"/></svg>
+          </button>
+          <button type="button" id="btn-shuffle-all" class="player-btn player-btn-shuffle-all" aria-label="Shuffle entire discography" data-i18n-aria="shuffleAll" title="Shuffle entire discography" data-i18n-title="shuffleAll" aria-pressed="false">
+            <svg viewBox="0 0 24 24"><path d="M17 3l4 4-4 4V8h-2.2l-2.1 3-1.2-1.7L13.6 6H17V3zM3 6h4.6l6.2 9H17v-3l4 4-4 4v-3h-3.6L7.2 8H3V6zm0 10h4.2l1.7-2.4L10.1 15l-2.2 3H3v-2z"/></svg>
+            <span class="player-all-badge" aria-hidden="true">ALL</span>
           </button>
           <button type="button" id="btn-prev" class="player-btn" aria-label="Previous track" data-i18n-aria="previousTrack">
             <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6V6zm3.5 6l8.5 6V6l-8.5 6z"/></svg>

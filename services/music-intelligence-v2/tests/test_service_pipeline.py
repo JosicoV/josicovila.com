@@ -231,3 +231,19 @@ def test_response_hides_model_internals():
     # probabilidades calibradas.
     assert all(isinstance(r, str) and "%" not in r for r in result["match_reasons"])
     assert set(result["match"]) == {"best_segment_start", "best_segment_end"}
+
+
+def test_catalogue_fit_is_public_but_does_not_remove_results():
+    service = SearchService(
+        build_index(),
+        FakeEncoder(),
+        FakeTranslator(),
+        catalogue_fit={"enabled": True, "absolute_minimum": 0.6},
+    )
+
+    response, telemetry = service.search({"query": "unrelated words", "language": "en"})
+
+    assert response["catalogue_fit"] == "closest"
+    assert telemetry["catalogue_fit"] == "closest"
+    assert response["results"]
+    assert response["results"][0]["match_reasons"] == ["Closest in the discography"]

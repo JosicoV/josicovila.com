@@ -5,7 +5,7 @@ const ENGLISH = Object.freeze({
   selectAlbum: 'Select an album...',
   currentAlbum: 'CURRENT ALBUM',
   heroTitle: 'Find the music you imagine.',
-  heroSubtitle: 'Explore my discography: search by title, name an instrument, or describe an idea.',
+  heroSubtitle: 'Explore my instrumental, cinematic discography — fantasy, orchestral music, intimate passages and touches of rock. Search by title, instrument or idea.',
   searchPlaceholder: 'epic with choir, music for dragons, soft medieval flute...',
   searchAria: 'Search music by mood, scene or story',
   browseAlbums: 'Browse the albums',
@@ -18,7 +18,8 @@ const ENGLISH = Object.freeze({
   nowPlaying: 'Now playing',
   radius: 'Radius',
   deform: 'Deform',
-  shuffle: 'Shuffle',
+  shuffle: 'Shuffle current list',
+  shuffleAll: 'Shuffle entire discography',
   previousTrack: 'Previous track',
   play: 'Play',
   pause: 'Pause',
@@ -42,6 +43,7 @@ const ENGLISH = Object.freeze({
   noMatchAria: 'No, this does not match',
   noResults: 'No matching music found.',
   searchedInEnglishAs: 'Searched in English as',
+  closestNotice: 'I could not find a clear match for the whole idea. Here are the closest tracks in my discography.',
   listening: 'Listening to your words...',
   searchUnavailable: 'Search is unavailable right now.',
   fromAlbum: 'From the album',
@@ -53,6 +55,7 @@ const ENGLISH = Object.freeze({
   reasonPartialAlbum: 'Partial album match',
   reasonStrongMusical: 'Strong musical match',
   reasonMusicalSimilarity: 'Musical similarity',
+  reasonClosestCatalogue: 'Closest in the discography',
 });
 
 const SPANISH = Object.freeze({
@@ -63,7 +66,7 @@ const SPANISH = Object.freeze({
   selectAlbum: 'Selecciona un álbum...',
   currentAlbum: 'ÁLBUM ACTUAL',
   heroTitle: 'Encuentra la música que imaginas.',
-  heroSubtitle: 'Explora mi discografía: busca por título, menciona instrumentos o describe una idea.',
+  heroSubtitle: 'Explora mi discografía instrumental y cinematográfica: fantasía, música orquestal, pasajes íntimos y pinceladas de rock. Busca por título, instrumento o idea.',
   searchPlaceholder: 'épica con coro, música para dragones, flauta medieval suave...',
   searchAria: 'Buscar música por estado de ánimo, escena o historia',
   browseAlbums: 'Explora los álbumes',
@@ -76,7 +79,8 @@ const SPANISH = Object.freeze({
   nowPlaying: 'Sonando',
   radius: 'Radio',
   deform: 'Deformación',
-  shuffle: 'Aleatorio',
+  shuffle: 'Aleatorio en la lista actual',
+  shuffleAll: 'Aleatorio en toda la discografía',
   previousTrack: 'Tema anterior',
   play: 'Reproducir',
   pause: 'Pausar',
@@ -100,6 +104,7 @@ const SPANISH = Object.freeze({
   noMatchAria: 'No, no encaja con lo que estaba buscando',
   noResults: 'No se ha encontrado música que encaje.',
   searchedInEnglishAs: 'Búsqueda en inglés:',
+  closestNotice: 'No encuentro una coincidencia clara para toda la idea. Te muestro las pistas más cercanas de mi discografía.',
   listening: 'Escuchando tus palabras...',
   searchUnavailable: 'La búsqueda no está disponible en este momento.',
   fromAlbum: 'Del álbum',
@@ -111,6 +116,7 @@ const SPANISH = Object.freeze({
   reasonPartialAlbum: 'Coincidencia parcial con el álbum',
   reasonStrongMusical: 'Coincidencia musical destacada',
   reasonMusicalSimilarity: 'Similitud musical',
+  reasonClosestCatalogue: 'Lo más cercano de la discografía',
 });
 
 export function languageFromBrowser(value) {
@@ -137,6 +143,9 @@ export function applyTranslations(root = document) {
   });
   root.querySelectorAll('[data-i18n-aria]').forEach(element => {
     element.setAttribute('aria-label', text(element.dataset.i18nAria, element.getAttribute('aria-label') || ''));
+  });
+  root.querySelectorAll('[data-i18n-title]').forEach(element => {
+    element.setAttribute('title', text(element.dataset.i18nTitle, element.getAttribute('title') || ''));
   });
   root.querySelectorAll('[data-i18n-alt]').forEach(element => {
     element.setAttribute('alt', text(element.dataset.i18nAlt, element.getAttribute('alt') || ''));
