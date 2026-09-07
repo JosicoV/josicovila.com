@@ -115,3 +115,10 @@ Manual zoom uses a substantially wider pixels-per-bar range than Piano Roll and 
 Arranger and Piano Roll are adjacent workspace controls whose active state identifies the focused panel; switching focus does not hide either panel in the combined layout. Help belongs in the top bar beside project actions so workspace navigation stays grouped. Piano Roll remains unavailable until a clip is selected.
 
 Pause releases active voices and preserves the transport position, Play resumes from that position, and Stop returns to the beginning. Space toggles Play/Pause only from the non-editable workspace; inputs, selectors, buttons, editable content and open dialogs retain their native keyboard behavior.
+
+## ADR-019 — Start with a small editable musical idea in the combined view
+
+**Status:** Implemented  
+The demo opens with a selected two-bar First Pattern on a synthesized instrument, including notes in both bars, and the Arranger + Piano Roll view already open. This gives first-time users an immediate sound and a safe place to experiment; experienced users can move, edit or delete the starter clip and continue from an empty lane.
+
+The starter remains ordinary project data rather than a special tutorial mode, so every existing editing gesture, shortcut and validation rule applies to it. New-project templates can later offer the same starter or a blank alternative once project creation exists.

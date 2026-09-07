@@ -406,7 +406,8 @@ function updatePlayhead(): void {
 
 function formatBars(beats: number, barLength: number): string {
   const bars = beats / barLength;
-  return l(`${Number.isInteger(bars) ? bars : bars.toFixed(2)} compás${bars === 1 ? '' : 'es'}`, `${Number.isInteger(bars) ? bars : bars.toFixed(2)} bar${bars === 1 ? '' : 's'}`);
+  const value = Number.isInteger(bars) ? String(bars) : bars.toFixed(2);
+  return l(`${value} ${bars === 1 ? 'compás' : 'compases'}`, `${value} ${bars === 1 ? 'bar' : 'bars'}`);
 }
 
 function formatPan(pan: number): string {
@@ -551,6 +552,10 @@ arrangement?.addEventListener('dblclick', (event) => {
 
 window.addEventListener('pagehide', () => audioEngine.dispose(), { once: true });
 render();
+if (selectedClipId) {
+  pianoRoll.open(selectedTrackId, selectedClipId);
+  setActiveView('piano-roll');
+}
 requestAnimationFrame(updatePlayhead);
 
 function setActiveView(view: 'arranger' | 'piano-roll'): void {

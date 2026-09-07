@@ -16,7 +16,8 @@
 - Piano black-key rows extend across the timeline with subtle aligned shading.
 - Adjacent Arranger/Piano Roll controls show the focused panel without hiding the combined workspace; Help sits with the project actions in the top bar.
 - Play, Pause and Stop have distinct transport semantics: Pause preserves position, Play resumes and Stop returns to the beginning. Space toggles Play/Pause from the non-editable workspace.
-- 36 automated tests pass; TypeScript and Vite production build pass.
+- The demo opens with a selected two-bar First Pattern starter idea and the combined Arranger + Piano Roll view ready for immediate listening and editing.
+- 37 automated tests pass; TypeScript and Vite production build pass.
 
 ## Manual validation
 
@@ -25,6 +26,7 @@
 - The user manually validated two simultaneous tracks across Arranger and Piano Roll with different instruments, volume and stereo pan changes.
 - The combined layout, both drag separators, black-key shading and expand/restore/close modes were visually verified in the local browser.
 - Active-panel switching and Play/Pause/Space/Stop behavior were visually and audibly verified in the local browser.
+- The two-bar starter pattern and combined view were visually verified locally; the starter remains easy to delete for experienced users.
 
 ## Pending
 

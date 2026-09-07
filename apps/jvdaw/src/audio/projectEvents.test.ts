@@ -12,17 +12,17 @@ describe('arranger playback follows edits', () => {
     expect(projectEvents(store.getSnapshot())[0].startBeat).toBe(4);
     const copy = store.duplicateClip(track.id, clip.id, 8);
     const notes = projectEvents(store.getSnapshot());
-    expect(notes).toHaveLength(16);
+    expect(notes).toHaveLength(32);
     expect(notes[8].startBeat).toBe(8);
-    expect(new Set(notes.map((note) => note.id)).size).toBe(16);
+    expect(new Set(notes.map((note) => note.id)).size).toBe(32);
     store.removeClip(track.id, clip.id);
     expect(projectEvents(store.getSnapshot())[0].startBeat).toBe(8);
     store.removeClip(track.id, copy.id);
     expect(projectEvents(store.getSnapshot())).toEqual([]);
   });
-  it('plays a one-bar clip only once within the four-bar project', () => {
+  it('plays a two-bar starter clip only once within the four-bar project', () => {
     const notes = projectEvents(demoProject);
-    expect(notes).toHaveLength(8);
-    expect(notes.every((note) => note.startBeat < 4)).toBe(true);
+    expect(notes).toHaveLength(16);
+    expect(notes.every((note) => note.startBeat < 8)).toBe(true);
   });
 });
