@@ -21,7 +21,8 @@
 - Arranger zoom spans 25–400%, while Fit Project keeps the complete timeline visible and adapts ruler labels to long songs.
 - Tracks and clips can be renamed; clips resize from the right edge in half-bar steps without clipping notes or crossing another clip.
 - Save downloads a validated `.jvstudio.json` file; Open restores it. A dismissible welcome and unsaved-change guard explain the session model before users begin.
-- 47 automated tests pass; TypeScript and Vite production build pass.
+- Export WAV renders the full mix offline in the browser as 44.1 kHz stereo 16-bit PCM, with a 20-minute safety limit.
+- 48 automated tests pass; TypeScript and Vite production build pass.
 
 ## Manual validation
 
@@ -51,4 +52,4 @@
 
 ## Next milestone
 
-Prepare offline WAV export from the current arrangement.
+Add undo/redo history and consider lightweight browser autosave as a recovery layer, while keeping file Save/Open explicit.

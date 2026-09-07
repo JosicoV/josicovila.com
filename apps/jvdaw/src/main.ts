@@ -1,10 +1,11 @@
 import './styles.css';
 
 import { AudioEngine, type AudioState } from './audio/AudioEngine';
+import { renderProjectWav } from './audio/exportWav';
 import { instruments, resolveInstrument } from './audio/instruments';
 import { l } from './i18n';
 import { demoProject } from './project/demoProject';
-import { barsToBeats, beatsPerBar, MAX_PROJECT_BARS, midiToNoteName, minimumProjectLengthBars, normalizeBpm, projectFileName, ProjectStore } from './project';
+import { barsToBeats, beatsPerBar, MAX_PROJECT_BARS, midiToNoteName, minimumProjectLengthBars, normalizeBpm, projectFileName, ProjectStore, wavFileName } from './project';
 import { clipStartFromPointer, findFirstAvailableClipStart, isClipRangeAvailable } from './ui/arranger/clipPlacement';
 import { installClipEditing } from './ui/arranger/clipEditing';
 import { arrangerBarWidth, arrangerLaneWidth, arrangerRulerStep, isArrangerZoom, type ArrangerZoom } from './ui/arranger/arrangerZoom';
@@ -58,7 +59,7 @@ app.innerHTML = `
       <div class="future-actions" aria-label="${l('Acciones de proyecto', 'Project actions')}">
         <button type="button" data-action="open-project">${l('Abrir', 'Open')}</button>
         <button type="button" data-action="save-project">${l('Guardar', 'Save')}</button>
-        <button class="future-placeholder" type="button" disabled title="${l('Disponible en una fase posterior', 'Available in a later milestone')}">${l('Exportar WAV', 'Export WAV')}</button>
+        <button type="button" data-action="export-wav">${l('Exportar WAV', 'Export WAV')}</button>
         <button class="top-help" type="button" data-action="help" aria-label="${l('Ayuda: guía y atajos', 'Help: guide and shortcuts')}">? ${l('Ayuda', 'Help')}</button>
       </div>
     </header>
@@ -133,6 +134,7 @@ const pauseButton = document.querySelector<HTMLButtonElement>('[data-action="pau
 const stopButton = document.querySelector<HTMLButtonElement>('[data-action="stop"]');
 const openProjectButton = document.querySelector<HTMLButtonElement>('[data-action="open-project"]');
 const saveProjectButton = document.querySelector<HTMLButtonElement>('[data-action="save-project"]');
+const exportWavButton = document.querySelector<HTMLButtonElement>('[data-action="export-wav"]');
 const projectFileInput = document.querySelector<HTMLInputElement>('[data-project-file]');
 const bpmInput = document.querySelector<HTMLInputElement>('[data-bpm]');
 const projectLengthInput = document.querySelector<HTMLInputElement>('[data-project-length]');
@@ -490,6 +492,39 @@ function saveProjectToFile(): void {
   );
 }
 
+async function exportProjectToWav(): Promise<void> {
+  if (!exportWavButton) return;
+  exportWavButton.disabled = true;
+  audioEngine.stop();
+  setUiMessage(l('Preparando WAV…', 'Preparing WAV…'), l('JV Studio está mezclando el proyecto en este navegador.', 'JV Studio is mixing the project in this browser.'));
+  try {
+    const project = store.getSnapshot();
+    const blob = await renderProjectWav(project);
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = wavFileName(project.name);
+    document.body.append(anchor);
+    anchor.click();
+    anchor.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 0);
+    setUiMessage(
+      l('WAV exportado', 'WAV exported'),
+      l(`Se ha descargado ${anchor.download}.`, `${anchor.download} was downloaded.`),
+    );
+  } catch (error) {
+    const tooLong = error instanceof RangeError;
+    setUiMessage(
+      l('No se pudo exportar', 'Could not export WAV'),
+      tooLong
+        ? l('La exportación WAV está limitada a 20 minutos para proteger la memoria del navegador.', 'WAV export is limited to 20 minutes to protect browser memory.')
+        : l('El navegador no pudo crear el archivo WAV. Prueba de nuevo.', 'The browser could not create the WAV file. Please try again.'),
+    );
+  } finally {
+    exportWavButton.disabled = false;
+  }
+}
+
 function formatPan(pan: number): string {
   const amount = Math.round(Math.abs(pan) * 100);
   return amount === 0 ? 'C' : `${amount}${pan < 0 ? l('I', 'L') : l('D', 'R')}`;
@@ -546,6 +581,7 @@ bpmInput?.addEventListener('change', () => {
 
 openProjectButton?.addEventListener('click', requestOpenProject);
 saveProjectButton?.addEventListener('click', saveProjectToFile);
+exportWavButton?.addEventListener('click', () => { void exportProjectToWav(); });
 projectFileInput?.addEventListener('change', async () => {
   const file = projectFileInput.files?.[0];
   if (!file) return;

@@ -136,3 +136,10 @@ When creating, moving or duplicating a clip reaches the current end, the project
 Save downloads a portable `.jvstudio.json` project file and Open validates and restores it. The first visit shows a plain-language welcome explaining that users must save before leaving and can open the file when they return. A “do not show again” preference is local to the current browser.
 
 After any project mutation, `beforeunload` asks the browser to warn before navigation or closing. Opening another project also requests confirmation when the current one has unsaved changes. Help repeats the rule, but the welcome is the primary onboarding surface.
+
+## ADR-022 — Render WAV entirely in the browser
+
+**Status:** Implemented
+WAV export renders the whole project offline at 44.1 kHz stereo and encodes 16-bit PCM locally. It reuses the synthesized presets and applies the current track volume, pan, Mute and Solo state; no project or audio data is uploaded.
+
+The render includes a short release tail and is capped at 20 minutes to avoid excessive browser memory use. Export does not mark the editable project as saved: users still need the `.jvstudio.json` file to continue composing later.
