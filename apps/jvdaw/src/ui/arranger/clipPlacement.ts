@@ -39,3 +39,16 @@ export function clipStartFromPointer(
   const snappedBeat = Math.round(rawBeat / snapBeats) * snapBeats;
   return Math.min(projectLengthBeats - clipLengthBeats, Math.max(0, snappedBeat));
 }
+
+export function clipLengthFromPointer(
+  pointerOffset: number,
+  laneWidth: number,
+  clipStartBeat: number,
+  projectLengthBeats: number,
+  snapBeats: number,
+): number {
+  const pointerBeat = laneWidth > 0 ? (pointerOffset / laneWidth) * projectLengthBeats : clipStartBeat;
+  const rawLength = pointerBeat - clipStartBeat;
+  const snappedLength = Math.round(rawLength / snapBeats) * snapBeats;
+  return Math.min(projectLengthBeats - clipStartBeat, Math.max(snapBeats, snappedLength));
+}

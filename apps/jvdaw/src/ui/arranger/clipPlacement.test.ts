@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { createClip, createTrack } from '../../project';
-import { clipStartFromPointer, findFirstAvailableClipStart, isClipRangeAvailable, rangesOverlap } from './clipPlacement';
+import { clipLengthFromPointer, clipStartFromPointer, findFirstAvailableClipStart, isClipRangeAvailable, rangesOverlap } from './clipPlacement';
 
 describe('arranger clip placement', () => {
   const track = createTrack({
@@ -25,5 +25,11 @@ describe('arranger clip placement', () => {
   it('maps a pointer position to a clamped snapped start', () => {
     expect(clipStartFromPointer(260, 1_000, 4, 16, 4)).toBe(4);
     expect(clipStartFromPointer(999, 1_000, 4, 16, 4)).toBe(12);
+  });
+
+  it('resizes in half-bar steps without crossing the project edges', () => {
+    expect(clipLengthFromPointer(300, 400, 4, 16, 2)).toBe(8);
+    expect(clipLengthFromPointer(20, 400, 4, 16, 2)).toBe(2);
+    expect(clipLengthFromPointer(600, 400, 4, 16, 2)).toBe(12);
   });
 });

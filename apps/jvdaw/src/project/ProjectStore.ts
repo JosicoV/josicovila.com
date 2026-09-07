@@ -13,6 +13,7 @@ export type ProjectChangeType =
   | 'track:update'
   | 'clip:add'
   | 'clip:move'
+  | 'clip:update'
   | 'clip:duplicate'
   | 'clip:remove'
   | 'note:add'
@@ -26,6 +27,7 @@ export interface ProjectChange {
 
 type Listener = (change: ProjectChange) => void;
 type TrackPatch = Partial<Omit<InstrumentTrack, 'id' | 'type' | 'clips'>>;
+type ClipPatch = Partial<Pick<MidiClip, 'name' | 'lengthBeats'>>;
 type NotePatch = Partial<Omit<MidiNote, 'id'>>;
 
 export class ProjectStore {
@@ -99,6 +101,14 @@ export class ProjectStore {
     this.mutate('clip:move', (project) => {
       const clip = findClip(findTrack(project, trackId), clipId);
       clip.startBeat = startBeat;
+      project.lengthBars = autoGrowProjectLength(project, clip.startBeat + clip.lengthBeats);
+    });
+  }
+
+  updateClip(trackId: string, clipId: string, patch: ClipPatch): void {
+    this.mutate('clip:update', (project) => {
+      const clip = findClip(findTrack(project, trackId), clipId);
+      Object.assign(clip, patch);
       project.lengthBars = autoGrowProjectLength(project, clip.startBeat + clip.lengthBeats);
     });
   }

@@ -97,10 +97,10 @@ Both language variants must be updated whenever a visible behavior or Help entry
 
 ## ADR-016 — Keep clip duration flexible and names editable
 
-**Status:** Planned  
-The one-bar duration belongs only to the current default creation gesture; it is not a project-model restriction. Arranger clips will gain edge resizing with musical snap so they can span fractions of a bar, one bar or multiple bars, while remaining inside the project and avoiding same-track overlaps.
+**Status:** Implemented
+The one-bar duration belongs only to the current default creation gesture; it is not a project-model restriction. Arranger clips resize from their right edge in half-bar steps so they can span fractions of a bar, one bar or multiple bars, while remaining inside the project and avoiding same-track overlaps.
 
-Track and clip names are user-editable project data and must be renameable from the interface. Shortening a clip must not silently destroy notes that would fall outside its new end; the exact non-destructive interaction will be finalized with the resize implementation.
+Track and clip names are editable in the track inspector. Shortening a clip never destroys notes: a resize is rejected when any note would fall outside the new end. Project validation also rejects overlapping clips below the UI layer.
 
 ## ADR-017 — Give Arranger a wide zoom range and Fit Project mode
 

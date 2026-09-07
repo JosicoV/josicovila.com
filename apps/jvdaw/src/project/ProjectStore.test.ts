@@ -17,12 +17,15 @@ describe('ProjectStore', () => {
     const note = store.addNote(track.id, clip.id, { midi: 64, durationBeats: 0.5 });
 
     store.updateNote(track.id, clip.id, note.id, { startBeat: 1, velocity: 0.6 });
+    store.updateTrack(track.id, { name: 'Grand Piano' });
+    store.updateClip(track.id, clip.id, { name: 'Verse', lengthBeats: 6 });
     store.moveClip(track.id, clip.id, 4);
     const duplicate = store.duplicateClip(track.id, clip.id);
 
     const snapshot = store.getSnapshot();
     expect(snapshot.tracks[0].id).toBe(track.id);
-    expect(snapshot.tracks[0].clips[0].id).toBe(clip.id);
+    expect(snapshot.tracks[0]).toMatchObject({ id: track.id, name: 'Grand Piano' });
+    expect(snapshot.tracks[0].clips[0]).toMatchObject({ id: clip.id, name: 'Verse', lengthBeats: 6 });
     expect(snapshot.tracks[0].clips[0].notes[0]).toMatchObject({ id: note.id, startBeat: 1, velocity: 0.6 });
     expect(duplicate.id).not.toBe(clip.id);
     expect(duplicate.notes[0].id).not.toBe(note.id);
@@ -64,5 +67,16 @@ describe('ProjectStore', () => {
     store.addClip(track.id, { name: 'Ending', startBeat: 20, lengthBeats: 4 });
     expect(() => store.updateProject({ lengthBars: 5 })).toThrow(/must end within the project/);
     expect(store.getSnapshot().lengthBars).toBe(8);
+  });
+
+  it('rejects clip shrinking across notes and growth across another clip', () => {
+    const store = new ProjectStore(createProject({ id: 'project-test-resize', lengthBars: 8 }), sequentialIds());
+    const track = store.addTrack({ name: 'Piano' });
+    const clip = store.addClip(track.id, { name: 'Verse', lengthBeats: 4 });
+    store.addNote(track.id, clip.id, { startBeat: 3, durationBeats: 1 });
+    store.addClip(track.id, { name: 'Next', startBeat: 6, lengthBeats: 2 });
+    expect(() => store.updateClip(track.id, clip.id, { lengthBeats: 3 })).toThrow(/must end within its clip/);
+    expect(() => store.updateClip(track.id, clip.id, { lengthBeats: 7 })).toThrow(/cannot overlap/);
+    expect(store.getSnapshot().tracks[0].clips[0].lengthBeats).toBe(4);
   });
 });

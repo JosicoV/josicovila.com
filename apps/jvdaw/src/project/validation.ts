@@ -49,6 +49,16 @@ function validateTrack(value: unknown, path: string, ids: Set<string>, projectLe
   }
   assertArrayLimit(value.clips, MAX_CLIPS_PER_TRACK, `${path}.clips`);
   value.clips.forEach((clip, clipIndex) => validateClip(clip, `${path}.clips[${clipIndex}]`, ids, projectLengthBeats));
+  const orderedClips = value.clips
+    .map((clip) => clip as { startBeat: number; lengthBeats: number })
+    .sort((left, right) => left.startBeat - right.startBeat);
+  for (let index = 1; index < orderedClips.length; index += 1) {
+    const previous = orderedClips[index - 1];
+    const current = orderedClips[index];
+    if (current.startBeat < previous.startBeat + previous.lengthBeats) {
+      throw new ProjectValidationError('clips cannot overlap', `${path}.clips`);
+    }
+  }
 }
 
 function validateClip(value: unknown, path: string, ids: Set<string>, projectLengthBeats: number): void {

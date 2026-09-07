@@ -19,7 +19,8 @@
 - The demo opens with a selected two-bar First Pattern starter idea and the combined Arranger + Piano Roll view ready for immediate listening and editing.
 - Projects start at 16 bars, expose a 1–1024 bar duration control, reject destructive shrinking and auto-grow in four-bar blocks when content reaches the end.
 - Arranger zoom spans 25–400%, while Fit Project keeps the complete timeline visible and adapts ruler labels to long songs.
-- 44 automated tests pass; TypeScript and Vite production build pass.
+- Tracks and clips can be renamed; clips resize from the right edge in half-bar steps without clipping notes or crossing another clip.
+- 46 automated tests pass; TypeScript and Vite production build pass.
 
 ## Manual validation
 
@@ -49,4 +50,4 @@
 
 ## Next milestone
 
-Add clip edge-resizing and track/clip renaming now that the timeline can represent longer projects comfortably.
+Add persistence for saving and reopening project data, then prepare WAV export.

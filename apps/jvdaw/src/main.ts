@@ -252,6 +252,7 @@ function render(): void {
                                 .join('')
                             : `<span class="empty-clip">${l('Clip MIDI vacío', 'Empty MIDI clip')}</span>`}
                         </span>
+                        <span class="clip-resize-handle" data-clip-resize aria-hidden="true"></span>
                       </button>
                     `;
                   })
@@ -304,7 +305,10 @@ function renderInspector(
   const preset = resolveInstrument(track.instrumentId);
   inspector.innerHTML = `
     <p class="eyebrow">${l('MEZCLADOR DE PISTA', 'TRACK MIXER')}</p>
-    <strong>${escapeHtml(track.name)}</strong>
+    <label class="name-field">
+      <span>${l('Nombre de pista', 'Track name')}</span>
+      <input type="text" maxlength="120" value="${escapeHtml(track.name)}" data-name="track" data-track-id="${escapeHtml(track.id)}" />
+    </label>
     <label class="mix-field">
       <span>${l('Instrumento', 'Instrument')}</span>
       <select data-mix="instrumentId" data-track-id="${escapeHtml(track.id)}">
@@ -328,7 +332,10 @@ function renderInspector(
     </div>
     ${clip ? `
       <p class="eyebrow clip-properties-title">${l('CLIP SELECCIONADO', 'SELECTED CLIP')}</p>
-      <strong>${escapeHtml(clip.name)}</strong>
+      <label class="name-field">
+        <span>${l('Nombre del clip', 'Clip name')}</span>
+        <input type="text" maxlength="120" value="${escapeHtml(clip.name)}" data-name="clip" data-track-id="${escapeHtml(track.id)}" data-clip-id="${escapeHtml(clip.id)}" />
+      </label>
       <dl class="property-grid">
         <div><dt>${l('Inicio', 'Start')}</dt><dd>${clip.startBeat + 1} ${l('pulso', 'beat')}</dd></div>
         <div><dt>${l('Duración', 'Length')}</dt><dd>${clip.lengthBeats} ${l('pulsos', 'beats')}</dd></div>
@@ -448,7 +455,7 @@ function updatePlayhead(): void {
 
 function formatBars(beats: number, barLength: number): string {
   const bars = beats / barLength;
-  const value = Number.isInteger(bars) ? String(bars) : bars.toFixed(2);
+  const value = String(Number(bars.toFixed(2)));
   return l(`${value} ${bars === 1 ? 'compás' : 'compases'}`, `${value} ${bars === 1 ? 'bar' : 'bars'}`);
 }
 
@@ -573,6 +580,20 @@ inspector?.addEventListener('input', (event) => {
 });
 
 inspector?.addEventListener('change', (event) => {
+  const nameControl = (event.target as HTMLElement).closest<HTMLInputElement>('[data-name]');
+  if (nameControl) {
+    const name = nameControl.value.trim();
+    const trackId = nameControl.dataset.trackId;
+    if (!name || !trackId) {
+      render();
+      setUiMessage(l('Nombre no válido', 'Invalid name'), l('El nombre no puede quedar vacío.', 'The name cannot be empty.'));
+      return;
+    }
+    if (nameControl.dataset.name === 'track') store.updateTrack(trackId, { name });
+    else if (nameControl.dataset.clipId) store.updateClip(trackId, nameControl.dataset.clipId, { name });
+    setUiMessage(l('Nombre actualizado', 'Name updated'), name);
+    return;
+  }
   const control = (event.target as HTMLElement).closest<HTMLInputElement | HTMLSelectElement>('[data-mix]');
   const trackId = control?.dataset.trackId;
   if (!control || !trackId) return;

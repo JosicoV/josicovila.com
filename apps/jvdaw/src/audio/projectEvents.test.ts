@@ -10,17 +10,17 @@ describe('arranger playback follows edits', () => {
     const clip = track.clips[0];
     store.moveClip(track.id, clip.id, 4);
     expect(projectEvents(store.getSnapshot())[0].startBeat).toBe(4);
-    const copy = store.duplicateClip(track.id, clip.id, 8);
+    const copy = store.duplicateClip(track.id, clip.id, 12);
     const notes = projectEvents(store.getSnapshot());
     expect(notes).toHaveLength(32);
-    expect(notes[8].startBeat).toBe(8);
+    expect(notes[16].startBeat).toBe(12);
     expect(new Set(notes.map((note) => note.id)).size).toBe(32);
     store.removeClip(track.id, clip.id);
-    expect(projectEvents(store.getSnapshot())[0].startBeat).toBe(8);
+    expect(projectEvents(store.getSnapshot())[0].startBeat).toBe(12);
     store.removeClip(track.id, copy.id);
     expect(projectEvents(store.getSnapshot())).toEqual([]);
   });
-  it('plays a two-bar starter clip only once within the four-bar project', () => {
+  it('plays a two-bar starter clip only once within the project', () => {
     const notes = projectEvents(demoProject);
     expect(notes).toHaveLength(16);
     expect(notes.every((note) => note.startBeat < 8)).toBe(true);
