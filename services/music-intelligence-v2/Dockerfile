@@ -23,7 +23,11 @@ RUN pip install --no-cache-dir -r requirements/torch-cpu.txt \
 
 COPY src/ src/
 COPY config/ config/
+# Las herramientas de telemetría van en la imagen: sin ellas no se pueden
+# revisar los eventos dentro del contenedor y el cron de retención a 90 días
+# (telemetry_cleanup.py) no tendría qué ejecutar.
 COPY serve.py build_index.py fetch_models.py ./
+COPY telemetry_check.py telemetry_report.py telemetry_export.py telemetry_cleanup.py ./
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
