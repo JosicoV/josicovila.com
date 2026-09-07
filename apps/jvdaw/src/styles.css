@@ -233,6 +233,18 @@ button:disabled { color: #5f738a; cursor: not-allowed; opacity: 0.62; }
 
 .help-dialog { width: min(720px, calc(100vw - 40px)); max-height: 85vh; padding: 0; color: var(--text); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 14px; box-shadow: 0 24px 80px #0009; }
 .help-dialog::backdrop { background: #020810bb; backdrop-filter: blur(5px); }
+.session-dialog { width: min(620px, calc(100vw - 40px)); padding: 30px; color: var(--text); border: 1px solid #176d92; border-radius: 18px; background: linear-gradient(145deg, #0b1c2d, #07111e); box-shadow: 0 30px 100px #000c, 0 0 50px #16c8ff18; }
+.session-dialog::backdrop { background: #020810d9; backdrop-filter: blur(7px); }
+.session-dialog[open] { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
+.session-dialog-logo { display: block; width: 190px; height: auto; }
+.session-dialog h2 { margin: 0 0 14px; font-size: 1.5rem; }
+.session-dialog p { margin: 10px 0; color: #b7cbdd; font-size: .92rem; line-height: 1.6; }
+.session-dialog p strong { color: #eff9ff; }
+.session-dialog-dismiss { display: flex; align-items: center; gap: 9px; margin-top: 18px; color: #91a9bd; font-size: .78rem; }
+.session-dialog-dismiss input { accent-color: var(--cyan-bright); }
+.session-dialog-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+.session-dialog-actions button { min-height: 40px; padding: 0 15px; border-radius: 8px; }
+.session-dialog-actions button.primary { color: #03101a; border-color: var(--cyan-bright); background: var(--cyan-bright); font-weight: 800; }
 .help-heading { position: sticky; top: 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 24px; background: var(--surface); border-bottom: 1px solid var(--line); z-index: 1; }
 .help-heading h2 { margin: 5px 0 0; font-size: 1.5rem; }
 .help-heading button { padding: 9px 12px; border-radius: 8px; color: var(--cyan-bright); }

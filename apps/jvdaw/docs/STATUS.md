@@ -20,7 +20,8 @@
 - Projects start at 16 bars, expose a 1–1024 bar duration control, reject destructive shrinking and auto-grow in four-bar blocks when content reaches the end.
 - Arranger zoom spans 25–400%, while Fit Project keeps the complete timeline visible and adapts ruler labels to long songs.
 - Tracks and clips can be renamed; clips resize from the right edge in half-bar steps without clipping notes or crossing another clip.
-- 46 automated tests pass; TypeScript and Vite production build pass.
+- Save downloads a validated `.jvstudio.json` file; Open restores it. A dismissible welcome and unsaved-change guard explain the session model before users begin.
+- 47 automated tests pass; TypeScript and Vite production build pass.
 
 ## Manual validation
 
@@ -50,4 +51,4 @@
 
 ## Next milestone
 
-Add persistence for saving and reopening project data, then prepare WAV export.
+Prepare offline WAV export from the current arrangement.

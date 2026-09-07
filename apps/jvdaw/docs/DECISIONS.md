@@ -129,3 +129,10 @@ The starter remains ordinary project data rather than a special tutorial mode, s
 Projects start with 16 bars and expose an explicit 1–1024 bar duration control. Manual extension or safe shrinking is allowed, but validation rejects any length that would place an existing clip beyond the project end. Removing or moving content earlier never shrinks the project automatically.
 
 When creating, moving or duplicating a clip reaches the current end, the project grows to the next four-bar block and keeps at least one bar of breathing room. Growth lives in `ProjectStore`, with project-bound validation below the UI, so future import, persistence and editing paths cannot silently create an inconsistent timeline.
+
+## ADR-021 — Make file persistence explicit and hard to miss
+
+**Status:** Implemented
+Save downloads a portable `.jvstudio.json` project file and Open validates and restores it. The first visit shows a plain-language welcome explaining that users must save before leaving and can open the file when they return. A “do not show again” preference is local to the current browser.
+
+After any project mutation, `beforeunload` asks the browser to warn before navigation or closing. Opening another project also requests confirmation when the current one has unsaved changes. Help repeats the rule, but the welcome is the primary onboarding surface.

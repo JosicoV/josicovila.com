@@ -4,13 +4,14 @@ import { AudioEngine, type AudioState } from './audio/AudioEngine';
 import { instruments, resolveInstrument } from './audio/instruments';
 import { l } from './i18n';
 import { demoProject } from './project/demoProject';
-import { barsToBeats, beatsPerBar, MAX_PROJECT_BARS, midiToNoteName, minimumProjectLengthBars, normalizeBpm, ProjectStore } from './project';
+import { barsToBeats, beatsPerBar, MAX_PROJECT_BARS, midiToNoteName, minimumProjectLengthBars, normalizeBpm, projectFileName, ProjectStore } from './project';
 import { clipStartFromPointer, findFirstAvailableClipStart, isClipRangeAvailable } from './ui/arranger/clipPlacement';
 import { installClipEditing } from './ui/arranger/clipEditing';
 import { arrangerBarWidth, arrangerLaneWidth, arrangerRulerStep, isArrangerZoom, type ArrangerZoom } from './ui/arranger/arrangerZoom';
 import { installHelp } from './ui/help/HelpDialog';
 import { installResizableSeparator } from './ui/layout/resizablePanels';
 import { installPianoRoll } from './ui/piano-roll/PianoRoll';
+import { showSessionNotice } from './ui/project/SessionNotice';
 
 const app = document.querySelector<HTMLDivElement>('#app');
 if (!app) throw new Error('JV Studio root element was not found.');
@@ -54,9 +55,9 @@ app.innerHTML = `
         <span>${l('Compás', 'Meter')}</span>
       </div>
 
-      <div class="future-actions" aria-label="${l('Acciones de proyecto aún no disponibles', 'Project actions not available yet')}">
-        <button class="future-placeholder" type="button" disabled title="${l('Disponible en una fase posterior', 'Available in a later milestone')}">${l('Abrir', 'Open')}</button>
-        <button class="future-placeholder" type="button" disabled title="${l('Disponible en una fase posterior', 'Available in a later milestone')}">${l('Guardar', 'Save')}</button>
+      <div class="future-actions" aria-label="${l('Acciones de proyecto', 'Project actions')}">
+        <button type="button" data-action="open-project">${l('Abrir', 'Open')}</button>
+        <button type="button" data-action="save-project">${l('Guardar', 'Save')}</button>
         <button class="future-placeholder" type="button" disabled title="${l('Disponible en una fase posterior', 'Available in a later milestone')}">${l('Exportar WAV', 'Export WAV')}</button>
         <button class="top-help" type="button" data-action="help" aria-label="${l('Ayuda: guía y atajos', 'Help: guide and shortcuts')}">? ${l('Ayuda', 'Help')}</button>
       </div>
@@ -120,6 +121,7 @@ app.innerHTML = `
       <strong>${l('JV Studio necesita una pantalla más grande.', 'JV Studio needs a larger screen.')}</strong>
       <p>${l('Esta primera versión está diseñada para navegadores de escritorio.', 'This first version is designed for desktop browsers.')}</p>
     </section>
+    <input type="file" accept=".json,.jvstudio.json,application/json" data-project-file hidden />
   </main>
 `;
 
@@ -129,6 +131,9 @@ if (helpButton) installHelp(helpButton);
 const playButton = document.querySelector<HTMLButtonElement>('[data-action="play"]');
 const pauseButton = document.querySelector<HTMLButtonElement>('[data-action="pause"]');
 const stopButton = document.querySelector<HTMLButtonElement>('[data-action="stop"]');
+const openProjectButton = document.querySelector<HTMLButtonElement>('[data-action="open-project"]');
+const saveProjectButton = document.querySelector<HTMLButtonElement>('[data-action="save-project"]');
+const projectFileInput = document.querySelector<HTMLInputElement>('[data-project-file]');
 const bpmInput = document.querySelector<HTMLInputElement>('[data-bpm]');
 const projectLengthInput = document.querySelector<HTMLInputElement>('[data-project-length]');
 const arrangerZoomInput = document.querySelector<HTMLSelectElement>('[data-arranger-zoom]');
@@ -145,6 +150,7 @@ const arrangerPanel = document.querySelector<HTMLElement>('.arranger-panel');
 const workspace = document.querySelector<HTMLElement>('.workspace');
 const workspaceDivider = document.querySelector<HTMLElement>('[data-workspace-divider]');
 let arrangerZoom: ArrangerZoom = 'fit';
+let hasUnsavedChanges = false;
 
 if (workspace && workspaceDivider) installResizableSeparator({
   element: workspaceDivider,
@@ -459,6 +465,31 @@ function formatBars(beats: number, barLength: number): string {
   return l(`${value} ${bars === 1 ? 'compás' : 'compases'}`, `${value} ${bars === 1 ? 'bar' : 'bars'}`);
 }
 
+function requestOpenProject(): void {
+  if (hasUnsavedChanges && !window.confirm(l(
+    'Hay cambios sin guardar. Si abres otro proyecto, se perderán. ¿Quieres continuar?',
+    'You have unsaved changes. Opening another project will discard them. Continue?',
+  ))) return;
+  projectFileInput?.click();
+}
+
+function saveProjectToFile(): void {
+  const project = store.getSnapshot();
+  const url = URL.createObjectURL(new Blob([store.saveProject()], { type: 'application/json' }));
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = projectFileName(project.name);
+  document.body.append(anchor);
+  anchor.click();
+  anchor.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 0);
+  hasUnsavedChanges = false;
+  setUiMessage(
+    l('Proyecto guardado', 'Project saved'),
+    l(`Se ha descargado ${anchor.download}. Consérvalo para abrirlo cuando vuelvas.`, `${anchor.download} was downloaded. Keep it so you can open it next time.`),
+  );
+}
+
 function formatPan(pan: number): string {
   const amount = Math.round(Math.abs(pan) * 100);
   return amount === 0 ? 'C' : `${amount}${pan < 0 ? l('I', 'L') : l('D', 'R')}`;
@@ -483,6 +514,7 @@ function escapeHtml(value: string): string {
 }
 
 store.subscribe((change) => {
+  hasUnsavedChanges = change.type !== 'project:load' && change.type !== 'project:create';
   projectLengthBeats = barsToBeats(change.project.lengthBars, change.project.timeSignature);
   if (change.type === 'track:update') audioEngine.setTrackMix(change.project);
   else if (change.type !== 'project:update') audioEngine.setProject(change.project);
@@ -510,6 +542,33 @@ bpmInput?.addEventListener('change', () => {
   const bpm = normalizeBpm(bpmInput.valueAsNumber);
   store.updateProject({ bpm });
   audioEngine.setBpm(bpm);
+});
+
+openProjectButton?.addEventListener('click', requestOpenProject);
+saveProjectButton?.addEventListener('click', saveProjectToFile);
+projectFileInput?.addEventListener('change', async () => {
+  const file = projectFileInput.files?.[0];
+  if (!file) return;
+  try {
+    const project = store.loadProject(await file.text());
+    selectedTrackId = project.tracks[0]?.id ?? '';
+    selectedClipId = project.tracks[0]?.clips[0]?.id ?? null;
+    hasUnsavedChanges = false;
+    render();
+    if (selectedClipId) pianoRoll.open(selectedTrackId, selectedClipId);
+    else pianoRoll.close();
+    setUiMessage(
+      l('Proyecto abierto', 'Project opened'),
+      l(`${project.name} está listo para continuar.`, `${project.name} is ready to continue.`),
+    );
+  } catch {
+    setUiMessage(
+      l('No se pudo abrir', 'Could not open project'),
+      l('El archivo no parece un proyecto válido de JV Studio o está dañado.', 'The file is not a valid JV Studio project or may be damaged.'),
+    );
+  } finally {
+    projectFileInput.value = '';
+  }
 });
 
 projectLengthInput?.addEventListener('change', () => {
@@ -663,12 +722,18 @@ arrangement?.addEventListener('dblclick', (event) => {
 });
 
 window.addEventListener('pagehide', () => audioEngine.dispose(), { once: true });
+window.addEventListener('beforeunload', (event) => {
+  if (!hasUnsavedChanges) return;
+  event.preventDefault();
+  event.returnValue = '';
+});
 render();
 if (selectedClipId) {
   pianoRoll.open(selectedTrackId, selectedClipId);
   setActiveView('piano-roll');
 }
 requestAnimationFrame(updatePlayhead);
+showSessionNotice(requestOpenProject);
 
 function setActiveView(view: 'arranger' | 'piano-roll'): void {
   for (const button of document.querySelectorAll<HTMLButtonElement>('[data-view]')) {
