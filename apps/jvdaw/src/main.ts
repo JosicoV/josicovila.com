@@ -4,7 +4,7 @@ import { AudioEngine, type AudioState } from './audio/AudioEngine';
 import { instruments, resolveInstrument } from './audio/instruments';
 import { l } from './i18n';
 import { demoProject } from './project/demoProject';
-import { barsToBeats, beatsPerBar, midiToNoteName, normalizeBpm, ProjectStore } from './project';
+import { barsToBeats, beatsPerBar, MAX_PROJECT_BARS, midiToNoteName, minimumProjectLengthBars, normalizeBpm, ProjectStore } from './project';
 import { clipStartFromPointer, findFirstAvailableClipStart, isClipRangeAvailable } from './ui/arranger/clipPlacement';
 import { installClipEditing } from './ui/arranger/clipEditing';
 import { installHelp } from './ui/help/HelpDialog';
@@ -83,6 +83,10 @@ app.innerHTML = `
             <strong>${l('Línea de tiempo del proyecto', 'Project timeline')}</strong>
           </div>
           <div class="arranger-tools">
+            <label class="project-length-control" title="${l('Duración del proyecto: 1–1024 compases', 'Project length: 1–1024 bars')}">
+              <span>${l('COMPASES', 'BARS')}</span>
+              <input type="number" min="1" max="1024" step="1" data-project-length aria-label="${l('Duración del proyecto en compases', 'Project length in bars')}" />
+            </label>
             <span class="range-copy" data-range></span>
             <button type="button" data-action="add-clip">＋ ${l('Nuevo clip', 'New clip')}</button>
             <button type="button" data-action="duplicate-clip" title="Ctrl+D">${l('Duplicar', 'Duplicate')}</button>
@@ -114,6 +118,7 @@ const playButton = document.querySelector<HTMLButtonElement>('[data-action="play
 const pauseButton = document.querySelector<HTMLButtonElement>('[data-action="pause"]');
 const stopButton = document.querySelector<HTMLButtonElement>('[data-action="stop"]');
 const bpmInput = document.querySelector<HTMLInputElement>('[data-bpm]');
+const projectLengthInput = document.querySelector<HTMLInputElement>('[data-project-length]');
 const signatureLabel = document.querySelector<HTMLElement>('[data-signature]');
 const statusLabel = document.querySelector<HTMLElement>('[data-status]');
 const trackList = document.querySelector<HTMLElement>('[data-track-list]');
@@ -169,8 +174,9 @@ function render(): void {
 
   if (projectNameInput) projectNameInput.value = project.name;
   if (bpmInput && document.activeElement !== bpmInput) bpmInput.value = String(project.bpm);
+  if (projectLengthInput && document.activeElement !== projectLengthInput) projectLengthInput.value = String(project.lengthBars);
   if (signatureLabel) signatureLabel.textContent = project.timeSignature.join('/');
-  if (rangeLabel) rangeLabel.textContent = l(`${project.lengthBars} compases · Ajuste 1 compás`, `${project.lengthBars} bars · Snap 1 bar`);
+  if (rangeLabel) rangeLabel.textContent = l('Ajuste 1 compás', 'Snap 1 bar');
 
   if (timeline) {
     timeline.style.setProperty('--bars', String(project.lengthBars));
@@ -354,7 +360,8 @@ function addClipAtFirstAvailableBar(): void {
   }
   const barLength = beatsPerBar(project.timeSignature);
   const projectBeats = barsToBeats(project.lengthBars, project.timeSignature);
-  const startBeat = findFirstAvailableClipStart(track, barLength, projectBeats, barLength);
+  const availableStart = findFirstAvailableClipStart(track, barLength, projectBeats, barLength);
+  const startBeat = availableStart ?? (project.lengthBars < MAX_PROJECT_BARS ? projectBeats : null);
   if (startBeat === null) {
     setUiMessage(l('No hay compases libres', 'No free bar'), l('Esta pista no tiene un hueco libre de un compás dentro del proyecto.', 'This track has no empty one-bar slot in the current project range.'));
     return;
@@ -461,6 +468,32 @@ bpmInput?.addEventListener('change', () => {
   const bpm = normalizeBpm(bpmInput.valueAsNumber);
   store.updateProject({ bpm });
   audioEngine.setBpm(bpm);
+});
+
+projectLengthInput?.addEventListener('change', () => {
+  const project = store.getSnapshot();
+  const requested = Math.round(projectLengthInput.valueAsNumber);
+  const minimum = minimumProjectLengthBars(project);
+  if (!Number.isFinite(requested) || requested < 1 || requested > MAX_PROJECT_BARS) {
+    projectLengthInput.value = String(project.lengthBars);
+    setUiMessage(l('Duración no válida', 'Invalid project length'), l('Introduce entre 1 y 1024 compases.', 'Enter between 1 and 1024 bars.'));
+    return;
+  }
+  if (requested < minimum) {
+    projectLengthInput.value = String(project.lengthBars);
+    setUiMessage(
+      l('No se puede acortar', 'Cannot shorten project'),
+      l(`El contenido actual necesita al menos ${minimum} compases.`, `Current content needs at least ${minimum} bars.`),
+    );
+    return;
+  }
+  if (requested === project.lengthBars) return;
+  store.updateProject({ lengthBars: requested });
+  audioEngine.setProject(store.getSnapshot());
+  setUiMessage(
+    l('Duración actualizada', 'Project length updated'),
+    l(`El proyecto tiene ahora ${requested} compases.`, `The project now has ${requested} bars.`),
+  );
 });
 
 trackList?.addEventListener('click', (event) => {

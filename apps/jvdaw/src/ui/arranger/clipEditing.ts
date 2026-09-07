@@ -1,4 +1,4 @@
-import { barsToBeats, beatsPerBar, type ProjectStore } from '../../project';
+import { barsToBeats, beatsPerBar, MAX_PROJECT_BARS, PROJECT_GROWTH_BARS, type ProjectStore } from '../../project';
 import { l } from '../../i18n';
 import { clipStartFromPointer, isClipRangeAvailable, findFirstAvailableClipStart } from './clipPlacement';
 
@@ -45,8 +45,13 @@ export function installClipEditing({ element, store, selection, select, openClip
     if (!track || !clip) return;
     const end = barsToBeats(project.lengthBars, project.timeSignature);
     const adjacent = clip.startBeat + clip.lengthBeats;
-    const start = isClipRangeAvailable(track, adjacent, clip.lengthBeats, end) ? adjacent
+    let start = isClipRangeAvailable(track, adjacent, clip.lengthBeats, end) ? adjacent
       : findFirstAvailableClipStart(track, clip.lengthBeats, end, beatsPerBar(project.timeSignature));
+    if (start === null && project.lengthBars < MAX_PROJECT_BARS) {
+      const extendedBars = Math.min(MAX_PROJECT_BARS, project.lengthBars + PROJECT_GROWTH_BARS);
+      const extendedEnd = barsToBeats(extendedBars, project.timeSignature);
+      start = findFirstAvailableClipStart(track, clip.lengthBeats, extendedEnd, beatsPerBar(project.timeSignature));
+    }
     if (start === null) {
       message(l('No hay sitio para la copia', 'No room for a copy'), l('Libera un compás antes de duplicar este clip.', 'Free a bar before duplicating this clip.'));
     } else {

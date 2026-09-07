@@ -151,6 +151,9 @@ button:disabled { color: #5f738a; cursor: not-allowed; opacity: 0.62; }
 .range-copy { color: var(--muted); font-size: 0.74rem; }
 .arranger-tools { display: flex; align-items: center; gap: 14px; }
 .arranger-tools button { min-height: 36px; padding: 0 12px; border-radius: 8px; color: #b9d2e8; font-size: .75rem; }
+.project-length-control { display: grid; grid-template-columns: auto 48px; align-items: center; gap: 7px; min-height: 36px; padding: 0 9px; border: 1px solid var(--line); border-radius: 8px; background: rgba(7, 19, 32, .72); }
+.project-length-control span { color: var(--muted); font-size: .62rem; letter-spacing: .08em; }
+.project-length-control input { width: 48px; padding: 3px 2px; color: var(--text); border: 0; border-left: 1px solid var(--line); background: transparent; text-align: center; font-weight: 700; }
 .timeline { display: grid; grid-template-columns: repeat(var(--bars), 1fr); margin-left: 136px; border-bottom: 1px solid var(--line); }
 .timeline span { padding: 12px; color: #9eb4c9; border-left: 1px solid var(--line); font: 0.75rem ui-monospace, SFMono-Regular, Menlo, monospace; }
 

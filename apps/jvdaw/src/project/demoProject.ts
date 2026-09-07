@@ -40,6 +40,6 @@ export const demoProject = createProject({
   name: 'First Light',
   bpm: 120,
   timeSignature: [4, 4],
-  lengthBars: 4,
+  lengthBars: 16,
   tracks: [demoTrack],
 });

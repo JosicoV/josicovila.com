@@ -1,4 +1,5 @@
 import { createClip, createNote, createProject, createTrack, defaultIdFactory, type IdFactory } from './factories';
+import { autoGrowProjectLength } from './duration';
 import { deserializeProject, serializeProject } from './serializer';
 import type { InstrumentTrack, MidiClip, MidiNote, Project } from './types';
 import { validateProject } from './validation';
@@ -87,13 +88,18 @@ export class ProjectStore {
 
   addClip(trackId: string, values: Partial<Omit<MidiClip, 'id' | 'notes'>> = {}): MidiClip {
     const clip = createClip(values, this.createId);
-    this.mutate('clip:add', (project) => findTrack(project, trackId).clips.push(clip));
+    this.mutate('clip:add', (project) => {
+      findTrack(project, trackId).clips.push(clip);
+      project.lengthBars = autoGrowProjectLength(project, clip.startBeat + clip.lengthBeats);
+    });
     return structuredClone(clip);
   }
 
   moveClip(trackId: string, clipId: string, startBeat: number): void {
     this.mutate('clip:move', (project) => {
-      findClip(findTrack(project, trackId), clipId).startBeat = startBeat;
+      const clip = findClip(findTrack(project, trackId), clipId);
+      clip.startBeat = startBeat;
+      project.lengthBars = autoGrowProjectLength(project, clip.startBeat + clip.lengthBeats);
     });
   }
 
@@ -109,7 +115,10 @@ export class ProjectStore {
       },
       this.createId,
     );
-    this.mutate('clip:duplicate', (project) => findTrack(project, trackId).clips.push(duplicate));
+    this.mutate('clip:duplicate', (project) => {
+      findTrack(project, trackId).clips.push(duplicate);
+      project.lengthBars = autoGrowProjectLength(project, duplicate.startBeat + duplicate.lengthBeats);
+    });
     return structuredClone(duplicate);
   }
 

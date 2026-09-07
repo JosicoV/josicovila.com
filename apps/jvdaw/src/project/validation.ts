@@ -1,4 +1,5 @@
 import { PROJECT_VERSION, type Project, type TimeSignature } from './types';
+import { barsToBeats } from './timing';
 
 const MAX_NAME_LENGTH = 120;
 const MAX_TRACKS = 64;
@@ -29,10 +30,11 @@ export function validateProject(value: unknown): asserts value is Project {
   assertTimeSignature(value.timeSignature, 'timeSignature');
   assertIntegerInRange(value.lengthBars, 1, 1_024, 'lengthBars');
   assertArrayLimit(value.tracks, MAX_TRACKS, 'tracks');
-  value.tracks.forEach((track, trackIndex) => validateTrack(track, `tracks[${trackIndex}]`, ids));
+  const projectLengthBeats = barsToBeats(value.lengthBars, value.timeSignature);
+  value.tracks.forEach((track, trackIndex) => validateTrack(track, `tracks[${trackIndex}]`, ids, projectLengthBeats));
 }
 
-function validateTrack(value: unknown, path: string, ids: Set<string>): void {
+function validateTrack(value: unknown, path: string, ids: Set<string>, projectLengthBeats: number): void {
   assertRecord(value, path);
   assertId(value.id, `${path}.id`, ids);
   assertName(value.name, `${path}.name`);
@@ -46,16 +48,19 @@ function validateTrack(value: unknown, path: string, ids: Set<string>): void {
     throw new ProjectValidationError('must be a six-digit hex colour', `${path}.color`);
   }
   assertArrayLimit(value.clips, MAX_CLIPS_PER_TRACK, `${path}.clips`);
-  value.clips.forEach((clip, clipIndex) => validateClip(clip, `${path}.clips[${clipIndex}]`, ids));
+  value.clips.forEach((clip, clipIndex) => validateClip(clip, `${path}.clips[${clipIndex}]`, ids, projectLengthBeats));
 }
 
-function validateClip(value: unknown, path: string, ids: Set<string>): void {
+function validateClip(value: unknown, path: string, ids: Set<string>, projectLengthBeats: number): void {
   assertRecord(value, path);
   assertId(value.id, `${path}.id`, ids);
   assertName(value.name, `${path}.name`);
   assertNumberInRange(value.startBeat, 0, Number.MAX_SAFE_INTEGER, `${path}.startBeat`);
   assertNumberInRange(value.lengthBeats, Number.EPSILON, Number.MAX_SAFE_INTEGER, `${path}.lengthBeats`);
   const clipLength = value.lengthBeats;
+  if (value.startBeat + clipLength > projectLengthBeats + Number.EPSILON) {
+    throw new ProjectValidationError('must end within the project', path);
+  }
   assertArrayLimit(value.notes, MAX_NOTES_PER_CLIP, `${path}.notes`);
   value.notes.forEach((note, noteIndex) => validateNote(note, clipLength, `${path}.notes[${noteIndex}]`, ids));
 }

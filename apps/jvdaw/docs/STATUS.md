@@ -17,7 +17,8 @@
 - Adjacent Arranger/Piano Roll controls show the focused panel without hiding the combined workspace; Help sits with the project actions in the top bar.
 - Play, Pause and Stop have distinct transport semantics: Pause preserves position, Play resumes and Stop returns to the beginning. Space toggles Play/Pause from the non-editable workspace.
 - The demo opens with a selected two-bar First Pattern starter idea and the combined Arranger + Piano Roll view ready for immediate listening and editing.
-- 37 automated tests pass; TypeScript and Vite production build pass.
+- Projects start at 16 bars, expose a 1–1024 bar duration control, reject destructive shrinking and auto-grow in four-bar blocks when content reaches the end.
+- 42 automated tests pass; TypeScript and Vite production build pass.
 
 ## Manual validation
 
@@ -47,4 +48,4 @@
 
 ## Next milestone
 
-Implement project duration and automatic four-bar growth first, then add wide-range Arranger zoom and Fit Project. Clip edge-resizing and track/clip renaming follow once the timeline can represent longer projects comfortably.
+Add wide-range Arranger zoom and Fit Project. Clip edge-resizing and track/clip renaming follow once the timeline can represent longer projects comfortably.

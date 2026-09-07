@@ -50,4 +50,19 @@ describe('ProjectStore', () => {
     store.addTrack({ name: 'Bass' });
     expect(events).toEqual(['track:add', 'project:update']);
   });
+
+  it('grows by four bars when a clip reaches the project end', () => {
+    const store = new ProjectStore(createProject({ id: 'project-test-growth', lengthBars: 4 }), sequentialIds());
+    const track = store.addTrack({ name: 'Piano' });
+    store.addClip(track.id, { name: 'Last bar', startBeat: 12, lengthBeats: 4 });
+    expect(store.getSnapshot().lengthBars).toBe(8);
+  });
+
+  it('rejects a manual shrink that would cut existing clips', () => {
+    const store = new ProjectStore(createProject({ id: 'project-test-shrink', lengthBars: 8 }), sequentialIds());
+    const track = store.addTrack({ name: 'Piano' });
+    store.addClip(track.id, { name: 'Ending', startBeat: 20, lengthBeats: 4 });
+    expect(() => store.updateProject({ lengthBars: 5 })).toThrow(/must end within the project/);
+    expect(store.getSnapshot().lengthBars).toBe(8);
+  });
 });
