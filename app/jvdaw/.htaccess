@@ -1,0 +1,10 @@
+Options -MultiViews
+
+RewriteEngine On
+RewriteBase /jvdaw/
+
+Header set X-Robots-Tag "noindex, nofollow"
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /jvdaw/index.html [L]

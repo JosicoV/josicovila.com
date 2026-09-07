@@ -21,3 +21,6 @@ desktop.ini
 
 # Escenas aprobadas: se publican por SCP para no versionar 115 binarios.
 /app/img/track-scenes/
+
+# JV Studio dependencies are restored from its lockfile.
+/apps/jvdaw/node_modules/

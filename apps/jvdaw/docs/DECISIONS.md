@@ -1,0 +1,117 @@
+# JV Studio — Architecture decisions
+
+## ADR-001 — Keep JVDAW in the josicovila.com repository
+
+**Status:** Accepted  
+**Decision:** Keep the application source in `apps/jvdaw/` and serve its build at `/jvdaw/`.
+
+This keeps the future homepage CTA and JV Studio release coordinated while preserving a clean boundary from the existing PHP application.
+
+## ADR-002 — Generate deployable assets under app/jvdaw
+
+**Status:** Accepted for the current deployment model  
+**Decision:** Configure Vite to write its production output to `app/jvdaw/`.
+
+The current Apache container bind-mounts `app/` over `/var/www/html`, including in the VPS reference configuration. Assets placed only in a Docker build stage would therefore be hidden by that mount. Generated files must never be edited by hand.
+
+## ADR-003 — Audio processing remains client-side
+
+**Status:** Accepted  
+**Decision:** Use Tone.js over the Web Audio API and require a user gesture before starting the AudioContext.
+
+The VPS serves static assets and does not synthesize, mix or render audio.
+
+## ADR-004 — Keep the first milestone deliberately narrow
+
+**Status:** Accepted  
+**Decision:** Implement only the shell, one synth pattern, transport controls and BPM editing before any complete arranger or piano-roll editor.
+
+This validates timing and browser audio behavior before building editing features on top.
+
+## ADR-005 — Use an unlisted public URL for pre-launch testing
+
+**Status:** Accepted  
+**Decision:** Allow real-environment testing at `/jvdaw/` without adding the homepage CTA, and mark the application `noindex, nofollow` until launch.
+
+The URL is intentionally unannounced, but it is not authentication and must not be treated as private access.
+
+## ADR-006 — Validate a versioned domain model at every mutation boundary
+
+**Status:** Accepted  
+**Decision:** Represent projects as versioned JSON and route changes through an immutable `ProjectStore`. Validate loaded projects and every completed store mutation.
+
+IDs remain stable and unique across the project. Store snapshots are cloned so UI code cannot mutate internal state accidentally, and semantic change events leave a clean seam for future Undo/Redo.
+
+## ADR-007 — Express musical scheduling in beats and transport ticks
+
+**Status:** Accepted  
+**Decision:** Store note and clip positions in beats, converting them to Tone.js transport ticks only at the audio boundary.
+
+This keeps project data independent of tempo and allows BPM changes to affect playback without rewriting note positions.
+
+## ADR-008 — Render the arranger from store snapshots
+
+**Status:** Accepted  
+**Decision:** Build track lanes, clips, selection details and project timing from cloned `ProjectStore` snapshots rather than maintaining parallel UI data.
+
+Clip creation snaps to a full bar in this first slice and refuses overlaps. Finer snap choices and drag editing remain separate follow-up work so their interaction rules can be tested explicitly.
+
+## ADR-009 — Clip editing and playback agree
+
+Clips play once at their displayed position; the global project range loops. The old hidden one-bar demo repeat is removed. Structural store changes stop playback and replace the schedule; Play starts the new arrangement. Live seamless rescheduling is deferred.
+
+## ADR-010 — Help grows with the product
+
+At the user's request, every added function or shortcut updates the in-app Help guide in the same change. Help describes shipped behavior, keyboard scope and present limitations. It is implemented as a native modal dialog with Escape dismissal and focus return to its launcher.
+
+## ADR-011 — First piano roll uses a separate working panel
+
+**Status:** Superseded by ADR-014  
+
+Piano Roll temporarily covers the arranger while leaving the global transport available. It owns note selection and scoped shortcuts; the arranger retains clip selection. DOM notes use quarter-note beats, 20px semitone rows and pure geometry functions for snapping and boundary constraints. Pointer previews do not mutate the store until release. Changes are validated by ProjectStore, update the arrangement and stop playback. The playhead reads cached clip bounds instead of cloning the project every frame.
+
+## ADR-012 — Audition notes without changing transport
+
+Keyboard and note previews use a separate synth voice with the same current preset, avoiding note-off interference with arranged playback. Apply the selected track volume and a short fixed preview duration. Future instrument selection must update both playback and preview together. Key labels show only C octaves, while full pitches remain accessible via tooltips and aria labels.
+
+Drag uses pointer capture on the stable arranger container, a five-pixel threshold and a visual preview. A successful drop commits one store mutation. Escape/pointer cancellation leaves the model intact; collisions and project boundary violations are rejected. Keyboard shortcuts are scoped to the focused arranger.
+
+## ADR-013 — Give every track an independent live audio chain
+
+Each instrument track owns separate playback and preview synthesizers feeding independent gain and stereo-panner nodes. A shared preset factory keeps arranged playback and Piano Roll audition sonically consistent. Volume, pan, Mute and Solo update these nodes without stopping transport; structural clip/note changes still rebuild the schedule and return to the start.
+
+All track events remain scheduled even while muted or excluded by Solo, so changing the mix during playback takes effect immediately. Preview deliberately bypasses Mute/Solo while retaining track volume and pan, allowing a muted track to be auditioned while editing.
+
+## ADR-014 — Combine Arranger and Piano Roll after the mixer milestone
+
+**Status:** Implemented  
+The workspace keeps Arranger above an optional docked Piano Roll, sharing transport and clip selection, with controls to close, expand or restore the editor. Selecting another clip while docked changes the edited clip; selecting only a track or deleting the edited clip closes the editor cleanly.
+
+Horizontal and vertical accessible separators resize Arranger/Piano Roll height and Tracks/Arranger width within safe viewport bounds. Pointer and arrow-key changes are stored in `sessionStorage`; unavailable storage does not disable resizing. Piano black-key rows use a subtle repeating background aligned to the 20px semitone grid.
+
+## ADR-015 — Select the whole interface language from the browser locale
+
+At startup, locales beginning with `es` use Spanish for the complete UI and Help, covering all regional Spanish variants. Every other locale uses English as the fallback. Stable project fields such as instrument IDs remain language-neutral while display names and descriptions are localized, so changing browser language never changes project compatibility.
+
+Both language variants must be updated whenever a visible behavior or Help entry changes. The root document `lang` attribute is set to the resolved language for assistive technology.
+
+## ADR-016 — Keep clip duration flexible and names editable
+
+**Status:** Planned  
+The one-bar duration belongs only to the current default creation gesture; it is not a project-model restriction. Arranger clips will gain edge resizing with musical snap so they can span fractions of a bar, one bar or multiple bars, while remaining inside the project and avoiding same-track overlaps.
+
+Track and clip names are user-editable project data and must be renameable from the interface. Shortening a clip must not silently destroy notes that would fall outside its new end; the exact non-destructive interaction will be finalized with the resize implementation.
+
+## ADR-017 — Give Arranger a wide zoom range and Fit Project mode
+
+**Status:** Planned  
+Arranger zoom must cover both detailed editing and a complete-song overview. A Fit Project mode computes bar width from the available lane width so projects such as 40 bars remain visible without mandatory horizontal scrolling. It recalculates when project duration or the Tracks/Arranger divider changes.
+
+Manual zoom uses a substantially wider pixels-per-bar range than Piano Roll and enables horizontal scrolling for precision. The ruler reduces label frequency as bars become narrow, while track labels remain fixed. Changing zoom should preserve a useful visual anchor rather than unexpectedly jumping to the beginning.
+
+## ADR-018 — Separate panel focus from visibility and distinguish Pause from Stop
+
+**Status:** Implemented  
+Arranger and Piano Roll are adjacent workspace controls whose active state identifies the focused panel; switching focus does not hide either panel in the combined layout. Help belongs in the top bar beside project actions so workspace navigation stays grouped. Piano Roll remains unavailable until a clip is selected.
+
+Pause releases active voices and preserves the transport position, Play resumes from that position, and Stop returns to the beginning. Space toggles Play/Pause only from the non-editable workspace; inputs, selectors, buttons, editable content and open dialogs retain their native keyboard behavior.
