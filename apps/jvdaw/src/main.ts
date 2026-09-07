@@ -7,6 +7,7 @@ import { demoProject } from './project/demoProject';
 import { barsToBeats, beatsPerBar, MAX_PROJECT_BARS, midiToNoteName, minimumProjectLengthBars, normalizeBpm, ProjectStore } from './project';
 import { clipStartFromPointer, findFirstAvailableClipStart, isClipRangeAvailable } from './ui/arranger/clipPlacement';
 import { installClipEditing } from './ui/arranger/clipEditing';
+import { arrangerBarWidth, arrangerLaneWidth, arrangerRulerStep, isArrangerZoom, type ArrangerZoom } from './ui/arranger/arrangerZoom';
 import { installHelp } from './ui/help/HelpDialog';
 import { installResizableSeparator } from './ui/layout/resizablePanels';
 import { installPianoRoll } from './ui/piano-roll/PianoRoll';
@@ -87,6 +88,17 @@ app.innerHTML = `
               <span>${l('COMPASES', 'BARS')}</span>
               <input type="number" min="1" max="1024" step="1" data-project-length aria-label="${l('Duración del proyecto en compases', 'Project length in bars')}" />
             </label>
+            <label class="arranger-zoom-control">
+              <span>ZOOM</span>
+              <select data-arranger-zoom aria-label="${l('Zoom del Arranger', 'Arranger zoom')}">
+                <option value="fit">${l('Ajustar', 'Fit project')}</option>
+                <option value="12">25%</option>
+                <option value="24">50%</option>
+                <option value="48">100%</option>
+                <option value="96">200%</option>
+                <option value="192">400%</option>
+              </select>
+            </label>
             <span class="range-copy" data-range></span>
             <button type="button" data-action="add-clip">＋ ${l('Nuevo clip', 'New clip')}</button>
             <button type="button" data-action="duplicate-clip" title="Ctrl+D">${l('Duplicar', 'Duplicate')}</button>
@@ -94,7 +106,7 @@ app.innerHTML = `
           </div>
         </div>
 
-        <div class="timeline" data-timeline aria-hidden="true"></div>
+        <div class="timeline-shell" aria-hidden="true"><span></span><div class="timeline-viewport"><div class="timeline" data-timeline></div></div></div>
         <div class="arrangement" data-arrangement tabindex="0" aria-label="${l('Arranger. Las flechas mueven clips; Ctrl+D duplica; Supr borra; Escape cancela el arrastre.', 'Arranger. Arrow keys move clips; Ctrl+D duplicates; Delete removes; Escape cancels drag.')}"></div>
 
         <footer class="milestone-note">
@@ -119,6 +131,7 @@ const pauseButton = document.querySelector<HTMLButtonElement>('[data-action="pau
 const stopButton = document.querySelector<HTMLButtonElement>('[data-action="stop"]');
 const bpmInput = document.querySelector<HTMLInputElement>('[data-bpm]');
 const projectLengthInput = document.querySelector<HTMLInputElement>('[data-project-length]');
+const arrangerZoomInput = document.querySelector<HTMLSelectElement>('[data-arranger-zoom]');
 const signatureLabel = document.querySelector<HTMLElement>('[data-signature]');
 const statusLabel = document.querySelector<HTMLElement>('[data-status]');
 const trackList = document.querySelector<HTMLElement>('[data-track-list]');
@@ -131,6 +144,7 @@ const selectionCopy = document.querySelector<HTMLElement>('[data-selection-copy]
 const arrangerPanel = document.querySelector<HTMLElement>('.arranger-panel');
 const workspace = document.querySelector<HTMLElement>('.workspace');
 const workspaceDivider = document.querySelector<HTMLElement>('[data-workspace-divider]');
+let arrangerZoom: ArrangerZoom = 'fit';
 
 if (workspace && workspaceDivider) installResizableSeparator({
   element: workspaceDivider,
@@ -160,6 +174,7 @@ document.querySelector('[data-action="piano-roll"]')?.addEventListener('click', 
 const trackColors = ['#11b9f2', '#39dfa0', '#ff8a3d', '#8b5cf6', '#f45f9a', '#f5c84b'];
 
 function render(): void {
+  const previousScrollLeft = arrangement?.scrollLeft ?? 0;
   const project = store.getSnapshot();
   const barLength = beatsPerBar(project.timeSignature);
   const projectBeats = barsToBeats(project.lengthBars, project.timeSignature);
@@ -180,7 +195,7 @@ function render(): void {
 
   if (timeline) {
     timeline.style.setProperty('--bars', String(project.lengthBars));
-    timeline.innerHTML = Array.from({ length: project.lengthBars }, (_, index) => `<span>${index + 1}</span>`).join('');
+    timeline.innerHTML = Array.from({ length: project.lengthBars }, (_, index) => `<span data-bar="${index + 1}"></span>`).join('');
   }
 
   if (trackList) {
@@ -247,10 +262,30 @@ function render(): void {
         )
         .join('')}
     `;
+    syncArrangerScale(project.lengthBars);
+    arrangement.scrollLeft = Math.min(previousScrollLeft, Math.max(0, arrangement.scrollWidth - arrangement.clientWidth));
+    syncArrangerRulerScroll();
   }
 
   renderInspector(selectedTrack, selectedClip);
   renderSelectionSummary(selectedTrack, selectedClip);
+}
+
+function syncArrangerScale(bars = store.getSnapshot().lengthBars): void {
+  if (!arrangement || !arrangerPanel) return;
+  const laneWidth = arrangerLaneWidth(arrangerZoom, arrangement.clientWidth, bars);
+  const barWidth = arrangerBarWidth(arrangerZoom, arrangement.clientWidth, bars);
+  arrangerPanel.style.setProperty('--arranger-lane-width', `${laneWidth}px`);
+  const rulerStep = arrangerRulerStep(barWidth);
+  for (const marker of timeline?.querySelectorAll<HTMLElement>('[data-bar]') ?? []) {
+    const bar = Number(marker.dataset.bar);
+    marker.textContent = bar === 1 || (bar - 1) % rulerStep === 0 ? String(bar) : '';
+  }
+}
+
+function syncArrangerRulerScroll(): void {
+  if (!timeline || !arrangement) return;
+  timeline.style.transform = `translateX(${-arrangement.scrollLeft}px)`;
 }
 
 function renderInspector(
@@ -495,6 +530,29 @@ projectLengthInput?.addEventListener('change', () => {
     l(`El proyecto tiene ahora ${requested} compases.`, `The project now has ${requested} bars.`),
   );
 });
+
+arrangerZoomInput?.addEventListener('change', () => {
+  const value = arrangerZoomInput.value;
+  arrangerZoom = value === 'fit' ? 'fit' : isArrangerZoom(value) ? Number(value) as ArrangerZoom : 'fit';
+  syncArrangerScale();
+  if (arrangerZoom === 'fit' && arrangement) arrangement.scrollLeft = 0;
+  syncArrangerRulerScroll();
+  const percent = arrangerZoom === 'fit' ? null : Math.round((arrangerZoom / 48) * 100);
+  setUiMessage(
+    l('Zoom del Arranger', 'Arranger zoom'),
+    percent === null
+      ? l('El proyecto completo cabe en el ancho disponible.', 'The complete project fits the available width.')
+      : l(`Escala ajustada al ${percent}%.`, `Scale set to ${percent}%.`),
+  );
+});
+
+arrangement?.addEventListener('scroll', syncArrangerRulerScroll, { passive: true });
+if (arrangement && typeof ResizeObserver !== 'undefined') {
+  new ResizeObserver(() => {
+    if (arrangerZoom === 'fit') syncArrangerScale();
+    syncArrangerRulerScroll();
+  }).observe(arrangement);
+}
 
 trackList?.addEventListener('click', (event) => {
   const toggle = (event.target as HTMLElement).closest<HTMLElement>('[data-track-toggle]');

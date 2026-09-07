@@ -104,7 +104,7 @@ Track and clip names are user-editable project data and must be renameable from 
 
 ## ADR-017 — Give Arranger a wide zoom range and Fit Project mode
 
-**Status:** Planned  
+**Status:** Implemented
 Arranger zoom must cover both detailed editing and a complete-song overview. A Fit Project mode computes bar width from the available lane width so projects such as 40 bars remain visible without mandatory horizontal scrolling. It recalculates when project duration or the Tracks/Arranger divider changes.
 
 Manual zoom uses a substantially wider pixels-per-bar range than Piano Roll and enables horizontal scrolling for precision. The ruler reduces label frequency as bars become narrow, while track labels remain fixed. Changing zoom should preserve a useful visual anchor rather than unexpectedly jumping to the beginning.
