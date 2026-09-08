@@ -12,4 +12,6 @@ services:
       # El hero carga logo3D.glb desde aquí. Sin este montaje el modelo da 404
       # en el VPS y la esfera se queda sin logo.
       - ./data/3Dassets:/var/www/html/data/3Dassets
+      # Instrument manifests, licences and ignored OGG files for local testing.
+      - ./apps/jvstudio/public/instruments:/var/www/html/jvstudio/instruments:ro
     restart: unless-stopped

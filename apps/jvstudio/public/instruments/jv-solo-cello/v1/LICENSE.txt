@@ -1,0 +1,27 @@
+JV Solo Cello v1.0.0
+Part of the JV Instrument Library.
+
+SOURCE MATERIAL
+  Name:     University of Iowa Musical Instrument Samples
+  Author:   Lawrence Fritts / University of Iowa Electronic Music Studios
+  License:  LicenseRef-UIowa-MIS
+  URL:      https://theremin.music.uiowa.edu/MIScello.html
+  Obtained: 2026-09-08
+
+ATTRIBUTION
+  Not legally required by this license. Included for traceability.
+  Samples from the University of Iowa Electronic Music Studios Musical Instrument Samples (MIS), released free of copyright restrictions.
+
+LICENSE TEXT
+  https://theremin.music.uiowa.edu/MIS.html
+
+MODIFICATIONS APPLIED TO THE ORIGINAL
+  - segmentación de escalas cromáticas en notas sueltas (tools/split_iowa.py)
+  - asignación de nota por medición de altura, no por el nombre de archivo
+  - descarte de segmentos con más de 45 cents de desviación
+  - trim de silencio inicial y final
+  - fade in 5 ms / fade out 40 ms
+  - normalización RMS por instrumento
+  - conversión a OGG Vorbis 44.1 kHz
+
+Built 2026-09-08T12:34:33+00:00 by build_instrument.py 0.1.0.

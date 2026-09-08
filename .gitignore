@@ -24,3 +24,8 @@ desktop.ini
 
 # JV Studio dependencies are restored from its lockfile.
 /apps/jvstudio/node_modules/
+
+# JV Instrument Library: manifests and licences are versioned, sample binaries
+# are published separately to the VPS so they do not grow Git history.
+/apps/jvstudio/public/instruments/*/v1/samples/
+/app/jvstudio/instruments/*/v1/samples/

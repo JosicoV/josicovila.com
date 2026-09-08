@@ -1,0 +1,25 @@
+JV Clarinet v1.0.0
+Part of the JV Instrument Library.
+
+SOURCE MATERIAL
+  Name:     VSCO 2 Community Edition
+  Author:   Versilian Studios / Sam Gossner
+  License:  CC0-1.0
+  URL:      https://github.com/sgossner/VSCO-2-CE
+  Obtained: 2026-09-08
+
+ATTRIBUTION
+  Not legally required by this license. Included for traceability.
+  Samples from VSCO 2 Community Edition by Versilian Studios / Sam Gossner (CC0 1.0), with contributions from Ivy Audio / Simon Dalzell.
+
+LICENSE TEXT
+  https://creativecommons.org/publicdomain/zero/1.0/
+
+MODIFICATIONS APPLIED TO THE ORIGINAL
+  - trim de silencio inicial y final
+  - fade in 5 ms / fade out 40 ms
+  - normalizacion RMS por instrumento
+  - conversion a OGG Vorbis 44.1 kHz
+  - reetiquetado de notas +12 semitonos para declarar la nota sonante
+
+Built 2026-09-08T12:36:03+00:00 by build_instrument.py 0.1.0.

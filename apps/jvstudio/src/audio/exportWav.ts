@@ -22,14 +22,20 @@ export async function renderProjectWav(project: Project): Promise<Blob> {
   const renderSeconds = projectSeconds + RELEASE_TAIL_SECONDS;
   if (renderSeconds > MAX_WAV_EXPORT_SECONDS) throw new RangeError('WAV export exceeds the 20 minute safety limit.');
 
-  const rendered = await Tone.Offline(() => {
+  const events = scheduleEvents(project);
+  const rendered = await Tone.Offline(async () => {
     const voices = new Map<string, InstrumentVoice>();
     for (const track of project.tracks) {
       const panner = new Tone.Panner(track.pan).toDestination();
       const gain = new Tone.Gain(trackGain(track, project.tracks)).connect(panner);
       voices.set(track.id, createInstrument(track.instrumentId, gain));
     }
-    for (const note of scheduleEvents(project)) {
+    for (const track of project.tracks) {
+      await voices.get(track.id)?.prepare(
+        events.filter((note) => note.trackId === track.id).map((note) => ({ midi: note.midi, velocity: note.velocity })),
+      );
+    }
+    for (const note of events) {
       voices.get(note.trackId)?.triggerAttackRelease(
         Tone.Frequency(note.midi, 'midi').toNote(),
         note.durationBeats * beatSeconds,

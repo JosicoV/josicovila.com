@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "id": "jv-concert-flute-vib",
+  "name": "JV Concert Flute (Vibrato)",
+  "version": "1.0.0",
+  "category": "woodwinds",
+  "engine": "sampler",
+  "source": {
+    "key": "vsco2",
+    "name": "VSCO 2 Community Edition",
+    "author": "Versilian Studios / Sam Gossner",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "attributionRequired": false,
+    "attribution": "Samples from VSCO 2 Community Edition by Versilian Studios / Sam Gossner (CC0 1.0), with contributions from Ivy Audio / Simon Dalzell.",
+    "url": "https://github.com/sgossner/VSCO-2-CE",
+    "downloadedAt": "2026-09-08",
+    "modifications": [
+      "trim de silencio inicial y final",
+      "fade in 5 ms / fade out 40 ms",
+      "normalización RMS por instrumento",
+      "conversión a OGG Vorbis 44.1 kHz",
+      "reetiquetado de notas +12 semitonos para declarar la nota sonante"
+    ]
+  },
+  "audio": {
+    "format": "ogg",
+    "codec": "vorbis",
+    "sampleRate": 44100,
+    "channels": 2,
+    "quality": 0.6
+  },
+  "playback": {
+    "attack": 0.03,
+    "release": 0.25,
+    "gainDb": -2.0
+  },
+  "range": {
+    "lowest": "C4",
+    "highest": "C7",
+    "lowestMidi": 60,
+    "highestMidi": 96
+  },
+  "velocityLayers": [
+    {
+      "name": "mf",
+      "velocityMin": 1,
+      "velocityMax": 127
+    }
+  ],
+  "samples": [
+    {
+      "file": "samples/C4-mf.ogg",
+      "root": "C4",
+      "rootMidi": 60,
+      "layer": "mf",
+      "velocityMin": 1,
+      "velocityMax": 127,
+      "loNote": 0,
+      "hiNote": 62,
+      "bytes": 106060,
+      "durationSec": 7.5232,
+      "peakDb": -28.43,
+      "sha256": "b688ef00dcf72e70f77637581319171befca3e9807ddd5c97894bb8f0eeecf13"
+    },
+    {
+      "file": "samples/E4-mf.ogg",
+      "root": "E4",
+      "rootMidi": 64,
+      "layer": "mf",
+      "velocityMin": 1,
+      "velocityMax": 127,
+      "loNote": 63,
+      "hiNote": 66,
+      "bytes": 148532,
+      "durationSec": 10.3501,
+      "peakDb": -25.3,
+      "sha256": "b759ccc8c307fe0580a8e3cde9d7b43c9de0b198ae45471a3f518cc8801287b9"
+    },
+    {
+      "file": "samples/A4-mf.ogg",
+      "root": "A4",
+      "rootMidi": 69,
+      "layer": "mf",
+      "velocityMin": 1,
+      "velocityMax": 127,
+      "loNote": 67,
+      "hiNote": 70,
+      "bytes": 118333,
+      "durationSec": 7.6057,
+      "peakDb": -22.14,
+      "sha256": "c687cd3edaca91f2874092b56cd49fd00b9db586eae5f8633356ee362fcd2314"
+    },
+    {
+      "file": "samples/C5-mf.ogg",
+      "root": "C5",
+      "rootMidi": 72,
+      "layer": "mf",
+      "velocityMin": 1,
+      "velocityMax": 127,
+      "loNote": 71,
+      "hiNote": 74,
+      "bytes": 116203,
+      "durationSec": 7.2412,
+      "peakDb": -22.98,
+      "sha256": "fd052f1c2781dcf15abeba22a204741261e6a6a16e51875824e41e21c0c8963b"
+    },
+    {
+      "file": "samples/E5-mf.ogg",
+      "root": "E5",
+      "rootMidi": 76,
+      "layer": "mf",
+      "velocityMin": 1,
+      "velocityMax": 127,
+      "loNote": 75,
+      "hiNote": 78,
+      "bytes": 119990,
+      "durationSec": 7.7921,
+      "peakDb": -19.6,
+      "sha256": "28961566105a79fa8dfd67623a15be2ec194896a3902c2610db15ed4e50c5a93"
+    },
+    {
+      "file": "samples/A5-mf.ogg",
+      "root": "A5",
+      "rootMidi": 81,
+      "layer": "mf",
+      "velocityMin": 1,
+      "velocityMax": 127,
+      "loNote": 79,
+      "hiNote": 82,
+      "bytes": 112498,
+      "durationSec": 6.9767,
+      "peakDb": -19.36,
+      "sha256": "d631d759e639328f36ef0383df27ab79d56c5b7feab35f65735633e06edddbf2"
+    },
+    {
+      "file": "samples/C6-mf.ogg",
+      "root": "C6",
+      "rootMidi": 84,
+      "layer": "mf",
+      "velocityMin": 1,
+      "velocityMax": 127,
+      "loNote": 83,
+      "hiNote": 86,
+      "bytes": 101946,
+      "durationSec": 6.4734,
+      "peakDb": -14.4,
+      "sha256": "d9e1490734cf359938b08b7028ff4bb01e1bfc459455165ded5bb250d60c51f7"
+    },
+    {
+      "file": "samples/E6-mf.ogg",
+      "root": "E6",
+      "rootMidi": 88,
+      "layer": "mf",
+      "velocityMin": 1,
+      "velocityMax": 127,
+      "loNote": 87,
+      "hiNote": 90,
+      "bytes": 83770,
+      "durationSec": 5.5364,
+      "peakDb": -13.06,
+      "sha256": "4a263d316fee87fbff5d3aec9ab73abf62296538b21808c1517ae0c7cfadd6b1"
+    },
+    {
+      "file": "samples/A6-mf.ogg",
+      "root": "A6",
+      "rootMidi": 93,
+      "layer": "mf",
+      "velocityMin": 1,
+      "velocityMax": 127,
+      "loNote": 91,
+      "hiNote": 94,
+      "bytes": 70164,
+      "durationSec": 5.0222,
+      "peakDb": -9.0,
+      "sha256": "f507c9082fb63d30cfc4c7f39553916534e542237d0227b2f10aa2e3d65e2ef1"
+    },
+    {
+      "file": "samples/C7-mf.ogg",
+      "root": "C7",
+      "rootMidi": 96,
+      "layer": "mf",
+      "velocityMin": 1,
+      "velocityMax": 127,
+      "loNote": 95,
+      "hiNote": 127,
+      "bytes": 64108,
+      "durationSec": 4.2645,
+      "peakDb": -7.12,
+      "sha256": "7d99c15b8e6cb98fc3e371bfa5ab7859208cc32acb11b7779a6105a88a6bb678"
+    }
+  ],
+  "totals": {
+    "sampleCount": 10,
+    "bytes": 1041604,
+    "durationSec": 68.785
+  },
+  "build": {
+    "builtAt": "2026-09-08T01:29:13+00:00",
+    "tool": "build_instrument.py",
+    "toolVersion": "0.1.0",
+    "configSha256": "4e65d8cfdca4ce8d2a272c5a749dfa29cbb2f49c6e6ec506318d167782fb555e"
+  },
+  "description": "Flauta traversa, sostenido con vibrato, 1 capa de velocity. C4-C7 (nota sonante)."
+}

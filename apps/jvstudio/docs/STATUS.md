@@ -7,7 +7,8 @@
 - Arranger with track/clip selection, creation, bar-snapped drag, duplicate/delete, overlap protection, playhead and scoped keyboard shortcuts.
 - Piano Roll with MIDI 0–127 keyboard, octave-C labels, Draw/Select/Erase, drag/resize, 1/4–1/32 snap, zoom, numeric editing and clip-relative playhead.
 - Track-aware note audition from keys, drawing, selection and every semitone crossed during vertical drag.
-- Nine original synthesized presets plus the manifest-backed JV Grand Piano Light, with one playback and one preview voice per track.
+- Thirteen definitive JV Instrument Library v1 sampler instruments discovered through versioned manifests, with lazy per-sample loading and shared decoded-buffer caching.
+- Manifest-driven range, velocity zones, roots, mono/stereo buffers and playback envelopes; a header progress bar reports first-use sample preparation.
 - Live per-track volume, stereo pan, Mute and multi-Solo controls; structural edits still stop and rebuild playback.
 - Browser-language UI: every `es-*` locale receives Spanish; every other locale falls back to English. Instrument IDs and project data remain locale-neutral.
 - Bilingual in-app Help covering every shipped function, shortcut and current limitation.
@@ -22,7 +23,7 @@
 - Tracks and clips can be renamed; clips resize from the right edge in half-bar steps without clipping notes or crossing another clip.
 - Save downloads a validated `.jvstudio.json` file; Open restores it. A dismissible welcome and unsaved-change guard explain the session model before users begin.
 - Export WAV renders the full mix offline in the browser as 44.1 kHz stereo 16-bit PCM, with a 20-minute safety limit.
-- 48 automated tests pass; TypeScript and Vite production build pass.
+- 49 automated tests pass; TypeScript and Vite production build pass.
 
 ## Manual validation
 
@@ -44,8 +45,8 @@
 
 - The application is desktop-only below 780px.
 - Project edits exist only in memory until the user downloads a `.jvstudio.json` file; refreshing without saving resets the demo.
-- Drum Synth is tonal synthesized percussion, not a mapped sample-based drum kit.
+- Production requires the separately deployed JV Instrument Library data mount; the application reports missing samples cleanly if that prerequisite is absent.
 
 ## Next milestone
 
-Add undo/redo history and consider lightweight browser autosave as a recovery layer, while keeping file Save/Open explicit. Integrate the new instrument material separately when it is ready.
+Deploy and smoke-test the definitive instrument library on the VPS, then add undo/redo history and consider lightweight browser autosave as a recovery layer while keeping file Save/Open explicit.

@@ -28,9 +28,9 @@ const demoClip = createClip({
 });
 
 const demoTrack = createTrack({
-  id: 'track-demo-synth',
-  name: 'Pulse Synth',
-  instrumentId: 'jv-poly-synth',
+  id: 'track-demo-piano',
+  name: 'JV Grand Piano',
+  instrumentId: 'jv-grand-piano',
   color: '#11b9f2',
   clips: [demoClip],
 });

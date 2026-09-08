@@ -160,9 +160,11 @@ export class AudioEngine {
 
   private async prepareScheduledSamples(): Promise<void> {
     const notes = scheduleEvents(this.project);
-    await Promise.all(this.project.tracks.map((track) => this.voices.get(track.id)?.playback.prepare(
-      notes.filter((note) => note.trackId === track.id).map((note) => ({ midi: note.midi, velocity: note.velocity })),
-    )));
+    for (const track of this.project.tracks) {
+      await this.voices.get(track.id)?.playback.prepare(
+        notes.filter((note) => note.trackId === track.id).map((note) => ({ midi: note.midi, velocity: note.velocity })),
+      );
+    }
   }
 
   private syncVoices(project: Project): void {

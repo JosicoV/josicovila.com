@@ -2,7 +2,7 @@ import './styles.css';
 
 import { AudioEngine, type AudioState } from './audio/AudioEngine';
 import { renderProjectWav } from './audio/exportWav';
-import { instruments, instrumentPlayableRange, resolveInstrument } from './audio/instruments';
+import { initializeInstrumentCatalog, instruments, instrumentPlayableRange, onInstrumentLoadProgress, resolveInstrument } from './audio/instruments';
 import { l } from './i18n';
 import { demoProject } from './project/demoProject';
 import { barsToBeats, beatsPerBar, MAX_PROJECT_BARS, midiToNoteName, minimumProjectLengthBars, normalizeBpm, projectFileName, ProjectStore, wavFileName } from './project';
@@ -16,6 +16,14 @@ import { showSessionNotice } from './ui/project/SessionNotice';
 
 const app = document.querySelector<HTMLDivElement>('#app');
 if (!app) throw new Error('JV Studio root element was not found.');
+
+try {
+  await initializeInstrumentCatalog();
+} catch (error) {
+  const detail = error instanceof Error ? error.message : 'Unknown instrument library error.';
+  app.innerHTML = `<main class="studio-shell"><section class="session-notice"><h1>JV Studio</h1><p>${escapeHtml(detail)}</p></section></main>`;
+  throw error;
+}
 
 const store = new ProjectStore(demoProject);
 let selectedTrackId = demoProject.tracks[0].id;
@@ -61,6 +69,10 @@ app.innerHTML = `
         <button type="button" data-action="save-project">${l('Guardar', 'Save')}</button>
         <button type="button" data-action="export-wav">${l('Exportar WAV', 'Export WAV')}</button>
         <button class="top-help" type="button" data-action="help" aria-label="${l('Ayuda: guía y atajos', 'Help: guide and shortcuts')}">? ${l('Ayuda', 'Help')}</button>
+      </div>
+      <div class="instrument-load" data-instrument-load hidden role="status" aria-live="polite">
+        <span data-instrument-load-label></span>
+        <progress data-instrument-load-progress max="100" value="0"></progress>
       </div>
     </header>
 
@@ -141,6 +153,9 @@ const projectLengthInput = document.querySelector<HTMLInputElement>('[data-proje
 const arrangerZoomInput = document.querySelector<HTMLSelectElement>('[data-arranger-zoom]');
 const signatureLabel = document.querySelector<HTMLElement>('[data-signature]');
 const statusLabel = document.querySelector<HTMLElement>('[data-status]');
+const instrumentLoad = document.querySelector<HTMLElement>('[data-instrument-load]');
+const instrumentLoadLabel = document.querySelector<HTMLElement>('[data-instrument-load-label]');
+const instrumentLoadProgress = document.querySelector<HTMLProgressElement>('[data-instrument-load-progress]');
 const trackList = document.querySelector<HTMLElement>('[data-track-list]');
 const inspector = document.querySelector<HTMLElement>('[data-inspector]');
 const timeline = document.querySelector<HTMLElement>('[data-timeline]');
@@ -153,6 +168,20 @@ const workspace = document.querySelector<HTMLElement>('.workspace');
 const workspaceDivider = document.querySelector<HTMLElement>('[data-workspace-divider]');
 let arrangerZoom: ArrangerZoom = 'fit';
 let hasUnsavedChanges = false;
+let instrumentLoadHideTimer = 0;
+
+onInstrumentLoadProgress((progress) => {
+  if (!instrumentLoad || !instrumentLoadLabel || !instrumentLoadProgress) return;
+  const percent = progress.totalBytes > 0 ? Math.round((progress.loadedBytes / progress.totalBytes) * 100) : 0;
+  instrumentLoad.hidden = false;
+  instrumentLoad.dataset.error = progress.error ? 'true' : 'false';
+  instrumentLoadLabel.textContent = progress.error
+    ? l(`No se pudo cargar ${progress.instrumentName}`, `Could not load ${progress.instrumentName}`)
+    : l(`Cargando ${progress.instrumentName} · ${percent}%`, `Loading ${progress.instrumentName} · ${percent}%`);
+  instrumentLoadProgress.value = percent;
+  window.clearTimeout(instrumentLoadHideTimer);
+  if (!progress.active) instrumentLoadHideTimer = window.setTimeout(() => { instrumentLoad.hidden = true; }, progress.error ? 4000 : 550);
+});
 
 if (workspace && workspaceDivider) installResizableSeparator({
   element: workspaceDivider,
@@ -173,7 +202,7 @@ const pianoRoll = installPianoRoll(store, () => {
   await audioEngine.previewNote(trackId, midi, velocity);
 }, async (trackId) => {
   const track = store.getSnapshot().tracks.find((item) => item.id === trackId);
-  return instrumentPlayableRange(track?.instrumentId ?? 'jv-poly-synth');
+  return instrumentPlayableRange(track?.instrumentId ?? instruments[0].id);
 });
 document.querySelector('[data-action="piano-roll"]')?.addEventListener('click', () => {
   if (selectedClipId) {
@@ -396,7 +425,7 @@ function addTrack(): void {
   const number = snapshot.tracks.length + 1;
   const track = store.addTrack({
     name: l(`Pista ${number}`, `Track ${number}`),
-    instrumentId: 'basic-piano',
+    instrumentId: instruments[0].id,
     color: trackColors[(number - 1) % trackColors.length],
   });
   selectedTrackId = track.id;

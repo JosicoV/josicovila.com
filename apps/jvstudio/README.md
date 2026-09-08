@@ -18,6 +18,38 @@ npm test
 npm run build
 ```
 
+## Instrument sample deployment
+
+Instrument manifests, licences and the frozen schema are versioned in Git. The
+OGG sample binaries are deliberately ignored. Production receives a verified
+copy of the complete public instrument library in
+`/opt/containers/josicovila-com/data/jvstudio-instruments`, mounted read-only at
+`/var/www/html/jvstudio/instruments`, so it survives Git pulls and container
+rebuilds without inflating ordinary code deploys.
+
+Before deploying code that refers to a new library version, upload and verify
+the samples from the repository root:
+
+```powershell
+.\scripts\deploy_jvstudio_samples.ps1 -HostName HOST -UserName USER
+```
+
+Use `-ValidateOnly` to run the complete local manifest check without opening an
+SSH connection.
+
+The script validates every local sample against the SHA-256 and byte size in
+its manifest, creates one temporary TAR archive, transfers it over SCP and
+extracts it into `/opt/containers/josicovila-com/data/jvstudio-instruments`.
+The VPS compose must contain this mount before the first Git deployment:
+
+```yaml
+- ./data/jvstudio-instruments:/var/www/html/jvstudio/instruments:ro
+```
+
+Upload the library and edit the compose first. The compose change only takes
+effect when the subsequent code deployment recreates the container, avoiding a
+period in which the previous application sees the new incompatible catalogue.
+
 The production build is generated in `../../app/jvstudio/` because the current Apache deployment serves the repository's `app/` directory directly. Do not edit generated files there by hand.
 
 The pre-launch build is deliberately marked `noindex, nofollow`. Remove both the HTML meta directive and the Apache `X-Robots-Tag` header when the public CTA is launched.

@@ -19,3 +19,7 @@ benchmarks/
 deploy/
 docs/
 PRIMER_INTENTO/
+
+# Served from the app bind mount and deployed separately from Git.
+app/jvstudio/instruments/*/v1/samples/
+apps/jvstudio/public/instruments/*/v1/samples/

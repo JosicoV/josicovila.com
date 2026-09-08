@@ -32,7 +32,7 @@ export function createTrack(
     id: values.id ?? createId('track'),
     name: values.name ?? 'New Track',
     type: 'instrument',
-    instrumentId: values.instrumentId ?? 'basic-piano',
+    instrumentId: values.instrumentId ?? 'jv-grand-piano',
     volume: values.volume ?? 0.8,
     pan: values.pan ?? 0,
     muted: values.muted ?? false,

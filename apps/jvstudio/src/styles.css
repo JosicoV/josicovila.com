@@ -44,6 +44,7 @@ button:disabled { color: #5f738a; cursor: not-allowed; opacity: 0.62; }
 .studio-shell { height: 100vh; min-height: 100vh; display: flex; flex-direction: column; }
 
 .topbar {
+  position: relative;
   min-height: 88px;
   display: grid;
   grid-template-columns: minmax(190px, 1fr) minmax(200px, 1.15fr) auto 86px 70px auto;
@@ -55,6 +56,15 @@ button:disabled { color: #5f738a; cursor: not-allowed; opacity: 0.62; }
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
   backdrop-filter: blur(18px);
 }
+
+.instrument-load { position: absolute; z-index: 8; left: 22px; right: 22px; bottom: 4px; display: grid; grid-template-columns: auto minmax(120px, 1fr); align-items: center; gap: 10px; color: #b9d2e8; font-size: .68rem; }
+.instrument-load[hidden] { display: none; }
+.instrument-load progress { width: 100%; height: 5px; overflow: hidden; border: 0; border-radius: 999px; background: #12263a; accent-color: var(--cyan-bright); }
+.instrument-load progress::-webkit-progress-bar { background: #12263a; border-radius: 999px; }
+.instrument-load progress::-webkit-progress-value { background: linear-gradient(90deg, #0aa6d7, var(--cyan-bright)); border-radius: 999px; }
+.instrument-load[data-error="true"] { color: #f3a6a6; }
+.instrument-load[data-error="true"] progress { accent-color: #dc6f79; }
+.instrument-load[data-error="true"] progress::-webkit-progress-value { background: #dc6f79; }
 
 .brand { display: flex; min-width: 0; align-items: center; color: var(--text); text-decoration: none; }
 .brand-logo { display: block; width: min(210px, 100%); height: 64px; object-fit: contain; object-position: left center; }

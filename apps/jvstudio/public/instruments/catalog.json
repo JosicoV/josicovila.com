@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "manifests": [
+    "jv-chamber-strings/v1/manifest.json",
+    "jv-clarinet/v1/manifest.json",
+    "jv-concert-flute/v1/manifest.json",
+    "jv-concert-flute-vib/v1/manifest.json",
+    "jv-french-horn/v1/manifest.json",
+    "jv-glockenspiel/v1/manifest.json",
+    "jv-grand-piano/v1/manifest.json",
+    "jv-oboe/v1/manifest.json",
+    "jv-soft-piano/v1/manifest.json",
+    "jv-solo-cello/v1/manifest.json",
+    "jv-solo-violin/v1/manifest.json",
+    "jv-trombone/v1/manifest.json",
+    "jv-trumpet/v1/manifest.json"
+  ]
+}

@@ -140,7 +140,7 @@ After any project mutation, `beforeunload` asks the browser to warn before navig
 ## ADR-022 — Render WAV entirely in the browser
 
 **Status:** Implemented
-WAV export renders the whole project offline at 44.1 kHz stereo and encodes 16-bit PCM locally. It reuses the synthesized presets and applies the current track volume, pan, Mute and Solo state; no project or audio data is uploaded.
+WAV export renders the whole project offline at 44.1 kHz stereo and encodes 16-bit PCM locally. It prepares the manifest-selected samples used by the project and applies the current track volume, pan, Mute and Solo state; no project or audio data is uploaded.
 
 The render includes a short release tail and is capped at 20 minutes to avoid excessive browser memory use. Export does not mark the editable project as saved: users still need the `.jvstudio.json` file to continue composing later.
 
@@ -150,3 +150,14 @@ The render includes a short release tail and is capped at 20 minutes to avoid ex
 The canonical route is `/jvstudio/`, with source in `apps/jvstudio/` and deployable output in `app/jvstudio/`. The former `/jvdaw/` route redirects permanently so existing private links keep working.
 
 JV Studio matches the established logo and remains accurate as the product grows. “DAW” is still a useful category description, but the public name does not imply that the current MIDI-focused release already provides conventional multitrack audio recording and editing.
+
+## ADR-024 — Consume JV Instrument Library v1 through frozen manifests
+
+**Status:** Implemented
+JV Studio discovers the 13 definitive instruments through a small versioned catalog and builds every visible definition from each immutable `manifest.json`. The generic factory accepts only `schemaVersion: 1` and `engine: sampler`; unknown engines, missing mandatory attribution and invalid channel counts fail cleanly.
+
+Sample selection uses only the manifest velocity intervals, `loNote`/`hiNote` and `rootMidi`. Audio keeps the decoded mono or stereo channel layout and applies manifest attack, release and gain. The former synthesized demonstration presets and the temporary `jv-grand-piano-light` package are removed.
+
+Only manifests load at startup. Samples load and decode on first use or as preparation for MIDI notes already present in the project, then share an `AudioBuffer` cache. A progress bar reports the bytes being prepared. The exact required attribution for JV Grand Piano and JV Soft Piano is shown in their instrument descriptions.
+
+OGG binaries are ignored by Git and by the Docker build context. A validated copy of the complete public library is deployed separately and mounted read-only from persistent VPS data; code, manifests, licences, catalogue and the frozen schema remain versioned. This prevents Git history and ordinary autodeploys from carrying sample payloads while keeping runtime URLs unchanged.

@@ -28,6 +28,7 @@ services:
     volumes:
       - ./repo/app:/var/www/html
       - ./data/musica:/var/www/html/musica
+      - ./data/jvstudio-instruments:/var/www/html/jvstudio/instruments:ro
       # NUEVO: el hero carga data/3Dassets/logo3D.glb. Sin este montaje el
       # modelo da 404 y la esfera se queda sin logo.
       - ./data/3Dassets:/var/www/html/data/3Dassets
