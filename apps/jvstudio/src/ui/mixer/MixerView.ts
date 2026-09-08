@@ -1,6 +1,8 @@
 import { FADER_MAX_DB, FADER_MIN_DB, faderDbToGain, formatDecibels, gainToFaderDb } from '../../audio/gain';
+import type { MixerMeterLevels, StereoMeterLevel } from '../../audio/AudioEngine';
 import { l } from '../../i18n';
 import type { Project, ProjectStore } from '../../project';
+import { initialMeterBallistics, meterPercent, updateMeterBallistics, type MeterBallistics } from './metering';
 
 // Full strip plus divider/header/padding and clearance for native range controls.
 export const MIXER_MIN_PANEL_HEIGHT = 570;
@@ -13,6 +15,7 @@ export interface MixerViewOptions {
 
 export interface MixerView {
   render(project: Project, selectedTrackId: string, force?: boolean): void;
+  updateMeters(levels: MixerMeterLevels, now?: number): void;
 }
 
 export function installMixerView(
@@ -21,6 +24,7 @@ export function installMixerView(
   options: MixerViewOptions,
 ): MixerView {
   let currentProject = store.getSnapshot();
+  const meterStates = new Map<string, MeterBallistics>();
 
   const view: MixerView = {
     render(project, selectedTrackId, force = false) {
@@ -28,6 +32,13 @@ export function installMixerView(
       const active = document.activeElement;
       if (!force && active instanceof HTMLInputElement && element.contains(active) && active.matches('[data-mixer-volume], [data-mixer-pan]')) return;
       element.innerHTML = mixerMarkup(project, selectedTrackId, options.instrumentName);
+    },
+    updateMeters(levels, now = performance.now()) {
+      for (const meter of element.querySelectorAll<HTMLElement>('[data-meter-track-id]')) {
+        const meterId = meter.dataset.meterTrackId;
+        if (!meterId) continue;
+        paintMeter(meter, meterId === 'master' ? levels.master : levels.tracks[meterId], meterId, now, meterStates);
+      }
     },
   };
 
@@ -95,7 +106,7 @@ function mixerMarkup(project: Project, selectedTrackId: string, instrumentName: 
               <input type="range" min="-1" max="1" step="0.01" value="${track.pan}" data-mixer-pan data-track-id="${escapeHtml(track.id)}" aria-label="${l('Panorámica de', 'Pan for')} ${escapeHtml(track.name)}" />
               <output data-mixer-pan-value>${formatPan(track.pan)}</output>
             </label>
-            ${faderMarkup(track.volume, track.name, `data-track-id="${escapeHtml(track.id)}"`)}
+            ${faderMarkup(track.volume, track.name, `data-track-id="${escapeHtml(track.id)}"`, track.id)}
             <div class="mixer-strip-toggles">
               <button class="${track.muted ? 'is-active' : ''}" type="button" data-mixer-toggle="muted" data-track-id="${escapeHtml(track.id)}" aria-pressed="${track.muted}" aria-label="${l('Silenciar', 'Mute')} ${escapeHtml(track.name)}">M</button>
               <button class="${track.solo ? 'is-active is-solo' : ''}" type="button" data-mixer-toggle="solo" data-track-id="${escapeHtml(track.id)}" aria-pressed="${track.solo}" aria-label="Solo ${escapeHtml(track.name)}">S</button>
@@ -110,7 +121,7 @@ function mixerMarkup(project: Project, selectedTrackId: string, instrumentName: 
           </div>
           <button class="mixer-fx-placeholder" type="button" disabled title="${l('Los efectos Master llegan en la siguiente fase', 'Master effects arrive in the next phase')}">MASTER FX</button>
           <div class="mixer-master-spacer" aria-hidden="true"></div>
-          ${faderMarkup(project.master.volume, l('Master', 'Master'), '')}
+          ${faderMarkup(project.master.volume, l('Master', 'Master'), '', 'master')}
           <div class="mixer-limiter-placeholder" title="${l('El limitador llegará en la fase de efectos', 'The limiter arrives in the effects phase')}">${l('LIMITER · PRÓXIMAMENTE', 'LIMITER · COMING NEXT')}</div>
         </article>
       </div>
@@ -118,15 +129,45 @@ function mixerMarkup(project: Project, selectedTrackId: string, instrumentName: 
   `;
 }
 
-function faderMarkup(gain: number, name: string, trackAttribute: string): string {
+function faderMarkup(gain: number, name: string, trackAttribute: string, meterId: string): string {
   const decibels = gainToFaderDb(gain);
   return `
     <label class="mixer-fader">
       <span>${l('Volumen', 'Volume')}</span>
-      <input type="range" min="${FADER_MIN_DB}" max="${FADER_MAX_DB}" step="0.5" value="${decibels}" data-mixer-volume ${trackAttribute} aria-label="${l('Volumen de', 'Volume for')} ${escapeHtml(name)}" />
+      <span class="mixer-fader-body">
+        <span class="mixer-meter" data-meter-track-id="${escapeHtml(meterId)}" role="meter" aria-label="${l('Nivel de', 'Level for')} ${escapeHtml(name)}" aria-valuemin="-60" aria-valuemax="6" aria-valuenow="-60">
+          <em data-meter-clip>CLIP</em>
+          <i><span data-meter-fill="left"></span><b data-meter-peak="left"></b></i>
+          <i><span data-meter-fill="right"></span><b data-meter-peak="right"></b></i>
+        </span>
+        <input type="range" min="${FADER_MIN_DB}" max="${FADER_MAX_DB}" step="0.5" value="${decibels}" data-mixer-volume ${trackAttribute} aria-label="${l('Volumen de', 'Volume for')} ${escapeHtml(name)}" />
+      </span>
       <output data-mixer-db>${formatDecibels(decibels)}</output>
     </label>
   `;
+}
+
+function paintMeter(
+  meter: HTMLElement,
+  level: StereoMeterLevel | undefined,
+  meterId: string,
+  now: number,
+  states: Map<string, MeterBallistics>,
+): void {
+  const current = level ?? { left: -60, right: -60 };
+  let clipped = false;
+  for (const side of ['left', 'right'] as const) {
+    const key = `${meterId}:${side}`;
+    const state = updateMeterBallistics(states.get(key) ?? initialMeterBallistics(now), current[side], now);
+    states.set(key, state);
+    meter.querySelector<HTMLElement>(`[data-meter-fill="${side}"]`)?.style.setProperty('height', `${meterPercent(current[side])}%`);
+    meter.querySelector<HTMLElement>(`[data-meter-peak="${side}"]`)?.style.setProperty('bottom', `${meterPercent(state.peakDb)}%`);
+    clipped ||= state.clipUntil > now;
+  }
+  const peak = Math.max(current.left, current.right);
+  meter.setAttribute('aria-valuenow', String(Math.round(peak * 10) / 10));
+  meter.setAttribute('aria-valuetext', peak <= -60 ? l('Silencio', 'Silence') : `${Math.round(peak * 10) / 10} dB`);
+  meter.classList.toggle('is-clipped', clipped);
 }
 
 function formatPan(pan: number): string {

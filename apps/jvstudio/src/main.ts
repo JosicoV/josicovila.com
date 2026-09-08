@@ -181,6 +181,7 @@ const workspaceDivider = document.querySelector<HTMLElement>('[data-workspace-di
 let arrangerZoom: ArrangerZoom = 'fit';
 let hasUnsavedChanges = false;
 let instrumentLoadHideTimer = 0;
+let lastMeterPaint = 0;
 
 onInstrumentLoadProgress((progress) => {
   if (!instrumentLoad || !instrumentLoadLabel || !instrumentLoadProgress) return;
@@ -515,9 +516,13 @@ function renderState(state: AudioState): void {
   if (playButton) playButton.disabled = state === 'starting';
 }
 
-function updatePlayhead(): void {
+function updatePlayhead(now = performance.now()): void {
   document.querySelector<HTMLElement>('[data-playhead]')?.style.setProperty('--progress', String(audioEngine.getProgress()));
   pianoRoll.playhead(audioEngine.getProgress() * projectLengthBeats, audioEngine.isPlaying() || audioEngine.isPaused());
+  if (mixerPanel && !mixerPanel.hidden && now - lastMeterPaint >= 33) {
+    mixerView?.updateMeters(audioEngine.getMixerMeterLevels(), now);
+    lastMeterPaint = now;
+  }
   requestAnimationFrame(updatePlayhead);
 }
 
