@@ -131,9 +131,12 @@ app.innerHTML = `
           <span class="pulse-dot" aria-hidden="true"></span>
           <div role="status" aria-live="polite"><strong data-selection-title>${l('Arranger preparado', 'Arranger ready')}</strong><p data-selection-copy>${l('Selecciona una pista o clip. Haz doble clic en un hueco para crear un clip de un compás.', 'Select a track or clip. Double-click an empty lane to create a one-bar clip.')}</p></div>
         </footer>
-      </section>
 
-      <section class="mixer-panel" data-mixer-panel hidden aria-label="${l('Mezclador del proyecto', 'Project mixer')}"></section>
+        <section class="mixer-panel" data-mixer-panel hidden aria-label="${l('Mezclador del proyecto', 'Project mixer')}">
+          <div class="mixer-divider" data-mixer-divider role="separator" tabindex="0" aria-label="${l('Cambiar altura de Arranger y Mixer', 'Resize Arranger and Mixer')}"><span></span></div>
+          <div class="mixer-content" data-mixer-content></div>
+        </section>
+      </section>
     </section>
 
     <section class="mobile-notice">
@@ -171,6 +174,8 @@ const selectionTitle = document.querySelector<HTMLElement>('[data-selection-titl
 const selectionCopy = document.querySelector<HTMLElement>('[data-selection-copy]');
 const arrangerPanel = document.querySelector<HTMLElement>('.arranger-panel');
 const mixerPanel = document.querySelector<HTMLElement>('[data-mixer-panel]');
+const mixerContent = document.querySelector<HTMLElement>('[data-mixer-content]');
+const mixerDivider = document.querySelector<HTMLElement>('[data-mixer-divider]');
 const workspace = document.querySelector<HTMLElement>('.workspace');
 const workspaceDivider = document.querySelector<HTMLElement>('[data-workspace-divider]');
 let arrangerZoom: ArrangerZoom = 'fit';
@@ -201,7 +206,7 @@ if (workspace && workspaceDivider) installResizableSeparator({
 
 const initialSnapshot = store.getSnapshot();
 const audioEngine = new AudioEngine(initialSnapshot);
-const mixerView = mixerPanel ? installMixerView(mixerPanel, store, {
+const mixerView = mixerContent ? installMixerView(mixerContent, store, {
   instrumentName,
   selectedTrackId: () => selectedTrackId,
   onSelectTrack: (trackId) => {
@@ -210,6 +215,15 @@ const mixerView = mixerPanel ? installMixerView(mixerPanel, store, {
     render();
   },
 }) : null;
+if (arrangerPanel && mixerPanel && mixerDivider) installResizableSeparator({
+  element: mixerDivider,
+  orientation: 'horizontal',
+  getSize: () => mixerPanel.getBoundingClientRect().height,
+  setSize: (pixels) => arrangerPanel.style.setProperty('--mixer-height', `${pixels}px`),
+  limits: () => ({ min: 240, max: Math.max(240, arrangerPanel.clientHeight - 334) }),
+  storageKey: 'jvstudio:mixer-height',
+  step: 32,
+});
 let projectLengthBeats = barsToBeats(initialSnapshot.lengthBars, initialSnapshot.timeSignature);
 const pianoRoll = installPianoRoll(store, () => {
   setActiveView('arranger');
@@ -828,6 +842,8 @@ showSessionNotice(requestOpenProject);
 
 function setActiveView(view: 'arranger' | 'piano-roll' | 'mixer'): void {
   activeView = view;
+  if (view === 'mixer') arrangerPanel?.classList.add('has-mixer');
+  if (view === 'piano-roll') arrangerPanel?.classList.remove('has-mixer');
   syncViewState();
 }
 
@@ -839,6 +855,6 @@ function syncViewState(): void {
     if (button.dataset.view === 'piano-roll') button.disabled = !selectedClipId;
   }
   arrangerPanel?.classList.toggle('is-piano-active', activeView === 'piano-roll');
-  workspace?.classList.toggle('is-mixer-view', activeView === 'mixer');
-  if (mixerPanel) mixerPanel.hidden = activeView !== 'mixer';
+  arrangerPanel?.classList.toggle('is-mixer-active', activeView === 'mixer');
+  if (mixerPanel) mixerPanel.hidden = !arrangerPanel?.classList.contains('has-mixer');
 }

@@ -72,11 +72,7 @@ function mixerMarkup(project: Project, selectedTrackId: string, instrumentName: 
   return `
     <header class="mixer-header">
       <div>
-        <nav class="view-switch" aria-label="${l('Panel activo', 'Active panel')}">
-          <button type="button" data-view="arranger" aria-pressed="false">ARRANGER</button>
-          <button type="button" data-view="piano-roll" aria-pressed="false">PIANO ROLL</button>
-          <button class="is-active" type="button" data-view="mixer" aria-pressed="true">MIXER</button>
-        </nav>
+        <span class="eyebrow">MIXER</span>
         <h1>${l('Mezclador', 'Mixer')}</h1>
       </div>
       <p>${l('Ajusta el balance de las pistas sin interrumpir la reproducción.', 'Balance tracks without interrupting playback.')}</p>
