@@ -1,7 +1,7 @@
 import * as Tone from 'tone';
 
 import { barsToBeats, type InstrumentTrack, type Project } from '../project';
-import { createInstrument } from './instruments';
+import { createInstrument, type InstrumentVoice } from './instruments';
 import { trackGain } from './mix';
 import { scheduleEvents } from './projectEvents';
 
@@ -17,8 +17,8 @@ type ScheduledNote = {
 };
 type TrackVoice = {
   instrumentId: string;
-  playback: Tone.PolySynth;
-  preview: Tone.PolySynth;
+  playback: InstrumentVoice;
+  preview: InstrumentVoice;
   gain: Tone.Gain;
   panner: Tone.Panner;
   previewGain: Tone.Gain;
@@ -66,6 +66,8 @@ export class AudioEngine {
     const request = ++this.playRequest;
     try {
       await Tone.start();
+      if (request !== this.playRequest) return;
+      await this.prepareScheduledSamples();
       if (request !== this.playRequest) return;
       this.ensurePart();
       this.transport.start('+0.05');
@@ -154,6 +156,13 @@ export class AudioEngine {
     }, events).start(0);
     part.loop = false;
     this.part = part;
+  }
+
+  private async prepareScheduledSamples(): Promise<void> {
+    const notes = scheduleEvents(this.project);
+    await Promise.all(this.project.tracks.map((track) => this.voices.get(track.id)?.playback.prepare(
+      notes.filter((note) => note.trackId === track.id).map((note) => ({ midi: note.midi, velocity: note.velocity })),
+    )));
   }
 
   private syncVoices(project: Project): void {

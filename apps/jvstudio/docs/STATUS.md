@@ -7,7 +7,7 @@
 - Arranger with track/clip selection, creation, bar-snapped drag, duplicate/delete, overlap protection, playhead and scoped keyboard shortcuts.
 - Piano Roll with MIDI 0–127 keyboard, octave-C labels, Draw/Select/Erase, drag/resize, 1/4–1/32 snap, zoom, numeric editing and clip-relative playhead.
 - Track-aware note audition from keys, drawing, selection and every semitone crossed during vertical drag.
-- Nine original synthesized presets with one playback and one preview voice per track.
+- Nine original synthesized presets plus the manifest-backed JV Grand Piano Light, with one playback and one preview voice per track.
 - Live per-track volume, stereo pan, Mute and multi-Solo controls; structural edits still stop and rebuild playback.
 - Browser-language UI: every `es-*` locale receives Spanish; every other locale falls back to English. Instrument IDs and project data remain locale-neutral.
 - Bilingual in-app Help covering every shipped function, shortcut and current limitation.

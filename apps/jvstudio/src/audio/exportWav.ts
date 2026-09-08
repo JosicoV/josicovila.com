@@ -1,7 +1,7 @@
 import * as Tone from 'tone';
 
 import { barsToBeats, type Project } from '../project';
-import { createInstrument } from './instruments';
+import { createInstrument, type InstrumentVoice } from './instruments';
 import { trackGain } from './mix';
 import { scheduleEvents } from './projectEvents';
 
@@ -23,7 +23,7 @@ export async function renderProjectWav(project: Project): Promise<Blob> {
   if (renderSeconds > MAX_WAV_EXPORT_SECONDS) throw new RangeError('WAV export exceeds the 20 minute safety limit.');
 
   const rendered = await Tone.Offline(() => {
-    const voices = new Map<string, Tone.PolySynth>();
+    const voices = new Map<string, InstrumentVoice>();
     for (const track of project.tracks) {
       const panner = new Tone.Panner(track.pan).toDestination();
       const gain = new Tone.Gain(trackGain(track, project.tracks)).connect(panner);
