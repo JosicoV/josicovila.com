@@ -442,7 +442,7 @@ body.modo-captura .sphereRanges {
 
 #hero-content {
   width: 100%;
-  max-width: 1220px;
+  max-width: 1000px;
   text-align: center;
   /* Por encima de la niebla. */
   position: relative;
@@ -492,17 +492,9 @@ body.modo-captura .sphereRanges {
 
 /* Buscador --------------------------------------------------------------- */
 
-.hero-actions {
-  width: 100%;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(230px, 23vw, 310px);
-  align-items: center;
-  gap: clamp(12px, 2vw, 24px);
-}
-
 #searchContainer {
-  width: 100%;
-  margin: 0;
+  max-width: 840px;
+  margin: 0 auto;
   position: relative;
   text-align: left;
   transform: translateY(0);
@@ -510,16 +502,16 @@ body.modo-captura .sphereRanges {
 }
 
 #hero.busqueda-activa #searchContainer {
-  max-width: 840px;
-  margin: 0 auto;
   transform: translateY(var(--search-shift, 0px));
 }
 
-#hero.busqueda-activa .hero-actions { display: block; }
-
 .jvstudio-cta {
-  display: block;
-  width: 100%;
+  display: flex;
+  width: clamp(170px, 20vw, 225px);
+  height: 62px;
+  flex: 0 0 auto;
+  align-items: center;
+  margin-right: -15px;
   border-radius: 999px;
   transition: transform 0.22s ease, filter 0.22s ease;
 }
@@ -527,7 +519,6 @@ body.modo-captura .sphereRanges {
 .jvstudio-cta img { display: block; width: 100%; height: auto; }
 .jvstudio-cta:hover { transform: translateY(-2px) scale(1.015); filter: brightness(1.08); }
 .jvstudio-cta:focus-visible { outline: 2px solid #7cecff; outline-offset: 3px; }
-#hero.busqueda-activa .jvstudio-cta { display: none; }
 
 #searchField {
   display: flex;
@@ -1348,8 +1339,7 @@ body.modo-captura .sphereRanges {
   .ojoCanvas svg { padding: 9px; width: 17px; height: 17px; }
 
   #hero-content { margin-top: 30vh; }
-  .hero-actions { grid-template-columns: minmax(0, 1fr); gap: 12px; }
-  .jvstudio-cta { width: min(260px, 68vw); margin: 0 auto; }
+  .jvstudio-cta { width: clamp(125px, 30vw, 170px); height: 52px; margin-right: -11px; }
   #searchField { height: 54px; padding: 0 16px; gap: 10px; }
   #songSearch { font-size: 0.92rem; }
   #scroll-hint { display: none; }
