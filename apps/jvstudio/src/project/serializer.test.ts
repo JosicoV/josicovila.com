@@ -9,6 +9,21 @@ describe('project serialization', () => {
     expect(deserializeProject(serializeProject(demoProject))).toEqual(demoProject);
   });
 
+  it('round-trips the complete FX state', () => {
+    const project = structuredClone(demoProject);
+    project.tracks[0].insertFx = [
+      { id: 'jv-eq', enabled: true, parameters: { low: 4, mid: -2, high: 1.5 } },
+      { id: 'jv-compressor', enabled: false, parameters: { threshold: -22, ratio: 5, attack: 0.02, release: 0.4, makeup: 3 } },
+    ];
+    project.tracks[0].sends = { reverb: 0.35, delay: 0.18 };
+    project.sendFx.reverb.parameters = { decay: 4.2, preDelay: 0.04, wet: 0.6 };
+    project.sendFx.delay.parameters = { time: 0.75, feedback: 0.45, wet: 0.5 };
+    project.master.insertFx = [{ id: 'jv-eq', enabled: true, parameters: { low: -1, mid: 0, high: 2 } }];
+    project.master.limiterEnabled = false;
+    project.master.limiterThreshold = -3;
+    expect(deserializeProject(serializeProject(project))).toEqual(project);
+  });
+
   it('rejects malformed JSON', () => {
     expect(() => deserializeProject('{broken')).toThrow(ProjectValidationError);
     expect(() => deserializeProject('null')).toThrow(ProjectValidationError);
