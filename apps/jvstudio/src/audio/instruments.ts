@@ -20,7 +20,7 @@ export const instruments = [
   { id: 'lead-synth', nameEs: 'Sintetizador solista', nameEn: 'Lead Synth', descriptionEs: 'Onda cuadrada para melodías destacadas.', descriptionEn: 'Square-wave lead for prominent melodies.', wave: 'square8', attack: .012, decay: .12, sustain: .5, release: .18, level: -18 },
   { id: 'choir-pad', nameEs: 'Pad coral', nameEn: 'Choir Pad', descriptionEs: 'Pad armónico suave inspirado en coros, sin voces grabadas.', descriptionEn: 'Gentle choir-inspired harmonic pad with no recorded voices.', wave: 'sine8', attack: .35, decay: .5, sustain: .65, release: 1, level: -12 },
   { id: 'drum-kit', nameEs: 'Sintetizador de percusión', nameEn: 'Drum Synth', descriptionEs: 'Percusión tonal sintetizada de envolvente muy corta.', descriptionEn: 'Synthesized tonal percussion with a very short envelope.', wave: 'sine', attack: .001, decay: .09, sustain: .01, release: .05, level: -5 },
-  { id: 'jv-grand-piano-light', nameEs: 'JV Grand Piano', nameEn: 'JV Grand Piano', descriptionEs: 'Piano de cola muestreado · variante Light.', descriptionEn: 'Sampled grand piano · Light variant.', sampleManifest: 'instruments/jv-grand-piano-light/v1/manifest.json', level: -4 },
+  { id: 'jv-grand-piano-light', nameEs: 'JV Grand Piano', nameEn: 'JV Grand Piano', descriptionEs: 'Piano de cola muestreado · variante Light. Fuente: Salamander Grand Piano V3, Alexander Holm · CC BY 3.0.', descriptionEn: 'Sampled grand piano · Light variant. Source: Salamander Grand Piano V3 by Alexander Holm · CC BY 3.0.', sampleManifest: 'instruments/jv-grand-piano-light/v1/manifest.json', level: -4 },
 ] as const;
 
 export function resolveInstrument(id: string) { return instruments.find((preset) => preset.id === id) ?? instruments[0]; }
@@ -58,14 +58,19 @@ class LazySampleVoice implements InstrumentVoice {
   dispose(): void { this.disposed = true; for (const sampler of this.samplers.values()) sampler.dispose(); this.samplers.clear(); }
   private async ensureSample(manifest: SampleManifest, midi: number, velocity: number): Promise<void> {
     if (this.disposed || midi < manifest.range.lowestMidi || midi > manifest.range.highestMidi) return;
-    const sample = manifest.samples.find((item) => midi >= item.loNote && midi <= item.hiNote && velocity >= item.velocityMin && velocity <= item.velocityMax);
+    // Project velocities are normalized (0..1); the manifest uses MIDI velocity (1..127).
+    const manifestVelocity = Math.max(1, Math.min(127, Math.round(velocity * 127)));
+    const sample = manifest.samples.find((item) => midi >= item.loNote && midi <= item.hiNote && manifestVelocity >= item.velocityMin && manifestVelocity <= item.velocityMax);
     if (!sample) return;
     if (this.loaded.has(sample.file)) return;
     const existing = this.pending.get(sample.file); if (existing) return existing;
     const pending = loadSample(sample).then((buffer) => { let sampler = this.samplers.get(sample.layer); if (!sampler) { sampler = new Tone.Sampler({ attack: 0.002, release: 1.2, volume: this.level, urls: {} }).connect(this.output); this.samplers.set(sample.layer, sampler); } sampler.add(sample.rootMidi as never, buffer); this.loaded.add(sample.file); }).finally(() => this.pending.delete(sample.file));
     this.pending.set(sample.file, pending); return pending;
   }
-  private layerFor(manifest: SampleManifest, velocity: number): string { return manifest.velocityLayers.find((layer) => velocity >= layer.velocityMin && velocity <= layer.velocityMax)?.name ?? manifest.velocityLayers[manifest.velocityLayers.length - 1].name; }
+  private layerFor(manifest: SampleManifest, velocity: number): string {
+    const manifestVelocity = Math.max(1, Math.min(127, Math.round(velocity * 127)));
+    return manifest.velocityLayers.find((layer) => manifestVelocity >= layer.velocityMin && manifestVelocity <= layer.velocityMax)?.name ?? manifest.velocityLayers[manifest.velocityLayers.length - 1].name;
+  }
 }
 
 class SynthVoice implements InstrumentVoice {
