@@ -2,7 +2,7 @@ import './styles.css';
 
 import { AudioEngine, type AudioState } from './audio/AudioEngine';
 import { renderProjectWav } from './audio/exportWav';
-import { instruments, resolveInstrument } from './audio/instruments';
+import { instruments, instrumentPlayableRange, resolveInstrument } from './audio/instruments';
 import { l } from './i18n';
 import { demoProject } from './project/demoProject';
 import { barsToBeats, beatsPerBar, MAX_PROJECT_BARS, midiToNoteName, minimumProjectLengthBars, normalizeBpm, projectFileName, ProjectStore, wavFileName } from './project';
@@ -171,6 +171,9 @@ const pianoRoll = installPianoRoll(store, () => {
   document.querySelector<HTMLButtonElement>('[data-view="arranger"]')?.focus();
 }, async (trackId, midi, velocity) => {
   await audioEngine.previewNote(trackId, midi, velocity);
+}, async (trackId) => {
+  const track = store.getSnapshot().tracks.find((item) => item.id === trackId);
+  return instrumentPlayableRange(track?.instrumentId ?? 'jv-poly-synth');
 });
 document.querySelector('[data-action="piano-roll"]')?.addEventListener('click', () => {
   if (selectedClipId) {

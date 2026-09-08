@@ -21,20 +21,32 @@ export const instruments = [
   { id: 'choir-pad', nameEs: 'Pad coral', nameEn: 'Choir Pad', descriptionEs: 'Pad armónico suave inspirado en coros, sin voces grabadas.', descriptionEn: 'Gentle choir-inspired harmonic pad with no recorded voices.', wave: 'sine8', attack: .35, decay: .5, sustain: .65, release: 1, level: -12 },
   { id: 'drum-kit', nameEs: 'Sintetizador de percusión', nameEn: 'Drum Synth', descriptionEs: 'Percusión tonal sintetizada de envolvente muy corta.', descriptionEn: 'Synthesized tonal percussion with a very short envelope.', wave: 'sine', attack: .001, decay: .09, sustain: .01, release: .05, level: -5 },
   { id: 'jv-grand-piano-light', nameEs: 'JV Grand Piano', nameEn: 'JV Grand Piano', descriptionEs: 'Piano de cola muestreado · variante Light. Fuente: Salamander Grand Piano V3, Alexander Holm · CC BY 3.0.', descriptionEn: 'Sampled grand piano · Light variant. Source: Salamander Grand Piano V3 by Alexander Holm · CC BY 3.0.', sampleManifest: 'instruments/jv-grand-piano-light/v1/manifest.json', level: -4 },
+  { id: 'jv-solo-violin', nameEs: 'Solo Violin', nameEn: 'Solo Violin', descriptionEs: 'Violín solista muestreado.', descriptionEn: 'Sampled solo violin.', sampleManifest: 'instruments/jv-solo-violin/v1/manifest.json', level: -8 },
+  { id: 'jv-glockenspiel', nameEs: 'Glockenspiel', nameEn: 'Glockenspiel', descriptionEs: 'Glockenspiel muestreado.', descriptionEn: 'Sampled glockenspiel.', sampleManifest: 'instruments/jv-glockenspiel/v1/manifest.json', level: -8 },
 ] as const;
 
 export function resolveInstrument(id: string) { return instruments.find((preset) => preset.id === id) ?? instruments[0]; }
 
 const audioBufferCache = new Map<string, Promise<AudioBuffer>>();
-let manifestPromise: Promise<SampleManifest> | null = null;
+const manifestPromises = new Map<string, Promise<SampleManifest>>();
 
-function loadManifest(): Promise<SampleManifest> {
-  manifestPromise ??= fetch(`${import.meta.env.BASE_URL}instruments/jv-grand-piano-light/v1/manifest.json`).then((response) => { if (!response.ok) throw new Error(`Could not load JV Grand Piano manifest (${response.status}).`); return response.json() as Promise<SampleManifest>; });
-  return manifestPromise;
+function loadManifest(path: string): Promise<SampleManifest> {
+  const existing = manifestPromises.get(path);
+  if (existing) return existing;
+  const promise = fetch(`${import.meta.env.BASE_URL}${path}`).then((response) => { if (!response.ok) throw new Error(`Could not load instrument manifest (${response.status}).`); return response.json() as Promise<SampleManifest>; });
+  manifestPromises.set(path, promise);
+  return promise;
 }
 
-function loadSample(sample: SampleDescriptor): Promise<AudioBuffer> {
-  const url = `${import.meta.env.BASE_URL}instruments/jv-grand-piano-light/v1/${sample.file}`;
+export async function instrumentPlayableRange(id: string): Promise<{ lowestMidi: number; highestMidi: number }> {
+  const preset = resolveInstrument(id);
+  if (!('sampleManifest' in preset)) return { lowestMidi: 0, highestMidi: 127 };
+  const manifest = await loadManifest(preset.sampleManifest);
+  return manifest.range;
+}
+
+function loadSample(manifestPath: string, sample: SampleDescriptor): Promise<AudioBuffer> {
+  const url = `${import.meta.env.BASE_URL}${manifestPath.replace(/manifest\.json$/, '')}${sample.file}`;
   const cached = audioBufferCache.get(url);
   if (cached) return cached;
   const promise = fetch(url).then((response) => { if (!response.ok) throw new Error(`Could not load piano sample ${sample.file}.`); return response.arrayBuffer(); }).then((encoded) => Tone.getContext().rawContext.decodeAudioData(encoded));
@@ -46,9 +58,10 @@ class LazySampleVoice implements InstrumentVoice {
   private readonly samplers = new Map<string, Tone.Sampler>();
   private readonly loaded = new Set<string>();
   private readonly pending = new Map<string, Promise<void>>();
-  private readonly manifest = loadManifest();
+  private readonly manifest: Promise<SampleManifest>;
+  private readonly manifestPath: string;
   private disposed = false;
-  constructor(private readonly output: Tone.ToneAudioNode, private readonly level: number) {}
+  constructor(private readonly output: Tone.ToneAudioNode, private readonly level: number, manifestPath: string) { this.manifestPath = manifestPath; this.manifest = loadManifest(manifestPath); }
   async prepare(notes: Array<{ midi: number; velocity: number }>): Promise<void> { const manifest = await this.manifest; await Promise.all(notes.map((note) => this.ensureSample(manifest, note.midi, note.velocity))); }
   triggerAttackRelease(note: string, duration: any, time: any, velocity: number): void {
     const midi = Math.round(Tone.Frequency(note).toMidi());
@@ -64,7 +77,7 @@ class LazySampleVoice implements InstrumentVoice {
     if (!sample) return;
     if (this.loaded.has(sample.file)) return;
     const existing = this.pending.get(sample.file); if (existing) return existing;
-    const pending = loadSample(sample).then((buffer) => { let sampler = this.samplers.get(sample.layer); if (!sampler) { sampler = new Tone.Sampler({ attack: 0.002, release: 1.2, volume: this.level, urls: {} }).connect(this.output); this.samplers.set(sample.layer, sampler); } sampler.add(sample.rootMidi as never, buffer); this.loaded.add(sample.file); }).finally(() => this.pending.delete(sample.file));
+    const pending = loadSample((this.manifestPath), sample).then((buffer) => { let sampler = this.samplers.get(sample.layer); if (!sampler) { sampler = new Tone.Sampler({ attack: 0.002, release: 1.2, volume: this.level, urls: {} }).connect(this.output); this.samplers.set(sample.layer, sampler); } sampler.add(sample.rootMidi as never, buffer); this.loaded.add(sample.file); }).finally(() => this.pending.delete(sample.file));
     this.pending.set(sample.file, pending); return pending;
   }
   private layerFor(manifest: SampleManifest, velocity: number): string {
@@ -83,7 +96,7 @@ class SynthVoice implements InstrumentVoice {
 
 export function createInstrument(id: string, output: Tone.ToneAudioNode): InstrumentVoice {
   const preset = resolveInstrument(id);
-  if ('sampleManifest' in preset) return new LazySampleVoice(output, preset.level);
+  if ('sampleManifest' in preset) return new LazySampleVoice(output, preset.level, preset.sampleManifest);
   const synth = new Tone.PolySynth(Tone.Synth, { oscillator: { type: preset.wave }, envelope: { attack: preset.attack, decay: preset.decay, sustain: preset.sustain, release: preset.release } });
   synth.maxPolyphony = 32; synth.volume.value = preset.level; synth.connect(output); return new SynthVoice(synth);
 }

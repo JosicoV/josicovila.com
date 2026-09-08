@@ -218,10 +218,14 @@ button:disabled { color: #5f738a; cursor: not-allowed; opacity: 0.62; }
 .piano-key.is-black { color: #acc6df; background: #112135; border-right: 10px solid #c4d3e2; }
 .piano-panel button.piano-key { display: block; width: 64px; height: 20px; padding: 2px 8px; border: 0; border-bottom: 1px solid #9dafc0; border-radius: 0; color: #102033; background: #dce8f4; font-size: 10px; }
 .piano-panel button.piano-key.is-black { color: #acc6df; background: #112135; border-right: 10px solid #c4d3e2; }
+.piano-panel button.piano-key.is-unplayable { color: #6e3d47; background: #f0c8ce; border-bottom-color: #d99aa4; }
+.piano-panel button.piano-key.is-black.is-unplayable { color: #f7c5cc; background: #70434d; border-right-color: #e1aeb5; }
 .piano-panel button.piano-key:active { background: var(--cyan-bright); }
 .piano-grid { flex-shrink: 0; height: 2560px; position: relative; touch-action: none; background-color: #0b1929; background-image: linear-gradient(0deg, var(--line) 1px, transparent 1px), repeating-linear-gradient(to bottom, transparent 0 20px, #02091466 20px 40px, transparent 40px 80px, #02091466 80px 100px, transparent 100px 120px, #02091466 120px 140px, transparent 140px 180px, #02091466 180px 200px, transparent 200px 220px, #02091466 220px 240px), linear-gradient(90deg, #3b5974 1px, transparent 1px), linear-gradient(90deg, #21374c 1px, transparent 1px); background-size: 100% 20px, 100% 240px, var(--beat-width) 100%, var(--snap-width) 100%; }
 .piano-note { position: absolute; height: 19px; min-width: 3px; border: 1px solid #67d8ff; border-radius: 3px; padding: 0 8px 0 3px; background: #078dc4; color: white; font-size: 10px; overflow: hidden; white-space: nowrap; text-align: left; user-select: none; touch-action: none; cursor: grab !important; }
 .piano-note.is-selected { outline: 2px solid #e7faff; z-index: 2; background: #0cb8ed; color: #06111a; }
+.piano-note.is-unplayable { background: #a85d68; border-color: #d58a94; color: #ffe7ea; opacity: .78; }
+.piano-note.is-unplayable.is-selected { background: #c27680; }
 .note-resize { position: absolute; right: 0; top: 0; bottom: 0; width: 7px; background: #ffffff44; cursor: ew-resize; }
 .piano-properties { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 18px; border-top: 1px solid var(--line); }
 .piano-properties input { width: 76px; }

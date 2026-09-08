@@ -4,7 +4,8 @@ import { installResizableSeparator } from '../layout/resizablePanels';
 import { ROW_HEIGHT, drawNote, dragNote } from './noteGeometry';
 
 export function installPianoRoll(store: ProjectStore, onClose: () => void,
-  preview: (trackId: string, midi: number, velocity: number) => Promise<void>) {
+  preview: (trackId: string, midi: number, velocity: number) => Promise<void>,
+  playableRange: (trackId: string) => Promise<{ lowestMidi: number; highestMidi: number }>) {
   const panel = document.createElement('section');
   panel.className = 'piano-panel';
   panel.hidden = true;
@@ -50,6 +51,8 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
   const expandButton = panel.querySelector<HTMLButtonElement>('[data-expand]')!;
   const pianoDivider = panel.querySelector<HTMLElement>('[data-piano-divider]')!;
   let trackId = '', clipId = '', noteId: string | null = null;
+  let range = { lowestMidi: 0, highestMidi: 127 };
+  let rangeInstrumentId = '';
   let visibleClipStart = 0, visibleClipLength = 0;
   const clip = () => store.getSnapshot().tracks.find((track) => track.id === trackId)?.clips.find((item) => item.id === clipId);
   const note = () => clip()?.notes.find((item) => item.id === noteId);
@@ -69,6 +72,19 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
   });
 
   const keys = panel.querySelector<HTMLElement>('[data-keys]')!;
+  function paintPlayableKeys() {
+    for (const key of keys.querySelectorAll<HTMLButtonElement>('[data-midi]')) {
+      const midi = Number(key.dataset.midi);
+      const playable = midi >= range.lowestMidi && midi <= range.highestMidi;
+      key.classList.toggle('is-unplayable', !playable);
+      key.title = playable
+        ? midiToNoteName(midi)
+        : l(`${midiToNoteName(midi)} · fuera del rango`, `${midiToNoteName(midi)} · outside range`);
+      key.setAttribute('aria-label', playable
+        ? l('Escuchar ', 'Audition ') + midiToNoteName(midi)
+        : l('Fuera de rango: ', 'Outside range: ') + midiToNoteName(midi));
+    }
+  }
   function audition(midi: number, velocity = 0.8) {
     void preview(trackId, midi, velocity).catch(() => {
       message.textContent = l('No se pudo activar el audio. Prueba de nuevo con Play.', 'Audio could not be started. Try again with Play.');
@@ -78,6 +94,7 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
     const key = document.createElement('button');
     key.type = 'button';
     key.className = 'piano-key' + ([1, 3, 6, 8, 10].includes(midi % 12) ? ' is-black' : '');
+    key.dataset.midi = String(midi);
     key.textContent = midi % 12 === 0 ? midiToNoteName(midi) : '';
     key.setAttribute('aria-label', l('Escuchar ', 'Audition ') + midiToNoteName(midi));
     key.title = midiToNoteName(midi);
@@ -89,6 +106,7 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
     });
     keys.append(key);
   }
+  paintPlayableKeys();
 
   function paint(button: HTMLElement, value: Pick<MidiNote, 'midi' | 'startBeat' | 'durationBeats'>) {
     button.style.left = value.startBeat * pixels() + 'px';
@@ -130,11 +148,13 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
     for (const item of current.notes) {
       const button = document.createElement('button');
       button.type = 'button';
-      button.className = 'piano-note' + (item.id === noteId ? ' is-selected' : '');
+      const playable = item.midi >= range.lowestMidi && item.midi <= range.highestMidi;
+      button.className = 'piano-note' + (item.id === noteId ? ' is-selected' : '') + (playable ? '' : ' is-unplayable');
       button.dataset.noteId = item.id;
       button.setAttribute('aria-label', l(`${midiToNoteName(item.midi)}, inicio ${item.startBeat}, duración ${item.durationBeats}`, `${midiToNoteName(item.midi)}, start ${item.startBeat}, duration ${item.durationBeats}`));
       button.setAttribute('aria-pressed', String(item.id === noteId));
       button.textContent = midiToNoteName(item.midi);
+      if (!playable) button.title = l('Fuera del rango de este instrumento · no sonará', 'Outside this instrument range · will not sound');
       const handle = document.createElement('span');
       handle.className = 'note-resize';
       handle.dataset.resize = '';
@@ -293,14 +313,30 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
   store.subscribe(() => {
     cancelGesture();
     if (!panel.hidden && !clip()) closePanel();
-    else render();
+    else {
+      render();
+      const currentTrack = store.getSnapshot().tracks.find((track) => track.id === trackId);
+      if (!panel.hidden && currentTrack && currentTrack.instrumentId !== rangeInstrumentId) {
+        rangeInstrumentId = currentTrack.instrumentId;
+        range = { lowestMidi: 0, highestMidi: 127 };
+        paintPlayableKeys();
+        void playableRange(trackId).then((nextRange) => {
+          if (!panel.hidden && currentTrack.instrumentId === rangeInstrumentId) { range = nextRange; paintPlayableKeys(); render(); }
+        }).catch(() => { /* Synth instruments remain fully playable. */ });
+      }
+    }
   });
   return {
     open(nextTrack: string, nextClip: string) {
       cancelGesture(); trackId = nextTrack; clipId = nextClip; noteId = null;
       if (!clip()) return;
+      range = { lowestMidi: 0, highestMidi: 127 };
+      rangeInstrumentId = store.getSnapshot().tracks.find((track) => track.id === trackId)?.instrumentId ?? '';
       host.classList.add('has-piano-roll');
       panel.hidden = false; render();
+      void playableRange(trackId).then((nextRange) => {
+        if (trackId === nextTrack && clipId === nextClip) { range = nextRange; paintPlayableKeys(); render(); }
+      }).catch(() => { /* Synth instruments remain fully playable. */ });
       const pitch = clip()!.notes[0]?.midi ?? 60;
       scroll.scrollTop = Math.max(0, (127 - pitch) * ROW_HEIGHT - scroll.clientHeight / 2);
       scroll.scrollLeft = 0;
