@@ -1,6 +1,6 @@
 # JV Studio
 
-Browser-based MIDI composition workspace for `https://josicovila.com/jvdaw/`.
+Browser-based MIDI composition workspace for `https://josicovila.com/jvstudio/`.
 
 ## Local development
 
@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Vite serves the application at `http://127.0.0.1:5173/jvdaw/` by default.
+Vite serves the application at `http://127.0.0.1:5173/jvstudio/` by default.
 
 ## Validation
 
@@ -18,7 +18,7 @@ npm test
 npm run build
 ```
 
-The production build is generated in `../../app/jvdaw/` because the current Apache deployment serves the repository's `app/` directory directly. Do not edit generated files there by hand.
+The production build is generated in `../../app/jvstudio/` because the current Apache deployment serves the repository's `app/` directory directly. Do not edit generated files there by hand.
 
 The pre-launch build is deliberately marked `noindex, nofollow`. Remove both the HTML meta directive and the Apache `X-Robots-Tag` header when the public CTA is launched.
 

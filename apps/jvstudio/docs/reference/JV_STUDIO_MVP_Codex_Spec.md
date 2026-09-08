@@ -1,8 +1,8 @@
-# JVDAW / JV Studio — Especificación inicial para Codex
+# JV Studio — Especificación inicial para Codex
 
-**Proyecto:** JVDAW  
+**Proyecto:** JV Studio
 **Nombre visible provisional:** JV Studio  
-**URL prevista:** `https://josicovila.com/jvdaw/`  
+**URL prevista:** `https://josicovila.com/jvstudio/`
 **Estado:** MVP / primera implementación  
 **Objetivo:** Construir un DAW web ligero orientado a composición MIDI, ejecutado principalmente en el navegador del usuario.
 
@@ -607,7 +607,7 @@ Import Project
 Formato provisional:
 
 ```text
-.jvdaw
+.jvstudio.json
 ```
 
 Internamente JSON.
@@ -760,7 +760,7 @@ En móvil se puede mostrar:
 URL prevista:
 
 ```text
-https://josicovila.com/jvdaw/
+https://josicovila.com/jvstudio/
 ```
 
 La home de `.com` tendrá en el futuro:
@@ -773,14 +773,14 @@ CTA "Open JV Studio"
 
 No implementar cambios en la home salvo instrucción posterior.
 
-JVDAW debe funcionar como SPA independiente dentro de `/jvdaw/` y respetar rutas relativas.
+JV Studio debe funcionar como SPA independiente dentro de `/jvstudio/` y respetar rutas relativas.
 
 ---
 
 ## 23. Seguridad
 
 - validar JSON importado;
-- limitar tamaños de archivo `.jvdaw`;
+- limitar tamaños de archivo `.jvstudio.json`;
 - validar números y rangos;
 - no permitir URLs arbitrarias para cargar samples;
 - no ejecutar contenido de usuario;
@@ -819,7 +819,7 @@ Safari posteriormente.
 
 JV Studio MVP se considera funcional cuando se puede:
 
-1. Abrir `/jvdaw/`.
+1. Abrir `/jvstudio/`.
 2. Crear un proyecto.
 3. Cambiar BPM.
 4. Añadir al menos 4 pistas.
@@ -837,8 +837,8 @@ JV Studio MVP se considera funcional cuando se puede:
 16. Guardar en IndexedDB.
 17. Recargar el navegador.
 18. Recuperar el proyecto.
-19. Exportar `.jvdaw`.
-20. Importar `.jvdaw`.
+19. Exportar `.jvstudio.json`.
+20. Importar `.jvstudio.json`.
 21. Renderizar WAV.
 22. Descargar el WAV.
 23. Hacerlo sin procesamiento de audio en el VPS.
@@ -851,7 +851,7 @@ JV Studio MVP se considera funcional cuando se puede:
 
 - Vite + TypeScript;
 - estructura modular;
-- base `/jvdaw/`;
+- base `/jvstudio/`;
 - CSS base;
 - layout principal;
 - proyecto demo vacío.
@@ -930,7 +930,7 @@ una nota puede sonar sincronizada con el transporte
 - autosave;
 - open;
 - save;
-- import/export `.jvdaw`.
+- import/export `.jvstudio.json`.
 
 ### Fase 8 — Render WAV
 
@@ -1101,7 +1101,7 @@ Antes de implementar todo:
 Primer milestone:
 
 ```text
-/jvdaw/
+/jvstudio/
    ↓
 abre JV Studio
    ↓

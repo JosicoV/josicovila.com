@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/jvdaw/',
+  base: '/jvstudio/',
   build: {
     emptyOutDir: true,
-    outDir: '../../app/jvdaw',
+    outDir: '../../app/jvstudio',
     sourcemap: false,
   },
 });

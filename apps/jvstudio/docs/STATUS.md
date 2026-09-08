@@ -2,7 +2,7 @@
 
 ## Implemented
 
-- Vite + TypeScript application at `/jvdaw/`, desktop-first navy/cyan interface and local build output in `app/jvdaw/`.
+- Vite + TypeScript application at `/jvstudio/`, desktop-first navy/cyan interface and local build output in `app/jvstudio/`.
 - Versioned Project/Track/Clip/Note model, validation, serialization and immutable `ProjectStore`.
 - Arranger with track/clip selection, creation, bar-snapped drag, duplicate/delete, overlap protection, playhead and scoped keyboard shortcuts.
 - Piano Roll with MIDI 0–127 keyboard, octave-C labels, Draw/Select/Erase, drag/resize, 1/4–1/32 snap, zoom, numeric editing and clip-relative playhead.
@@ -35,21 +35,17 @@
 
 ## Pending
 
-- Arranger clip edge-resizing with musical snap: creation remains one bar by default, while clips may be shortened to fractions of a bar or extended across multiple bars.
-- Rename tracks and clips from the interface.
-- Wide-range Arranger zoom plus an automatic Fit Project mode that shows the complete song without mandatory horizontal scrolling and adapts ruler-label density.
 - Piano-roll multi-selection, copy/paste and draw-by-drag.
-- IndexedDB persistence and `.jvdaw` import/export.
-- Undo/Redo and offline WAV rendering.
+- Optional browser recovery storage beyond the explicit `.jvstudio.json` Save/Open flow.
+- Undo/Redo.
 - Homepage CTA and removal of `noindex, nofollow`, intentionally deferred until launch approval.
 
 ## Known limitations
 
-- Open, Save and Export WAV remain disabled placeholders.
 - The application is desktop-only below 780px.
-- Project edits exist only in memory; refreshing resets the demo.
+- Project edits exist only in memory until the user downloads a `.jvstudio.json` file; refreshing without saving resets the demo.
 - Drum Synth is tonal synthesized percussion, not a mapped sample-based drum kit.
 
 ## Next milestone
 
-Add undo/redo history and consider lightweight browser autosave as a recovery layer, while keeping file Save/Open explicit.
+Add undo/redo history and consider lightweight browser autosave as a recovery layer, while keeping file Save/Open explicit. Integrate the new instrument material separately when it is ready.

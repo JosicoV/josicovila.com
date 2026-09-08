@@ -1,16 +1,16 @@
 # JV Studio — Architecture decisions
 
-## ADR-001 — Keep JVDAW in the josicovila.com repository
+## ADR-001 — Keep JV Studio in the josicovila.com repository
 
 **Status:** Accepted  
-**Decision:** Keep the application source in `apps/jvdaw/` and serve its build at `/jvdaw/`.
+**Decision:** Keep the application source in `apps/jvstudio/` and serve its build at `/jvstudio/`.
 
 This keeps the future homepage CTA and JV Studio release coordinated while preserving a clean boundary from the existing PHP application.
 
-## ADR-002 — Generate deployable assets under app/jvdaw
+## ADR-002 — Generate deployable assets under app/jvstudio
 
 **Status:** Accepted for the current deployment model  
-**Decision:** Configure Vite to write its production output to `app/jvdaw/`.
+**Decision:** Configure Vite to write its production output to `app/jvstudio/`.
 
 The current Apache container bind-mounts `app/` over `/var/www/html`, including in the VPS reference configuration. Assets placed only in a Docker build stage would therefore be hidden by that mount. Generated files must never be edited by hand.
 
@@ -31,7 +31,7 @@ This validates timing and browser audio behavior before building editing feature
 ## ADR-005 — Use an unlisted public URL for pre-launch testing
 
 **Status:** Accepted  
-**Decision:** Allow real-environment testing at `/jvdaw/` without adding the homepage CTA, and mark the application `noindex, nofollow` until launch.
+**Decision:** Allow real-environment testing at `/jvstudio/` without adding the homepage CTA, and mark the application `noindex, nofollow` until launch.
 
 The URL is intentionally unannounced, but it is not authentication and must not be treated as private access.
 
@@ -143,3 +143,10 @@ After any project mutation, `beforeunload` asks the browser to warn before navig
 WAV export renders the whole project offline at 44.1 kHz stereo and encodes 16-bit PCM locally. It reuses the synthesized presets and applies the current track volume, pan, Mute and Solo state; no project or audio data is uploaded.
 
 The render includes a short release tail and is capped at 20 minutes to avoid excessive browser memory use. Export does not mark the editable project as saved: users still need the `.jvstudio.json` file to continue composing later.
+
+## ADR-023 — Use JV Studio as the public and internal product name
+
+**Status:** Implemented
+The canonical route is `/jvstudio/`, with source in `apps/jvstudio/` and deployable output in `app/jvstudio/`. The former `/jvdaw/` route redirects permanently so existing private links keep working.
+
+JV Studio matches the established logo and remains accurate as the product grows. “DAW” is still a useful category description, but the public name does not imply that the current MIDI-focused release already provides conventional multitrack audio recording and editing.

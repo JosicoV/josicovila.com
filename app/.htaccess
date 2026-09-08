@@ -2,6 +2,8 @@ Options +FollowSymLinks
 
 RewriteEngine on
 
+RewriteRule ^jvdaw(?:/.*)?$ /jvstudio/ [R=301,L,NE]
+
 ErrorDocument 404 /
 
 RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1)(:\d+)?$ [NC]

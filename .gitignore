@@ -23,4 +23,4 @@ desktop.ini
 /app/img/track-scenes/
 
 # JV Studio dependencies are restored from its lockfile.
-/apps/jvdaw/node_modules/
+/apps/jvstudio/node_modules/
