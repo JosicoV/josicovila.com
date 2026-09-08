@@ -2,6 +2,9 @@ import { FADER_MAX_DB, FADER_MIN_DB, faderDbToGain, formatDecibels, gainToFaderD
 import { l } from '../../i18n';
 import type { Project, ProjectStore } from '../../project';
 
+// Full strip plus divider/header/padding and clearance for native range controls.
+export const MIXER_MIN_PANEL_HEIGHT = 570;
+
 export interface MixerViewOptions {
   instrumentName: (instrumentId: string) => string;
   onSelectTrack: (trackId: string) => void;

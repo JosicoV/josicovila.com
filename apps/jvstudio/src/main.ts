@@ -12,7 +12,7 @@ import { installClipEditing } from './ui/arranger/clipEditing';
 import { arrangerBarWidth, arrangerLaneWidth, arrangerRulerStep, isArrangerZoom, type ArrangerZoom } from './ui/arranger/arrangerZoom';
 import { installHelp } from './ui/help/HelpDialog';
 import { installResizableSeparator } from './ui/layout/resizablePanels';
-import { installMixerView } from './ui/mixer/MixerView';
+import { installMixerView, MIXER_MIN_PANEL_HEIGHT } from './ui/mixer/MixerView';
 import { installPianoRoll } from './ui/piano-roll/PianoRoll';
 import { showSessionNotice } from './ui/project/SessionNotice';
 
@@ -220,7 +220,10 @@ if (arrangerPanel && mixerPanel && mixerDivider) installResizableSeparator({
   orientation: 'horizontal',
   getSize: () => mixerPanel.getBoundingClientRect().height,
   setSize: (pixels) => arrangerPanel.style.setProperty('--mixer-height', `${pixels}px`),
-  limits: () => ({ min: 240, max: Math.max(240, arrangerPanel.clientHeight - 334) }),
+  limits: () => ({
+    min: MIXER_MIN_PANEL_HEIGHT,
+    max: Math.max(MIXER_MIN_PANEL_HEIGHT, arrangerPanel.clientHeight - 334),
+  }),
   storageKey: 'jvstudio:mixer-height',
   step: 32,
 });

@@ -164,7 +164,7 @@ button:disabled { color: #5f738a; cursor: not-allowed; opacity: 0.62; }
 .view-switch button.is-active { color: #06121c; border-color: var(--cyan-bright); background: var(--cyan-bright); box-shadow: 0 0 16px #16c8ff33; }
 .view-switch button:disabled { background: transparent; }
 
-.mixer-panel { position: relative; z-index: 5; grid-row: 5; min-width: 0; min-height: 0; display: flex; flex-direction: column; overflow: hidden; border: 0; border-top: 1px solid var(--line-strong); background: rgba(8, 18, 31, .96); box-shadow: 0 -18px 42px #02070e66; }
+.mixer-panel { position: relative; z-index: 5; grid-row: 5; min-width: 0; min-height: min(570px, 100%); display: flex; flex-direction: column; overflow: hidden; border: 0; border-top: 1px solid var(--line-strong); background: rgba(8, 18, 31, .96); box-shadow: 0 -18px 42px #02070e66; }
 .mixer-panel[hidden] { display: none; }
 .mixer-content { flex: 1; min-height: 0; overflow: hidden; }
 .mixer-divider { flex: 0 0 10px; cursor: row-resize; border-bottom: 1px solid #10243a; }
@@ -172,7 +172,7 @@ button:disabled { color: #5f738a; cursor: not-allowed; opacity: 0.62; }
 .mixer-header { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 28px; padding: 10px 18px; border-bottom: 1px solid var(--line); background: linear-gradient(90deg, rgba(16, 39, 62, .72), rgba(7, 17, 29, .4)); }
 .mixer-header h1 { margin: 7px 0 0; font-size: 1.12rem; }
 .mixer-header p { max-width: 520px; margin: 0; color: var(--muted); font-size: .76rem; text-align: right; }
-.mixer-scroll { height: calc(100% - 68px); min-height: 0; overflow-x: auto; overflow-y: hidden; }
+.mixer-scroll { height: calc(100% - 68px); min-height: 0; overflow-x: auto; overflow-y: auto; }
 .mixer-strips { display: flex; align-items: stretch; gap: 8px; width: max-content; min-width: 100%; height: 100%; padding: 14px; }
 .mixer-strip { position: relative; flex: 0 0 118px; min-height: 390px; display: grid; grid-template-rows: 72px 32px 70px minmax(150px, 1fr) 38px; justify-items: center; gap: 8px; padding: 10px 9px; overflow: hidden; border: 1px solid color-mix(in srgb, var(--track-color), #1c3149 72%); border-top: 4px solid var(--track-color); border-radius: 9px; background: linear-gradient(180deg, color-mix(in srgb, var(--track-color), #0e1d2f 92%), #081321 52%); box-shadow: inset 0 1px color-mix(in srgb, var(--track-color), transparent 82%); }
 .mixer-strip.is-selected { border-color: color-mix(in srgb, var(--track-color), white 26%); box-shadow: 0 0 24px color-mix(in srgb, var(--track-color), transparent 78%), inset 0 1px #ffffff10; }
