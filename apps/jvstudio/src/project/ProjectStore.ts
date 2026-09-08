@@ -1,7 +1,7 @@
 import { createClip, createNote, createProject, createTrack, defaultIdFactory, type IdFactory } from './factories';
 import { autoGrowProjectLength } from './duration';
 import { deserializeProject, serializeProject } from './serializer';
-import type { InstrumentTrack, MidiClip, MidiNote, Project } from './types';
+import type { InstrumentTrack, MasterMix, MidiClip, MidiNote, Project } from './types';
 import { validateProject } from './validation';
 
 export type ProjectChangeType =
@@ -11,6 +11,7 @@ export type ProjectChangeType =
   | 'track:add'
   | 'track:remove'
   | 'track:update'
+  | 'master:update'
   | 'clip:add'
   | 'clip:move'
   | 'clip:update'
@@ -86,6 +87,10 @@ export class ProjectStore {
 
   updateTrack(trackId: string, patch: TrackPatch): void {
     this.mutate('track:update', (project) => Object.assign(findTrack(project, trackId), patch));
+  }
+
+  updateMaster(patch: Partial<MasterMix>): void {
+    this.mutate('master:update', (project) => Object.assign(project.master, patch));
   }
 
   addClip(trackId: string, values: Partial<Omit<MidiClip, 'id' | 'notes'>> = {}): MidiClip {

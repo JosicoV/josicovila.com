@@ -17,12 +17,21 @@ describe('project serialization', () => {
 
   it('rejects unsupported versions and invalid MIDI notes', () => {
     const unsupported = structuredClone(demoProject) as unknown as { version: number };
-    unsupported.version = 2;
+    unsupported.version = 3;
     expect(() => deserializeProject(JSON.stringify(unsupported))).toThrow(/version/);
 
     const invalidMidi = structuredClone(demoProject);
     invalidMidi.tracks[0].clips[0].notes[0].midi = 128;
     expect(() => deserializeProject(JSON.stringify(invalidMidi))).toThrow(/midi/);
+  });
+
+  it('migrates v0.1 projects with a safe default master level', () => {
+    const legacy = structuredClone(demoProject) as unknown as Record<string, unknown>;
+    legacy.version = 1;
+    delete legacy.master;
+    const migrated = deserializeProject(JSON.stringify(legacy));
+    expect(migrated.version).toBe(2);
+    expect(migrated.master).toEqual({ volume: 0.9 });
   });
 
   it('rejects duplicate stable IDs', () => {

@@ -30,6 +30,7 @@ export function validateProject(value: unknown): asserts value is Project {
   assertTimeSignature(value.timeSignature, 'timeSignature');
   assertIntegerInRange(value.lengthBars, 1, 1_024, 'lengthBars');
   assertArrayLimit(value.tracks, MAX_TRACKS, 'tracks');
+  validateMaster(value.master, 'master');
   const projectLengthBeats = barsToBeats(value.lengthBars, value.timeSignature);
   value.tracks.forEach((track, trackIndex) => validateTrack(track, `tracks[${trackIndex}]`, ids, projectLengthBeats));
 }
@@ -40,7 +41,7 @@ function validateTrack(value: unknown, path: string, ids: Set<string>, projectLe
   assertName(value.name, `${path}.name`);
   if (value.type !== 'instrument') throw new ProjectValidationError('must be "instrument"', `${path}.type`);
   assertName(value.instrumentId, `${path}.instrumentId`);
-  assertNumberInRange(value.volume, 0, 1, `${path}.volume`);
+  assertNumberInRange(value.volume, 0, 2, `${path}.volume`);
   assertNumberInRange(value.pan, -1, 1, `${path}.pan`);
   assertBoolean(value.muted, `${path}.muted`);
   assertBoolean(value.solo, `${path}.solo`);
@@ -59,6 +60,11 @@ function validateTrack(value: unknown, path: string, ids: Set<string>, projectLe
       throw new ProjectValidationError('clips cannot overlap', `${path}.clips`);
     }
   }
+}
+
+function validateMaster(value: unknown, path: string): void {
+  assertRecord(value, path);
+  assertNumberInRange(value.volume, 0, 2, `${path}.volume`);
 }
 
 function validateClip(value: unknown, path: string, ids: Set<string>, projectLengthBeats: number): void {

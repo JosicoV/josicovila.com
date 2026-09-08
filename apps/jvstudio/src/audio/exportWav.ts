@@ -25,10 +25,11 @@ export async function renderProjectWav(project: Project): Promise<Blob> {
   const events = scheduleEvents(project);
   const rendered = await Tone.Offline(async () => {
     const voices = new Map<string, InstrumentVoice>();
+    const masterGain = new Tone.Gain(project.master.volume).toDestination();
     for (const track of project.tracks) {
-      const panner = new Tone.Panner(track.pan).toDestination();
-      const gain = new Tone.Gain(trackGain(track, project.tracks)).connect(panner);
-      voices.set(track.id, createInstrument(track.instrumentId, gain));
+      const gain = new Tone.Gain(trackGain(track, project.tracks)).connect(masterGain);
+      const panner = new Tone.Panner(track.pan).connect(gain);
+      voices.set(track.id, createInstrument(track.instrumentId, panner));
     }
     for (const track of project.tracks) {
       await voices.get(track.id)?.prepare(

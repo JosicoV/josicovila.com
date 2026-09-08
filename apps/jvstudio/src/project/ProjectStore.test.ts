@@ -54,6 +54,12 @@ describe('ProjectStore', () => {
     expect(events).toEqual(['track:add', 'project:update']);
   });
 
+  it('updates the master level without changing track state', () => {
+    const store = new ProjectStore(createProject({ id: 'project-test-master' }));
+    store.updateMaster({ volume: 1.25 });
+    expect(store.getSnapshot().master.volume).toBe(1.25);
+  });
+
   it('grows by four bars when a clip reaches the project end', () => {
     const store = new ProjectStore(createProject({ id: 'project-test-growth', lengthBars: 4 }), sequentialIds());
     const track = store.addTrack({ name: 'Piano' });

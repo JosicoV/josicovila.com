@@ -1,4 +1,4 @@
-export const PROJECT_VERSION = 1 as const;
+export const PROJECT_VERSION = 2 as const;
 
 export type ProjectVersion = typeof PROJECT_VERSION;
 export type TimeSignature = [number, number];
@@ -32,6 +32,10 @@ export interface InstrumentTrack {
   clips: MidiClip[];
 }
 
+export interface MasterMix {
+  volume: number;
+}
+
 export interface Project {
   version: ProjectVersion;
   id: string;
@@ -40,4 +44,5 @@ export interface Project {
   timeSignature: TimeSignature;
   lengthBars: number;
   tracks: InstrumentTrack[];
+  master: MasterMix;
 }

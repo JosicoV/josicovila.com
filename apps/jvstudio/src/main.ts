@@ -2,6 +2,7 @@ import './styles.css';
 
 import { AudioEngine, type AudioState } from './audio/AudioEngine';
 import { renderProjectWav } from './audio/exportWav';
+import { formatDecibels, gainToFaderDb } from './audio/gain';
 import { initializeInstrumentCatalog, instruments, instrumentPlayableRange, onInstrumentLoadProgress, resolveInstrument } from './audio/instruments';
 import { l } from './i18n';
 import { demoProject } from './project/demoProject';
@@ -11,6 +12,7 @@ import { installClipEditing } from './ui/arranger/clipEditing';
 import { arrangerBarWidth, arrangerLaneWidth, arrangerRulerStep, isArrangerZoom, type ArrangerZoom } from './ui/arranger/arrangerZoom';
 import { installHelp } from './ui/help/HelpDialog';
 import { installResizableSeparator } from './ui/layout/resizablePanels';
+import { installMixerView } from './ui/mixer/MixerView';
 import { installPianoRoll } from './ui/piano-roll/PianoRoll';
 import { showSessionNotice } from './ui/project/SessionNotice';
 
@@ -28,6 +30,7 @@ try {
 const store = new ProjectStore(demoProject);
 let selectedTrackId = demoProject.tracks[0].id;
 let selectedClipId: string | null = demoProject.tracks[0].clips[0].id;
+let activeView: 'arranger' | 'piano-roll' | 'mixer' = 'arranger';
 
 app.innerHTML = `
   <main class="studio-shell">
@@ -94,6 +97,7 @@ app.innerHTML = `
             <div class="view-switch" aria-label="${l('Panel activo', 'Active panel')}">
               <button class="is-active" type="button" data-view="arranger" aria-pressed="true">ARRANGER</button>
               <button type="button" data-view="piano-roll" data-action="piano-roll" aria-pressed="false">PIANO ROLL</button>
+              <button type="button" data-view="mixer" aria-pressed="false">MIXER</button>
             </div>
             <strong>${l('Línea de tiempo del proyecto', 'Project timeline')}</strong>
           </div>
@@ -128,6 +132,8 @@ app.innerHTML = `
           <div role="status" aria-live="polite"><strong data-selection-title>${l('Arranger preparado', 'Arranger ready')}</strong><p data-selection-copy>${l('Selecciona una pista o clip. Haz doble clic en un hueco para crear un clip de un compás.', 'Select a track or clip. Double-click an empty lane to create a one-bar clip.')}</p></div>
         </footer>
       </section>
+
+      <section class="mixer-panel" data-mixer-panel hidden aria-label="${l('Mezclador del proyecto', 'Project mixer')}"></section>
     </section>
 
     <section class="mobile-notice">
@@ -164,6 +170,7 @@ const rangeLabel = document.querySelector<HTMLElement>('[data-range]');
 const selectionTitle = document.querySelector<HTMLElement>('[data-selection-title]');
 const selectionCopy = document.querySelector<HTMLElement>('[data-selection-copy]');
 const arrangerPanel = document.querySelector<HTMLElement>('.arranger-panel');
+const mixerPanel = document.querySelector<HTMLElement>('[data-mixer-panel]');
 const workspace = document.querySelector<HTMLElement>('.workspace');
 const workspaceDivider = document.querySelector<HTMLElement>('[data-workspace-divider]');
 let arrangerZoom: ArrangerZoom = 'fit';
@@ -194,6 +201,15 @@ if (workspace && workspaceDivider) installResizableSeparator({
 
 const initialSnapshot = store.getSnapshot();
 const audioEngine = new AudioEngine(initialSnapshot);
+const mixerView = mixerPanel ? installMixerView(mixerPanel, store, {
+  instrumentName,
+  selectedTrackId: () => selectedTrackId,
+  onSelectTrack: (trackId) => {
+    selectedTrackId = trackId;
+    selectedClipId = null;
+    render();
+  },
+}) : null;
 let projectLengthBeats = barsToBeats(initialSnapshot.lengthBars, initialSnapshot.timeSignature);
 const pianoRoll = installPianoRoll(store, () => {
   setActiveView('arranger');
@@ -203,13 +219,6 @@ const pianoRoll = installPianoRoll(store, () => {
 }, async (trackId) => {
   const track = store.getSnapshot().tracks.find((item) => item.id === trackId);
   return instrumentPlayableRange(track?.instrumentId ?? instruments[0].id);
-});
-document.querySelector('[data-action="piano-roll"]')?.addEventListener('click', () => {
-  if (selectedClipId) {
-    pianoRoll.open(selectedTrackId, selectedClipId);
-    pianoRoll.focus();
-    setActiveView('piano-roll');
-  }
 });
 const trackColors = ['#11b9f2', '#39dfa0', '#ff8a3d', '#8b5cf6', '#f45f9a', '#f5c84b'];
 
@@ -310,6 +319,8 @@ function render(): void {
 
   renderInspector(selectedTrack, selectedClip);
   renderSelectionSummary(selectedTrack, selectedClip);
+  mixerView?.render(project, selectedTrackId);
+  syncViewState();
 }
 
 function syncArrangerScale(bars = store.getSnapshot().lengthBars): void {
@@ -358,8 +369,8 @@ function renderInspector(
     <p class="instrument-description">${escapeHtml(l(preset.descriptionEs, preset.descriptionEn))}</p>
     <label class="mix-field mix-range">
       <span>${l('Volumen', 'Volume')}</span>
-      <input type="range" min="0" max="1" step="0.01" value="${track.volume}" data-mix="volume" data-track-id="${escapeHtml(track.id)}" />
-      <output data-mix-output="volume">${Math.round(track.volume * 100)}%</output>
+      <input type="range" min="0" max="2" step="0.01" value="${track.volume}" data-mix="volume" data-track-id="${escapeHtml(track.id)}" />
+      <output data-mix-output="volume">${formatDecibels(gainToFaderDb(track.volume))}</output>
     </label>
     <label class="mix-field mix-range">
       <span>${l('Panorámica', 'Pan')}</span>
@@ -583,7 +594,7 @@ function escapeHtml(value: string): string {
 store.subscribe((change) => {
   hasUnsavedChanges = change.type !== 'project:load' && change.type !== 'project:create';
   projectLengthBeats = barsToBeats(change.project.lengthBars, change.project.timeSignature);
-  if (change.type === 'track:update') audioEngine.setTrackMix(change.project);
+  if (change.type === 'track:update' || change.type === 'master:update') audioEngine.setTrackMix(change.project);
   else if (change.type !== 'project:update') audioEngine.setProject(change.project);
   render();
 });
@@ -703,7 +714,7 @@ inspector?.addEventListener('input', (event) => {
   const input = (event.target as HTMLElement).closest<HTMLInputElement>('input[data-mix]');
   if (!input) return;
   const output = inspector.querySelector<HTMLOutputElement>(`[data-mix-output="${input.dataset.mix}"]`);
-  if (output) output.value = input.dataset.mix === 'volume' ? `${Math.round(input.valueAsNumber * 100)}%` : formatPan(input.valueAsNumber);
+  if (output) output.value = input.dataset.mix === 'volume' ? formatDecibels(gainToFaderDb(input.valueAsNumber)) : formatPan(input.valueAsNumber);
 });
 
 inspector?.addEventListener('change', (event) => {
@@ -753,9 +764,21 @@ arrangerPanel?.addEventListener('focusin', (event) => {
   else if (target.closest('.arrangement, [data-view="arranger"]')) setActiveView('arranger');
 });
 
-document.querySelector('[data-view="arranger"]')?.addEventListener('click', () => {
-  setActiveView('arranger');
-  arrangement?.focus({ preventScroll: true });
+workspace?.addEventListener('click', (event) => {
+  const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-view]');
+  if (!button) return;
+  const view = button.dataset.view;
+  if (view === 'arranger') {
+    setActiveView('arranger');
+    arrangement?.focus({ preventScroll: true });
+  } else if (view === 'piano-roll' && selectedClipId) {
+    pianoRoll.open(selectedTrackId, selectedClipId);
+    pianoRoll.focus();
+    setActiveView('piano-roll');
+  } else if (view === 'mixer') {
+    setActiveView('mixer');
+    mixerPanel?.focus({ preventScroll: true });
+  }
 });
 
 window.addEventListener('keydown', (event) => {
@@ -803,11 +826,19 @@ if (selectedClipId) {
 requestAnimationFrame(updatePlayhead);
 showSessionNotice(requestOpenProject);
 
-function setActiveView(view: 'arranger' | 'piano-roll'): void {
+function setActiveView(view: 'arranger' | 'piano-roll' | 'mixer'): void {
+  activeView = view;
+  syncViewState();
+}
+
+function syncViewState(): void {
   for (const button of document.querySelectorAll<HTMLButtonElement>('[data-view]')) {
-    const active = button.dataset.view === view;
+    const active = button.dataset.view === activeView;
     button.classList.toggle('is-active', active);
     button.setAttribute('aria-pressed', String(active));
+    if (button.dataset.view === 'piano-roll') button.disabled = !selectedClipId;
   }
-  arrangerPanel?.classList.toggle('is-piano-active', view === 'piano-roll');
+  arrangerPanel?.classList.toggle('is-piano-active', activeView === 'piano-roll');
+  workspace?.classList.toggle('is-mixer-view', activeView === 'mixer');
+  if (mixerPanel) mixerPanel.hidden = activeView !== 'mixer';
 }

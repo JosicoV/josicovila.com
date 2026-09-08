@@ -1,4 +1,4 @@
-import { PROJECT_VERSION, type InstrumentTrack, type MidiClip, type MidiNote, type Project } from './types';
+import { PROJECT_VERSION, type InstrumentTrack, type MasterMix, type MidiClip, type MidiNote, type Project } from './types';
 
 export type EntityKind = 'project' | 'track' | 'clip' | 'note';
 export type IdFactory = (kind: EntityKind) => string;
@@ -10,7 +10,7 @@ export const defaultIdFactory: IdFactory = (kind) => {
 };
 
 export function createProject(
-  values: Partial<Omit<Project, 'version' | 'tracks'>> & { tracks?: InstrumentTrack[] } = {},
+  values: Partial<Omit<Project, 'version' | 'tracks' | 'master'>> & { tracks?: InstrumentTrack[]; master?: Partial<MasterMix> } = {},
   createId: IdFactory = defaultIdFactory,
 ): Project {
   return {
@@ -21,6 +21,9 @@ export function createProject(
     timeSignature: values.timeSignature ?? [4, 4],
     lengthBars: values.lengthBars ?? 16,
     tracks: values.tracks ?? [],
+    master: {
+      volume: values.master?.volume ?? 0.9,
+    },
   };
 }
 

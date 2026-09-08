@@ -27,6 +27,7 @@ type TrackVoice = {
 
 export class AudioEngine {
   private readonly transport = Tone.getTransport();
+  private readonly masterGain: Tone.Gain;
   private readonly voices = new Map<string, TrackVoice>();
   private project: Project;
   private previewRequest = 0;
@@ -38,6 +39,7 @@ export class AudioEngine {
 
   constructor(project: Project) {
     this.project = structuredClone(project);
+    this.masterGain = new Tone.Gain(project.master.volume).toDestination();
     this.transport.bpm.value = project.bpm;
     this.transport.loop = true;
     this.transport.loopStart = 0;
@@ -101,6 +103,7 @@ export class AudioEngine {
 
   setTrackMix(project: Project): void {
     this.project = structuredClone(project);
+    this.masterGain.gain.value = project.master.volume;
     this.syncVoices(project);
   }
 
@@ -109,6 +112,7 @@ export class AudioEngine {
     this.part?.dispose();
     this.part = null;
     this.project = structuredClone(project);
+    this.masterGain.gain.value = project.master.volume;
     this.syncVoices(project);
     this.transport.loopEnd = this.toTicks(barsToBeats(project.lengthBars, project.timeSignature));
     this.setBpm(project.bpm);
@@ -133,6 +137,7 @@ export class AudioEngine {
     this.transport.stop();
     this.part?.dispose();
     this.disposeVoices();
+    this.masterGain.dispose();
   }
 
   private ensurePart(): void {
@@ -190,14 +195,14 @@ export class AudioEngine {
   }
 
   private createVoice(track: InstrumentTrack): TrackVoice {
-    const panner = new Tone.Panner(track.pan).toDestination();
-    const gain = new Tone.Gain(track.volume).connect(panner);
-    const previewPanner = new Tone.Panner(track.pan).toDestination();
-    const previewGain = new Tone.Gain(track.volume).connect(previewPanner);
+    const gain = new Tone.Gain(track.volume).connect(this.masterGain);
+    const panner = new Tone.Panner(track.pan).connect(gain);
+    const previewGain = new Tone.Gain(track.volume).connect(this.masterGain);
+    const previewPanner = new Tone.Panner(track.pan).connect(previewGain);
     return {
       instrumentId: track.instrumentId,
-      playback: createInstrument(track.instrumentId, gain),
-      preview: createInstrument(track.instrumentId, previewGain),
+      playback: createInstrument(track.instrumentId, panner),
+      preview: createInstrument(track.instrumentId, previewPanner),
       gain,
       panner,
       previewGain,

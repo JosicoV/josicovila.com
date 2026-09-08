@@ -1,4 +1,4 @@
-import type { Project } from './types';
+import { PROJECT_VERSION, type Project } from './types';
 import { ProjectValidationError, validateProject } from './validation';
 
 export const MAX_PROJECT_FILE_BYTES = 5 * 1024 * 1024;
@@ -20,7 +20,17 @@ export function deserializeProject(serialized: string): Project {
     throw new ProjectValidationError('contains invalid JSON', 'project');
   }
 
-  const project = structuredClone(candidate);
+  const project = migrateProject(candidate);
   validateProject(project);
+  return project;
+}
+
+function migrateProject(candidate: unknown): unknown {
+  if (!candidate || typeof candidate !== 'object' || Array.isArray(candidate)) return structuredClone(candidate);
+  const project = structuredClone(candidate) as Record<string, unknown>;
+  if (project.version === 1) {
+    project.version = PROJECT_VERSION;
+    project.master = { volume: 0.9 };
+  }
   return project;
 }
