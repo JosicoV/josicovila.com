@@ -1,3 +1,4 @@
+import { createDefaultSendEffects } from './effects';
 import { PROJECT_VERSION, type Project } from './types';
 import { ProjectValidationError, validateProject } from './validation';
 
@@ -46,7 +47,14 @@ function migrateProject(candidate: unknown): unknown {
       : { volume: 0.9 };
     master.insertFx = [];
     master.limiterEnabled = true;
+    master.limiterThreshold = -1;
     project.master = master;
+    project.sendFx = createDefaultSendEffects();
+  }
+  if (project.version === PROJECT_VERSION) {
+    if (!project.sendFx) project.sendFx = createDefaultSendEffects();
+    const master = project.master as Record<string, unknown> | undefined;
+    if (master && master.limiterThreshold === undefined) master.limiterThreshold = -1;
   }
   return project;
 }

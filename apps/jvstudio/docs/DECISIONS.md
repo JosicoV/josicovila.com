@@ -170,3 +170,12 @@ Track and Master routing belongs to `MixerEngine`, never to individual UI contro
 Reverb and Delay use one shared `SendBus` each, initially with zero-level track taps. `MasterBus` owns the Master insert boundary, volume and output meter. Playback and offline WAV rendering instantiate the same routing graph so future effects have one integration point and parity does not depend on duplicated connection code.
 
 Project schema v3 introduces two insert slots, fixed send levels and Master limiter state. Versions 1 and 2 migrate with empty inserts, zero sends and the limiter enabled, preserving the sound of existing projects. Concrete effect processors remain a separate phase; the routing boundaries are intentionally pass-through until then.
+
+## ADR-026 — Keep the first FX set small, shared and project-owned
+
+**Status:** Implemented
+Track and Master insert chains accept at most two JV EQ or JV Compressor processors. Bypass is implemented inside each processor so parameter and on/off changes do not rebuild the audio graph; the chain is rebuilt only when a slot is added, removed or changes type.
+
+JV Reverb and JV Delay remain single shared post-fader buses. Track send levels are independent, while decay, pre-delay, musical delay time, feedback and wet return belong to the project-wide bus configuration. Delay time is stored in beats and recalculated from BPM. Reverb stays fully wet internally; its Wet control is the return level, avoiding a duplicate dry path.
+
+JV Limiter is a dedicated final Master processor after Master volume and before the output meter. It is enabled at -1 dB by default and can be bypassed. Parameter defaults and safe ranges live in one catalogue shared by factories, validation, UI and audio processing. Offline exports wait for asynchronous Reverb preparation and extend their render tail for active Reverb or Delay.

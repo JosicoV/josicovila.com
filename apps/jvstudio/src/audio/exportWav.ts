@@ -1,12 +1,12 @@
 import * as Tone from 'tone';
 
-import { barsToBeats, type Project } from '../project';
+import { barsToBeats, parameterValue, type Project } from '../project';
 import { createInstrument, type InstrumentVoice } from './instruments';
 import { MixerEngine } from './MixerEngine';
 import { scheduleEvents } from './projectEvents';
 
 const SAMPLE_RATE = 44_100;
-const RELEASE_TAIL_SECONDS = 1.5;
+const MINIMUM_RELEASE_TAIL_SECONDS = 1.5;
 export const MAX_WAV_EXPORT_SECONDS = 20 * 60;
 
 interface PcmAudioBuffer {
@@ -19,7 +19,7 @@ interface PcmAudioBuffer {
 export async function renderProjectWav(project: Project): Promise<Blob> {
   const beatSeconds = 60 / project.bpm;
   const projectSeconds = barsToBeats(project.lengthBars, project.timeSignature) * beatSeconds;
-  const renderSeconds = projectSeconds + RELEASE_TAIL_SECONDS;
+  const renderSeconds = projectSeconds + effectTailSeconds(project);
   if (renderSeconds > MAX_WAV_EXPORT_SECONDS) throw new RangeError('WAV export exceeds the 20 minute safety limit.');
 
   const events = scheduleEvents(project);
@@ -34,6 +34,7 @@ export async function renderProjectWav(project: Project): Promise<Blob> {
         events.filter((note) => note.trackId === track.id).map((note) => ({ midi: note.midi, velocity: note.velocity })),
       );
     }
+    await mixer.ready();
     for (const note of events) {
       voices.get(note.trackId)?.triggerAttackRelease(
         Tone.Frequency(note.midi, 'midi').toNote(),
@@ -47,6 +48,22 @@ export async function renderProjectWav(project: Project): Promise<Blob> {
   const audioBuffer = rendered.get();
   if (!audioBuffer) throw new Error('Offline rendering did not produce an audio buffer.');
   return new Blob([encodeWav(audioBuffer)], { type: 'audio/wav' });
+}
+
+export function effectTailSeconds(project: Project): number {
+  let tail = MINIMUM_RELEASE_TAIL_SECONDS;
+  const reverbIsUsed = project.sendFx.reverb.enabled && project.tracks.some((track) => track.sends.reverb > 0);
+  if (reverbIsUsed) {
+    tail = Math.max(tail, parameterValue(project.sendFx.reverb, 'decay') + parameterValue(project.sendFx.reverb, 'preDelay'));
+  }
+  const delayIsUsed = project.sendFx.delay.enabled && project.tracks.some((track) => track.sends.delay > 0);
+  if (delayIsUsed) {
+    const feedback = parameterValue(project.sendFx.delay, 'feedback');
+    const delaySeconds = parameterValue(project.sendFx.delay, 'time') * 60 / project.bpm;
+    const repeatsToSilence = feedback <= 0 ? 1 : Math.ceil(Math.log(0.001) / Math.log(feedback));
+    tail = Math.max(tail, Math.min(10, repeatsToSilence * delaySeconds));
+  }
+  return tail;
 }
 
 export function encodeWav(buffer: PcmAudioBuffer): ArrayBuffer {

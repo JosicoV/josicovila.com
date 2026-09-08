@@ -32,16 +32,20 @@ export class MixerEngine {
   readonly reverb: SendBus;
   readonly delay: SendBus;
   private readonly channels = new Map<string, TrackChannel>();
+  private reverbRequired = false;
 
   constructor(project: Project) {
-    this.master = new MasterBus(project.master.volume);
-    this.reverb = new SendBus(this.master.input);
-    this.delay = new SendBus(this.master.input);
+    this.master = new MasterBus(project.master, project.bpm);
+    this.reverb = new SendBus(project.sendFx.reverb, project.bpm, this.master.input);
+    this.delay = new SendBus(project.sendFx.delay, project.bpm, this.master.input);
     this.sync(project);
   }
 
   sync(project: Project): void {
-    this.master.setVolume(project.master.volume);
+    this.master.sync(project.master, project.bpm);
+    this.reverb.sync(project.sendFx.reverb, project.bpm);
+    this.delay.sync(project.sendFx.delay, project.bpm);
+    this.reverbRequired = project.sendFx.reverb.enabled && project.tracks.some((track) => track.sends.reverb > 0);
     const ids = new Set(project.tracks.map((track) => track.id));
     for (const [trackId, channel] of this.channels) {
       if (!ids.has(trackId)) {
@@ -52,6 +56,7 @@ export class MixerEngine {
     for (const track of project.tracks) {
       const channel = this.channels.get(track.id) ?? this.createTrackChannel(track);
       this.channels.set(track.id, channel);
+      channel.inserts.sync(track.insertFx, project.bpm);
       channel.panner.pan.value = track.pan;
       channel.gain.gain.value = trackGain(track, project.tracks);
       channel.previewPanner.pan.value = track.pan;
@@ -73,6 +78,15 @@ export class MixerEngine {
     const tracks: Record<string, StereoMeterLevel> = {};
     for (const [trackId, channel] of this.channels) tracks[trackId] = stereoMeterLevel(channel.meter.getValue());
     return { tracks, master: stereoMeterLevel(this.master.meter.getValue()) };
+  }
+
+  async ready(): Promise<void> {
+    await Promise.all([
+      this.master.ready(),
+      this.reverbRequired ? this.reverb.ready() : Promise.resolve(),
+      this.delay.ready(),
+      ...Array.from(this.channels.values(), (channel) => channel.inserts.ready()),
+    ]);
   }
 
   dispose(): void {

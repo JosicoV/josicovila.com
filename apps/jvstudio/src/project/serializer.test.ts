@@ -31,8 +31,9 @@ describe('project serialization', () => {
     delete legacy.master;
     const migrated = deserializeProject(JSON.stringify(legacy));
     expect(migrated.version).toBe(3);
-    expect(migrated.master).toEqual({ volume: 0.9, insertFx: [], limiterEnabled: true });
+    expect(migrated.master).toEqual({ volume: 0.9, insertFx: [], limiterEnabled: true, limiterThreshold: -1 });
     expect(migrated.tracks[0]).toMatchObject({ insertFx: [], sends: { reverb: 0, delay: 0 } });
+    expect(migrated.sendFx.reverb.id).toBe('jv-reverb');
   });
 
   it('migrates v0.2 mixer projects to the routing schema', () => {
@@ -44,9 +45,13 @@ describe('project serialization', () => {
     const master = previous.master as Record<string, unknown>;
     delete master.insertFx;
     delete master.limiterEnabled;
+    delete master.limiterThreshold;
+    delete previous.sendFx;
     const migrated = deserializeProject(JSON.stringify(previous));
     expect(migrated.version).toBe(3);
     expect(migrated.tracks[0].sends).toEqual({ reverb: 0, delay: 0 });
+    expect(migrated.master.limiterThreshold).toBe(-1);
+    expect(migrated.sendFx.delay.id).toBe('jv-delay');
   });
 
   it('rejects duplicate stable IDs', () => {
@@ -63,5 +68,19 @@ describe('project serialization', () => {
     const tooMany = structuredClone(demoProject);
     tooMany.tracks[0].insertFx = Array.from({ length: 3 }, () => ({ id: 'jv-eq' as const, enabled: true, parameters: {} }));
     expect(() => deserializeProject(JSON.stringify(tooMany))).toThrow(/more than 2/);
+  });
+
+  it('rejects effects in the wrong chain and parameters outside safe ranges', () => {
+    const wrongChain = structuredClone(demoProject);
+    wrongChain.tracks[0].insertFx = [{ ...wrongChain.sendFx.reverb }];
+    expect(() => deserializeProject(JSON.stringify(wrongChain))).toThrow(/unsupported effect/);
+
+    const unsafeFeedback = structuredClone(demoProject);
+    unsafeFeedback.sendFx.delay.parameters.feedback = 0.99;
+    expect(() => deserializeProject(JSON.stringify(unsafeFeedback))).toThrow(/feedback/);
+
+    const unsafeLimiter = structuredClone(demoProject);
+    unsafeLimiter.master.limiterThreshold = 2;
+    expect(() => deserializeProject(JSON.stringify(unsafeLimiter))).toThrow(/limiterThreshold/);
   });
 });

@@ -616,7 +616,7 @@ function escapeHtml(value: string): string {
 store.subscribe((change) => {
   hasUnsavedChanges = change.type !== 'project:load' && change.type !== 'project:create';
   projectLengthBeats = barsToBeats(change.project.lengthBars, change.project.timeSignature);
-  if (change.type === 'track:update' || change.type === 'master:update') audioEngine.setTrackMix(change.project);
+  if (change.type === 'track:update' || change.type === 'master:update' || change.type === 'effects:update') audioEngine.setTrackMix(change.project);
   else if (change.type !== 'project:update') audioEngine.setProject(change.project);
   render();
 });

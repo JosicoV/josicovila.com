@@ -1,4 +1,5 @@
-import { PROJECT_VERSION, type Project, type TimeSignature } from './types';
+import { EFFECT_PARAMETERS, MASTER_INSERT_EFFECTS, TRACK_INSERT_EFFECTS } from './effects';
+import { PROJECT_VERSION, type EffectId, type Project, type TimeSignature } from './types';
 import { barsToBeats } from './timing';
 
 const MAX_NAME_LENGTH = 120;
@@ -6,7 +7,6 @@ const MAX_TRACKS = 64;
 const MAX_CLIPS_PER_TRACK = 1_000;
 const MAX_NOTES_PER_CLIP = 50_000;
 const VALID_DENOMINATORS = new Set([1, 2, 4, 8, 16]);
-const VALID_EFFECTS = new Set(['jv-eq', 'jv-compressor', 'jv-reverb', 'jv-delay', 'jv-limiter']);
 
 type UnknownRecord = Record<string, unknown>;
 
@@ -31,6 +31,7 @@ export function validateProject(value: unknown): asserts value is Project {
   assertTimeSignature(value.timeSignature, 'timeSignature');
   assertIntegerInRange(value.lengthBars, 1, 1_024, 'lengthBars');
   assertArrayLimit(value.tracks, MAX_TRACKS, 'tracks');
+  validateSendEffects(value.sendFx, 'sendFx');
   validateMaster(value.master, 'master');
   const projectLengthBeats = barsToBeats(value.lengthBars, value.timeSignature);
   value.tracks.forEach((track, trackIndex) => validateTrack(track, `tracks[${trackIndex}]`, ids, projectLengthBeats));
@@ -46,7 +47,7 @@ function validateTrack(value: unknown, path: string, ids: Set<string>, projectLe
   assertNumberInRange(value.pan, -1, 1, `${path}.pan`);
   assertBoolean(value.muted, `${path}.muted`);
   assertBoolean(value.solo, `${path}.solo`);
-  validateEffects(value.insertFx, `${path}.insertFx`);
+  validateEffects(value.insertFx, `${path}.insertFx`, TRACK_INSERT_EFFECTS);
   assertRecord(value.sends, `${path}.sends`);
   assertNumberInRange(value.sends.reverb, 0, 1, `${path}.sends.reverb`);
   assertNumberInRange(value.sends.delay, 0, 1, `${path}.sends.delay`);
@@ -70,26 +71,32 @@ function validateTrack(value: unknown, path: string, ids: Set<string>, projectLe
 function validateMaster(value: unknown, path: string): void {
   assertRecord(value, path);
   assertNumberInRange(value.volume, 0, 2, `${path}.volume`);
-  validateEffects(value.insertFx, `${path}.insertFx`);
+  validateEffects(value.insertFx, `${path}.insertFx`, MASTER_INSERT_EFFECTS);
   assertBoolean(value.limiterEnabled, `${path}.limiterEnabled`);
+  assertNumberInRange(value.limiterThreshold, -12, 0, `${path}.limiterThreshold`);
 }
 
-function validateEffects(value: unknown, path: string): void {
+function validateSendEffects(value: unknown, path: string): void {
+  assertRecord(value, path);
+  validateEffect(value.reverb, `${path}.reverb`, new Set(['jv-reverb']));
+  validateEffect(value.delay, `${path}.delay`, new Set(['jv-delay']));
+}
+
+function validateEffects(value: unknown, path: string, allowed: Set<EffectId>): void {
   assertArrayLimit(value, 2, path);
-  value.forEach((effect, index) => {
-    const effectPath = `${path}[${index}]`;
-    assertRecord(effect, effectPath);
-    if (typeof effect.id !== 'string' || !VALID_EFFECTS.has(effect.id)) {
-      throw new ProjectValidationError('has an unsupported effect', `${effectPath}.id`);
-    }
-    assertBoolean(effect.enabled, `${effectPath}.enabled`);
-    assertRecord(effect.parameters, `${effectPath}.parameters`);
-    for (const [name, parameter] of Object.entries(effect.parameters)) {
-      if (typeof parameter !== 'number' || !Number.isFinite(parameter)) {
-        throw new ProjectValidationError('must be a finite number', `${effectPath}.parameters.${name}`);
-      }
-    }
-  });
+  value.forEach((effect, index) => validateEffect(effect, `${path}[${index}]`, allowed));
+}
+
+function validateEffect(value: unknown, path: string, allowed: Set<EffectId>): void {
+  assertRecord(value, path);
+  if (typeof value.id !== 'string' || !allowed.has(value.id as EffectId)) {
+    throw new ProjectValidationError('has an unsupported effect', `${path}.id`);
+  }
+  assertBoolean(value.enabled, `${path}.enabled`);
+  assertRecord(value.parameters, `${path}.parameters`);
+  for (const definition of EFFECT_PARAMETERS[value.id as EffectId]) {
+    assertNumberInRange(value.parameters[definition.key], definition.min, definition.max, `${path}.parameters.${definition.key}`);
+  }
 }
 
 function validateClip(value: unknown, path: string, ids: Set<string>, projectLengthBeats: number): void {

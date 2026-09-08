@@ -68,6 +68,15 @@ describe('ProjectStore', () => {
     expect(store.getSnapshot().tracks[0].sends).toEqual({ reverb: 0.35, delay: 0.1 });
   });
 
+  it('updates shared effects and Master limiter settings', () => {
+    const store = new ProjectStore(createProject({ id: 'project-test-effects' }));
+    const reverb = store.getSnapshot().sendFx.reverb;
+    store.updateSendEffects({ reverb: { ...reverb, parameters: { ...reverb.parameters, decay: 3.4 } } });
+    store.updateMaster({ limiterEnabled: false, limiterThreshold: -3 });
+    expect(store.getSnapshot().sendFx.reverb.parameters.decay).toBe(3.4);
+    expect(store.getSnapshot().master).toMatchObject({ limiterEnabled: false, limiterThreshold: -3 });
+  });
+
   it('grows by four bars when a clip reaches the project end', () => {
     const store = new ProjectStore(createProject({ id: 'project-test-growth', lengthBars: 4 }), sequentialIds());
     const track = store.addTrack({ name: 'Piano' });

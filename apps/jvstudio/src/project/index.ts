@@ -1,5 +1,6 @@
 export * from './factories';
 export * from './duration';
+export * from './effects';
 export * from './projectFile';
 export * from './midi';
 export * from './ProjectStore';

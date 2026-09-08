@@ -1,4 +1,5 @@
-import { PROJECT_VERSION, type InstrumentTrack, type MasterMix, type MidiClip, type MidiNote, type Project } from './types';
+import { createDefaultSendEffects } from './effects';
+import { PROJECT_VERSION, type InstrumentTrack, type MasterMix, type MidiClip, type MidiNote, type Project, type SendEffects } from './types';
 
 export type EntityKind = 'project' | 'track' | 'clip' | 'note';
 export type IdFactory = (kind: EntityKind) => string;
@@ -10,7 +11,7 @@ export const defaultIdFactory: IdFactory = (kind) => {
 };
 
 export function createProject(
-  values: Partial<Omit<Project, 'version' | 'tracks' | 'master'>> & { tracks?: InstrumentTrack[]; master?: Partial<MasterMix> } = {},
+  values: Partial<Omit<Project, 'version' | 'tracks' | 'master' | 'sendFx'>> & { tracks?: InstrumentTrack[]; master?: Partial<MasterMix>; sendFx?: SendEffects } = {},
   createId: IdFactory = defaultIdFactory,
 ): Project {
   return {
@@ -21,10 +22,12 @@ export function createProject(
     timeSignature: values.timeSignature ?? [4, 4],
     lengthBars: values.lengthBars ?? 16,
     tracks: values.tracks ?? [],
+    sendFx: structuredClone(values.sendFx ?? createDefaultSendEffects()),
     master: {
       volume: values.master?.volume ?? 0.9,
       insertFx: structuredClone(values.master?.insertFx ?? []),
       limiterEnabled: values.master?.limiterEnabled ?? true,
+      limiterThreshold: values.master?.limiterThreshold ?? -1,
     },
   };
 }

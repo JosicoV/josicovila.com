@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { encodeWav } from './exportWav';
+import { createProject, createTrack } from '../project';
+import { effectTailSeconds, encodeWav } from './exportWav';
 
 describe('WAV encoding', () => {
   it('writes a stereo 16-bit PCM RIFF file', () => {
@@ -14,5 +15,14 @@ describe('WAV encoding', () => {
     expect(view.getUint32(40, true)).toBe(8);
     expect(view.getInt16(44, true)).toBe(-32_768);
     expect(view.getInt16(46, true)).toBe(32_767);
+  });
+
+  it('extends the offline render tail for active shared effects', () => {
+    const project = createProject({ tracks: [createTrack({ sends: { reverb: 0.4, delay: 0 } })] });
+    project.sendFx.reverb.parameters.decay = 4;
+    project.sendFx.reverb.parameters.preDelay = 0.1;
+    expect(effectTailSeconds(project)).toBe(4.1);
+    project.tracks[0].sends.reverb = 0;
+    expect(effectTailSeconds(project)).toBe(1.5);
   });
 });

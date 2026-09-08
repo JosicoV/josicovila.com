@@ -47,10 +47,16 @@ export interface TrackSends {
   delay: number;
 }
 
+export interface SendEffects {
+  reverb: EffectConfig;
+  delay: EffectConfig;
+}
+
 export interface MasterMix {
   volume: number;
   insertFx: EffectConfig[];
   limiterEnabled: boolean;
+  limiterThreshold: number;
 }
 
 export interface Project {
@@ -61,5 +67,6 @@ export interface Project {
   timeSignature: TimeSignature;
   lengthBars: number;
   tracks: InstrumentTrack[];
+  sendFx: SendEffects;
   master: MasterMix;
 }

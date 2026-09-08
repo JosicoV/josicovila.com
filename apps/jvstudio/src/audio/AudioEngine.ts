@@ -48,6 +48,7 @@ export class AudioEngine {
     if (this.disposed) return;
     const request = ++this.previewRequest;
     await Tone.start();
+    await this.mixer.ready();
     if (this.disposed || request !== this.previewRequest) return;
     const voice = this.voices.get(trackId);
     if (!voice) return;
@@ -67,6 +68,8 @@ export class AudioEngine {
       await Tone.start();
       if (request !== this.playRequest) return;
       await this.prepareScheduledSamples();
+      if (request !== this.playRequest) return;
+      await this.mixer.ready();
       if (request !== this.playRequest) return;
       this.ensurePart();
       this.transport.start('+0.05');
@@ -95,6 +98,8 @@ export class AudioEngine {
   }
 
   setBpm(bpm: number): void {
+    this.project.bpm = bpm;
+    this.mixer.sync(this.project);
     this.transport.bpm.rampTo(bpm, 0.08);
   }
 
