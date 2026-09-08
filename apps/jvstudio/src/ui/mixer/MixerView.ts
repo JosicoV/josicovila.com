@@ -1,5 +1,5 @@
 import { FADER_MAX_DB, FADER_MIN_DB, faderDbToGain, formatDecibels, gainToFaderDb } from '../../audio/gain';
-import type { MixerMeterLevels, StereoMeterLevel } from '../../audio/AudioEngine';
+import type { MixerMeterLevels, StereoMeterLevel } from '../../audio/MixerEngine';
 import { l } from '../../i18n';
 import type { Project, ProjectStore } from '../../project';
 import { initialMeterBallistics, meterPercent, updateMeterBallistics, type MeterBallistics } from './metering';

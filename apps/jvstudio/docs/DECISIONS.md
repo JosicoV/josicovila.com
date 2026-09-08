@@ -161,3 +161,12 @@ Sample selection uses only the manifest velocity intervals, `loNote`/`hiNote` an
 Only manifests load at startup. Samples load and decode on first use or as preparation for MIDI notes already present in the project, then share an `AudioBuffer` cache. A progress bar reports the bytes being prepared. The exact required attribution for JV Grand Piano and JV Soft Piano is shown in their instrument descriptions.
 
 OGG binaries are ignored by Git and by the Docker build context. A validated copy of the complete public library is deployed separately and mounted read-only from persistent VPS data; code, manifests, licences, catalogue and the frozen schema remain versioned. This prevents Git history and ordinary autodeploys from carrying sample payloads while keeping runtime URLs unchanged.
+
+## ADR-025 — Centralize playback and offline routing in MixerEngine
+
+**Status:** Implemented
+Track and Master routing belongs to `MixerEngine`, never to individual UI controls. Each track exposes a playback input followed by an insert-chain boundary, pan, gain and meter. The post-fader signal feeds the dry Master path plus fixed Reverb and Delay send taps. Piano Roll preview retains its independent Mute/Solo bypass while joining the same track meter and Master path.
+
+Reverb and Delay use one shared `SendBus` each, initially with zero-level track taps. `MasterBus` owns the Master insert boundary, volume and output meter. Playback and offline WAV rendering instantiate the same routing graph so future effects have one integration point and parity does not depend on duplicated connection code.
+
+Project schema v3 introduces two insert slots, fixed send levels and Master limiter state. Versions 1 and 2 migrate with empty inserts, zero sends and the limiter enabled, preserving the sound of existing projects. Concrete effect processors remain a separate phase; the routing boundaries are intentionally pass-through until then.

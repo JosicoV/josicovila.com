@@ -1,4 +1,4 @@
-export const PROJECT_VERSION = 2 as const;
+export const PROJECT_VERSION = 3 as const;
 
 export type ProjectVersion = typeof PROJECT_VERSION;
 export type TimeSignature = [number, number];
@@ -28,12 +28,29 @@ export interface InstrumentTrack {
   pan: number;
   muted: boolean;
   solo: boolean;
+  insertFx: EffectConfig[];
+  sends: TrackSends;
   color: string;
   clips: MidiClip[];
 }
 
+export type EffectId = 'jv-eq' | 'jv-compressor' | 'jv-reverb' | 'jv-delay' | 'jv-limiter';
+
+export interface EffectConfig {
+  id: EffectId;
+  enabled: boolean;
+  parameters: Record<string, number>;
+}
+
+export interface TrackSends {
+  reverb: number;
+  delay: number;
+}
+
 export interface MasterMix {
   volume: number;
+  insertFx: EffectConfig[];
+  limiterEnabled: boolean;
 }
 
 export interface Project {

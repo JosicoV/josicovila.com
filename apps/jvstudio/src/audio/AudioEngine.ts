@@ -2,6 +2,7 @@ import * as Tone from 'tone';
 
 import { barsToBeats, type InstrumentTrack, type Project } from '../project';
 import { createInstrument, type InstrumentVoice } from './instruments';
+import { MixerEngine, type MixerMeterLevels } from './MixerEngine';
 import { trackGain } from './mix';
 import { scheduleEvents } from './projectEvents';
 
@@ -19,27 +20,11 @@ type TrackVoice = {
   instrumentId: string;
   playback: InstrumentVoice;
   preview: InstrumentVoice;
-  gain: Tone.Gain;
-  panner: Tone.Panner;
-  previewGain: Tone.Gain;
-  previewPanner: Tone.Panner;
-  meter: Tone.Meter;
 };
-
-export interface StereoMeterLevel {
-  left: number;
-  right: number;
-}
-
-export interface MixerMeterLevels {
-  tracks: Record<string, StereoMeterLevel>;
-  master: StereoMeterLevel;
-}
 
 export class AudioEngine {
   private readonly transport = Tone.getTransport();
-  private readonly masterGain: Tone.Gain;
-  private readonly masterMeter: Tone.Meter;
+  private readonly mixer: MixerEngine;
   private readonly voices = new Map<string, TrackVoice>();
   private project: Project;
   private previewRequest = 0;
@@ -51,8 +36,7 @@ export class AudioEngine {
 
   constructor(project: Project) {
     this.project = structuredClone(project);
-    this.masterMeter = new Tone.Meter({ channelCount: 2, smoothing: 0.78, normalRange: false }).toDestination();
-    this.masterGain = new Tone.Gain(project.master.volume).connect(this.masterMeter);
+    this.mixer = new MixerEngine(project);
     this.transport.bpm.value = project.bpm;
     this.transport.loop = true;
     this.transport.loopStart = 0;
@@ -116,7 +100,6 @@ export class AudioEngine {
 
   setTrackMix(project: Project): void {
     this.project = structuredClone(project);
-    this.masterGain.gain.value = project.master.volume;
     this.syncVoices(project);
   }
 
@@ -125,7 +108,6 @@ export class AudioEngine {
     this.part?.dispose();
     this.part = null;
     this.project = structuredClone(project);
-    this.masterGain.gain.value = project.master.volume;
     this.syncVoices(project);
     this.transport.loopEnd = this.toTicks(barsToBeats(project.lengthBars, project.timeSignature));
     this.setBpm(project.bpm);
@@ -144,9 +126,7 @@ export class AudioEngine {
   }
 
   getMixerMeterLevels(): MixerMeterLevels {
-    const tracks: Record<string, StereoMeterLevel> = {};
-    for (const [trackId, voice] of this.voices) tracks[trackId] = stereoMeterLevel(voice.meter.getValue());
-    return { tracks, master: stereoMeterLevel(this.masterMeter.getValue()) };
+    return this.mixer.levels();
   }
 
   dispose(): void {
@@ -156,8 +136,7 @@ export class AudioEngine {
     this.transport.stop();
     this.part?.dispose();
     this.disposeVoices();
-    this.masterGain.dispose();
-    this.masterMeter.dispose();
+    this.mixer.dispose();
   }
 
   private ensurePart(): void {
@@ -171,7 +150,8 @@ export class AudioEngine {
     }));
     const part = new Tone.Part<ScheduledNote>((time, note) => {
       const voice = this.voices.get(note.trackId);
-      if (!voice || voice.gain.gain.value <= 0) return;
+      const track = this.project.tracks.find((item) => item.id === note.trackId);
+      if (!voice || !track || trackGain(track, this.project.tracks) <= 0) return;
       voice.playback.triggerAttackRelease(
         Tone.Frequency(note.midi, 'midi').toNote(),
         note.duration,
@@ -193,6 +173,7 @@ export class AudioEngine {
   }
 
   private syncVoices(project: Project): void {
+    this.mixer.sync(project);
     const currentIds = new Set(project.tracks.map((track) => track.id));
     for (const [trackId, voice] of this.voices) {
       if (!currentIds.has(trackId)) {
@@ -207,28 +188,14 @@ export class AudioEngine {
         voice = this.createVoice(track);
         this.voices.set(track.id, voice);
       }
-      voice.gain.gain.value = trackGain(track, project.tracks);
-      voice.panner.pan.value = track.pan;
-      voice.previewGain.gain.value = track.volume;
-      voice.previewPanner.pan.value = track.pan;
     }
   }
 
   private createVoice(track: InstrumentTrack): TrackVoice {
-    const meter = new Tone.Meter({ channelCount: 2, smoothing: 0.72, normalRange: false }).connect(this.masterGain);
-    const gain = new Tone.Gain(track.volume).connect(meter);
-    const panner = new Tone.Panner(track.pan).connect(gain);
-    const previewGain = new Tone.Gain(track.volume).connect(meter);
-    const previewPanner = new Tone.Panner(track.pan).connect(previewGain);
     return {
       instrumentId: track.instrumentId,
-      playback: createInstrument(track.instrumentId, panner),
-      preview: createInstrument(track.instrumentId, previewPanner),
-      gain,
-      panner,
-      previewGain,
-      previewPanner,
-      meter,
+      playback: createInstrument(track.instrumentId, this.mixer.input(track.id)),
+      preview: createInstrument(track.instrumentId, this.mixer.previewInput(track.id)),
     };
   }
 
@@ -242,11 +209,6 @@ export class AudioEngine {
   private disposeVoice(voice: TrackVoice): void {
     voice.playback.dispose();
     voice.preview.dispose();
-    voice.gain.dispose();
-    voice.panner.dispose();
-    voice.previewGain.dispose();
-    voice.previewPanner.dispose();
-    voice.meter.dispose();
   }
 
   private disposeVoices(): void {
@@ -262,16 +224,4 @@ export class AudioEngine {
   private toTicks(beats: number): string {
     return `${Math.round(beats * this.transport.PPQ)}i`;
   }
-}
-
-function stereoMeterLevel(value: number | number[]): StereoMeterLevel {
-  const channels = Array.isArray(value) ? value : [value, value];
-  return {
-    left: normalizeMeterValue(channels[0]),
-    right: normalizeMeterValue(channels[1] ?? channels[0]),
-  };
-}
-
-function normalizeMeterValue(value: number | undefined): number {
-  return typeof value === 'number' && Number.isFinite(value) ? Math.min(6, Math.max(-60, value)) : -60;
 }

@@ -60,6 +60,14 @@ describe('ProjectStore', () => {
     expect(store.getSnapshot().master.volume).toBe(1.25);
   });
 
+  it('creates zeroed sends and updates them as one validated track setting', () => {
+    const store = new ProjectStore(createProject({ id: 'project-test-sends' }), sequentialIds());
+    const track = store.addTrack({ name: 'Flute' });
+    expect(track).toMatchObject({ insertFx: [], sends: { reverb: 0, delay: 0 } });
+    store.updateTrack(track.id, { sends: { reverb: 0.35, delay: 0.1 } });
+    expect(store.getSnapshot().tracks[0].sends).toEqual({ reverb: 0.35, delay: 0.1 });
+  });
+
   it('grows by four bars when a clip reaches the project end', () => {
     const store = new ProjectStore(createProject({ id: 'project-test-growth', lengthBars: 4 }), sequentialIds());
     const track = store.addTrack({ name: 'Piano' });

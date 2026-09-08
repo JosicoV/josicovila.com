@@ -2,7 +2,7 @@ import * as Tone from 'tone';
 
 import { barsToBeats, type Project } from '../project';
 import { createInstrument, type InstrumentVoice } from './instruments';
-import { trackGain } from './mix';
+import { MixerEngine } from './MixerEngine';
 import { scheduleEvents } from './projectEvents';
 
 const SAMPLE_RATE = 44_100;
@@ -25,11 +25,9 @@ export async function renderProjectWav(project: Project): Promise<Blob> {
   const events = scheduleEvents(project);
   const rendered = await Tone.Offline(async () => {
     const voices = new Map<string, InstrumentVoice>();
-    const masterGain = new Tone.Gain(project.master.volume).toDestination();
+    const mixer = new MixerEngine(project);
     for (const track of project.tracks) {
-      const gain = new Tone.Gain(trackGain(track, project.tracks)).connect(masterGain);
-      const panner = new Tone.Panner(track.pan).connect(gain);
-      voices.set(track.id, createInstrument(track.instrumentId, panner));
+      voices.set(track.id, createInstrument(track.instrumentId, mixer.input(track.id)));
     }
     for (const track of project.tracks) {
       await voices.get(track.id)?.prepare(

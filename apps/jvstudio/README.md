@@ -68,5 +68,5 @@ The UI resolves Spanish for every browser locale beginning with `es`; all other 
 ## Architecture
 
 - `src/project/` owns the versioned domain model, validation, serialization, timing and state transitions.
-- `src/audio/` translates beat-based project data into Tone.js transport events and owns one instrument, gain and panner chain per track.
+- `src/audio/` translates beat-based project data into Tone.js transport events. `MixerEngine` owns track inserts, pan, gain, meters, fixed send buses and the Master path for both live playback and offline WAV rendering.
 - UI code consumes project snapshots and does not call Tone.js directly.

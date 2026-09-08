@@ -23,6 +23,8 @@ export function createProject(
     tracks: values.tracks ?? [],
     master: {
       volume: values.master?.volume ?? 0.9,
+      insertFx: structuredClone(values.master?.insertFx ?? []),
+      limiterEnabled: values.master?.limiterEnabled ?? true,
     },
   };
 }
@@ -40,6 +42,8 @@ export function createTrack(
     pan: values.pan ?? 0,
     muted: values.muted ?? false,
     solo: values.solo ?? false,
+    insertFx: structuredClone(values.insertFx ?? []),
+    sends: structuredClone(values.sends ?? { reverb: 0, delay: 0 }),
     color: values.color ?? '#06b6d4',
     clips: values.clips ?? [],
   };

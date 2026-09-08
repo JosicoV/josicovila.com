@@ -29,8 +29,24 @@ function migrateProject(candidate: unknown): unknown {
   if (!candidate || typeof candidate !== 'object' || Array.isArray(candidate)) return structuredClone(candidate);
   const project = structuredClone(candidate) as Record<string, unknown>;
   if (project.version === 1) {
-    project.version = PROJECT_VERSION;
+    project.version = 2;
     project.master = { volume: 0.9 };
+  }
+  if (project.version === 2) {
+    project.version = PROJECT_VERSION;
+    const tracks = Array.isArray(project.tracks) ? project.tracks : [];
+    for (const track of tracks) {
+      if (!track || typeof track !== 'object' || Array.isArray(track)) continue;
+      const item = track as Record<string, unknown>;
+      item.insertFx = [];
+      item.sends = { reverb: 0, delay: 0 };
+    }
+    const master = project.master && typeof project.master === 'object' && !Array.isArray(project.master)
+      ? project.master as Record<string, unknown>
+      : { volume: 0.9 };
+    master.insertFx = [];
+    master.limiterEnabled = true;
+    project.master = master;
   }
   return project;
 }

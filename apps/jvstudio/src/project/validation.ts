@@ -6,6 +6,7 @@ const MAX_TRACKS = 64;
 const MAX_CLIPS_PER_TRACK = 1_000;
 const MAX_NOTES_PER_CLIP = 50_000;
 const VALID_DENOMINATORS = new Set([1, 2, 4, 8, 16]);
+const VALID_EFFECTS = new Set(['jv-eq', 'jv-compressor', 'jv-reverb', 'jv-delay', 'jv-limiter']);
 
 type UnknownRecord = Record<string, unknown>;
 
@@ -45,6 +46,10 @@ function validateTrack(value: unknown, path: string, ids: Set<string>, projectLe
   assertNumberInRange(value.pan, -1, 1, `${path}.pan`);
   assertBoolean(value.muted, `${path}.muted`);
   assertBoolean(value.solo, `${path}.solo`);
+  validateEffects(value.insertFx, `${path}.insertFx`);
+  assertRecord(value.sends, `${path}.sends`);
+  assertNumberInRange(value.sends.reverb, 0, 1, `${path}.sends.reverb`);
+  assertNumberInRange(value.sends.delay, 0, 1, `${path}.sends.delay`);
   if (typeof value.color !== 'string' || !/^#[0-9a-f]{6}$/i.test(value.color)) {
     throw new ProjectValidationError('must be a six-digit hex colour', `${path}.color`);
   }
@@ -65,6 +70,26 @@ function validateTrack(value: unknown, path: string, ids: Set<string>, projectLe
 function validateMaster(value: unknown, path: string): void {
   assertRecord(value, path);
   assertNumberInRange(value.volume, 0, 2, `${path}.volume`);
+  validateEffects(value.insertFx, `${path}.insertFx`);
+  assertBoolean(value.limiterEnabled, `${path}.limiterEnabled`);
+}
+
+function validateEffects(value: unknown, path: string): void {
+  assertArrayLimit(value, 2, path);
+  value.forEach((effect, index) => {
+    const effectPath = `${path}[${index}]`;
+    assertRecord(effect, effectPath);
+    if (typeof effect.id !== 'string' || !VALID_EFFECTS.has(effect.id)) {
+      throw new ProjectValidationError('has an unsupported effect', `${effectPath}.id`);
+    }
+    assertBoolean(effect.enabled, `${effectPath}.enabled`);
+    assertRecord(effect.parameters, `${effectPath}.parameters`);
+    for (const [name, parameter] of Object.entries(effect.parameters)) {
+      if (typeof parameter !== 'number' || !Number.isFinite(parameter)) {
+        throw new ProjectValidationError('must be a finite number', `${effectPath}.parameters.${name}`);
+      }
+    }
+  });
 }
 
 function validateClip(value: unknown, path: string, ids: Set<string>, projectLengthBeats: number): void {
