@@ -142,6 +142,8 @@ button:disabled { color: #5f738a; cursor: not-allowed; opacity: 0.62; }
 .mix-range output { color: #d9efff; font-size: .68rem; text-align: right; text-transform: none; letter-spacing: normal; }
 .mix-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
 .mix-buttons button { min-height: 34px; border-radius: 7px; color: #b9d2e8; font-size: .68rem; font-weight: 750; letter-spacing: .08em; }
+.delete-track-button { width: 100%; min-height: 36px; margin-top: 14px; color: #ffb8c1; border-color: #713846; border-radius: 7px; background: #32151d66; font-size: .7rem; font-weight: 750; }
+.delete-track-button:hover, .delete-track-button:focus-visible { color: #fff4f5; border-color: #fb7185; background: #7b2634; }
 .clip-properties-title { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
 .property-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 18px 0 0; }
 .property-grid div { padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: rgba(5, 13, 23, .54); }

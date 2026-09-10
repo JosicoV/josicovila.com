@@ -401,6 +401,7 @@ function renderInspector(
       <button class="${track.muted ? 'is-active' : ''}" type="button" data-mix-toggle="muted" data-track-id="${escapeHtml(track.id)}" aria-pressed="${track.muted}">${l('SILENCIO', 'MUTE')}</button>
       <button class="${track.solo ? 'is-active is-solo' : ''}" type="button" data-mix-toggle="solo" data-track-id="${escapeHtml(track.id)}" aria-pressed="${track.solo}">SOLO</button>
     </div>
+    <button class="delete-track-button" type="button" data-delete-track data-track-id="${escapeHtml(track.id)}">${l('Eliminar pista', 'Delete track')}</button>
     ${clip ? `
       <p class="eyebrow clip-properties-title">${l('CLIP SELECCIONADO', 'SELECTED CLIP')}</p>
       <label class="name-field">
@@ -462,6 +463,30 @@ function addTrack(): void {
   selectedTrackId = track.id;
   selectedClipId = null;
   setUiMessage(l('Pista creada', 'Track created'), l(`${track.name} está preparada para clips MIDI.`, `${track.name} is ready for MIDI clips.`));
+}
+
+function deleteTrack(trackId: string): void {
+  const project = store.getSnapshot();
+  const trackIndex = project.tracks.findIndex((track) => track.id === trackId);
+  const track = project.tracks[trackIndex];
+  if (!track) return;
+  const confirmed = window.confirm(l(
+    `¿Eliminar la pista "${track.name}"?\n\nSe perderán todos sus clips, notas, ajustes de mezcla y efectos. Esta acción no se puede deshacer.`,
+    `Delete track "${track.name}"?\n\nAll its clips, notes, mix settings and effects will be lost. This action cannot be undone.`,
+  ));
+  if (!confirmed) return;
+
+  if (pianoRoll.isOpen()) pianoRoll.close();
+  const fallbackTrack = project.tracks[trackIndex + 1] ?? project.tracks[trackIndex - 1];
+  selectedTrackId = fallbackTrack?.id ?? '';
+  selectedClipId = null;
+  store.removeTrack(trackId);
+  setUiMessage(
+    l('Pista eliminada', 'Track deleted'),
+    fallbackTrack
+      ? l(`${track.name} y todo su contenido se han eliminado.`, `${track.name} and all its contents were deleted.`)
+      : l('El proyecto se ha quedado sin pistas. Pulsa ＋ para añadir otra.', 'The project has no tracks. Press ＋ to add another one.'),
+  );
 }
 
 function addClipAtFirstAvailableBar(): void {
@@ -765,6 +790,11 @@ inspector?.addEventListener('change', (event) => {
 });
 
 inspector?.addEventListener('click', (event) => {
+  const deleteButton = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-delete-track]');
+  if (deleteButton?.dataset.trackId) {
+    deleteTrack(deleteButton.dataset.trackId);
+    return;
+  }
   const toggle = (event.target as HTMLElement).closest<HTMLElement>('[data-mix-toggle]');
   if (toggle?.dataset.trackId && (toggle.dataset.mixToggle === 'muted' || toggle.dataset.mixToggle === 'solo')) {
     toggleTrack(toggle.dataset.trackId, toggle.dataset.mixToggle);

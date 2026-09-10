@@ -20,7 +20,7 @@
 - The demo opens with a selected two-bar First Pattern starter idea and the combined Arranger + Piano Roll view ready for immediate listening and editing.
 - Projects start at 16 bars, expose a 1–1024 bar duration control, reject destructive shrinking and auto-grow in four-bar blocks when content reaches the end.
 - Arranger zoom spans 25–400%, while Fit Project keeps the complete timeline visible and adapts ruler labels to long songs.
-- Tracks and clips can be renamed; clips resize from the right edge in half-bar steps without clipping notes or crossing another clip.
+- Tracks can be added or deleted with an explicit destructive-content confirmation; tracks and clips can be renamed, and clips resize from the right edge in half-bar steps without clipping notes or crossing another clip.
 - Save downloads a validated `.jvstudio.json` file; Open restores it. A dismissible welcome and unsaved-change guard explain the session model before users begin.
 - Export WAV renders the full mix offline in the browser as 44.1 kHz stereo 16-bit PCM, with a 20-minute safety limit.
 - 63 automated tests pass; TypeScript and Vite production build pass.
