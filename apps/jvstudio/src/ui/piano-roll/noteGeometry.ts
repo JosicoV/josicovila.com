@@ -10,6 +10,14 @@ export function drawNote(x: number, y: number, pixelsPerBeat: number, snap: numb
   return { midi: pitchAt(y), startBeat, durationBeats: Math.min(snap, length - startBeat), velocity: 0.8 };
 }
 
+export function resizeDrawnNote(note: MidiNote, pointerX: number, pixelsPerBeat: number,
+  snap: number, length: number): Pick<MidiNote, 'midi' | 'startBeat' | 'durationBeats'> {
+  const minimumDuration = Math.min(snap, length - note.startBeat);
+  const snappedEnd = Math.ceil(pointerX / pixelsPerBeat / snap) * snap;
+  const endBeat = clamp(snappedEnd, note.startBeat + minimumDuration, length);
+  return { midi: note.midi, startBeat: note.startBeat, durationBeats: endBeat - note.startBeat };
+}
+
 export function dragNote(note: MidiNote, dx: number, dy: number, pixelsPerBeat: number,
   snap: number, length: number, resize: boolean): Pick<MidiNote, 'midi' | 'startBeat' | 'durationBeats'> {
   if (resize) return {

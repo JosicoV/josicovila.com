@@ -1,7 +1,7 @@
 import { midiToNoteName, type MidiNote, type ProjectStore } from '../../project';
 import { l } from '../../i18n';
 import { installResizableSeparator } from '../layout/resizablePanels';
-import { ROW_HEIGHT, drawNote, dragNote } from './noteGeometry';
+import { ROW_HEIGHT, drawNote, dragNote, resizeDrawnNote } from './noteGeometry';
 import { collectReferenceNotes } from './referenceNotes';
 
 export function installPianoRoll(store: ProjectStore, onClose: () => void,
@@ -67,7 +67,7 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
   const note = () => clip()?.notes.find((item) => item.id === noteId);
   const snap = () => Number(snapInput.value);
   const pixels = () => Number(zoom.value);
-  let gesture: { pointer: number; x: number; y: number; note: MidiNote; resize: boolean;
+  let gesture: { pointer: number; x: number; y: number; note: MidiNote; resize: boolean; created: boolean;
     button: HTMLElement; patch: ReturnType<typeof dragNote>; moved: boolean } | null = null;
 
   installResizableSeparator({
@@ -236,30 +236,40 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
     render();
     grid.focus();
   }
-  function commit(patch: Partial<MidiNote>) {
+  function commit(patch: Partial<MidiNote>, success = l('Nota actualizada. Pulsa Play para escuchar el arreglo.', 'Note updated. Press Play to hear the arrangement.')) {
     if (!noteId) return;
     try {
       store.updateNote(trackId, clipId, noteId, patch);
-      message.textContent = l('Nota actualizada. Pulsa Play para escuchar el arreglo.', 'Note updated. Press Play to hear the arrangement.');
+      message.textContent = success;
     } catch (error) {
       message.textContent = error instanceof Error ? error.message : l('Valores no válidos.', 'Invalid values.');
       properties();
     }
   }
-  function add(values = { midi: 60, startBeat: 0, durationBeats: Math.min(snap(), clip()?.lengthBeats ?? snap()), velocity: 0.8 }) {
-    if (!clip()) return;
+  function add(values = { midi: 60, startBeat: 0, durationBeats: Math.min(snap(), clip()?.lengthBeats ?? snap()), velocity: 0.8 }): MidiNote | undefined {
+    if (!clip()) return undefined;
     const created = store.addNote(trackId, clipId, values);
     noteId = created.id;
     render();
     focusNote();
     audition(created.midi, created.velocity);
+    return created;
   }
-  function cancelGesture() {
-    if (!gesture) return;
+  function releaseGesture() {
+    if (!gesture) return null;
     const old = gesture;
     gesture = null;
-    paint(old.button, old.note);
     if (grid.hasPointerCapture(old.pointer)) grid.releasePointerCapture(old.pointer);
+    return old;
+  }
+  function cancelGesture() {
+    const old = releaseGesture();
+    if (!old) return;
+    if (old.created) {
+      store.removeNote(trackId, clipId, old.note.id);
+      noteId = null;
+      render();
+    } else paint(old.button, old.note);
   }
   grid.addEventListener('pointerdown', (event) => {
     if (event.button !== 0 || gesture) return;
@@ -268,7 +278,15 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
     if (!button) {
       if (tool.value !== 'draw') return;
       const bounds = grid.getBoundingClientRect();
-      add(drawNote(event.clientX - bounds.left, event.clientY - bounds.top, pixels(), snap(), clip()!.lengthBeats));
+      const created = add(drawNote(event.clientX - bounds.left, event.clientY - bounds.top, pixels(), snap(), clip()!.lengthBeats));
+      const createdButton = created
+        ? Array.from(grid.querySelectorAll<HTMLElement>('[data-note-id]')).find((item) => item.dataset.noteId === created.id)
+        : undefined;
+      if (!created || !createdButton) return;
+      gesture = { pointer: event.pointerId, x: event.clientX, y: event.clientY, note: created,
+        resize: true, created: true, button: createdButton, patch: created, moved: false };
+      grid.setPointerCapture(event.pointerId);
+      event.preventDefault();
       return;
     }
     select(button.dataset.noteId!);
@@ -276,7 +294,7 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
     const current = note()!;
     audition(current.midi, current.velocity);
     gesture = { pointer: event.pointerId, x: event.clientX, y: event.clientY, note: current,
-      resize: !!target.closest('[data-resize]'), button, patch: current, moved: false };
+      resize: !!target.closest('[data-resize]'), created: false, button, patch: current, moved: false };
     grid.setPointerCapture(event.pointerId);
     button.focus({ preventScroll: true });
     event.preventDefault();
@@ -284,10 +302,12 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
   grid.addEventListener('pointermove', (event) => {
     if (!gesture || gesture.pointer !== event.pointerId) return;
     const dx = event.clientX - gesture.x, dy = event.clientY - gesture.y;
-    if (!gesture.moved && Math.hypot(dx, dy) < 4) return;
+    if (!gesture.moved && (gesture.created ? Math.abs(dx) : Math.hypot(dx, dy)) < 4) return;
     gesture.moved = true;
     const previousMidi = gesture.patch.midi;
-    gesture.patch = dragNote(gesture.note, dx, dy, pixels(), snap(), clip()!.lengthBeats, gesture.resize);
+    gesture.patch = gesture.created
+      ? resizeDrawnNote(gesture.note, event.clientX - grid.getBoundingClientRect().left, pixels(), snap(), clip()!.lengthBeats)
+      : dragNote(gesture.note, dx, dy, pixels(), snap(), clip()!.lengthBeats, gesture.resize);
     paint(gesture.button, gesture.patch);
     if (!gesture.resize && gesture.patch.midi !== previousMidi) {
       audition(gesture.patch.midi, gesture.note.velocity);
@@ -295,9 +315,11 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
   });
   grid.addEventListener('pointerup', (event) => {
     if (!gesture || gesture.pointer !== event.pointerId) return;
-    const old = gesture;
-    cancelGesture();
-    if (old.moved) commit(old.patch);
+    const old = releaseGesture();
+    if (!old) return;
+    if (old.moved) commit(old.patch, old.created
+      ? l('Nota dibujada. Pulsa Play para escuchar el arreglo.', 'Note drawn. Press Play to hear the arrangement.')
+      : undefined);
     focusNote();
   });
   grid.addEventListener('pointercancel', cancelGesture);

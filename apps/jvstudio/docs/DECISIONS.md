@@ -193,3 +193,10 @@ An Expand control gives the Mixer the full workspace height using the same overl
 Reference notes are a transient Piano Roll projection, not project data. Notes from every non-active track are converted from clip-local beats to absolute Arranger beats, intersected with the active clip window and converted back to its local timeline. Sustained notes crossing either edge are visually clipped to that window.
 
 Other tracks are visible by default and may be toggled independently while the page remains open. Reference blocks use their track colour, remain semitransparent and ignore pointer input so they cannot be selected or edited accidentally from the active clip.
+
+## ADR-029 — Commit drawn-note duration on pointer release
+
+**Status:** Implemented
+Draw mode creates the minimum snapped note on pointer down so it can be heard and previewed immediately. Horizontal pointer movement derives the note end from the cursor's current snapped beat, allowing the same uninterrupted gesture to grow and shrink before pointer up commits the duration.
+
+A click without movement keeps the minimum duration. Escape, pointer cancellation or losing the window before release removes the provisional note instead of leaving an accidental edit in the project.

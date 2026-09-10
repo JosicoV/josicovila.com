@@ -19,6 +19,7 @@
 - Play, Pause and Stop have distinct transport semantics: Pause preserves position, Play resumes and Stop returns to the beginning. Space toggles Play/Pause from the non-editable workspace.
 - The demo opens with a selected two-bar First Pattern starter idea and the combined Arranger + Piano Roll view ready for immediate listening and editing.
 - Piano Roll can overlay time-aligned, translucent notes from any other track as non-editable references, with per-track visibility controls and track-colour identification.
+- Draw mode supports click for a one-snap note or press-drag-release to choose its snapped duration before committing it.
 - Projects start at 16 bars, expose a 1–1024 bar duration control, reject destructive shrinking and auto-grow in four-bar blocks when content reaches the end.
 - Arranger zoom spans 25–400%, while Fit Project keeps the complete timeline visible and adapts ruler labels to long songs.
 - Tracks can be added or deleted with an explicit destructive-content confirmation; tracks and clips can be renamed, and clips resize from the right edge in half-bar steps without clipping notes or crossing another clip.

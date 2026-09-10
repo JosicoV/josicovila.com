@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { createNote, ProjectStore } from '../../project';
 import { demoProject } from '../../project/demoProject';
 import { projectEvents } from '../../audio/projectEvents';
-import { drawNote, dragNote, pitchAt } from './noteGeometry';
+import { drawNote, dragNote, pitchAt, resizeDrawnNote } from './noteGeometry';
 
 describe('piano roll geometry', () => {
   const note = createNote({ midi: 60, startBeat: 1, durationBeats: .5 });
@@ -22,6 +22,12 @@ describe('piano roll geometry', () => {
   });
   it('keeps geometry valid for a clip shorter than snap', () => {
     expect(drawNote(30, 1340, 160, 1, .5).durationBeats).toBe(.5);
+  });
+  it('resizes a newly drawn note to the current snapped pointer position', () => {
+    const drawn = createNote({ midi: 64, startBeat: 1, durationBeats: .25 });
+    expect(resizeDrawnNote(drawn, 400, 160, .25, 4)).toEqual({ midi: 64, startBeat: 1, durationBeats: 1.5 });
+    expect(resizeDrawnNote(drawn, 120, 160, .25, 4).durationBeats).toBe(.25);
+    expect(resizeDrawnNote(drawn, 1000, 160, .25, 4).durationBeats).toBe(3);
   });
 });
 
