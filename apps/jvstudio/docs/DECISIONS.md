@@ -179,3 +179,10 @@ Track and Master insert chains accept at most two JV EQ or JV Compressor process
 JV Reverb and JV Delay remain single shared post-fader buses. Track send levels are independent, while decay, pre-delay, musical delay time, feedback and wet return belong to the project-wide bus configuration. Delay time is stored in beats and recalculated from BPM. Reverb stays fully wet internally; its Wet control is the return level, avoiding a duplicate dry path.
 
 JV Limiter is a dedicated final Master processor after Master volume and before the output meter. It is enabled at -1 dB by default and can be bypassed. Parameter defaults and safe ranges live in one catalogue shared by factories, validation, UI and audio processing. Offline exports wait for asynchronous Reverb preparation and extend their render tail for active Reverb or Delay.
+
+## ADR-027 — Keep the Mixer usable on short desktop screens
+
+**Status:** Implemented
+The docked Mixer may shrink to 300 px on laptop-height screens. Its channel strips keep their full control layout and scroll inside the Mixer, so Mute, Solo and Master controls remain reachable without forcing the complete workspace beyond the viewport.
+
+An Expand control gives the Mixer the full workspace height using the same overlay pattern as Piano Roll. Restore returns to the previous shared Arranger + Mixer layout without changing playback, selection, mix state or the stored divider position.

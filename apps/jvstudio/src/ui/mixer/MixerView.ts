@@ -4,11 +4,14 @@ import { l } from '../../i18n';
 import { createEffectConfig, EFFECT_PARAMETERS, type EffectConfig, type EffectId, type InstrumentTrack, type Project, type ProjectStore } from '../../project';
 import { initialMeterBallistics, meterPercent, updateMeterBallistics, type MeterBallistics } from './metering';
 
-// Full strip plus divider/header/padding and clearance for native range controls.
-export const MIXER_MIN_PANEL_HEIGHT = 570;
+// The dock may be compact on laptops; channel strips remain reachable through
+// the Mixer's own vertical scroll instead of pushing the workspace off-screen.
+export const MIXER_MIN_PANEL_HEIGHT = 300;
 
 export interface MixerViewOptions {
   instrumentName: (instrumentId: string) => string;
+  isExpanded: () => boolean;
+  onToggleExpanded: () => void;
   onSelectTrack: (trackId: string) => void;
   selectedTrackId: () => string;
 }
@@ -32,7 +35,7 @@ export function installMixerView(
       currentProject = project;
       const active = document.activeElement;
       if (!force && active instanceof HTMLInputElement && element.contains(active) && active.matches('[data-mixer-volume], [data-mixer-pan], [data-fx-param], [data-send-level], [data-bus-fx-param], [data-limiter-threshold]')) return;
-      element.innerHTML = mixerMarkup(project, selectedTrackId, options.instrumentName, fxTarget);
+      element.innerHTML = mixerMarkup(project, selectedTrackId, options.instrumentName, fxTarget, options.isExpanded());
     },
     updateMeters(levels, now = performance.now()) {
       for (const meter of element.querySelectorAll<HTMLElement>('[data-meter-track-id]')) {
@@ -45,6 +48,11 @@ export function installMixerView(
 
   element.addEventListener('click', (event) => {
     const target = event.target as HTMLElement;
+    if (target.closest('[data-toggle-mixer-expanded]')) {
+      options.onToggleExpanded();
+      view.render(currentProject, options.selectedTrackId(), true);
+      return;
+    }
     const openFx = target.closest<HTMLButtonElement>('[data-open-fx]');
     if (openFx) {
       fxTarget = openFx.dataset.trackId ? { kind: 'track', trackId: openFx.dataset.trackId } : { kind: 'master' };
@@ -150,6 +158,7 @@ function mixerMarkup(
   selectedTrackId: string,
   instrumentName: (id: string) => string,
   fxTarget: { kind: 'track'; trackId: string } | { kind: 'master' } | null,
+  isExpanded: boolean,
 ): string {
   return `
     <header class="mixer-header">
@@ -157,7 +166,10 @@ function mixerMarkup(
         <span class="eyebrow">MIXER</span>
         <h1>${l('Mezclador', 'Mixer')}</h1>
       </div>
-      <p>${l('Ajusta el balance de las pistas sin interrumpir la reproducción.', 'Balance tracks without interrupting playback.')}</p>
+      <div class="mixer-header-actions">
+        <p>${l('Ajusta el balance de las pistas sin interrumpir la reproducción.', 'Balance tracks without interrupting playback.')}</p>
+        <button type="button" data-toggle-mixer-expanded aria-pressed="${isExpanded}" aria-label="${isExpanded ? l('Restaurar Mixer a la vista compartida', 'Restore Mixer to the shared view') : l('Ampliar Mixer a toda la altura', 'Expand Mixer to full height')}">${isExpanded ? `↙ ${l('Restaurar', 'Restore')}` : `⛶ ${l('Ampliar', 'Expand')}`}</button>
+      </div>
     </header>
     <div class="mixer-scroll">
       <div class="mixer-strips">

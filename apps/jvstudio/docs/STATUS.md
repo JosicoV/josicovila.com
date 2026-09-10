@@ -12,7 +12,7 @@
 - Live per-track volume, stereo pan, Mute and multi-Solo controls; structural edits still stop and rebuild playback.
 - Browser-language UI: every `es-*` locale receives Spanish; every other locale falls back to English. Instrument IDs and project data remain locale-neutral.
 - Bilingual in-app Help covering every shipped function, shortcut and current limitation.
-- Combined workspace with Arranger above a docked Piano Roll; close, expand and restore modes.
+- Combined workspace with Arranger above a docked Piano Roll or Mixer; both lower panels support a full-height expand/restore mode, and the compact Mixer scrolls internally on short desktop screens.
 - Horizontal and vertical keyboard-accessible drag separators with safe bounds and session persistence.
 - Piano black-key rows extend across the timeline with subtle aligned shading.
 - Adjacent Arranger/Piano Roll controls show the focused panel without hiding the combined workspace; Help sits with the project actions in the top bar.
@@ -23,7 +23,7 @@
 - Tracks and clips can be renamed; clips resize from the right edge in half-bar steps without clipping notes or crossing another clip.
 - Save downloads a validated `.jvstudio.json` file; Open restores it. A dismissible welcome and unsaved-change guard explain the session model before users begin.
 - Export WAV renders the full mix offline in the browser as 44.1 kHz stereo 16-bit PCM, with a 20-minute safety limit.
-- 49 automated tests pass; TypeScript and Vite production build pass.
+- 63 automated tests pass; TypeScript and Vite production build pass.
 
 ## Manual validation
 

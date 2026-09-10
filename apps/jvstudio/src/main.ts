@@ -209,6 +209,8 @@ const initialSnapshot = store.getSnapshot();
 const audioEngine = new AudioEngine(initialSnapshot);
 const mixerView = mixerContent ? installMixerView(mixerContent, store, {
   instrumentName,
+  isExpanded: () => mixerPanel?.classList.contains('is-expanded') ?? false,
+  onToggleExpanded: () => mixerPanel?.classList.toggle('is-expanded'),
   selectedTrackId: () => selectedTrackId,
   onSelectTrack: (trackId) => {
     selectedTrackId = trackId;
