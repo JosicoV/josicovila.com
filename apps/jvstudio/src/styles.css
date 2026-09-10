@@ -298,6 +298,19 @@ button:disabled { color: #5f738a; cursor: not-allowed; opacity: 0.62; }
 .piano-panel label { display: flex; align-items: center; gap: 8px; font-size: .75rem; color: #adc0d4; }
 .piano-panel select, .piano-panel input, .piano-panel button:not(.piano-note) { color: var(--text); background: var(--surface-2); border: 1px solid var(--line-strong); border-radius: 6px; padding: 7px 9px; font: inherit; }
 .piano-toolbar button { font-size: .8rem !important; }
+.piano-reference-picker { position: relative; color: #adc0d4; font-size: .75rem; }
+.piano-reference-picker[hidden] { display: none; }
+.piano-reference-picker summary { min-height: 34px; display: flex; align-items: center; gap: 6px; padding: 0 9px; color: var(--text); border: 1px solid var(--line-strong); border-radius: 6px; background: var(--surface-2); cursor: pointer; list-style: none; }
+.piano-reference-picker summary::-webkit-details-marker { display: none; }
+.piano-reference-picker summary::after { content: '▾'; color: var(--muted); }
+.piano-reference-picker[open] summary { color: var(--cyan-bright); border-color: #167da9; }
+.piano-reference-picker [data-reference-count] { color: var(--muted); font-size: .65rem; }
+.piano-reference-picker > div { position: absolute; z-index: 7; top: calc(100% + 6px); right: 0; min-width: 210px; max-height: 220px; overflow: auto; padding: 7px; border: 1px solid var(--line-strong); border-radius: 8px; background: #0b1929f5; box-shadow: 0 16px 38px #000a; }
+.piano-reference-option { min-height: 34px; display: grid !important; grid-template-columns: auto 12px minmax(0, 1fr); gap: 9px !important; padding: 5px 7px; border-radius: 5px; cursor: pointer; }
+.piano-reference-option:hover { background: #18334c; }
+.piano-reference-option input { width: auto !important; margin: 0; accent-color: var(--cyan-bright); }
+.piano-reference-option i { width: 10px; height: 10px; border-radius: 3px; background: var(--reference-color); box-shadow: 0 0 8px color-mix(in srgb, var(--reference-color), transparent 45%); }
+.piano-reference-option span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .piano-scroll { flex: 1; min-height: 120px; overflow: auto; position: relative; }
 .piano-canvas { display: flex; height: 2560px; position: relative; }
 .piano-keys { position: sticky; left: 0; width: 64px; flex-shrink: 0; z-index: 3; }
@@ -313,6 +326,7 @@ button:disabled { color: #5f738a; cursor: not-allowed; opacity: 0.62; }
 .piano-note.is-selected { outline: 2px solid #e7faff; z-index: 2; background: #0cb8ed; color: #06111a; }
 .piano-note.is-unplayable { background: #a85d68; border-color: #d58a94; color: #ffe7ea; opacity: .78; }
 .piano-note.is-unplayable.is-selected { background: #c27680; }
+.piano-reference-note { position: absolute; z-index: 1; height: 17px; min-width: 2px; overflow: hidden; border: 1px solid color-mix(in srgb, var(--reference-color), white 18%); border-radius: 3px; background: color-mix(in srgb, var(--reference-color), transparent 28%); opacity: .38; pointer-events: none; filter: saturate(.72); }
 .note-resize { position: absolute; right: 0; top: 0; bottom: 0; width: 7px; background: #ffffff44; cursor: ew-resize; }
 .piano-properties { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 18px; border-top: 1px solid var(--line); }
 .piano-properties input { width: 76px; }

@@ -210,6 +210,12 @@ const audioEngine = new AudioEngine(initialSnapshot);
 const mixerView = mixerContent ? installMixerView(mixerContent, store, {
   instrumentName,
   isExpanded: () => mixerPanel?.classList.contains('is-expanded') ?? false,
+  onClose: () => {
+    mixerPanel?.classList.remove('is-expanded');
+    arrangerPanel?.classList.remove('has-mixer');
+    setActiveView('arranger');
+    document.querySelector<HTMLButtonElement>('[data-view="arranger"]')?.focus();
+  },
   onToggleExpanded: () => mixerPanel?.classList.toggle('is-expanded'),
   selectedTrackId: () => selectedTrackId,
   onSelectTrack: (trackId) => {

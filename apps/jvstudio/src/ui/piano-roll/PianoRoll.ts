@@ -2,6 +2,7 @@ import { midiToNoteName, type MidiNote, type ProjectStore } from '../../project'
 import { l } from '../../i18n';
 import { installResizableSeparator } from '../layout/resizablePanels';
 import { ROW_HEIGHT, drawNote, dragNote } from './noteGeometry';
+import { collectReferenceNotes } from './referenceNotes';
 
 export function installPianoRoll(store: ProjectStore, onClose: () => void,
   preview: (trackId: string, midi: number, velocity: number) => Promise<void>,
@@ -17,6 +18,10 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
       <label>${l('Herramienta', 'Tool')} <select data-tool><option value="select">${l('Seleccionar', 'Select')}</option><option value="draw">${l('Dibujar', 'Draw')}</option><option value="erase">${l('Borrar', 'Erase')}</option></select></label>
       <label>${l('Ajuste', 'Snap')} <select data-snap><option value="1">1/4</option><option value="0.5">1/8</option><option value="0.25" selected>1/16</option><option value="0.125">1/32</option></select></label>
       <label>Zoom <select data-zoom><option value="80">50%</option><option value="160" selected>100%</option><option value="320">200%</option></select></label>
+      <details class="piano-reference-picker" data-reference-picker>
+        <summary>${l('Referencias', 'References')} <span data-reference-count></span></summary>
+        <div data-reference-tracks></div>
+      </details>
       <button type="button" data-add>${l('Añadir nota', 'Add note')}</button>
       <button type="button" data-help>? ${l('Ayuda', 'Help')}</button>
       <button type="button" data-expand aria-pressed="false">⛶ ${l('Ampliar', 'Expand')}</button>
@@ -50,10 +55,14 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
   const message = panel.querySelector<HTMLElement>('.piano-message')!;
   const expandButton = panel.querySelector<HTMLButtonElement>('[data-expand]')!;
   const pianoDivider = panel.querySelector<HTMLElement>('[data-piano-divider]')!;
+  const referencePicker = panel.querySelector<HTMLDetailsElement>('[data-reference-picker]')!;
+  const referenceCount = panel.querySelector<HTMLElement>('[data-reference-count]')!;
+  const referenceTracks = panel.querySelector<HTMLElement>('[data-reference-tracks]')!;
   let trackId = '', clipId = '', noteId: string | null = null;
   let range = { lowestMidi: 0, highestMidi: 127 };
   let rangeInstrumentId = '';
   let visibleClipStart = 0, visibleClipLength = 0;
+  const hiddenReferenceTrackIds = new Set<string>();
   const clip = () => store.getSnapshot().tracks.find((track) => track.id === trackId)?.clips.find((item) => item.id === clipId);
   const note = () => clip()?.notes.find((item) => item.id === noteId);
   const snap = () => Number(snapInput.value);
@@ -122,9 +131,34 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
     }
     for (const button of form.querySelectorAll<HTMLButtonElement>('button')) button.disabled = !current;
   }
+  function renderReferencePicker() {
+    const tracks = store.getSnapshot().tracks.filter((track) => track.id !== trackId);
+    referencePicker.hidden = tracks.length === 0;
+    referenceCount.textContent = `${tracks.filter((track) => !hiddenReferenceTrackIds.has(track.id)).length}/${tracks.length}`;
+    referenceTracks.replaceChildren(...tracks.map((track) => {
+      const label = document.createElement('label');
+      label.className = 'piano-reference-option';
+      const input = document.createElement('input');
+      input.type = 'checkbox';
+      input.checked = !hiddenReferenceTrackIds.has(track.id);
+      input.dataset.referenceTrackId = track.id;
+      input.setAttribute('aria-label', l(
+        `Mostrar notas de referencia de ${track.name}`,
+        `Show reference notes from ${track.name}`,
+      ));
+      const swatch = document.createElement('i');
+      swatch.style.setProperty('--reference-color', track.color);
+      swatch.setAttribute('aria-hidden', 'true');
+      const name = document.createElement('span');
+      name.textContent = track.name;
+      label.append(input, swatch, name);
+      return label;
+    }));
+  }
   function render() {
     const current = clip();
     if (panel.hidden || !current) return;
+    const project = store.getSnapshot();
     panel.querySelector('[data-title]')!.textContent = current.name;
     visibleClipStart = current.startBeat;
     visibleClipLength = current.lengthBeats;
@@ -145,6 +179,20 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
     ruler.style.paddingLeft = '64px';
     scroll.querySelector('.piano-ruler')?.remove();
     scroll.prepend(ruler);
+    renderReferencePicker();
+    for (const item of collectReferenceNotes(project, trackId, current)) {
+      if (hiddenReferenceTrackIds.has(item.trackId)) continue;
+      const ghost = document.createElement('span');
+      ghost.className = 'piano-reference-note';
+      ghost.style.setProperty('--reference-color', item.color);
+      ghost.title = l(
+        `${item.trackName} · ${midiToNoteName(item.midi)} · referencia`,
+        `${item.trackName} · ${midiToNoteName(item.midi)} · reference`,
+      );
+      ghost.setAttribute('aria-hidden', 'true');
+      paint(ghost, item);
+      grid.append(ghost);
+    }
     for (const item of current.notes) {
       const button = document.createElement('button');
       button.type = 'button';
@@ -290,6 +338,13 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
   panel.querySelector('[data-add]')!.addEventListener('click', () => add());
   panel.querySelector('[data-help]')!.addEventListener('click', () => {
     document.querySelector<HTMLButtonElement>('[data-action="help"]')?.click();
+  });
+  referenceTracks.addEventListener('change', (event) => {
+    const input = (event.target as HTMLElement).closest<HTMLInputElement>('[data-reference-track-id]');
+    if (!input?.dataset.referenceTrackId) return;
+    if (input.checked) hiddenReferenceTrackIds.delete(input.dataset.referenceTrackId);
+    else hiddenReferenceTrackIds.add(input.dataset.referenceTrackId);
+    render();
   });
   function setExpanded(expanded: boolean) {
     panel.classList.toggle('is-expanded', expanded);

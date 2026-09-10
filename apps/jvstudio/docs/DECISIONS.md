@@ -185,4 +185,11 @@ JV Limiter is a dedicated final Master processor after Master volume and before 
 **Status:** Implemented
 The docked Mixer may shrink to 300 px on laptop-height screens. Its channel strips keep their full control layout and scroll inside the Mixer, so Mute, Solo and Master controls remain reachable without forcing the complete workspace beyond the viewport.
 
-An Expand control gives the Mixer the full workspace height using the same overlay pattern as Piano Roll. Restore returns to the previous shared Arranger + Mixer layout without changing playback, selection, mix state or the stored divider position.
+An Expand control gives the Mixer the full workspace height using the same overlay pattern as Piano Roll. Restore returns to the previous shared Arranger + Mixer layout, while Close returns to an Arranger-only view. Neither action changes playback, selection, mix state or the stored divider position; closing also clears transient Mixer-only UI such as the expanded state and open FX panel.
+
+## ADR-028 — Derive Piano Roll reference notes from Arranger time
+
+**Status:** Implemented
+Reference notes are a transient Piano Roll projection, not project data. Notes from every non-active track are converted from clip-local beats to absolute Arranger beats, intersected with the active clip window and converted back to its local timeline. Sustained notes crossing either edge are visually clipped to that window.
+
+Other tracks are visible by default and may be toggled independently while the page remains open. Reference blocks use their track colour, remain semitransparent and ignore pointer input so they cannot be selected or edited accidentally from the active clip.

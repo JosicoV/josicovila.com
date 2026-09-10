@@ -11,6 +11,7 @@ export const MIXER_MIN_PANEL_HEIGHT = 300;
 export interface MixerViewOptions {
   instrumentName: (instrumentId: string) => string;
   isExpanded: () => boolean;
+  onClose: () => void;
   onToggleExpanded: () => void;
   onSelectTrack: (trackId: string) => void;
   selectedTrackId: () => string;
@@ -50,6 +51,12 @@ export function installMixerView(
     const target = event.target as HTMLElement;
     if (target.closest('[data-toggle-mixer-expanded]')) {
       options.onToggleExpanded();
+      view.render(currentProject, options.selectedTrackId(), true);
+      return;
+    }
+    if (target.closest('[data-close-mixer]')) {
+      fxTarget = null;
+      options.onClose();
       view.render(currentProject, options.selectedTrackId(), true);
       return;
     }
@@ -169,6 +176,7 @@ function mixerMarkup(
       <div class="mixer-header-actions">
         <p>${l('Ajusta el balance de las pistas sin interrumpir la reproducción.', 'Balance tracks without interrupting playback.')}</p>
         <button type="button" data-toggle-mixer-expanded aria-pressed="${isExpanded}" aria-label="${isExpanded ? l('Restaurar Mixer a la vista compartida', 'Restore Mixer to the shared view') : l('Ampliar Mixer a toda la altura', 'Expand Mixer to full height')}">${isExpanded ? `↙ ${l('Restaurar', 'Restore')}` : `⛶ ${l('Ampliar', 'Expand')}`}</button>
+        <button type="button" data-close-mixer aria-label="${l('Cerrar Mixer y mostrar solo el Arranger', 'Close Mixer and show only the Arranger')}">${l('Cerrar', 'Close')}</button>
       </div>
     </header>
     <div class="mixer-scroll">
