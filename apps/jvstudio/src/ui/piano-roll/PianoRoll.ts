@@ -3,10 +3,12 @@ import { l } from '../../i18n';
 import { installResizableSeparator } from '../layout/resizablePanels';
 import { ROW_HEIGHT, drawNote, dragNote, resizeDrawnNote } from './noteGeometry';
 import { collectReferenceNotes } from './referenceNotes';
+import { InsufficientCompositionContextError, LocalRuleBasedCompositionAssistant, validateCompositionSuggestion, type CompositionSuggestionResult, type SuggestionVariation } from '../../composition/assistant';
 
 export function installPianoRoll(store: ProjectStore, onClose: () => void,
   preview: (trackId: string, midi: number, velocity: number) => Promise<void>,
-  playableRange: (trackId: string) => Promise<{ lowestMidi: number; highestMidi: number }>) {
+  playableRange: (trackId: string) => Promise<{ lowestMidi: number; highestMidi: number }>,
+  setCompositionSuggestion?: (trackId: string, notes: MidiNote[] | null) => void) {
   const panel = document.createElement('section');
   panel.className = 'piano-panel';
   panel.hidden = true;
@@ -23,6 +25,7 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
         <div data-reference-tracks></div>
       </details>
       <button type="button" data-add>${l('Añadir nota', 'Add note')}</button>
+      <button type="button" data-assist>✨ ${l('Continuar', 'Continue')}</button>
       <button type="button" data-help>? ${l('Ayuda', 'Help')}</button>
       <button type="button" data-expand aria-pressed="false">⛶ ${l('Ampliar', 'Expand')}</button>
       <button type="button" data-close>${l('Cerrar', 'Close')}</button>
@@ -42,6 +45,16 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
       <button type="submit">${l('Aplicar', 'Apply')}</button><button type="button" data-delete>${l('Borrar nota', 'Delete note')}</button>
     </form>
     <p class="piano-message" role="status">${l('Usa Dibujar para crear notas. Arrastra el borde derecho para cambiar la duración.', 'Use Draw to create notes. Drag the right edge to change duration.')}</p>
+    <div class="composition-assistant" data-assistant hidden>
+      <div class="composition-assistant-heading"><strong>✨ ${l('Continuar', 'Continue')}</strong><span>${l('Opciones de la sugerencia', 'Suggestion options')}</span></div>
+      <label>${l('Longitud', 'Length')} <select data-assistant-bars><option value="1">${l('1 compás', '1 bar')}</option><option value="2">${l('2 compases', '2 bars')}</option></select></label>
+      <label>${l('Variación', 'Variation')} <select data-assistant-variation><option value="low">${l('Baja', 'Low')}</option><option value="medium" selected>${l('Media', 'Medium')}</option><option value="high">${l('Alta', 'High')}</option></select></label>
+      <button type="button" data-assistant-suggest>${l('Sugerir', 'Suggest')}</button>
+      <button type="button" data-assistant-play hidden>${l('Escuchar', 'Listen')}</button>
+      <button type="button" data-assistant-accept hidden>${l('Aceptar', 'Accept')}</button>
+      <button type="button" data-assistant-regenerate hidden>${l('Regenerar', 'Regenerate')}</button>
+      <button type="button" data-assistant-discard hidden>${l('Descartar', 'Discard')}</button>
+    </div>
   `;
   const host = document.querySelector<HTMLElement>('.arranger-panel')!;
   host.append(panel);
@@ -53,6 +66,18 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
   const snapInput = panel.querySelector<HTMLSelectElement>('[data-snap]')!;
   const zoom = panel.querySelector<HTMLSelectElement>('[data-zoom]')!;
   const message = panel.querySelector<HTMLElement>('.piano-message')!;
+  const assistant = new LocalRuleBasedCompositionAssistant();
+  const assistantPanel = panel.querySelector<HTMLElement>('[data-assistant]')!;
+  const assistantBars = panel.querySelector<HTMLSelectElement>('[data-assistant-bars]')!;
+  const assistantVariation = panel.querySelector<HTMLSelectElement>('[data-assistant-variation]')!;
+  const assistantSuggest = panel.querySelector<HTMLButtonElement>('[data-assistant-suggest]')!;
+  const assistantPlay = panel.querySelector<HTMLButtonElement>('[data-assistant-play]')!;
+  const assistantAccept = panel.querySelector<HTMLButtonElement>('[data-assistant-accept]')!;
+  const assistantRegenerate = panel.querySelector<HTMLButtonElement>('[data-assistant-regenerate]')!;
+  const assistantDiscard = panel.querySelector<HTMLButtonElement>('[data-assistant-discard]')!;
+  let suggestion: CompositionSuggestionResult | null = null;
+  let suggestionRequest: { insertionBeat: number; barsRequested: 1 | 2; variation: SuggestionVariation } | null = null;
+  let suggestionGeneration = 0;
   const expandButton = panel.querySelector<HTMLButtonElement>('[data-expand]')!;
   const pianoDivider = panel.querySelector<HTMLElement>('[data-piano-divider]')!;
   const referencePicker = panel.querySelector<HTMLDetailsElement>('[data-reference-picker]')!;
@@ -162,8 +187,9 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
     panel.querySelector('[data-title]')!.textContent = current.name;
     visibleClipStart = current.startBeat;
     visibleClipLength = current.lengthBeats;
-    canvas.style.width = 64 + current.lengthBeats * pixels() + 'px';
-    grid.style.width = current.lengthBeats * pixels() + 'px';
+    const previewEnd = suggestion ? Math.max(current.lengthBeats, suggestion.notes.reduce((end, item) => Math.max(end, item.startBeat - current.startBeat + item.durationBeats), current.lengthBeats)) : current.lengthBeats;
+    canvas.style.width = 64 + previewEnd * pixels() + 'px';
+    grid.style.width = previewEnd * pixels() + 'px';
     grid.style.setProperty('--snap-width', snap() * pixels() + 'px');
     grid.style.setProperty('--beat-width', pixels() + 'px');
     grid.replaceChildren();
@@ -211,12 +237,67 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
       paint(button, item);
       grid.append(button);
     }
+    if (suggestion) for (const item of suggestion.notes) {
+      const ghost = document.createElement('span');
+      ghost.className = 'piano-suggestion-note';
+      ghost.textContent = '✨';
+      ghost.setAttribute('aria-label', l(`Sugerencia ${midiToNoteName(item.midi)}`, `Suggested ${midiToNoteName(item.midi)}`));
+      paint(ghost, { ...item, startBeat: item.startBeat - current.startBeat });
+      grid.append(ghost);
+    }
     const playhead = document.createElement('div');
     playhead.className = 'piano-playhead';
     playhead.hidden = true;
     grid.append(playhead);
     properties();
   }
+  function setAssistantState(hasPreview: boolean) {
+    assistantAccept.hidden = !hasPreview; assistantRegenerate.hidden = !hasPreview; assistantDiscard.hidden = !hasPreview;
+    assistantPlay.hidden = !hasPreview; assistantSuggest.hidden = hasPreview;
+  }
+  function insertionBeat(): number {
+    const current = clip()!;
+    const last = current.notes.reduce((end, item) => Math.max(end, item.startBeat + item.durationBeats), 0);
+    return current.startBeat + Math.max(current.lengthBeats, Math.ceil(last / 4) * 4);
+  }
+  async function generateSuggestion(): Promise<void> {
+    const project = store.getSnapshot(); const current = clip();
+    if (!current) return;
+    const track = project.tracks.find((item) => item.id === trackId); if (!track) return;
+    const barsRequested = Number(assistantBars.value) as 1 | 2; const variation = assistantVariation.value as SuggestionVariation;
+    const start = insertionBeat();
+    assistantSuggest.disabled = true; message.textContent = l('Buscando una continuación…', 'Finding a continuation…');
+    try {
+      const result = await assistant.suggestContinuation({ tempo: project.bpm, timeSignature: project.timeSignature, barsRequested, variation, seed: ++suggestionGeneration, instrumentId: track.instrumentId, notes: current.notes.map((item) => ({ ...item, startBeat: item.startBeat + current.startBeat })), insertionBeat: start });
+      suggestion = validateCompositionSuggestion(result, { tempo: project.bpm, timeSignature: project.timeSignature, barsRequested, variation, notes: current.notes, insertionBeat: start });
+      setCompositionSuggestion?.(trackId, suggestion.notes.map((item, index) => ({ ...item, id: `suggestion-${index}` })));
+      suggestionRequest = { insertionBeat: start, barsRequested, variation }; setAssistantState(true); message.textContent = l('Propuesta lista. Escúchala y decide qué hacer.', 'Suggestion ready. Listen and decide what to do.'); render();
+    } catch (error) { message.textContent = error instanceof InsufficientCompositionContextError ? l('Añade algunas notas primero para poder continuar.', 'Add a few notes first so JV Studio has something to continue from.') : l('No se ha podido generar la sugerencia.', 'Could not generate a suggestion.'); }
+    assistantSuggest.disabled = false;
+  }
+  assistantSuggest.addEventListener('click', () => { assistantPanel.hidden = false; void generateSuggestion(); });
+  panel.querySelector('[data-assist]')!.addEventListener('click', () => {
+    assistantPanel.hidden = false;
+    void generateSuggestion();
+  });
+  assistantRegenerate.addEventListener('click', () => void generateSuggestion());
+  assistantPlay.addEventListener('click', () => {
+    if (!suggestion) return;
+    const sequence = [...suggestion.notes];
+    sequence.forEach((item, index) => window.setTimeout(() => { void preview(trackId, item.midi, item.velocity); }, index * 180));
+  });
+  assistantDiscard.addEventListener('click', () => { suggestion = null; suggestionRequest = null; setCompositionSuggestion?.(trackId, null); setAssistantState(false); message.textContent = l('Propuesta descartada.', 'Suggestion discarded.'); render(); });
+  assistantAccept.addEventListener('click', () => {
+    if (!suggestion || !suggestionRequest) return;
+    const current = clip()!;
+    const relative = suggestion.notes.map((item) => ({ midi: item.midi, startBeat: item.startBeat - current.startBeat, durationBeats: item.durationBeats, velocity: item.velocity }));
+    const requiredLength = Math.max(current.lengthBeats, ...relative.map((item) => item.startBeat + item.durationBeats));
+    try { store.acceptCompositionSuggestion(trackId, clipId, relative, requiredLength); } catch {
+      message.textContent = l('No se puede ampliar el clip porque hay otro clip ocupando ese espacio.', 'The clip cannot be extended because another clip occupies that space.');
+      return;
+    }
+    suggestion = null; suggestionRequest = null; setCompositionSuggestion?.(trackId, null); setAssistantState(false); message.textContent = l('Sugerencia aceptada como notas normales.', 'Suggestion accepted as regular notes.'); render();
+  });
   function focusNote() {
     const button = Array.from(grid.querySelectorAll<HTMLElement>('[data-note-id]')).find((item) => item.dataset.noteId === noteId);
     (button ?? grid).focus({ preventScroll: true });
@@ -405,7 +486,7 @@ export function installPianoRoll(store: ProjectStore, onClose: () => void,
   });
   return {
     open(nextTrack: string, nextClip: string) {
-      cancelGesture(); trackId = nextTrack; clipId = nextClip; noteId = null;
+      cancelGesture(); suggestion = null; suggestionRequest = null; suggestionGeneration = 0; setCompositionSuggestion?.(nextTrack, null); setAssistantState(false); trackId = nextTrack; clipId = nextClip; noteId = null;
       if (!clip()) return;
       range = { lowestMidi: 0, highestMidi: 127 };
       rangeInstrumentId = store.getSnapshot().tracks.find((track) => track.id === trackId)?.instrumentId ?? '';

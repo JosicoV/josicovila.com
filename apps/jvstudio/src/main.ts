@@ -245,7 +245,7 @@ const pianoRoll = installPianoRoll(store, () => {
 }, async (trackId) => {
   const track = store.getSnapshot().tracks.find((item) => item.id === trackId);
   return instrumentPlayableRange(track?.instrumentId ?? instruments[0].id);
-});
+}, (trackId, notes) => audioEngine.setCompositionSuggestion(trackId, notes));
 const trackColors = ['#11b9f2', '#39dfa0', '#ff8a3d', '#8b5cf6', '#f45f9a', '#f5c84b'];
 
 function render(): void {

@@ -298,6 +298,12 @@ button:disabled { color: #5f738a; cursor: not-allowed; opacity: 0.62; }
 .piano-panel label { display: flex; align-items: center; gap: 8px; font-size: .75rem; color: #adc0d4; }
 .piano-panel select, .piano-panel input, .piano-panel button:not(.piano-note) { color: var(--text); background: var(--surface-2); border: 1px solid var(--line-strong); border-radius: 6px; padding: 7px 9px; font: inherit; }
 .piano-toolbar button { font-size: .8rem !important; }
+.composition-assistant { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 8px 14px; border-bottom: 1px solid var(--line); background: #101b2b; }
+.composition-assistant-heading { display: flex; align-items: baseline; gap: 8px; flex: 1 1 100%; color: var(--text); }
+.composition-assistant-heading span { color: var(--muted); font-size: .75rem; }
+.composition-assistant label { color: var(--muted); }
+.composition-assistant select, .composition-assistant button { color: var(--text); background: var(--surface-2); border: 1px solid var(--line-strong); border-radius: 6px; padding: 6px 8px; font: inherit; }
+.piano-suggestion-note { position: absolute; display: flex; align-items: center; justify-content: center; height: 18px; margin-top: 1px; border: 1px dashed #f5c84b; border-radius: 4px; color: #f5c84b; background: #f5c84b33; pointer-events: none; font-size: 11px; opacity: .82; }
 .piano-reference-picker { position: relative; color: #adc0d4; font-size: .75rem; }
 .piano-reference-picker[hidden] { display: none; }
 .piano-reference-picker summary { min-height: 34px; display: flex; align-items: center; gap: 6px; padding: 0 9px; color: var(--text); border: 1px solid var(--line-strong); border-radius: 6px; background: var(--surface-2); cursor: pointer; list-style: none; }

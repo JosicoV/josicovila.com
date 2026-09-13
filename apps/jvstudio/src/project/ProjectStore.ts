@@ -19,6 +19,7 @@ export type ProjectChangeType =
   | 'clip:duplicate'
   | 'clip:remove'
   | 'note:add'
+  | 'composition:accept'
   | 'note:update'
   | 'note:remove';
 
@@ -153,6 +154,22 @@ export class ProjectStore {
     const note = createNote(values, this.createId);
     this.mutate('note:add', (project) => findClip(findTrack(project, trackId), clipId).notes.push(note));
     return structuredClone(note);
+  }
+
+  addNotes(trackId: string, clipId: string, values: Array<Partial<Omit<MidiNote, 'id'>>>): MidiNote[] {
+    const notes = values.map((value) => createNote(value, this.createId));
+    this.mutate('composition:accept', (project) => findClip(findTrack(project, trackId), clipId).notes.push(...notes));
+    return structuredClone(notes);
+  }
+
+  acceptCompositionSuggestion(trackId: string, clipId: string, notes: Array<Partial<Omit<MidiNote, 'id'>>>, requiredLengthBeats: number): void {
+    const created = notes.map((value) => createNote(value, this.createId));
+    this.mutate('composition:accept', (project) => {
+      const clip = findClip(findTrack(project, trackId), clipId);
+      clip.lengthBeats = Math.max(clip.lengthBeats, requiredLengthBeats);
+      clip.notes.push(...created);
+      project.lengthBars = autoGrowProjectLength(project, clip.startBeat + clip.lengthBeats);
+    });
   }
 
   updateNote(trackId: string, clipId: string, noteId: string, patch: NotePatch): void {

@@ -1,6 +1,6 @@
 import * as Tone from 'tone';
 
-import { barsToBeats, type InstrumentTrack, type Project } from '../project';
+import { barsToBeats, type InstrumentTrack, type MidiNote, type Project } from '../project';
 import { createInstrument, type InstrumentVoice } from './instruments';
 import { MixerEngine, type MixerMeterLevels } from './MixerEngine';
 import { trackGain } from './mix';
@@ -26,6 +26,7 @@ export class AudioEngine {
   private readonly transport = Tone.getTransport();
   private readonly mixer: MixerEngine;
   private readonly voices = new Map<string, TrackVoice>();
+  private readonly suggestions = new Map<string, MidiNote[]>();
   private project: Project;
   private previewRequest = 0;
   private disposed = false;
@@ -118,6 +119,13 @@ export class AudioEngine {
     this.setBpm(project.bpm);
   }
 
+  setCompositionSuggestion(trackId: string, notes: MidiNote[] | null): void {
+    if (notes?.length) this.suggestions.set(trackId, structuredClone(notes));
+    else this.suggestions.delete(trackId);
+    this.part?.dispose();
+    this.part = null;
+  }
+
   getProgress(): number {
     return this.state === 'playing' || this.state === 'paused' ? this.transport.progress : 0;
   }
@@ -152,7 +160,10 @@ export class AudioEngine {
       midi: note.midi,
       duration: this.toTicks(note.durationBeats),
       velocity: note.velocity,
-    }));
+    })).concat(Array.from(this.suggestions.entries()).flatMap(([trackId, notes]) => notes.map((note) => ({
+      time: this.toTicks(note.startBeat), trackId, midi: note.midi,
+      duration: this.toTicks(note.durationBeats), velocity: note.velocity,
+    }))));
     const part = new Tone.Part<ScheduledNote>((time, note) => {
       const voice = this.voices.get(note.trackId);
       const track = this.project.tracks.find((item) => item.id === note.trackId);
@@ -174,6 +185,9 @@ export class AudioEngine {
       await this.voices.get(track.id)?.playback.prepare(
         notes.filter((note) => note.trackId === track.id).map((note) => ({ midi: note.midi, velocity: note.velocity })),
       );
+    }
+    for (const [trackId, notes] of this.suggestions) {
+      await this.voices.get(trackId)?.playback.prepare(notes.map((note) => ({ midi: note.midi, velocity: note.velocity })));
     }
   }
 
