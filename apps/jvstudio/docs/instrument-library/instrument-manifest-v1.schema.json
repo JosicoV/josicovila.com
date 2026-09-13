@@ -78,8 +78,10 @@
             "salamander",
             "vsco2",
             "vcsl",
-            "iowa"
-          ]
+            "iowa",
+            "karoryfer"
+          ],
+          "description": "Fuente autorizada por §3/§4. Ampliar este enum al autorizar una fuente nueva es un cambio COMPATIBLE: no invalida ningun manifest existente y no cambia como un consumidor lee el formato. Es politica del proyecto, no contrato de formato."
         },
         "name": {
           "type": "string"

@@ -29,3 +29,8 @@ desktop.ini
 # are published separately to the VPS so they do not grow Git history.
 /apps/jvstudio/public/instruments/*/v1/samples/
 /app/jvstudio/instruments/*/v1/samples/
+
+/apps/jvstudio/public/instruments/delivery/dist/*/v*/samples/
+/app/jvstudio/instruments/delivery/dist/*/v*/samples/
+
+/apps/jvstudio/.npm-cache/

@@ -10,6 +10,8 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
     "tone": "^15.1.22"
   },
   "devDependencies": {

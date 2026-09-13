@@ -1,0 +1,20 @@
+{
+  "instrument": "jv-concert-flute",
+  "version": "1.0.0",
+  "config": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\instruments\\jv-concert-flute\\config.yml",
+  "configSha256": "e753dfb84142a45de663d4d1f8b04e1f666cd6daeeaf0a3ae5aee869cc99c9d4",
+  "sourceRoot": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\sources\\vsco2\\original\\Woodwinds\\Flute\\susNV",
+  "selected": 19,
+  "rejected": [],
+  "levels": {
+    "peakDbMin": -40.56,
+    "peakDbMax": -4.78,
+    "rmsDbMin": -53.75,
+    "rmsDbMax": -15.35
+  },
+  "totals": {
+    "sampleCount": 19,
+    "bytes": 2429824,
+    "durationSec": 176.857
+  }
+}

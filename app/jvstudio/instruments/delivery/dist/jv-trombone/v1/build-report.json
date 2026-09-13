@@ -1,0 +1,37 @@
+{
+  "instrument": "jv-trombone",
+  "version": "1.0.0",
+  "config": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\instruments\\jv-trombone\\config.yml",
+  "configSha256": "fdf858b72d364a000d0c25fb69742c98bfbec5a192365bd33b8ecbcec56e8b16",
+  "sourceRoot": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\sources\\vsco2\\original\\Brass\\Tenor Trombone\\sus",
+  "selected": 27,
+  "rejected": [
+    {
+      "file": "tenortbn_sus_A#0_v1_1.wav",
+      "reason": "fuera de input.note_min/max (A#1)"
+    },
+    {
+      "file": "tenortbn_sus_A#0_v2_1.wav",
+      "reason": "fuera de input.note_min/max (A#1)"
+    },
+    {
+      "file": "tenortbn_sus_C#1_v1_1.wav",
+      "reason": "fuera de input.note_min/max (C#2)"
+    },
+    {
+      "file": "tenortbn_sus_C#1_v2_1.wav",
+      "reason": "fuera de input.note_min/max (C#2)"
+    }
+  ],
+  "levels": {
+    "peakDbMin": -44.12,
+    "peakDbMax": -14.63,
+    "rmsDbMin": -58.26,
+    "rmsDbMax": -27.07
+  },
+  "totals": {
+    "sampleCount": 27,
+    "bytes": 4209194,
+    "durationSec": 293.965
+  }
+}

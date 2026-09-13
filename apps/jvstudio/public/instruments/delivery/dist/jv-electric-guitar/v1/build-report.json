@@ -1,0 +1,597 @@
+{
+  "instrument": "jv-electric-guitar",
+  "version": "1.0.0",
+  "config": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\instruments\\jv-electric-guitar\\config.yml",
+  "configSha256": "49b566cff3ae49896fc06defb18e38181fb13438f3c20e70af96c0e44e3044a7",
+  "sourceRoot": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\sources\\karoryfer\\original\\Emilyguitar\\notes",
+  "selected": 72,
+  "rejected": [
+    {
+      "file": "a2_f_rr2.wav",
+      "reason": "duplicado de a2_f_rr1.wav en A2/ff"
+    },
+    {
+      "file": "a2_f_rr3.wav",
+      "reason": "duplicado de a2_f_rr1.wav en A2/ff"
+    },
+    {
+      "file": "a2_mf_rr2.wav",
+      "reason": "duplicado de a2_mf_rr1.wav en A2/f"
+    },
+    {
+      "file": "a2_mf_rr3.wav",
+      "reason": "duplicado de a2_mf_rr1.wav en A2/f"
+    },
+    {
+      "file": "a2_mp_rr2.wav",
+      "reason": "duplicado de a2_mp_rr1.wav en A2/mf"
+    },
+    {
+      "file": "a2_mp_rr3.wav",
+      "reason": "duplicado de a2_mp_rr1.wav en A2/mf"
+    },
+    {
+      "file": "a2_p_rr2.wav",
+      "reason": "duplicado de a2_p_rr1.wav en A2/pp"
+    },
+    {
+      "file": "a2_p_rr3.wav",
+      "reason": "duplicado de a2_p_rr1.wav en A2/pp"
+    },
+    {
+      "file": "a3_f_rr2.wav",
+      "reason": "duplicado de a3_f_rr1.wav en A3/ff"
+    },
+    {
+      "file": "a3_f_rr3.wav",
+      "reason": "duplicado de a3_f_rr1.wav en A3/ff"
+    },
+    {
+      "file": "a3_mf_rr2.wav",
+      "reason": "duplicado de a3_mf_rr1.wav en A3/f"
+    },
+    {
+      "file": "a3_mf_rr3.wav",
+      "reason": "duplicado de a3_mf_rr1.wav en A3/f"
+    },
+    {
+      "file": "a3_mp_rr2.wav",
+      "reason": "duplicado de a3_mp_rr1.wav en A3/mf"
+    },
+    {
+      "file": "a3_mp_rr3.wav",
+      "reason": "duplicado de a3_mp_rr1.wav en A3/mf"
+    },
+    {
+      "file": "a3_p_rr2.wav",
+      "reason": "duplicado de a3_p_rr1.wav en A3/pp"
+    },
+    {
+      "file": "a3_p_rr3.wav",
+      "reason": "duplicado de a3_p_rr1.wav en A3/pp"
+    },
+    {
+      "file": "a4_f_rr2.wav",
+      "reason": "duplicado de a4_f_rr1.wav en A4/ff"
+    },
+    {
+      "file": "a4_f_rr3.wav",
+      "reason": "duplicado de a4_f_rr1.wav en A4/ff"
+    },
+    {
+      "file": "a4_mf_rr2.wav",
+      "reason": "duplicado de a4_mf_rr1.wav en A4/f"
+    },
+    {
+      "file": "a4_mf_rr3.wav",
+      "reason": "duplicado de a4_mf_rr1.wav en A4/f"
+    },
+    {
+      "file": "a4_mp_rr2.wav",
+      "reason": "duplicado de a4_mp_rr1.wav en A4/mf"
+    },
+    {
+      "file": "a4_mp_rr3.wav",
+      "reason": "duplicado de a4_mp_rr1.wav en A4/mf"
+    },
+    {
+      "file": "a4_p_rr2.wav",
+      "reason": "duplicado de a4_p_rr1.wav en A4/pp"
+    },
+    {
+      "file": "a4_p_rr3.wav",
+      "reason": "duplicado de a4_p_rr1.wav en A4/pp"
+    },
+    {
+      "file": "a5_f_rr2.wav",
+      "reason": "duplicado de a5_f_rr1.wav en A5/ff"
+    },
+    {
+      "file": "a5_f_rr3.wav",
+      "reason": "duplicado de a5_f_rr1.wav en A5/ff"
+    },
+    {
+      "file": "a5_mf_rr2.wav",
+      "reason": "duplicado de a5_mf_rr1.wav en A5/f"
+    },
+    {
+      "file": "a5_mf_rr3.wav",
+      "reason": "duplicado de a5_mf_rr1.wav en A5/f"
+    },
+    {
+      "file": "a5_mp_rr2.wav",
+      "reason": "duplicado de a5_mp_rr1.wav en A5/mf"
+    },
+    {
+      "file": "a5_mp_rr3.wav",
+      "reason": "duplicado de a5_mp_rr1.wav en A5/mf"
+    },
+    {
+      "file": "a5_p_rr2.wav",
+      "reason": "duplicado de a5_p_rr1.wav en A5/pp"
+    },
+    {
+      "file": "a5_p_rr3.wav",
+      "reason": "duplicado de a5_p_rr1.wav en A5/pp"
+    },
+    {
+      "file": "c3_f_rr2.wav",
+      "reason": "duplicado de c3_f_rr1.wav en C3/ff"
+    },
+    {
+      "file": "c3_f_rr3.wav",
+      "reason": "duplicado de c3_f_rr1.wav en C3/ff"
+    },
+    {
+      "file": "c3_mf_rr2.wav",
+      "reason": "duplicado de c3_mf_rr1.wav en C3/f"
+    },
+    {
+      "file": "c3_mf_rr3.wav",
+      "reason": "duplicado de c3_mf_rr1.wav en C3/f"
+    },
+    {
+      "file": "c3_mp_rr2.wav",
+      "reason": "duplicado de c3_mp_rr1.wav en C3/mf"
+    },
+    {
+      "file": "c3_mp_rr3.wav",
+      "reason": "duplicado de c3_mp_rr1.wav en C3/mf"
+    },
+    {
+      "file": "c3_p_rr2.wav",
+      "reason": "duplicado de c3_p_rr1.wav en C3/pp"
+    },
+    {
+      "file": "c3_p_rr3.wav",
+      "reason": "duplicado de c3_p_rr1.wav en C3/pp"
+    },
+    {
+      "file": "c4_f_rr2.wav",
+      "reason": "duplicado de c4_f_rr1.wav en C4/ff"
+    },
+    {
+      "file": "c4_f_rr3.wav",
+      "reason": "duplicado de c4_f_rr1.wav en C4/ff"
+    },
+    {
+      "file": "c4_mf_rr2.wav",
+      "reason": "duplicado de c4_mf_rr1.wav en C4/f"
+    },
+    {
+      "file": "c4_mf_rr3.wav",
+      "reason": "duplicado de c4_mf_rr1.wav en C4/f"
+    },
+    {
+      "file": "c4_mp_rr2.wav",
+      "reason": "duplicado de c4_mp_rr1.wav en C4/mf"
+    },
+    {
+      "file": "c4_mp_rr3.wav",
+      "reason": "duplicado de c4_mp_rr1.wav en C4/mf"
+    },
+    {
+      "file": "c4_p_rr2.wav",
+      "reason": "duplicado de c4_p_rr1.wav en C4/pp"
+    },
+    {
+      "file": "c4_p_rr3.wav",
+      "reason": "duplicado de c4_p_rr1.wav en C4/pp"
+    },
+    {
+      "file": "c5_f_rr2.wav",
+      "reason": "duplicado de c5_f_rr1.wav en C5/ff"
+    },
+    {
+      "file": "c5_f_rr3.wav",
+      "reason": "duplicado de c5_f_rr1.wav en C5/ff"
+    },
+    {
+      "file": "c5_mf_rr2.wav",
+      "reason": "duplicado de c5_mf_rr1.wav en C5/f"
+    },
+    {
+      "file": "c5_mf_rr3.wav",
+      "reason": "duplicado de c5_mf_rr1.wav en C5/f"
+    },
+    {
+      "file": "c5_mp_rr2.wav",
+      "reason": "duplicado de c5_mp_rr1.wav en C5/mf"
+    },
+    {
+      "file": "c5_mp_rr3.wav",
+      "reason": "duplicado de c5_mp_rr1.wav en C5/mf"
+    },
+    {
+      "file": "c5_p_rr2.wav",
+      "reason": "duplicado de c5_p_rr1.wav en C5/pp"
+    },
+    {
+      "file": "c5_p_rr3.wav",
+      "reason": "duplicado de c5_p_rr1.wav en C5/pp"
+    },
+    {
+      "file": "c6_f_rr2.wav",
+      "reason": "duplicado de c6_f_rr1.wav en C6/ff"
+    },
+    {
+      "file": "c6_f_rr3.wav",
+      "reason": "duplicado de c6_f_rr1.wav en C6/ff"
+    },
+    {
+      "file": "c6_mf_rr2.wav",
+      "reason": "duplicado de c6_mf_rr1.wav en C6/f"
+    },
+    {
+      "file": "c6_mf_rr3.wav",
+      "reason": "duplicado de c6_mf_rr1.wav en C6/f"
+    },
+    {
+      "file": "c6_mp_rr2.wav",
+      "reason": "duplicado de c6_mp_rr1.wav en C6/mf"
+    },
+    {
+      "file": "c6_mp_rr3.wav",
+      "reason": "duplicado de c6_mp_rr1.wav en C6/mf"
+    },
+    {
+      "file": "c6_p_rr2.wav",
+      "reason": "duplicado de c6_p_rr1.wav en C6/pp"
+    },
+    {
+      "file": "c6_p_rr3.wav",
+      "reason": "duplicado de c6_p_rr1.wav en C6/pp"
+    },
+    {
+      "file": "d6_f_rr2.wav",
+      "reason": "duplicado de d6_f_rr1.wav en D6/ff"
+    },
+    {
+      "file": "d6_f_rr3.wav",
+      "reason": "duplicado de d6_f_rr1.wav en D6/ff"
+    },
+    {
+      "file": "d6_mf_rr2.wav",
+      "reason": "duplicado de d6_mf_rr1.wav en D6/f"
+    },
+    {
+      "file": "d6_mf_rr3.wav",
+      "reason": "duplicado de d6_mf_rr1.wav en D6/f"
+    },
+    {
+      "file": "d6_mp_rr2.wav",
+      "reason": "duplicado de d6_mp_rr1.wav en D6/mf"
+    },
+    {
+      "file": "d6_mp_rr3.wav",
+      "reason": "duplicado de d6_mp_rr1.wav en D6/mf"
+    },
+    {
+      "file": "d6_p_rr2.wav",
+      "reason": "duplicado de d6_p_rr1.wav en D6/pp"
+    },
+    {
+      "file": "d6_p_rr3.wav",
+      "reason": "duplicado de d6_p_rr1.wav en D6/pp"
+    },
+    {
+      "file": "db2_f_rr2.wav",
+      "reason": "duplicado de db2_f_rr1.wav en C#2/ff"
+    },
+    {
+      "file": "db2_f_rr3.wav",
+      "reason": "duplicado de db2_f_rr1.wav en C#2/ff"
+    },
+    {
+      "file": "db2_mf_rr2.wav",
+      "reason": "duplicado de db2_mf_rr1.wav en C#2/f"
+    },
+    {
+      "file": "db2_mf_rr3.wav",
+      "reason": "duplicado de db2_mf_rr1.wav en C#2/f"
+    },
+    {
+      "file": "db2_mp_rr2.wav",
+      "reason": "duplicado de db2_mp_rr1.wav en C#2/mf"
+    },
+    {
+      "file": "db2_mp_rr3.wav",
+      "reason": "duplicado de db2_mp_rr1.wav en C#2/mf"
+    },
+    {
+      "file": "db2_p_rr2.wav",
+      "reason": "duplicado de db2_p_rr1.wav en C#2/pp"
+    },
+    {
+      "file": "db2_p_rr3.wav",
+      "reason": "duplicado de db2_p_rr1.wav en C#2/pp"
+    },
+    {
+      "file": "e2_f_rr2.wav",
+      "reason": "duplicado de e2_f_rr1.wav en E2/ff"
+    },
+    {
+      "file": "e2_f_rr3.wav",
+      "reason": "duplicado de e2_f_rr1.wav en E2/ff"
+    },
+    {
+      "file": "e2_mf_rr2.wav",
+      "reason": "duplicado de e2_mf_rr1.wav en E2/f"
+    },
+    {
+      "file": "e2_mf_rr3.wav",
+      "reason": "duplicado de e2_mf_rr1.wav en E2/f"
+    },
+    {
+      "file": "e2_mp_rr2.wav",
+      "reason": "duplicado de e2_mp_rr1.wav en E2/mf"
+    },
+    {
+      "file": "e2_mp_rr3.wav",
+      "reason": "duplicado de e2_mp_rr1.wav en E2/mf"
+    },
+    {
+      "file": "e2_p_rr2.wav",
+      "reason": "duplicado de e2_p_rr1.wav en E2/pp"
+    },
+    {
+      "file": "e2_p_rr3.wav",
+      "reason": "duplicado de e2_p_rr1.wav en E2/pp"
+    },
+    {
+      "file": "eb3_f_rr2.wav",
+      "reason": "duplicado de eb3_f_rr1.wav en D#3/ff"
+    },
+    {
+      "file": "eb3_f_rr3.wav",
+      "reason": "duplicado de eb3_f_rr1.wav en D#3/ff"
+    },
+    {
+      "file": "eb3_mf_rr2.wav",
+      "reason": "duplicado de eb3_mf_rr1.wav en D#3/f"
+    },
+    {
+      "file": "eb3_mf_rr3.wav",
+      "reason": "duplicado de eb3_mf_rr1.wav en D#3/f"
+    },
+    {
+      "file": "eb3_mp_rr2.wav",
+      "reason": "duplicado de eb3_mp_rr1.wav en D#3/mf"
+    },
+    {
+      "file": "eb3_mp_rr3.wav",
+      "reason": "duplicado de eb3_mp_rr1.wav en D#3/mf"
+    },
+    {
+      "file": "eb3_p_rr2.wav",
+      "reason": "duplicado de eb3_p_rr1.wav en D#3/pp"
+    },
+    {
+      "file": "eb3_p_rr3.wav",
+      "reason": "duplicado de eb3_p_rr1.wav en D#3/pp"
+    },
+    {
+      "file": "eb4_f_rr2.wav",
+      "reason": "duplicado de eb4_f_rr1.wav en D#4/ff"
+    },
+    {
+      "file": "eb4_f_rr3.wav",
+      "reason": "duplicado de eb4_f_rr1.wav en D#4/ff"
+    },
+    {
+      "file": "eb4_mf_rr2.wav",
+      "reason": "duplicado de eb4_mf_rr1.wav en D#4/f"
+    },
+    {
+      "file": "eb4_mf_rr3.wav",
+      "reason": "duplicado de eb4_mf_rr1.wav en D#4/f"
+    },
+    {
+      "file": "eb4_mp_rr2.wav",
+      "reason": "duplicado de eb4_mp_rr1.wav en D#4/mf"
+    },
+    {
+      "file": "eb4_mp_rr3.wav",
+      "reason": "duplicado de eb4_mp_rr1.wav en D#4/mf"
+    },
+    {
+      "file": "eb4_p_rr2.wav",
+      "reason": "duplicado de eb4_p_rr1.wav en D#4/pp"
+    },
+    {
+      "file": "eb4_p_rr3.wav",
+      "reason": "duplicado de eb4_p_rr1.wav en D#4/pp"
+    },
+    {
+      "file": "eb5_f_rr2.wav",
+      "reason": "duplicado de eb5_f_rr1.wav en D#5/ff"
+    },
+    {
+      "file": "eb5_f_rr3.wav",
+      "reason": "duplicado de eb5_f_rr1.wav en D#5/ff"
+    },
+    {
+      "file": "eb5_mf_rr2.wav",
+      "reason": "duplicado de eb5_mf_rr1.wav en D#5/f"
+    },
+    {
+      "file": "eb5_mf_rr3.wav",
+      "reason": "duplicado de eb5_mf_rr1.wav en D#5/f"
+    },
+    {
+      "file": "eb5_mp_rr2.wav",
+      "reason": "duplicado de eb5_mp_rr1.wav en D#5/mf"
+    },
+    {
+      "file": "eb5_mp_rr3.wav",
+      "reason": "duplicado de eb5_mp_rr1.wav en D#5/mf"
+    },
+    {
+      "file": "eb5_p_rr2.wav",
+      "reason": "duplicado de eb5_p_rr1.wav en D#5/pp"
+    },
+    {
+      "file": "eb5_p_rr3.wav",
+      "reason": "duplicado de eb5_p_rr1.wav en D#5/pp"
+    },
+    {
+      "file": "gb2_f_rr2.wav",
+      "reason": "duplicado de gb2_f_rr1.wav en F#2/ff"
+    },
+    {
+      "file": "gb2_f_rr3.wav",
+      "reason": "duplicado de gb2_f_rr1.wav en F#2/ff"
+    },
+    {
+      "file": "gb2_mf_rr2.wav",
+      "reason": "duplicado de gb2_mf_rr1.wav en F#2/f"
+    },
+    {
+      "file": "gb2_mf_rr3.wav",
+      "reason": "duplicado de gb2_mf_rr1.wav en F#2/f"
+    },
+    {
+      "file": "gb2_mp_rr2.wav",
+      "reason": "duplicado de gb2_mp_rr1.wav en F#2/mf"
+    },
+    {
+      "file": "gb2_mp_rr3.wav",
+      "reason": "duplicado de gb2_mp_rr1.wav en F#2/mf"
+    },
+    {
+      "file": "gb2_p_rr2.wav",
+      "reason": "duplicado de gb2_p_rr1.wav en F#2/pp"
+    },
+    {
+      "file": "gb2_p_rr3.wav",
+      "reason": "duplicado de gb2_p_rr1.wav en F#2/pp"
+    },
+    {
+      "file": "gb3_f_rr2.wav",
+      "reason": "duplicado de gb3_f_rr1.wav en F#3/ff"
+    },
+    {
+      "file": "gb3_f_rr3.wav",
+      "reason": "duplicado de gb3_f_rr1.wav en F#3/ff"
+    },
+    {
+      "file": "gb3_mf_rr2.wav",
+      "reason": "duplicado de gb3_mf_rr1.wav en F#3/f"
+    },
+    {
+      "file": "gb3_mf_rr3.wav",
+      "reason": "duplicado de gb3_mf_rr1.wav en F#3/f"
+    },
+    {
+      "file": "gb3_mp_rr2.wav",
+      "reason": "duplicado de gb3_mp_rr1.wav en F#3/mf"
+    },
+    {
+      "file": "gb3_mp_rr3.wav",
+      "reason": "duplicado de gb3_mp_rr1.wav en F#3/mf"
+    },
+    {
+      "file": "gb3_p_rr2.wav",
+      "reason": "duplicado de gb3_p_rr1.wav en F#3/pp"
+    },
+    {
+      "file": "gb3_p_rr3.wav",
+      "reason": "duplicado de gb3_p_rr1.wav en F#3/pp"
+    },
+    {
+      "file": "gb4_f_rr2.wav",
+      "reason": "duplicado de gb4_f_rr1.wav en F#4/ff"
+    },
+    {
+      "file": "gb4_f_rr3.wav",
+      "reason": "duplicado de gb4_f_rr1.wav en F#4/ff"
+    },
+    {
+      "file": "gb4_mf_rr2.wav",
+      "reason": "duplicado de gb4_mf_rr1.wav en F#4/f"
+    },
+    {
+      "file": "gb4_mf_rr3.wav",
+      "reason": "duplicado de gb4_mf_rr1.wav en F#4/f"
+    },
+    {
+      "file": "gb4_mp_rr2.wav",
+      "reason": "duplicado de gb4_mp_rr1.wav en F#4/mf"
+    },
+    {
+      "file": "gb4_mp_rr3.wav",
+      "reason": "duplicado de gb4_mp_rr1.wav en F#4/mf"
+    },
+    {
+      "file": "gb4_p_rr2.wav",
+      "reason": "duplicado de gb4_p_rr1.wav en F#4/pp"
+    },
+    {
+      "file": "gb4_p_rr3.wav",
+      "reason": "duplicado de gb4_p_rr1.wav en F#4/pp"
+    },
+    {
+      "file": "gb5_f_rr2.wav",
+      "reason": "duplicado de gb5_f_rr1.wav en F#5/ff"
+    },
+    {
+      "file": "gb5_f_rr3.wav",
+      "reason": "duplicado de gb5_f_rr1.wav en F#5/ff"
+    },
+    {
+      "file": "gb5_mf_rr2.wav",
+      "reason": "duplicado de gb5_mf_rr1.wav en F#5/f"
+    },
+    {
+      "file": "gb5_mf_rr3.wav",
+      "reason": "duplicado de gb5_mf_rr1.wav en F#5/f"
+    },
+    {
+      "file": "gb5_mp_rr2.wav",
+      "reason": "duplicado de gb5_mp_rr1.wav en F#5/mf"
+    },
+    {
+      "file": "gb5_mp_rr3.wav",
+      "reason": "duplicado de gb5_mp_rr1.wav en F#5/mf"
+    },
+    {
+      "file": "gb5_p_rr2.wav",
+      "reason": "duplicado de gb5_p_rr1.wav en F#5/pp"
+    },
+    {
+      "file": "gb5_p_rr3.wav",
+      "reason": "duplicado de gb5_p_rr1.wav en F#5/pp"
+    }
+  ],
+  "levels": {
+    "peakDbMin": -22.35,
+    "peakDbMax": 0.0,
+    "rmsDbMin": -40.05,
+    "rmsDbMax": -22.56
+  },
+  "totals": {
+    "sampleCount": 72,
+    "bytes": 1764496,
+    "durationSec": 268.697
+  }
+}

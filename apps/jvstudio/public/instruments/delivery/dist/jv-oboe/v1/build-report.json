@@ -1,0 +1,20 @@
+{
+  "instrument": "jv-oboe",
+  "version": "1.0.0",
+  "config": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\instruments\\jv-oboe\\config.yml",
+  "configSha256": "c006e476e9bf14607de0d7e4ce00a664546ff42f32951db6287763b94cf3803c",
+  "sourceRoot": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\sources\\vsco2\\original\\Woodwinds\\Oboe\\Sus",
+  "selected": 18,
+  "rejected": [],
+  "levels": {
+    "peakDbMin": -28.21,
+    "peakDbMax": -15.89,
+    "rmsDbMin": -41.56,
+    "rmsDbMax": -23.29
+  },
+  "totals": {
+    "sampleCount": 18,
+    "bytes": 2947390,
+    "durationSec": 190.861
+  }
+}

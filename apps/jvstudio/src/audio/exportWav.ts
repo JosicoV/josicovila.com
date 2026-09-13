@@ -1,7 +1,7 @@
 import * as Tone from 'tone';
 
 import { barsToBeats, parameterValue, type Project } from '../project';
-import { createInstrument, type InstrumentVoice } from './instruments';
+import { createInstrument, initializeInstrumentCatalog, instruments, type InstrumentVoice } from './instruments';
 import { MixerEngine } from './MixerEngine';
 import { scheduleEvents } from './projectEvents';
 
@@ -17,41 +17,49 @@ interface PcmAudioBuffer {
 }
 
 export async function renderProjectWav(project: Project): Promise<Blob> {
+  await initializeInstrumentCatalog();
   const beatSeconds = 60 / project.bpm;
   const projectSeconds = barsToBeats(project.lengthBars, project.timeSignature) * beatSeconds;
   const renderSeconds = projectSeconds + effectTailSeconds(project);
   if (renderSeconds > MAX_WAV_EXPORT_SECONDS) throw new RangeError('WAV export exceeds the 20 minute safety limit.');
 
   const events = scheduleEvents(project);
-  const rendered = await Tone.Offline(async () => {
-    const voices = new Map<string, InstrumentVoice>();
-    const mixer = new MixerEngine(project);
-    for (const track of project.tracks) {
-      voices.set(track.id, createInstrument(track.instrumentId, mixer.input(track.id)));
-    }
-    for (const track of project.tracks) {
-      await voices.get(track.id)?.prepare(
-        events.filter((note) => note.trackId === track.id).map((note) => ({ midi: note.midi, velocity: note.velocity })),
-      );
-    }
-    await mixer.ready();
-    for (const note of events) {
-      voices.get(note.trackId)?.triggerAttackRelease(
-        Tone.Frequency(note.midi, 'midi').toNote(),
-        note.durationBeats * beatSeconds,
-        note.startBeat * beatSeconds,
-        note.velocity,
-      );
-    }
-  }, renderSeconds, 2, SAMPLE_RATE);
+  const voices = new Map<string, InstrumentVoice>();
+  let mixer: MixerEngine | undefined;
+  try {
+    const rendered = await Tone.Offline(async () => {
+      mixer = new MixerEngine(project);
+      for (const track of project.tracks) {
+        voices.set(track.id, createInstrument(track.instrumentId, mixer.input(track.id)));
+      }
+      for (const track of project.tracks) {
+        await voices.get(track.id)?.prepare(
+          events.filter((note) => note.trackId === track.id).map((note) => ({ midi: note.midi, velocity: note.velocity })),
+        );
+      }
+      await mixer.ready();
+      for (const note of events) {
+        voices.get(note.trackId)?.triggerAttackRelease(
+          Tone.Frequency(note.midi, 'midi').toNote(),
+          note.durationBeats * beatSeconds,
+          note.startBeat * beatSeconds,
+          note.velocity,
+        );
+      }
+    }, renderSeconds, 2, SAMPLE_RATE);
 
-  const audioBuffer = rendered.get();
-  if (!audioBuffer) throw new Error('Offline rendering did not produce an audio buffer.');
-  return new Blob([encodeWav(audioBuffer)], { type: 'audio/wav' });
+    const audioBuffer = rendered.get();
+    if (!audioBuffer) throw new Error('Offline rendering did not produce an audio buffer.');
+    return new Blob([encodeWav(audioBuffer)], { type: 'audio/wav' });
+  } finally {
+    for (const voice of voices.values()) voice.dispose();
+    mixer?.dispose();
+  }
 }
 
 export function effectTailSeconds(project: Project): number {
-  let tail = MINIMUM_RELEASE_TAIL_SECONDS;
+  let tail = Math.max(MINIMUM_RELEASE_TAIL_SECONDS, ...project.tracks.map((track) =>
+    instruments.find((item) => item.id === track.instrumentId)?.manifest.playback.release ?? 0));
   const reverbIsUsed = project.sendFx.reverb.enabled && project.tracks.some((track) => track.sends.reverb > 0);
   if (reverbIsUsed) {
     tail = Math.max(tail, parameterValue(project.sendFx.reverb, 'decay') + parameterValue(project.sendFx.reverb, 'preDelay'));

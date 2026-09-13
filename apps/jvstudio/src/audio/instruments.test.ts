@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 
-import { initializeInstrumentCatalog, instruments, resolveInstrument, validateInstrumentManifest } from './instruments';
+import { initializeInstrumentCatalog, instruments, resolveInstrument, selectSample, validateInstrumentManifest } from './instruments';
 
 const manifest = {
   schemaVersion: 1,
@@ -20,8 +20,8 @@ const manifest = {
 beforeAll(async () => {
   vi.stubGlobal('fetch', vi.fn(async (url: string) => ({
     ok: true,
-    json: async () => url.endsWith('catalog.json')
-      ? { schemaVersion: 1, manifests: ['jv-test-instrument/v1/manifest.json'] }
+    json: async () => url.endsWith('index.json')
+      ? { schemaVersion: 1, instruments: [{ id: manifest.id, path: 'dist/jv-test-instrument/v1/' }] }
       : manifest,
   })));
   await initializeInstrumentCatalog();
@@ -39,5 +39,32 @@ describe('manifest instrument catalog', () => {
 
   it('requires attribution text when the manifest says it is mandatory', () => {
     expect(() => validateInstrumentManifest({ ...manifest, source: { ...manifest.source, attributionRequired: true } })).toThrow('Missing required attribution');
+  });
+});
+
+const delivered = import.meta.glob('../../public/instruments/delivery/dist/*/v*/manifest.json', { eager: true, import: 'default' });
+describe('definitive delivery contract', () => {
+  it('validates all 17 frozen manifests unchanged', () => {
+    expect(Object.keys(delivered)).toHaveLength(17);
+    for (const [path, value] of Object.entries(delivered)) expect(validateInstrumentManifest(value, path)).toBe(value);
+  });
+  it('obeys every sample mapping at both note and velocity boundaries', () => {
+    for (const value of Object.values(delivered)) {
+      const m = validateInstrumentManifest(value);
+      for (const sample of m.samples) {
+        for (const midi of [Math.max(m.range.lowestMidi, sample.loNote ?? sample.rootMidi), Math.min(m.range.highestMidi, sample.hiNote ?? sample.rootMidi)]) {
+          for (const velocity of [sample.velocityMin, sample.velocityMax]) expect(selectSample(m, midi, velocity / 127)?.sample).toBe(sample);
+        }
+      }
+      expect(selectSample(m, m.range.lowestMidi - 1, 1)).toBeNull();
+      expect(selectSample(m, m.range.highestMidi + 1, 1)).toBeNull();
+      expect(selectSample(m, m.range.lowestMidi, 0)).toBeNull();
+    }
+  });
+  it('rejects bad gains, additional fields and ambiguous mappings', () => {
+    expect(() => validateInstrumentManifest({ ...manifest, playback: { ...manifest.playback, gainDb: 99 } })).toThrow('Invalid instrument manifest');
+    expect(() => validateInstrumentManifest({ ...manifest, unexpected: true })).toThrow('Invalid instrument manifest');
+    expect(() => validateInstrumentManifest({ ...manifest, samples: [...manifest.samples, ...manifest.samples] })).toThrow('Invalid sample mapping');
+    expect(() => validateInstrumentManifest({ ...manifest, schemaVersion: 2 })).toThrow('Unsupported instrument manifest schema');
   });
 });

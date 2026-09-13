@@ -1,0 +1,25 @@
+{
+  "instrument": "jv-solo-cello",
+  "version": "1.0.0",
+  "config": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\instruments\\jv-solo-cello\\config.yml",
+  "configSha256": "84c10a28f3a3f857e91b8e2428c3418c9f09787ed0cd6741218a276dc5bfb177",
+  "sourceRoot": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\sources\\iowa\\split\\cello-arco",
+  "selected": 134,
+  "rejected": [
+    {
+      "file": "_split_report.json",
+      "reason": "no casa con input.pattern"
+    }
+  ],
+  "levels": {
+    "peakDbMin": -29.02,
+    "peakDbMax": -0.0,
+    "rmsDbMin": -39.19,
+    "rmsDbMax": -11.57
+  },
+  "totals": {
+    "sampleCount": 134,
+    "bytes": 2725383,
+    "durationSec": 260.833
+  }
+}

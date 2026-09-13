@@ -1,0 +1,20 @@
+{
+  "instrument": "jv-solo-violin",
+  "version": "1.0.0",
+  "config": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\instruments\\jv-solo-violin\\config.yml",
+  "configSha256": "21a8c346816b2dbd602462c102b9ef4ccc335c1b6b23d87f8211745ce0de4be1",
+  "sourceRoot": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\sources\\vsco2\\original\\Strings\\Solo Violin\\Arco Vib",
+  "selected": 30,
+  "rejected": [],
+  "levels": {
+    "peakDbMin": -28.29,
+    "peakDbMax": -7.45,
+    "rmsDbMin": -45.7,
+    "rmsDbMax": -20.92
+  },
+  "totals": {
+    "sampleCount": 30,
+    "bytes": 6769098,
+    "durationSec": 405.71
+  }
+}

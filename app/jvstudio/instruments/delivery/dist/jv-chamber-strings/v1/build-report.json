@@ -1,0 +1,20 @@
+{
+  "instrument": "jv-chamber-strings",
+  "version": "1.0.0",
+  "config": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\instruments\\jv-chamber-strings\\config.yml",
+  "configSha256": "400b249ebcf42355d2d5b9b97ea4b17b7f5346eb1113e0510fea373ff3324124",
+  "sourceRoot": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\instruments\\jv-chamber-strings\\processed",
+  "selected": 36,
+  "rejected": [],
+  "levels": {
+    "peakDbMin": -26.87,
+    "peakDbMax": -3.11,
+    "rmsDbMin": -41.61,
+    "rmsDbMax": -16.58
+  },
+  "totals": {
+    "sampleCount": 36,
+    "bytes": 5874155,
+    "durationSec": 388.555
+  }
+}

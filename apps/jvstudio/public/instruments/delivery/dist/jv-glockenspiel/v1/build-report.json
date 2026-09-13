@@ -1,0 +1,20 @@
+{
+  "instrument": "jv-glockenspiel",
+  "version": "1.0.0",
+  "config": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\instruments\\jv-glockenspiel\\config.yml",
+  "configSha256": "30004722f7bc2111ba7d133ecad2737f18e59b36579c699b5446c09c482b5b69",
+  "sourceRoot": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\sources\\vcsl\\original\\Idiophones\\Struck Idiophones\\Glockenspiel",
+  "selected": 18,
+  "rejected": [],
+  "levels": {
+    "peakDbMin": -39.99,
+    "peakDbMax": -23.39,
+    "rmsDbMin": -58.6,
+    "rmsDbMax": -41.28
+  },
+  "totals": {
+    "sampleCount": 18,
+    "bytes": 598212,
+    "durationSec": 39.81
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "instrument": "jv-marimba",
+  "version": "1.0.0",
+  "config": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\instruments\\jv-marimba\\config.yml",
+  "configSha256": "7bfff61a15523fb29b0781dd22c4e35e0028595213ec04691b419fb4efeb5a04",
+  "sourceRoot": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\sources\\vcsl\\original\\Idiophones\\Struck Idiophones\\Marimba",
+  "selected": 30,
+  "rejected": [],
+  "levels": {
+    "peakDbMin": -68.14,
+    "peakDbMax": -14.76,
+    "rmsDbMin": -79.88,
+    "rmsDbMax": -37.59
+  },
+  "totals": {
+    "sampleCount": 30,
+    "bytes": 402068,
+    "durationSec": 67.034
+  }
+}

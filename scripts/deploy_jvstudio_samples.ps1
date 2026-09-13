@@ -16,13 +16,14 @@ param(
 $ErrorActionPreference = "Stop"
 $repositoryRoot = Split-Path -Parent $PSScriptRoot
 $libraryRoot = Join-Path $repositoryRoot "apps/jvstudio/public/instruments"
-$catalogPath = Join-Path $libraryRoot "catalog.json"
+$catalogPath = Join-Path $libraryRoot "delivery/index.json"
 $catalog = Get-Content -Raw -LiteralPath $catalogPath | ConvertFrom-Json
 
 $sampleCount = 0
 $sampleBytes = [int64]0
 
-foreach ($manifestEntry in $catalog.manifests) {
+foreach ($entry in $catalog.instruments) {
+    $manifestEntry = "delivery/$($entry.path)manifest.json"
     $manifestPath = Join-Path $libraryRoot $manifestEntry
     $manifest = Get-Content -Raw -LiteralPath $manifestPath | ConvertFrom-Json
     $manifestDirectory = Split-Path -Parent $manifestPath

@@ -200,3 +200,14 @@ Other tracks are visible by default and may be toggled independently while the p
 Draw mode creates the minimum snapped note on pointer down so it can be heard and previewed immediately. Horizontal pointer movement derives the note end from the cursor's current snapped beat, allowing the same uninterrupted gesture to grow and shrink before pointer up commits the duration.
 
 A click without movement keeps the minimum duration. Escape, pointer cancellation or losing the window before release removes the provisional note instead of leaving an accidental edit in the project.
+
+
+## Definitive JV Instrument Library delivery — 2026-09-13
+
+The full delivery replaces the previous 13-instrument assets/configuration, retaining
+stable IDs and adding discovery through the supplied index.json. See
+[integration](instrument-library/integration.md) and
+[validation](instrument-library/VALIDATION-2026-09-13.md). The exact frozen schema is
+validated with Ajv 2020-12; direct buffer voices honor mappings without nearest-note
+selection. Calibrated gains remain unchanged. Shared cache is bounded, active
+samples are protected, and offline voices are disposed only after native rendering.

@@ -1,0 +1,2225 @@
+{
+  "instrument": "jv-soft-piano",
+  "version": "1.0.0",
+  "config": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\instruments\\jv-soft-piano\\config.yml",
+  "configSha256": "610d247a59c69e9462ef6e476ab972c7835a27799080005e3d65523533a318c5",
+  "sourceRoot": "C:\\FTP ANTES DE VPS\\PAGINAS_PRINCIPALES\\JVDAW-INSTRUMENTS\\sources\\salamander\\original\\SalamanderGrandPianoV3_44.1khz16bit\\44.1khz16bit",
+  "selected": 90,
+  "rejected": [
+    {
+      "file": "A0v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A0v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A0v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A0v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A0v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A0v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A0v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A0v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A0v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A0v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A1v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A1v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A1v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A1v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A1v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A1v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A1v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A1v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A1v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A1v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A2v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A2v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A2v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A2v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A2v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A2v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A2v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A2v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A2v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A2v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A3v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A3v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A3v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A3v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A3v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A3v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A3v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A3v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A3v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A3v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A4v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A4v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A4v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A4v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A4v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A4v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A4v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A4v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A4v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A4v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A5v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A5v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A5v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A5v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A5v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A5v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A5v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A5v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A5v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A5v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A6v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A6v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A6v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A6v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A6v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A6v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A6v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A6v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A6v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A6v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A7v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A7v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A7v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A7v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A7v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A7v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A7v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A7v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A7v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "A7v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C1v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C1v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C1v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C1v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C1v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C1v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C1v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C1v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C1v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C1v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C2v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C2v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C2v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C2v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C2v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C2v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C2v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C2v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C2v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C2v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C3v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C3v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C3v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C3v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C3v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C3v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C3v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C3v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C3v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C3v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C4v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C4v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C4v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C4v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C4v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C4v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C4v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C4v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C4v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C4v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C5v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C5v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C5v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C5v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C5v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C5v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C5v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C5v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C5v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C5v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C6v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C6v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C6v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C6v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C6v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C6v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C6v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C6v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C6v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C6v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C7v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C7v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C7v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C7v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C7v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C7v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C7v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C7v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C7v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C7v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C8v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C8v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C8v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C8v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C8v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C8v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C8v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C8v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C8v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "C8v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#1v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#1v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#1v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#1v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#1v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#1v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#1v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#1v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#1v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#1v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#2v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#2v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#2v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#2v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#2v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#2v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#2v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#2v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#2v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#2v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#3v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#3v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#3v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#3v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#3v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#3v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#3v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#3v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#3v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#3v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#4v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#4v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#4v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#4v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#4v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#4v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#4v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#4v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#4v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#4v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#5v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#5v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#5v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#5v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#5v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#5v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#5v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#5v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#5v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#5v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#6v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#6v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#6v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#6v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#6v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#6v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#6v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#6v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#6v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#6v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#7v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#7v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#7v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#7v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#7v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#7v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#7v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#7v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#7v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "D#7v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#1v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#1v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#1v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#1v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#1v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#1v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#1v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#1v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#1v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#1v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#2v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#2v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#2v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#2v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#2v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#2v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#2v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#2v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#2v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#2v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#3v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#3v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#3v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#3v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#3v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#3v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#3v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#3v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#3v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#3v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#4v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#4v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#4v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#4v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#4v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#4v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#4v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#4v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#4v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#4v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#5v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#5v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#5v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#5v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#5v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#5v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#5v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#5v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#5v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#5v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#6v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#6v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#6v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#6v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#6v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#6v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#6v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#6v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#6v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#6v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#7v10.wav",
+      "reason": "la capa de origen '10' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#7v11.wav",
+      "reason": "la capa de origen '11' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#7v12.wav",
+      "reason": "la capa de origen '12' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#7v13.wav",
+      "reason": "la capa de origen '13' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#7v14.wav",
+      "reason": "la capa de origen '14' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#7v15.wav",
+      "reason": "la capa de origen '15' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#7v16.wav",
+      "reason": "la capa de origen '16' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#7v7.wav",
+      "reason": "la capa de origen '7' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#7v8.wav",
+      "reason": "la capa de origen '8' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "F#7v9.wav",
+      "reason": "la capa de origen '9' no está asignada a ninguna capa JV"
+    },
+    {
+      "file": "harmLA0.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLA1.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLA2.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLA3.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLA4.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLA5.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLC1.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLC2.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLC3.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLC4.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLC5.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLC6.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLD#1.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLD#2.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLD#3.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLD#4.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLD#5.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLD#6.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLF#1.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLF#2.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLF#3.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLF#4.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmLF#5.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSA0.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSA1.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSA2.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSA3.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSA4.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSA5.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSC1.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSC2.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSC3.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSC4.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSC5.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSC6.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSD#1.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSD#2.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSD#3.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSD#4.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSD#5.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSD#6.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSF#1.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSF#2.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSF#3.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSF#4.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmSF#5.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3A0.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3A1.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3A2.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3A3.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3A4.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3A5.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3C1.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3C2.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3C3.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3C4.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3C5.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3C6.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3D#1.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3D#2.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3D#3.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3D#4.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3D#5.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3D#6.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3F#1.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3F#2.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3F#3.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3F#4.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "harmV3F#5.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "pedalD1.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "pedalD2.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "pedalU1.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "pedalU2.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel1.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel10.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel11.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel12.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel13.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel14.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel15.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel16.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel17.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel18.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel19.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel2.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel20.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel21.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel22.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel23.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel24.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel25.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel26.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel27.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel28.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel29.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel3.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel30.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel31.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel32.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel33.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel34.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel35.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel36.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel37.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel38.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel39.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel4.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel40.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel41.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel42.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel43.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel44.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel45.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel46.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel47.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel48.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel49.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel5.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel50.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel51.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel52.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel53.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel54.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel55.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel56.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel57.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel58.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel59.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel6.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel60.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel61.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel62.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel63.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel64.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel65.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel66.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel67.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel68.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel69.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel7.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel70.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel71.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel72.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel73.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel74.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel75.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel76.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel77.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel78.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel79.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel8.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel80.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel81.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel82.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel83.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel84.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel85.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel86.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel87.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel88.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "rel9.wav",
+      "reason": "excluido por input.exclude"
+    },
+    {
+      "file": "A0v1.wav",
+      "reason": "sustituido por A0v2.wav en A0/pp"
+    },
+    {
+      "file": "A0v3.wav",
+      "reason": "sustituido por A0v4.wav en A0/p"
+    },
+    {
+      "file": "A0v5.wav",
+      "reason": "sustituido por A0v6.wav en A0/mp"
+    },
+    {
+      "file": "A1v1.wav",
+      "reason": "sustituido por A1v2.wav en A1/pp"
+    },
+    {
+      "file": "A1v3.wav",
+      "reason": "sustituido por A1v4.wav en A1/p"
+    },
+    {
+      "file": "A1v5.wav",
+      "reason": "sustituido por A1v6.wav en A1/mp"
+    },
+    {
+      "file": "A2v1.wav",
+      "reason": "sustituido por A2v2.wav en A2/pp"
+    },
+    {
+      "file": "A2v3.wav",
+      "reason": "sustituido por A2v4.wav en A2/p"
+    },
+    {
+      "file": "A2v5.wav",
+      "reason": "sustituido por A2v6.wav en A2/mp"
+    },
+    {
+      "file": "A3v1.wav",
+      "reason": "sustituido por A3v2.wav en A3/pp"
+    },
+    {
+      "file": "A3v3.wav",
+      "reason": "sustituido por A3v4.wav en A3/p"
+    },
+    {
+      "file": "A3v5.wav",
+      "reason": "sustituido por A3v6.wav en A3/mp"
+    },
+    {
+      "file": "A4v1.wav",
+      "reason": "sustituido por A4v2.wav en A4/pp"
+    },
+    {
+      "file": "A4v3.wav",
+      "reason": "sustituido por A4v4.wav en A4/p"
+    },
+    {
+      "file": "A4v5.wav",
+      "reason": "sustituido por A4v6.wav en A4/mp"
+    },
+    {
+      "file": "A5v1.wav",
+      "reason": "sustituido por A5v2.wav en A5/pp"
+    },
+    {
+      "file": "A5v3.wav",
+      "reason": "sustituido por A5v4.wav en A5/p"
+    },
+    {
+      "file": "A5v5.wav",
+      "reason": "sustituido por A5v6.wav en A5/mp"
+    },
+    {
+      "file": "A6v1.wav",
+      "reason": "sustituido por A6v2.wav en A6/pp"
+    },
+    {
+      "file": "A6v3.wav",
+      "reason": "sustituido por A6v4.wav en A6/p"
+    },
+    {
+      "file": "A6v5.wav",
+      "reason": "sustituido por A6v6.wav en A6/mp"
+    },
+    {
+      "file": "A7v1.wav",
+      "reason": "sustituido por A7v2.wav en A7/pp"
+    },
+    {
+      "file": "A7v3.wav",
+      "reason": "sustituido por A7v4.wav en A7/p"
+    },
+    {
+      "file": "A7v5.wav",
+      "reason": "sustituido por A7v6.wav en A7/mp"
+    },
+    {
+      "file": "C1v1.wav",
+      "reason": "sustituido por C1v2.wav en C1/pp"
+    },
+    {
+      "file": "C1v3.wav",
+      "reason": "sustituido por C1v4.wav en C1/p"
+    },
+    {
+      "file": "C1v5.wav",
+      "reason": "sustituido por C1v6.wav en C1/mp"
+    },
+    {
+      "file": "C2v1.wav",
+      "reason": "sustituido por C2v2.wav en C2/pp"
+    },
+    {
+      "file": "C2v3.wav",
+      "reason": "sustituido por C2v4.wav en C2/p"
+    },
+    {
+      "file": "C2v5.wav",
+      "reason": "sustituido por C2v6.wav en C2/mp"
+    },
+    {
+      "file": "C3v1.wav",
+      "reason": "sustituido por C3v2.wav en C3/pp"
+    },
+    {
+      "file": "C3v3.wav",
+      "reason": "sustituido por C3v4.wav en C3/p"
+    },
+    {
+      "file": "C3v5.wav",
+      "reason": "sustituido por C3v6.wav en C3/mp"
+    },
+    {
+      "file": "C4v1.wav",
+      "reason": "sustituido por C4v2.wav en C4/pp"
+    },
+    {
+      "file": "C4v3.wav",
+      "reason": "sustituido por C4v4.wav en C4/p"
+    },
+    {
+      "file": "C4v5.wav",
+      "reason": "sustituido por C4v6.wav en C4/mp"
+    },
+    {
+      "file": "C5v1.wav",
+      "reason": "sustituido por C5v2.wav en C5/pp"
+    },
+    {
+      "file": "C5v3.wav",
+      "reason": "sustituido por C5v4.wav en C5/p"
+    },
+    {
+      "file": "C5v5.wav",
+      "reason": "sustituido por C5v6.wav en C5/mp"
+    },
+    {
+      "file": "C6v1.wav",
+      "reason": "sustituido por C6v2.wav en C6/pp"
+    },
+    {
+      "file": "C6v3.wav",
+      "reason": "sustituido por C6v4.wav en C6/p"
+    },
+    {
+      "file": "C6v5.wav",
+      "reason": "sustituido por C6v6.wav en C6/mp"
+    },
+    {
+      "file": "C7v1.wav",
+      "reason": "sustituido por C7v2.wav en C7/pp"
+    },
+    {
+      "file": "C7v3.wav",
+      "reason": "sustituido por C7v4.wav en C7/p"
+    },
+    {
+      "file": "C7v5.wav",
+      "reason": "sustituido por C7v6.wav en C7/mp"
+    },
+    {
+      "file": "C8v1.wav",
+      "reason": "sustituido por C8v2.wav en C8/pp"
+    },
+    {
+      "file": "C8v3.wav",
+      "reason": "sustituido por C8v4.wav en C8/p"
+    },
+    {
+      "file": "C8v5.wav",
+      "reason": "sustituido por C8v6.wav en C8/mp"
+    },
+    {
+      "file": "D#1v1.wav",
+      "reason": "sustituido por D#1v2.wav en D#1/pp"
+    },
+    {
+      "file": "D#1v3.wav",
+      "reason": "sustituido por D#1v4.wav en D#1/p"
+    },
+    {
+      "file": "D#1v5.wav",
+      "reason": "sustituido por D#1v6.wav en D#1/mp"
+    },
+    {
+      "file": "D#2v1.wav",
+      "reason": "sustituido por D#2v2.wav en D#2/pp"
+    },
+    {
+      "file": "D#2v3.wav",
+      "reason": "sustituido por D#2v4.wav en D#2/p"
+    },
+    {
+      "file": "D#2v5.wav",
+      "reason": "sustituido por D#2v6.wav en D#2/mp"
+    },
+    {
+      "file": "D#3v1.wav",
+      "reason": "sustituido por D#3v2.wav en D#3/pp"
+    },
+    {
+      "file": "D#3v3.wav",
+      "reason": "sustituido por D#3v4.wav en D#3/p"
+    },
+    {
+      "file": "D#3v5.wav",
+      "reason": "sustituido por D#3v6.wav en D#3/mp"
+    },
+    {
+      "file": "D#4v1.wav",
+      "reason": "sustituido por D#4v2.wav en D#4/pp"
+    },
+    {
+      "file": "D#4v3.wav",
+      "reason": "sustituido por D#4v4.wav en D#4/p"
+    },
+    {
+      "file": "D#4v5.wav",
+      "reason": "sustituido por D#4v6.wav en D#4/mp"
+    },
+    {
+      "file": "D#5v1.wav",
+      "reason": "sustituido por D#5v2.wav en D#5/pp"
+    },
+    {
+      "file": "D#5v3.wav",
+      "reason": "sustituido por D#5v4.wav en D#5/p"
+    },
+    {
+      "file": "D#5v5.wav",
+      "reason": "sustituido por D#5v6.wav en D#5/mp"
+    },
+    {
+      "file": "D#6v1.wav",
+      "reason": "sustituido por D#6v2.wav en D#6/pp"
+    },
+    {
+      "file": "D#6v3.wav",
+      "reason": "sustituido por D#6v4.wav en D#6/p"
+    },
+    {
+      "file": "D#6v5.wav",
+      "reason": "sustituido por D#6v6.wav en D#6/mp"
+    },
+    {
+      "file": "D#7v1.wav",
+      "reason": "sustituido por D#7v2.wav en D#7/pp"
+    },
+    {
+      "file": "D#7v3.wav",
+      "reason": "sustituido por D#7v4.wav en D#7/p"
+    },
+    {
+      "file": "D#7v5.wav",
+      "reason": "sustituido por D#7v6.wav en D#7/mp"
+    },
+    {
+      "file": "F#1v1.wav",
+      "reason": "sustituido por F#1v2.wav en F#1/pp"
+    },
+    {
+      "file": "F#1v3.wav",
+      "reason": "sustituido por F#1v4.wav en F#1/p"
+    },
+    {
+      "file": "F#1v5.wav",
+      "reason": "sustituido por F#1v6.wav en F#1/mp"
+    },
+    {
+      "file": "F#2v1.wav",
+      "reason": "sustituido por F#2v2.wav en F#2/pp"
+    },
+    {
+      "file": "F#2v3.wav",
+      "reason": "sustituido por F#2v4.wav en F#2/p"
+    },
+    {
+      "file": "F#2v5.wav",
+      "reason": "sustituido por F#2v6.wav en F#2/mp"
+    },
+    {
+      "file": "F#3v1.wav",
+      "reason": "sustituido por F#3v2.wav en F#3/pp"
+    },
+    {
+      "file": "F#3v3.wav",
+      "reason": "sustituido por F#3v4.wav en F#3/p"
+    },
+    {
+      "file": "F#3v5.wav",
+      "reason": "sustituido por F#3v6.wav en F#3/mp"
+    },
+    {
+      "file": "F#4v1.wav",
+      "reason": "sustituido por F#4v2.wav en F#4/pp"
+    },
+    {
+      "file": "F#4v3.wav",
+      "reason": "sustituido por F#4v4.wav en F#4/p"
+    },
+    {
+      "file": "F#4v5.wav",
+      "reason": "sustituido por F#4v6.wav en F#4/mp"
+    },
+    {
+      "file": "F#5v1.wav",
+      "reason": "sustituido por F#5v2.wav en F#5/pp"
+    },
+    {
+      "file": "F#5v3.wav",
+      "reason": "sustituido por F#5v4.wav en F#5/p"
+    },
+    {
+      "file": "F#5v5.wav",
+      "reason": "sustituido por F#5v6.wav en F#5/mp"
+    },
+    {
+      "file": "F#6v1.wav",
+      "reason": "sustituido por F#6v2.wav en F#6/pp"
+    },
+    {
+      "file": "F#6v3.wav",
+      "reason": "sustituido por F#6v4.wav en F#6/p"
+    },
+    {
+      "file": "F#6v5.wav",
+      "reason": "sustituido por F#6v6.wav en F#6/mp"
+    },
+    {
+      "file": "F#7v1.wav",
+      "reason": "sustituido por F#7v2.wav en F#7/pp"
+    },
+    {
+      "file": "F#7v3.wav",
+      "reason": "sustituido por F#7v4.wav en F#7/p"
+    },
+    {
+      "file": "F#7v5.wav",
+      "reason": "sustituido por F#7v6.wav en F#7/mp"
+    }
+  ],
+  "levels": {
+    "peakDbMin": -32.25,
+    "peakDbMax": -8.73,
+    "rmsDbMin": -60.15,
+    "rmsDbMax": -28.99
+  },
+  "totals": {
+    "sampleCount": 90,
+    "bytes": 14858097,
+    "durationSec": 1122.924
+  }
+}
