@@ -10,10 +10,20 @@ SERVICE_ROOT = Path(__file__).resolve().parent
 REPOSITORY_ROOT = SERVICE_ROOT.parents[1]
 sys.path.insert(0, str(SERVICE_ROOT / "src"))
 
-from music_intelligence_v2.catalog import build_catalog, extract_english_queries, extract_spanish_queries
+from music_intelligence_v2.catalog import build_catalog, extract_english_queries, extract_spanish_queries, load_benchmark_queries
 
 
 DEFAULT_OUTPUT_ROOT = REPOSITORY_ROOT / "benchmarks" / "music-intelligence-v2" / "phase2"
+DEFAULT_QUERY_SOURCE = REPOSITORY_ROOT / "benchmarks" / "music-intelligence-v2" / "queries" / "search_benchmark_v2.json"
+
+
+def load_query_source(query_source: Path, query_format: str) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
+    if query_format == "markdown":
+        return extract_english_queries(query_source), extract_spanish_queries(query_source)
+    if query_format != "json":
+        raise ValueError(f"Unsupported query format: {query_format}")
+    queries = load_benchmark_queries(query_source)
+    return queries[:60], queries[60:]
 
 
 def write_json(path: Path, payload) -> None:
@@ -29,13 +39,15 @@ def main() -> None:
         default=REPOSITORY_ROOT / "app" / "includes" / "musica.estructura-datos.php",
     )
     parser.add_argument("--audio-root", type=Path, default=REPOSITORY_ROOT / "data" / "musica")
-    parser.add_argument("--query-source", type=Path, default=REPOSITORY_ROOT / "docs" / "SEARCH_BENCHMARK_V2.md")
+    parser.add_argument("--query-source", type=Path, default=DEFAULT_QUERY_SOURCE, help="Benchmark source (JSON by default)")
+    parser.add_argument("--query-format", choices=["json", "markdown"], default="json", help="Explicit source format; markdown requires --query-source")
     parser.add_argument("--output-root", type=Path, default=DEFAULT_OUTPUT_ROOT)
     args = parser.parse_args()
+    if args.query_format == "markdown" and args.query_source == DEFAULT_QUERY_SOURCE:
+        parser.error("--query-format markdown requires an explicit Markdown --query-source")
 
     catalog = build_catalog(args.catalog_source, args.audio_root, REPOSITORY_ROOT)
-    queries = extract_english_queries(args.query_source)
-    spanish_queries = extract_spanish_queries(args.query_source)
+    queries, spanish_queries = load_query_source(args.query_source, args.query_format)
     write_json(args.output_root / "full_catalog.json", catalog)
     write_json(args.output_root / "queries_en.json", queries)
     write_json(args.output_root / "queries_es.json", spanish_queries)

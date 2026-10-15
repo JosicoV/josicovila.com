@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import html
+import json
 import re
 import unicodedata
 from pathlib import Path
@@ -176,6 +177,35 @@ def build_catalog(php_path: Path, audio_root: Path, repository_root: Path) -> di
         "track_count": len(tracks),
         "tracks": tracks,
     }
+
+
+def load_benchmark_queries(json_path: Path) -> list[dict[str, str]]:
+    """Load the ordered 60 EN + 10 ES benchmark records without normalizing them."""
+    def unique_fields(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+        record = {}
+        for key, value in pairs:
+            if key in record:
+                raise ValueError(f"Duplicate benchmark field: {key}")
+            record[key] = value
+        return record
+
+    queries = json.loads(json_path.read_text(encoding="utf-8-sig"), object_pairs_hook=unique_fields)
+    if not isinstance(queries, list) or len(queries) != 70:
+        raise ValueError("Expected a list of 70 benchmark queries (60 EN + 10 ES)")
+    fields = {"query_id", "text", "category", "language"}
+    seen_ids = set()
+    for position, query in enumerate(queries, 1):
+        if not isinstance(query, dict) or set(query) != fields:
+            raise ValueError(f"Invalid benchmark fields at position {position}")
+        if any(not isinstance(value, str) or not value.strip() for value in query.values()):
+            raise ValueError(f"Expected non-empty string fields at position {position}")
+        if query["query_id"] in seen_ids:
+            raise ValueError(f"Duplicate benchmark query id: {query['query_id']}")
+        seen_ids.add(query["query_id"])
+        language = "en" if position <= 60 else "es"
+        if query["language"] != language or query["query_id"] != f"{language}{position:03d}":
+            raise ValueError(f"Invalid benchmark language, id or order at position {position}")
+    return queries
 
 
 def extract_english_queries(markdown_path: Path) -> list[dict[str, str]]:
