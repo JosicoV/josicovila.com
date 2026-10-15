@@ -18,6 +18,7 @@ data/
 benchmarks/
 deploy/
 docs/
+docs-local/
 PRIMER_INTENTO/
 
 # Served from the app bind mount and deployed separately from Git.
